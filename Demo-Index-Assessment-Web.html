@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Demo Index | Self-Assessment</title>
+    <script src="device-router.js?v=20260602c"></script>
+    <style>
+        :root {
+            --bg-dark: #090E1B;
+            --bg-darker: #0F1629;
+            --orange: #F97316;
+            --green: #4bcd3e;
+            --text-white: #FFFFFF;
+            --text-grey: #97A3AF;
+            --di-1: #e74c3c;
+            --di-2: #f39c12;
+            --di-3: #B21a53;
+            --di-4: #4bcd3e;
+            --di-5: #00d4ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            color: var(--text-white);
+            background: var(--bg-dark);
+            line-height: 1.6;
+            animation: fadeIn 0.6s ease-in;
+        }
+        body.assessment-live {
+            overflow: hidden;
+        }
+
+        body.assessment-live footer {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            background: var(--bg-darker);
+            border-bottom: 2px solid var(--orange);
+            padding: 0.9rem 1.5rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .nav-brand {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .nav-brand img {
+            width: auto;
+            height: 2.6rem;
+            object-fit: contain;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav-links a {
+            color: var(--text-grey);
+            text-decoration: none;
+            font-size: 0.92rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--orange);
+        }
+
+        .nav-links a.active {
+            color: var(--orange);
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        body.assessment-live .container {
+            min-height: calc(100vh - 76px);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--orange);
+            margin-bottom: 0.4rem;
+            line-height: 1.04;
+        }
+
+        .page-title-line {
+            display: block;
+        }
+
+        .page-title-line.page-title-kicker {
+            font-size: 0.42em;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-white);
+            margin-bottom: 0.16rem;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: var(--orange);
+            margin: 2.5rem 0 1.5rem 0;
+            padding-left: 1rem;
+            border-left: 4px solid var(--orange);
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--orange);
+            margin: 2rem 0 1rem 0;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-grey);
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-grey);
+            margin-bottom: 2rem;
+        }
+
+        .intro-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .intro-box p {
+            font-size: 1.1rem;
+            color: var(--text-white);
+            margin-bottom: 0;
+        }
+        .assessment-intro {
+            max-width: 860px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .assessment-intro-copy {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            display: grid;
+            gap: 1.2rem;
+        }
+
+        .assessment-intro-copy p {
+            margin-bottom: 0;
+        }
+
+        .assessment-intro-kicker {
+            color: var(--green);
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .assessment-intro-disclaimer {
+            color: var(--text-white);
+            font-size: 0.82rem;
+            line-height: 1.55;
+            opacity: 0.88;
+        }
+
+        .assessment-intro-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 0.25rem;
+        }
+
+        .assessment-stage {
+            display: none;
+            flex: 1;
+            min-height: 0;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1.25rem;
+        }
+
+        body.assessment-live .assessment-stage {
+            display: flex;
+        }
+
+        body.assessment-live .assessment-intro {
+            display: none;
+        }
+
+        .assessment-main {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .assessment-progress {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin-top: auto;
+        }
+
+        .assessment-progress-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.85rem;
+        }
+
+        .assessment-progress-step {
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        .assessment-progress-dimension {
+            color: var(--text-grey);
+            font-style: italic;
+        }
+
+        .assessment-progress-track {
+            width: 100%;
+            height: 0.5rem;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .assessment-progress-fill {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--orange), var(--green));
+            border-radius: 999px;
+            transition: width 0.3s ease;
+        }
+
+        .question {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 4px solid var(--orange);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 0.75rem;
+            display: none;
+        }
+
+        .question.active {
+            display: block;
+            animation: fadeIn 0.35s ease;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .question-number {
+            font-weight: 700;
+            color: var(--orange);
+            font-size: 1.1rem;
+        }
+
+        .question-dimension {
+            font-size: 0.9rem;
+            color: var(--text-grey);
+            font-style: italic;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            color: var(--text-white);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .option:hover {
+            background: rgba(249, 115, 22, 0.1);
+            border-color: var(--orange);
+        }
+
+        .option input[type="radio"] {
+            cursor: pointer;
+        }
+
+        .option-label {
+            color: var(--text-grey);
+            line-height: 1.5;
+            cursor: pointer;
+        }
+
+        .results {
+            background:
+                radial-gradient(circle at top right, rgba(75, 205, 62, 0.14), transparent 32%),
+                linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(249, 115, 22, 0.03) 42%, rgba(255, 255, 255, 0.02) 100%);
+            border: 1px solid rgba(249, 115, 22, 0.42);
+            border-radius: 16px;
+            padding: 1.3rem;
+            margin: 1.4rem 0 1rem;
+            text-align: left;
+            box-shadow: 0 18px 42px rgba(0, 0, 0, 0.2);
+        }
+
+        .results-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .results-heading h2 {
+            margin: 0;
+            padding: 0;
+            border: none;
+            font-size: 1rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-white);
+        }
+
+        .results-heading-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 1.7rem;
+            padding: 0.22rem 0.62rem;
+            border-radius: 999px;
+            background: rgba(75, 205, 62, 0.14);
+            border: 1px solid rgba(75, 205, 62, 0.32);
+            color: var(--text-white);
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .results-hero {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .score-ring {
+            --score-angle: 0deg;
+            --score-color: var(--orange);
+            position: relative;
+            width: 7rem;
+            height: 7rem;
+            border-radius: 50%;
+            background: conic-gradient(var(--score-color) var(--score-angle), rgba(255, 255, 255, 0.08) 0deg);
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+        }
+
+        .score-ring::before {
+            content: '';
+            position: absolute;
+            inset: 0.72rem;
+            border-radius: 50%;
+            background: var(--bg-darker);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .score-ring-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            justify-items: center;
+            gap: 0.06rem;
+            text-align: center;
+        }
+
+        .score-display {
+            font-size: 2.05rem;
+            font-weight: 700;
+            color: var(--orange);
+            margin: 0;
+            line-height: 1;
+        }
+
+        .score-display-label {
+            color: var(--text-grey);
+            font-size: 0.62rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .maturity-band {
+            font-size: 1.12rem;
+            font-weight: 700;
+            margin: 0 0 0.45rem;
+            line-height: 1.25;
+        }
+
+        .results-summary {
+            min-width: 0;
+        }
+
+        .band-description {
+            color: var(--text-white);
+            margin: 0;
+            font-size: 0.9rem;
+            line-height: 1.55;
+        }
+
+        .score-scale {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 0.45rem;
+            margin-top: 1rem;
+        }
+
+        .score-scale-item {
+            min-width: 0;
+            padding: 0.55rem 0.4rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+        }
+
+        .score-scale-item.is-active {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--scale-color, rgba(255,255,255,0.18));
+            box-shadow: inset 0 0 0 1px var(--scale-color, rgba(255,255,255,0.12));
+        }
+
+        .score-scale-label {
+            display: block;
+            font-size: 0.68rem;
+            font-weight: 700;
+            margin-bottom: 0.18rem;
+            color: var(--scale-color, var(--text-white));
+        }
+
+        .score-scale-range {
+            display: block;
+            color: var(--text-grey);
+            font-size: 0.64rem;
+            line-height: 1.3;
+        }
+
+        .callout {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(249, 115, 22, 0.02) 100%);
+            border: 1px solid var(--orange);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .next-steps {
+            background: linear-gradient(135deg, rgba(75, 205, 62, 0.12) 0%, rgba(249, 115, 22, 0.08) 100%);
+            border-color: rgba(75, 205, 62, 0.7);
+        }
+
+        .next-steps p {
+            color: var(--text-white);
+            line-height: 1.8;
+        }
+
+        .next-steps a {
+            color: var(--text-white);
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 0.18rem;
+        }
+
+        .next-steps a:hover {
+            color: var(--green);
+        }
+
+        .button {
+            background: var(--orange);
+            color: var(--bg-dark);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .button:hover {
+            background: var(--green);
+            transform: translateY(-2px);
+        }
+
+        .button.secondary {
+            background: transparent;
+            color: var(--text-white);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .button.secondary:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--orange);
+        }
+
+        .assessment-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: auto;
+            flex-wrap: wrap;
+        }
+
+        .assessment-helper {
+            flex: 1;
+            min-width: 220px;
+            text-align: center;
+            color: var(--text-grey);
+            margin: 0;
+        }
+
+        ul {
+            margin: 1rem 0 1rem 2rem;
+            color: var(--text-grey);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        strong {
+            color: var(--text-white);
+        }
+
+        footer {
+            background: var(--bg-darker);
+            border-top: 2px solid var(--orange);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-grey);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--orange);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--green);
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 0.85rem 1rem;
+            }
+
+            .nav-brand {
+                max-width: 12rem;
+            }
+
+            .nav-brand img {
+                height: 2rem;
+            }
+
+            .nav-links {
+                gap: 0.85rem;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            body.assessment-live .container {
+                min-height: calc(100vh - 76px);
+            }
+
+            .assessment-intro-copy {
+                padding: 1.5rem;
+            }
+
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .assessment-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .assessment-helper {
+                min-width: 0;
+                text-align: left;
+            }
+
+            .score-grid {
+                overflow-x: auto;
+                grid-template-columns: repeat(5, minmax(130px, 1fr));
+                padding-bottom: 0.5rem;
+            }
+
+            .score-display {
+                font-size: 3rem;
+            }
+
+            .maturity-band {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav-brand"><img src="di-logo-header.png" alt="The Demo Index logo"></div>
+        <div class="nav-links">
+            <a href="index.html">Hub</a>
+            <a href="Demo-Index-Framework-Web.html">Framework</a>
+            <a href="Demo-Index-Methodology-Web.html">Methodology</a>
+            <a href="#" class="active">Assessment</a>
+            <a href="Demo-Index-Research-Manifesto-Web.html">Research</a>
+            <a href="Demo-Index-Measurement-Engine-Web.html">Technical Spec</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <section class="section section-header assessment-intro" id="assessmentIntro">
+            <div class="assessment-intro-copy">
+                <h1>
+                    <span class="page-title-line page-title-kicker">Index</span>
+                    <span class="page-title-line">Self-Assessment</span>
+                </h1>
+                <p>
+                    Brief: this assessment is designed to give you a practical snapshot of your current demo operations maturity in a few minutes.
+                </p>
+                <p>
+                    What we are measuring: Experience Delivery, Context Intelligence, Narrative Integrity, Orchestration Capability, and Buyer Autonomy across your current revenue experience workflow.
+                </p>
+                <p class="assessment-intro-disclaimer">
+                    Disclaimer: Your responses are not stored. The assessment runs in your browser and is used only to calculate your score on this page.
+                </p>
+                <div class="assessment-intro-actions">
+                    <button type="button" class="button" id="startAssessment">Start Assessment</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="assessment-stage" id="assessmentStage">
+        <div class="assessment-main">
+        <form id="assessmentForm">
+            <!-- Experience Delivery -->
+            <div class="question active">
+                <div class="question-header">
+                    <span class="question-number">Question 1</span>
+                    <span class="question-dimension">Experience Delivery</span>
+                </div>
+                <div class="question-text">
+                    How quickly can your team deliver a customized demo from initial request to prospect access?
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q1" value="0" required>
+                        <span class="option-label">1+ week (40+ hours)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="25">
+                        <span class="option-label">2-5 days (16-40 hours)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="50">
+                        <span class="option-label">4-16 hours (same or next day)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="75">
+                        <span class="option-label">1-4 hours</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="100">
+                        <span class="option-label">Instant (< 1 hour)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-header">
+                    <span class="question-number">Question 2</span>
+                    <span class="question-dimension">Experience Delivery</span>
+                </div>
+                <div class="question-text">
+                    How many parallel demo instances can your team deliver simultaneously without degrading quality or velocity?
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q2" value="0" required>
+                        <span class="option-label">1-2 (limited by SE capacity)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="25">
+                        <span class="option-label">3-5</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="50">
+                        <span class="option-label">6-15</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="75">
+                        <span class="option-label">16-50</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="100">
+                        <span class="option-label">Unlimited (infrastructure-scaled)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Context Intelligence -->
+            <div class="question">
+                <div class="question-header">
+                    <span class="question-number">Question 3</span>
+                    <span class="question-dimension">Context Intelligence</span>
+                </div>
+                <div class="question-text">
+                    What level of personalization is standard in your demo experiences?
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q3" value="0" required>
+                        <span class="option-label">Generic (same for all prospects)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="25">
+                        <span class="option-label">Industry-level (vertical-specific templates)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="50">
+                        <span class="option-label">Persona-level (role-based customization)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="75">
+                        <span class="option-label">Account-level (company-specific data, logos, use cases)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="100">
+                        <span class="option-label">Real-time adaptive (behavior-driven personalization)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-header">
+                    <span class="question-number">Question 4</span>
+                    <span class="question-dimension">Context Intelligence</span>
+                </div>
+                <div class="question-text">
+                    How is CRM/account context integrated into demo experiences?
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q4" value="0" required>
+                        <span class="option-label">Manual (SE manually references CRM data)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="33">
+                        <span class="option-label">Copy/paste (SE manually injects account data)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="67">
+                        <span class="option-label">Semi-automated (one-way sync from CRM)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="100">
+                        <span class="option-label">Fully automated (bidirectional CRM integration)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Narrative Integrity -->
+            <div class="question">
+                <div class="question-header">
+                    <span class="question-number">Question 5</span>
+                    <span class="question-dimension">Narrative Integrity</span>
+                </div>
+                <div class="question-text">
+                    When a prospect returns to a demo after days/weeks, is their previous context preserved?
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q5" value="0" required>
+                        <span class="option-label">Never (starts from scratch each time)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="33">
+                        <span class="option-label">Rarely (only if SE manually recreates context)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="67">
+                        <span class="option-label">Sometimes (basic session persistence)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="100">
+                        <span class="option-label">Always (full state management and journey continuity)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-header">
+                    <span class="question-number">Question 6</span>
+                    <span class="question-dimension">Narrative Integrity</span>
+                </div>
+                <div class="question-text">
+                    How is narrative coherence maintained across multiple demo assets or sessions?
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q6" value="0" required>
+                        <span class="option-label">Not maintained (each asset is independent)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="25">
+                        <span class="option-label">SE manually maintains (verbal context bridges)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="50">
+                        <span class="option-label">Documented pathways (recommended sequences)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="75">
+                        <span class="option-label">Guided navigation (system-suggested next steps)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="100">
+                        <span class="option-label">Intelligent orchestration (AI-driven pathway adaptation)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Orchestration Capability -->
+            <div class="question">
+                <div class="question-header">
+                    <span class="question-number">Question 7</span>
+                    <span class="question-dimension">Orchestration Capability</span>
+                </div>
+                <div class="question-text">
+                    What percentage of your demo delivery process is automated (provisioning, deployment, configuration)?
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q7" value="0" required>
+                        <span class="option-label">0-10% (entirely manual)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="25">
+                        <span class="option-label">11-30% (some scripted tasks)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="50">
+                        <span class="option-label">31-60% (partial automation)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="75">
+                        <span class="option-label">61-85% (mostly automated)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="100">
+                        <span class="option-label">86-100% (fully automated)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-header">
+                    <span class="question-number">Question 8</span>
+                    <span class="question-dimension">Orchestration Capability</span>
+                </div>
+                <div class="question-text">
+                    How many systems are integrated in your demo infrastructure (CRM, demo platform, analytics, etc.)?
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q8" value="0" required>
+                        <span class="option-label">None (standalone tools)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="33">
+                        <span class="option-label">1-2 integrations</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="67">
+                        <span class="option-label">3-5 integrations</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="100">
+                        <span class="option-label">6+ integrations (unified orchestration layer)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Buyer Autonomy -->
+            <div class="question">
+                <div class="question-header">
+                    <span class="question-number">Question 9</span>
+                    <span class="question-dimension">Buyer Autonomy</span>
+                </div>
+                <div class="question-text">
+                    Can prospects generate personalized demo experiences without sales/SE involvement?
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q9" value="0" required>
+                        <span class="option-label">Never (all demos require SE choreography)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="25">
+                        <span class="option-label">Limited (basic sandbox access only)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="50">
+                        <span class="option-label">Guided (self-service with pre-built tours)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="75">
+                        <span class="option-label">Full self-service (customizable experiences)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="100">
+                        <span class="option-label">Autonomous generation (instant, hyper-personalized, zero human input)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-header">
+                    <span class="question-number">Question 10</span>
+                    <span class="question-dimension">Buyer Autonomy</span>
+                </div>
+                <div class="question-text">
+                    What percentage of demo experiences are buyer-initiated (vs SE-initiated)?
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q10" value="0" required>
+                        <span class="option-label">0% (all require sales coordination)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="25">
+                        <span class="option-label">1-15%</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="50">
+                        <span class="option-label">16-40%</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="75">
+                        <span class="option-label">41-70%</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="100">
+                        <span class="option-label">71-100% (majority self-service)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Additional capability questions (condensed for web) -->
+            <div class="question">
+                <div class="question-header">
+                    <span class="question-number">Question 11</span>
+                    <span class="question-dimension">Experience Delivery</span>
+                </div>
+                <div class="question-text">
+                    How are demo templates/components managed?
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q11" value="0" required>
+                        <span class="option-label">No templates (build from scratch each time)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q11" value="50">
+                        <span class="option-label">Basic template library</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q11" value="100">
+                        <span class="option-label">Component-based system with version control</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-header">
+                    <span class="question-number">Question 12</span>
+                    <span class="question-dimension">Context Intelligence</span>
+                </div>
+                <div class="question-text">
+                    Is buyer behavior tracked and used to optimize demo experiences?
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q12" value="0" required>
+                        <span class="option-label">No tracking</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q12" value="50">
+                        <span class="option-label">Basic analytics but not actioned</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q12" value="100">
+                        <span class="option-label">Real-time behavioral adaptation</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-header">
+                    <span class="question-number">Question 13</span>
+                    <span class="question-dimension">Narrative Integrity</span>
+                </div>
+                <div class="question-text">
+                    Can different stakeholders within the same account see individualized but coherent narratives?
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q13" value="0" required>
+                        <span class="option-label">No (everyone sees the same generic experience)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q13" value="50">
+                        <span class="option-label">Partially (manual stakeholder mapping)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q13" value="100">
+                        <span class="option-label">Yes (automated stakeholder context tracking)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-header">
+                    <span class="question-number">Question 14</span>
+                    <span class="question-dimension">Orchestration Capability</span>
+                </div>
+                <div class="question-text">
+                    Do you have a unified buyer portal managing all demo assets and interactions?
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q14" value="0" required>
+                        <span class="option-label">No (demos delivered via disparate tools)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q14" value="50">
+                        <span class="option-label">Partial (some demos in portal, some not)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q14" value="100">
+                        <span class="option-label">Yes (all experiences unified in single portal)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-header">
+                    <span class="question-number">Question 15</span>
+                    <span class="question-dimension">Buyer Autonomy</span>
+                </div>
+                <div class="question-text">
+                    Can anonymous visitors (not yet qualified leads) access personalized demo experiences?
+                </div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q15" value="0" required>
+                        <span class="option-label">No (all demos gated behind sales qualification)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q15" value="50">
+                        <span class="option-label">Limited (generic sandbox only)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q15" value="100">
+                        <span class="option-label">Yes (instant personalized access)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="assessment-controls">
+                <button type="button" class="button secondary" id="prevQuestion">Previous</button>
+                <p class="assessment-helper" id="assessmentHelper">Select one response to continue.</p>
+                <button type="button" class="button" id="nextQuestion">Next</button>
+                <button type="submit" class="button" id="submitAssessment" style="display: none;">See My Score</button>
+            </div>
+        </form>
+
+        </div>
+
+        <div class="assessment-progress" id="assessmentProgress">
+            <div class="assessment-progress-meta">
+                <span class="assessment-progress-step" id="progressStep">Question 1 of 15</span>
+                <span class="assessment-progress-dimension" id="progressDimension">Experience Delivery</span>
+            </div>
+            <div class="assessment-progress-track">
+                <div class="assessment-progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+        </div>
+
+        <div id="results" class="results" style="display: none;">
+            <div class="results-heading">
+                <h2>Your Demo Index Score</h2>
+                <span class="results-heading-badge">Assessment Complete</span>
+            </div>
+
+            <div class="results-hero">
+                <div class="score-ring" id="scoreRing">
+                    <div class="score-ring-content">
+                        <div class="score-display" id="totalScore">--</div>
+                        <span class="score-display-label">Score</span>
+                    </div>
+                </div>
+
+                <div class="results-summary">
+                    <div class="maturity-band" id="maturityBand">--</div>
+                    <p class="band-description" id="bandDescription">--</p>
+                </div>
+            </div>
+
+            <div class="score-scale" aria-label="Demo Index maturity scale">
+                <div class="score-scale-item" data-band-key="di1" style="--scale-color: var(--orange);">
+                    <span class="score-scale-label">DI-1</span>
+                    <span class="score-scale-range">0-20</span>
+                </div>
+                <div class="score-scale-item" data-band-key="di2" style="--scale-color: var(--di-2);">
+                    <span class="score-scale-label">DI-2</span>
+                    <span class="score-scale-range">21-40</span>
+                </div>
+                <div class="score-scale-item" data-band-key="di3" style="--scale-color: var(--di-3);">
+                    <span class="score-scale-label">DI-3</span>
+                    <span class="score-scale-range">41-60</span>
+                </div>
+                <div class="score-scale-item" data-band-key="di4" style="--scale-color: var(--green);">
+                    <span class="score-scale-label">DI-4</span>
+                    <span class="score-scale-range">61-80</span>
+                </div>
+                <div class="score-scale-item" data-band-key="di5" style="--scale-color: var(--di-5);">
+                    <span class="score-scale-label">DI-5</span>
+                    <span class="score-scale-range">81-100</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="callout next-steps" id="nextSteps" style="display: none;">
+            <p style="margin-bottom: 0;"><strong style="color: var(--orange);">Next Steps:</strong> For detailed capability definitions, scoring methodology, and benchmark roadmap, refer to <a href="Demo-Index-Framework-Web.html">The Demo Index Framework</a> and <a href="Demo-Index-Methodology-Web.html">Methodology Guide</a>. Organizations interested in participating in benchmark cohort research or formal assessment should contact the framework authors.</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <p><strong>The Demo Index</strong> | Self-Assessment Tool</p>
+        <p style="margin-top: 0.5rem;">© 2026 | <a href="Demo-Index-Framework-Web.html">Framework</a> | <a href="Demo-Index-Methodology-Web.html">Methodology</a> | <a href="Demo-Index-Research-Manifesto-Web.html">Research Manifesto</a> | <a href="Demo-Index-Measurement-Engine-Web.html">Technical Specification</a></p>
+    </footer>
+
+    <script>
+        const startAssessmentBtn = document.getElementById('startAssessment');
+        const assessmentIntro = document.getElementById('assessmentIntro');
+        const assessmentStage = document.getElementById('assessmentStage');
+        const assessmentForm = document.getElementById('assessmentForm');
+        const questions = Array.from(assessmentForm.querySelectorAll('.question'));
+        const progressStep = document.getElementById('progressStep');
+        const progressDimension = document.getElementById('progressDimension');
+        const progressFill = document.getElementById('progressFill');
+        const progressContainer = document.getElementById('assessmentProgress');
+        const helperText = document.getElementById('assessmentHelper');
+        const prevQuestionBtn = document.getElementById('prevQuestion');
+        const nextQuestionBtn = document.getElementById('nextQuestion');
+        const submitAssessmentBtn = document.getElementById('submitAssessment');
+        const resultsPanel = document.getElementById('results');
+        const nextStepsPanel = document.getElementById('nextSteps');
+        const scoreRing = document.getElementById('scoreRing');
+        const scaleItems = Array.from(document.querySelectorAll('.score-scale-item'));
+        let currentQuestionIndex = 0;
+
+        function startAssessmentFlow() {
+            document.body.classList.add('assessment-live');
+            assessmentIntro.style.display = 'none';
+            assessmentStage.style.display = 'flex';
+            updateQuestionFlow();
+            assessmentForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        assessmentForm.querySelectorAll('input[type="radio"]').forEach((input) => {
+            input.removeAttribute('required');
+        });
+
+        startAssessmentBtn.addEventListener('click', startAssessmentFlow);
+
+        function getSelectedAnswer(index) {
+            return questions[index].querySelector('input[type="radio"]:checked');
+        }
+
+        function updateQuestionFlow() {
+            questions.forEach((question, index) => {
+                question.classList.toggle('active', index === currentQuestionIndex);
+            });
+
+            const activeQuestion = questions[currentQuestionIndex];
+            const activeDimension = activeQuestion.querySelector('.question-dimension').textContent;
+            const selectedAnswer = getSelectedAnswer(currentQuestionIndex);
+            const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
+
+            progressStep.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+            progressDimension.textContent = activeDimension;
+            progressFill.style.width = `${progressPercent}%`;
+
+            prevQuestionBtn.style.visibility = currentQuestionIndex === 0 ? 'hidden' : 'visible';
+            nextQuestionBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
+            submitAssessmentBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
+            helperText.textContent = selectedAnswer
+                ? 'Answer recorded. Continue when ready.'
+                : 'Select one response to continue.';
+        }
+
+        function moveToQuestion(index) {
+            currentQuestionIndex = Math.max(0, Math.min(index, questions.length - 1));
+            updateQuestionFlow();
+        }
+
+        function validateCurrentQuestion() {
+            if (getSelectedAnswer(currentQuestionIndex)) {
+                return true;
+            }
+
+            helperText.textContent = 'Please choose an answer before continuing.';
+            return false;
+        }
+
+        prevQuestionBtn.addEventListener('click', function() {
+            if (currentQuestionIndex > 0) {
+                moveToQuestion(currentQuestionIndex - 1);
+            }
+        });
+
+        nextQuestionBtn.addEventListener('click', function() {
+            if (!validateCurrentQuestion()) {
+                return;
+            }
+
+            moveToQuestion(currentQuestionIndex + 1);
+        });
+
+        assessmentForm.addEventListener('change', function(e) {
+            if (e.target.matches('input[type="radio"]')) {
+                helperText.textContent = 'Answer recorded. Continue when ready.';
+            }
+        });
+
+        assessmentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const unansweredIndex = questions.findIndex((question, index) => !getSelectedAnswer(index));
+            if (unansweredIndex !== -1) {
+                helperText.textContent = 'Complete each question before calculating your score.';
+                moveToQuestion(unansweredIndex);
+                return;
+            }
+            
+            // Calculate scores
+            let totalScore = 0;
+            for (let i = 1; i <= 15; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected) {
+                    totalScore += parseFloat(selected.value);
+                }
+            }
+            
+            // Calculate average score
+            const avgScore = Math.round(totalScore / 15);
+            
+            // Determine maturity band
+            let band = '';
+            let bandColor = '';
+            let description = '';
+            let bandKey = '';
+            
+            if (avgScore <= 20) {
+                band = 'Demo Index 1: Manual Creation';
+                bandColor = 'var(--di-1)';
+                bandKey = 'di1';
+                description = 'Your organization builds demos from scratch with limited standardization. Focus on establishing reusable templates and reducing SE bottlenecks.';
+            } else if (avgScore <= 40) {
+                band = 'Demo Index 2: Templated Reusability';
+                bandColor = 'var(--di-2)';
+                bandKey = 'di2';
+                description = 'You have basic templates but lack deep personalization. Focus on centralizing your demo library and improving context intelligence.';
+            } else if (avgScore <= 60) {
+                band = 'Demo Index 3: Distributed Library';
+                bandColor = 'var(--di-3)';
+                bandKey = 'di3';
+                description = 'You have persona-level customization but struggle with narrative coherence. Focus on unified orchestration and state management.';
+            } else if (avgScore <= 80) {
+                band = 'Demo Index 4: Orchestrated Infrastructure';
+                bandColor = 'var(--di-4)';
+                bandKey = 'di4';
+                description = 'You have strong orchestration capabilities. Focus on enabling self-service and real-time behavioral adaptation.';
+            } else {
+                band = 'Demo Index 5: AI-Orchestrated Hyper-Personalization';
+                bandColor = 'var(--di-5)';
+                bandKey = 'di5';
+                description = 'You are operating at elite maturity with AI-driven personalization and full buyer autonomy. Maintain leadership.';
+            }
+            
+            // Display results
+            document.getElementById('totalScore').textContent = avgScore;
+            document.getElementById('maturityBand').textContent = band;
+            document.getElementById('maturityBand').style.color = bandColor;
+            document.getElementById('bandDescription').textContent = description;
+            if (scoreRing) {
+                scoreRing.style.setProperty('--score-angle', `${Math.max(0, Math.min(avgScore, 100)) * 3.6}deg`);
+                scoreRing.style.setProperty('--score-color', bandColor);
+            }
+            scaleItems.forEach((item) => {
+                item.classList.toggle('is-active', item.dataset.bandKey === bandKey);
+            });
+            resultsPanel.style.display = 'block';
+            assessmentForm.style.display = 'none';
+            progressContainer.style.display = 'none';
+            nextStepsPanel.style.display = 'block';
+            document.body.classList.remove('assessment-live');
+            assessmentStage.style.display = 'block';
+            
+            // Scroll to results
+            resultsPanel.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Demo Index | Research Manifesto</title>
+    <script src="device-router.js?v=20260602c"></script>
+    <style>
+        :root {
+            --bg-dark: #090E1B;
+            --bg-darker: #0F1629;
+            --orange: #F97316;
+            --green: #4bcd3e;
+            --text-white: #FFFFFF;
+            --text-grey: #97A3AF;
+            --blue: #00d4ff;
+            --nav-offset: 5.5rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            color: var(--text-white);
+            background: var(--bg-dark);
+            line-height: 1.6;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            background: var(--bg-darker);
+            border-bottom: 2px solid var(--orange);
+            padding: 0.9rem 1.5rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .nav-brand {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .nav-brand img {
+            width: auto;
+            height: 2.6rem;
+            object-fit: contain;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav-links a {
+            color: var(--text-grey);
+            text-decoration: none;
+            font-size: 0.92rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--orange);
+        }
+
+        .nav-links a.active {
+            color: var(--orange);
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .research-layout {
+            display: grid;
+            grid-template-columns: 240px minmax(0, 1fr);
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .section-index {
+            position: sticky;
+            top: var(--nav-offset);
+            align-self: start;
+            background: rgba(15, 22, 41, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 1.25rem;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.16);
+        }
+
+        .section-index-label {
+            display: block;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-size: 0.76rem;
+            margin-bottom: 0.85rem;
+            font-weight: 700;
+        }
+
+        .section-index-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .section-index-link {
+            color: var(--text-grey);
+            text-decoration: none;
+            padding: 0.7rem 0.85rem;
+            border-radius: 10px;
+            border: 1px solid transparent;
+            transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+            font-size: 0.94rem;
+            line-height: 1.4;
+        }
+
+        .section-index-link:hover,
+        .section-index-link:focus-visible {
+            color: var(--text-white);
+            background: rgba(75, 205, 62, 0.08);
+            border-color: rgba(75, 205, 62, 0.22);
+            outline: none;
+            transform: translateX(2px);
+        }
+
+        .section-index-link.active {
+            color: var(--text-white);
+            background: rgba(75, 205, 62, 0.14);
+            border-color: rgba(75, 205, 62, 0.32);
+            box-shadow: inset 3px 0 0 var(--green);
+        }
+
+        .research-content {
+            min-width: 0;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            scroll-margin-top: calc(var(--nav-offset) + 1.25rem);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--orange);
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: var(--orange);
+            margin: 2.5rem 0 1.5rem 0;
+            padding-left: 1rem;
+            border-left: 4px solid var(--orange);
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--orange);
+            margin: 2rem 0 1rem 0;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            color: var(--orange);
+            margin: 1.5rem 0 0.75rem 0;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-grey);
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-grey);
+            margin-bottom: 2rem;
+        }
+
+        .intro-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .intro-box p {
+            font-size: 1.1rem;
+            color: var(--text-white);
+            margin-bottom: 0;
+        }
+
+        .callout {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(249, 115, 22, 0.02) 100%);
+            border: 1px solid var(--orange);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .data-box {
+            background: rgba(0, 212, 255, 0.05);
+            border-left: 4px solid var(--blue);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .quote {
+            font-style: italic;
+            color: var(--text-white);
+            font-size: 1.1rem;
+            border-left: 3px solid var(--orange);
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .journey-tabs {
+            margin: 2rem 0;
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.12) 0%, rgba(75, 205, 62, 0.05) 100%);
+            border: 1px solid rgba(249, 115, 22, 0.28);
+            border-radius: 14px;
+            padding: 1.75rem;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+        }
+
+        .journey-tab-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .journey-tab {
+            appearance: none;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(15, 22, 41, 0.66);
+            color: var(--text-grey);
+            border-radius: 999px;
+            padding: 0.8rem 1rem;
+            font: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+        }
+
+        .journey-tab:hover,
+        .journey-tab:focus-visible {
+            color: var(--text-white);
+            border-color: rgba(75, 205, 62, 0.45);
+            transform: translateY(-1px);
+            outline: none;
+        }
+
+        .journey-tab[aria-selected="true"] {
+            background: var(--green);
+            color: var(--bg-dark);
+            border-color: var(--green);
+        }
+
+        .journey-panel {
+            background: rgba(15, 22, 41, 0.84);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .journey-panel[hidden] {
+            display: none;
+        }
+
+        .journey-panel-label {
+            display: inline-block;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.76rem;
+            margin-bottom: 0.65rem;
+            font-weight: 700;
+        }
+
+        .journey-panel h3,
+        .journey-panel h4 {
+            margin-top: 0;
+            margin-bottom: 0.8rem;
+        }
+
+        .journey-panel p:last-child {
+            margin-bottom: 0;
+        }
+
+        ul {
+            margin: 1rem 0 1rem 2rem;
+            color: var(--text-grey);
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        strong {
+            color: var(--text-white);
+        }
+
+        footer {
+            background: var(--bg-darker);
+            border-top: 2px solid var(--orange);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-grey);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--orange);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--green);
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 0.85rem 1rem;
+            }
+
+            .nav-brand {
+                max-width: 12rem;
+            }
+
+            .nav-brand img {
+                height: 2rem;
+            }
+
+            .nav-links {
+                gap: 0.85rem;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            .research-layout {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .section-index {
+                position: static;
+                padding: 1rem;
+            }
+
+            .section-index-list {
+                gap: 0.6rem;
+            }
+
+            .journey-tabs {
+                padding: 1.25rem;
+            }
+
+            .journey-tab-list {
+                flex-direction: column;
+            }
+
+            .journey-tab {
+                width: 100%;
+                text-align: left;
+            }
+
+            h2 {
+                padding-left: 0.75rem;
+                border-left-width: 3px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav-brand"><img src="di-logo-header.png" alt="The Demo Index logo"></div>
+        <div class="nav-links">
+            <a href="index.html">Hub</a>
+            <a href="Demo-Index-Framework-Web.html">Framework</a>
+            <a href="Demo-Index-Methodology-Web.html">Methodology</a>
+            <a href="Demo-Index-Assessment-Web.html">Assessment</a>
+            <a href="#" class="active">Research</a>
+            <a href="Demo-Index-Measurement-Engine-Web.html">Technical Spec</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <section class="section section-header">
+            <h1>The Demo Index Research Manifesto</h1>
+            <p class="subtitle">Why Revenue Experience Maturity Matters</p>
+            
+            <div class="intro-box">
+                <p>
+                    This document establishes the research foundation for The Demo Index framework. It examines the fundamental shifts in B2B buying behavior, the emergence of narrative fragmentation as a revenue blocker, and the case for measuring Revenue Experience Maturity as a distinct organizational capability.
+                </p>
+            </div>
+        </section>
+
+        <div class="research-layout">
+            <aside class="section-index" aria-label="Research sections">
+                <span class="section-index-label">On This Page</span>
+                <nav class="section-index-list">
+                    <a class="section-index-link active" href="#buying-transformation">B2B Buying</a>
+                    <a class="section-index-link" href="#narrative-fragmentation">Narrative Fragmentation</a>
+                    <a class="section-index-link" href="#measurement-gap">Measurement Gap</a>
+                    <a class="section-index-link" href="#maturity-evolution">Maturity Evolution</a>
+                    <a class="section-index-link" href="#industry-standard">Industry Standard</a>
+                </nav>
+            </aside>
+
+            <main class="research-content">
+        <section class="section" id="buying-transformation">
+            <h2>The Transformation of B2B Buying</h2>
+
+            <p>
+                The past decade has fundamentally altered how enterprise buyers evaluate, select, and purchase complex software solutions. What was once a linear, sales-controlled process has evolved into a non-linear, buyer-led journey characterized by self-directed research, asynchronous evaluation, and distributed decision-making across large stakeholder committees.
+            </p>
+
+            <h3>The Expansion of Buying Committees</h3>
+
+            <p>
+                McKinsey B2B Pulse Survey research reveals that the average B2B purchasing committee now involves <strong>13 internal stakeholders</strong>, each bringing distinct priorities, evaluation criteria, and success metrics. This expansion creates coordination complexity that traditional sales methodologies were not designed to address.
+            </p>
+
+            <div class="data-box">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Market Research: Committee Complexity</strong></p>
+                <ul style="margin-bottom: 0;">
+                    <li>Average B2B buying committee: <strong>13 stakeholders</strong> (McKinsey B2B Pulse Survey)</li>
+                    <li><strong>86% of active deals stall</strong> due to decision drag and stakeholder misalignment</li>
+                    <li><strong>67% of B2B buyers prefer rep-free experiences</strong> (Gartner Future of Sales 2025)</li>
+                    <li><strong>70% demand completely digital, self-service buying journeys</strong> (Gartner)</li>
+                </ul>
+            </div>
+
+            <p>
+                These committees do not operate as unified decision-making bodies. They fragment across departments, geographies, and seniority levels, each member conducting independent research, exploring product capabilities through different lenses, and forming conclusions asynchronously. The seller's challenge is no longer simply convincing a buyer; it is maintaining narrative coherence across multiple parallel evaluation tracks.
+            </p>
+
+            <h3>The Rise of Self-Service Buying Behavior</h3>
+
+            <p>
+                Gartner research documenting B2B buying preferences reveals a stark departure from traditional sales-led engagement models:
+            </p>
+
+            <ul>
+                <li><strong>67% of B2B buyers prefer a representative-free experience</strong></li>
+                <li><strong>70% demand completely digital, self-service buying journeys</strong></li>
+                <li><strong>83% of buyers expect to independently access product environments</strong></li>
+                <li><strong>71% want personalized demos without sales involvement</strong></li>
+            </ul>
+
+            <p>
+                This is not a marginal shift in preference, it represents a fundamental recalibration of buyer expectations. Organizations that continue to gate product access behind sales choreography risk alienating the majority of their target market.
+            </p>
+
+            <div class="quote">
+                "The buyer journey is no longer a funnel. It's a constellation of independent research paths that occasionally intersect with vendor-provided experiences, most of which fail to maintain context across touchpoints."
+            </div>
+        </section>
+
+        <section class="section" id="narrative-fragmentation">
+            <h2>The Narrative Fragmentation Problem</h2>
+
+            <p>
+                At the intersection of expanding buying committees, self-service expectations, and non-linear journeys lies a critical but under-measured challenge: <strong>narrative fragmentation</strong>.
+            </p>
+
+            <h3>What Is Narrative Fragmentation?</h3>
+
+            <p>
+                Narrative fragmentation occurs when buyers experience disconnected, context-free interactions with a vendor's product demonstrations, trials, videos, and collateral. Each touchpoint exists in isolation, lacking awareness of:
+            </p>
+
+            <ul>
+                <li>What the buyer has already seen</li>
+                <li>Which stakeholders have explored which capabilities</li>
+                <li>What problems were identified during discovery</li>
+                <li>Which value propositions resonated in previous conversations</li>
+                <li>Where the buyer is in their evaluation process</li>
+            </ul>
+
+            <h3>The Revenue Impact</h3>
+
+            <div class="data-box">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Business Impact of Fragmentation</strong></p>
+                <ul style="margin-bottom: 0;">
+                    <li>Sales cycles extend as buyers restart evaluations with new stakeholders</li>
+                    <li>Win rates decline due to stakeholder misalignment on value</li>
+                    <li>No-decision outcomes increase as buying committees fail to reach consensus</li>
+                    <li>SE resources become bottlenecks as every interaction requires manual orchestration</li>
+                    <li>Competitive losses accelerate when competitors deliver coherent narratives</li>
+                </ul>
+            </div>
+
+            <p>
+                McKinsey research attributes <strong>86% of active deal stalls</strong> to "decision drag", the inability of buying committees to align on evaluation criteria, priorities, and vendor selection. While multiple factors contribute to decision drag, narrative fragmentation sits at the core: when different stakeholders experience different narratives, alignment becomes nearly impossible.
+            </p>
+
+            <div class="callout">
+                <p style="margin-bottom: 0;"><strong style="color: var(--orange);">The Core Problem:</strong> None of traditional approaches address the underlying capability gap, organizations lack infrastructure for maintaining narrative integrity across distributed, asynchronous buyer interactions. What's needed is not better content or more training, but a fundamentally different approach to revenue experience delivery.</p>
+            </div>
+        </section>
+
+        <section class="section" id="measurement-gap">
+            <h2>The Measurement Gap</h2>
+
+            <p>
+                Despite the clear revenue impact of narrative fragmentation and experience delivery maturity, no established framework measures this capability. Existing maturity models focus on adjacent but distinct domains:
+            </p>
+
+            <h3>Why Existing Frameworks Don't Measure This</h3>
+
+            <ul>
+                <li><strong>Sales Maturity Models:</strong> Measure how sellers sell, not how buyers experience product demonstrations</li>
+                <li><strong>Revenue Operations Maturity:</strong> Assess system integration and operational efficiency but overlook buyer-facing experience</li>
+                <li><strong>Customer Experience Maturity:</strong> Focus on post-sale engagement; pre-sale demo experiences fall outside these models</li>
+                <li><strong>Digital Transformation Maturity:</strong> Evaluate enabling technologies but don't measure demo experience delivery</li>
+                <li><strong>Product-Led Growth Metrics:</strong> Track what happens after trial entry but ignore orchestration required to get buyers there with proper context</li>
+            </ul>
+
+            <div class="callout">
+                <p style="margin-bottom: 0;"><strong style="color: var(--orange);">The Insight:</strong> No existing framework measures an organization's capability to deliver scalable, contextualized, narratively coherent demo experiences across distributed buying committees. This capability gap sits at the intersection of Sales, RevOps, Product, and Customer Experience, yet belongs fully to none of them. <strong>This is the opening for The Demo Index.</strong></p>
+            </div>
+
+            <h2>The Case for Revenue Experience Maturity</h2>
+
+            <p>
+                The Demo Index introduces <strong>Revenue Experience Maturity</strong> as a distinct organizational capability worthy of measurement, benchmarking, and strategic investment. This capability encompasses five core dimensions that determine whether an organization can meet modern buyer expectations.
+            </p>
+        </section>
+
+        <section class="section" id="maturity-evolution">
+            <h2>The Maturity Evolution</h2>
+
+            <p>
+                Organizations progress through five distinct stages, each with specific capabilities, constraints, and business outcomes:
+            </p>
+
+            <div class="journey-tabs" data-journey-tabs>
+                <div class="journey-tab-list" role="tablist" aria-label="Maturity evolution stages">
+                    <button class="journey-tab" type="button" role="tab" id="maturity-tab-1" aria-selected="true" aria-controls="maturity-panel-1" data-tab-target="maturity-panel-1">DI-1</button>
+                    <button class="journey-tab" type="button" role="tab" id="maturity-tab-2" aria-selected="false" aria-controls="maturity-panel-2" data-tab-target="maturity-panel-2">DI-2</button>
+                    <button class="journey-tab" type="button" role="tab" id="maturity-tab-3" aria-selected="false" aria-controls="maturity-panel-3" data-tab-target="maturity-panel-3">DI-3</button>
+                    <button class="journey-tab" type="button" role="tab" id="maturity-tab-4" aria-selected="false" aria-controls="maturity-panel-4" data-tab-target="maturity-panel-4">DI-4</button>
+                    <button class="journey-tab" type="button" role="tab" id="maturity-tab-5" aria-selected="false" aria-controls="maturity-panel-5" data-tab-target="maturity-panel-5">DI-5</button>
+                </div>
+
+                <div class="journey-panels">
+                    <div class="journey-panel" role="tabpanel" id="maturity-panel-1" aria-labelledby="maturity-tab-1">
+                        <span class="journey-panel-label">Demo Index 1</span>
+                        <h3>Manual Creation</h3>
+                        <p>Every demo is built from scratch. Time-to-Demo measures in weeks, SE capacity becomes the bottleneck, and scale rarely extends beyond 1-2 demos per SE per week.</p>
+                    </div>
+
+                    <div class="journey-panel" role="tabpanel" id="maturity-panel-2" aria-labelledby="maturity-tab-2" hidden>
+                        <span class="journey-panel-label">Demo Index 2</span>
+                        <h3>Templated Reusability</h3>
+                        <p>Standardized templates reduce creation time to days. Templates multiply faster than governance, and fragmentation shifts from between-demo inconsistency to within-library chaos.</p>
+                    </div>
+
+                    <div class="journey-panel" role="tabpanel" id="maturity-panel-3" aria-labelledby="maturity-tab-3" hidden>
+                        <span class="journey-panel-label">Demo Index 3</span>
+                        <h3>Distributed Library</h3>
+                        <p>Centralized libraries enable persona-level customization. However, each demo asset still exists independently, so buyers lose context between assets.</p>
+                        <div class="callout">
+                            <p style="margin-bottom: 0;"><strong style="color: var(--orange);">The DI-3 Plateau:</strong> Most mid-market and enterprise B2B companies operate at Demo Index 3. They have solved the volume problem (producing enough demo content) but not the coherence problem (maintaining narrative integrity). This is where the competitive differentiation opportunity exists.</p>
+                        </div>
+                    </div>
+
+                    <div class="journey-panel" role="tabpanel" id="maturity-panel-4" aria-labelledby="maturity-tab-4" hidden>
+                        <span class="journey-panel-label">Demo Index 4</span>
+                        <h3>Orchestrated Infrastructure</h3>
+                        <p>Organizations implement unified experience orchestration infrastructure. Demos become connected experiences within buyer portals, CRM context injects automatically, state management preserves progress, and narrative integrity becomes infrastructure.</p>
+                    </div>
+
+                    <div class="journey-panel" role="tabpanel" id="maturity-panel-5" aria-labelledby="maturity-tab-5" hidden>
+                        <span class="journey-panel-label">Demo Index 5</span>
+                        <h3>AI-Orchestrated Hyper-Personalization</h3>
+                        <p>AI systems analyze buyer behavior, predict optimal experience composition, and autonomously recommend demo pathways. Self-service portals let anonymous prospects generate hyper-personalized experiences instantly.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Why Organizations Must Invest Now</h2>
+
+            <div class="data-box">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Three Converging Market Forces</strong></p>
+                <ul style="margin-bottom: 0;">
+                    <li><strong>Buyer Expectations Have Shifted:</strong> 67% prefer rep-free experiences, 70% demand self-service</li>
+                    <li><strong>Experience as Differentiator:</strong> Forrester shows 3.2x higher revenue growth and 2.1x higher shareholder returns for superior buyer experiences</li>
+                    <li><strong>AI Enables What Was Impossible:</strong> Infrastructure for DI-4 and DI-5 was technically infeasible five years ago; modern AI makes it achievable today</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section" id="industry-standard">
+            <h2>From Framework to Industry Standard</h2>
+
+            <p>
+                The Demo Index is designed to evolve from thought leadership into an industry-recognized measurement system. This evolution follows a deliberate path:
+            </p>
+
+            <div class="journey-tabs" data-journey-tabs>
+                <div class="journey-tab-list" role="tablist" aria-label="Industry standard phases">
+                    <button class="journey-tab" type="button" role="tab" id="phase-tab-1" aria-selected="true" aria-controls="phase-panel-1" data-tab-target="phase-panel-1">Phase 1</button>
+                    <button class="journey-tab" type="button" role="tab" id="phase-tab-2" aria-selected="false" aria-controls="phase-panel-2" data-tab-target="phase-panel-2">Phase 2</button>
+                    <button class="journey-tab" type="button" role="tab" id="phase-tab-3" aria-selected="false" aria-controls="phase-panel-3" data-tab-target="phase-panel-3">Phase 3</button>
+                    <button class="journey-tab" type="button" role="tab" id="phase-tab-4" aria-selected="false" aria-controls="phase-panel-4" data-tab-target="phase-panel-4">Phase 4</button>
+                    <button class="journey-tab" type="button" role="tab" id="phase-tab-5" aria-selected="false" aria-controls="phase-panel-5" data-tab-target="phase-panel-5">Phase 5</button>
+                </div>
+
+                <div class="journey-panels">
+                    <div class="journey-panel" role="tabpanel" id="phase-panel-1" aria-labelledby="phase-tab-1">
+                        <span class="journey-panel-label">Phase 1</span>
+                        <h3>Framework Introduction</h3>
+                        <p>Establish the intellectual foundation: the problem (narrative fragmentation), the solution (Revenue Experience Maturity), and the measurement system (five capability domains across five maturity levels).</p>
+                    </div>
+
+                    <div class="journey-panel" role="tabpanel" id="phase-panel-2" aria-labelledby="phase-tab-2" hidden>
+                        <span class="journey-panel-label">Phase 2</span>
+                        <h3>Assessment & Adoption</h3>
+                        <p>Deploy the Demo Index Assessment to capture organizational maturity data. Target 50-100 early adopters to validate scoring methodology and refine capability definitions.</p>
+                    </div>
+
+                    <div class="journey-panel" role="tabpanel" id="phase-panel-3" aria-labelledby="phase-tab-3" hidden>
+                        <span class="journey-panel-label">Phase 3</span>
+                        <h3>Benchmark Publication</h3>
+                        <p>Publish the first <em>State of Demo Maturity</em> report with aggregate industry data. Establish baseline benchmarks by vertical, company size, and go-to-market model.</p>
+                    </div>
+
+                    <div class="journey-panel" role="tabpanel" id="phase-panel-4" aria-labelledby="phase-tab-4" hidden>
+                        <span class="journey-panel-label">Phase 4</span>
+                        <h3>Analyst Engagement</h3>
+                        <p>Present research to Gartner, Forrester, and category analysts. Demonstrate correlation between Demo Index scores and business outcomes.</p>
+                    </div>
+
+                    <div class="journey-panel" role="tabpanel" id="phase-panel-5" aria-labelledby="phase-tab-5" hidden>
+                        <span class="journey-panel-label">Phase 5</span>
+                        <h3>Certification & Standards</h3>
+                        <p>Introduce Demo Index Certification for organizations achieving DI-4 and DI-5 maturity. Establish The Demo Index as the recognized standard for Revenue Experience Maturity.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2>The Intellectual Property</h2>
+
+            <p>
+                The Demo Index's defensible intellectual property lies in three breakthrough concepts:
+            </p>
+
+            <h4>1. Narrative Integrity as a Measurable Capability</h4>
+            <p>
+                Framing context preservation, journey coherence, and cross-asset continuity as an infrastructure capability rather than a training problem. This concept is genuinely novel.
+            </p>
+
+            <h4>2. Revenue Experience Maturity as a Category</h4>
+            <p>
+                Positioning demo operations not as a sales enablement task but as a strategic business capability worthy of C-level investment.
+            </p>
+
+            <h4>3. The Capability-Outcome Model</h4>
+            <p>
+                Measuring underlying capabilities that produce business outcomes rather than measuring outputs directly. This analyst-grade structure establishes credibility.
+            </p>
+
+            <div class="callout">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--orange);">The Opportunity:</strong></p>
+                <p style="margin-bottom: 0;">
+                    The first organizations to achieve Demo Index 4 and 5 maturity will establish defensible competitive advantages. They will capture the 67% of buyers preferring rep-free experiences. They will compress sales cycles by eliminating narrative fragmentation. They will scale efficiently by removing SE bottlenecks. And they will set the standard that competitors must eventually match.
+                </p>
+            </div>
+        </section>
+            </main>
+        </div>
+
+    </div>
+
+    <footer>
+        <p><strong>The Demo Index</strong> | Research Manifesto</p>
+        <p style="margin-top: 0.5rem;">© 2026 | <a href="Demo-Index-Framework-Web.html">Framework</a> | <a href="Demo-Index-Methodology-Web.html">Methodology</a> | <a href="Demo-Index-Assessment-Web.html">Assessment</a> | <a href="Demo-Index-Measurement-Engine-Web.html">Technical Specification</a></p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('[data-journey-tabs]').forEach((tabGroup) => {
+            const tabs = Array.from(tabGroup.querySelectorAll('[role="tab"]'));
+            const panels = Array.from(tabGroup.querySelectorAll('[role="tabpanel"]'));
+
+            const setActiveTab = (targetId) => {
+                tabs.forEach((tab) => {
+                    const isActive = tab.dataset.tabTarget === targetId;
+                    tab.setAttribute('aria-selected', String(isActive));
+                    tab.tabIndex = isActive ? 0 : -1;
+                });
+
+                panels.forEach((panel) => {
+                    panel.hidden = panel.id !== targetId;
+                });
+            };
+
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('click', () => {
+                    setActiveTab(tab.dataset.tabTarget);
+                });
+
+                tab.addEventListener('keydown', (event) => {
+                    if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') {
+                        return;
+                    }
+
+                    event.preventDefault();
+
+                    const direction = event.key === 'ArrowRight' ? 1 : -1;
+                    const nextIndex = (index + direction + tabs.length) % tabs.length;
+                    const nextTab = tabs[nextIndex];
+
+                    setActiveTab(nextTab.dataset.tabTarget);
+                    nextTab.focus();
+                });
+            });
+
+            if (tabs[0]) {
+                setActiveTab(tabs[0].dataset.tabTarget);
+            }
+        });
+
+        const researchSectionLinks = Array.from(document.querySelectorAll('.section-index-link'));
+        const researchSections = researchSectionLinks
+            .map((link) => document.querySelector(link.getAttribute('href')))
+            .filter(Boolean);
+        let researchNavLockUntil = 0;
+
+        const getResearchScrollOffset = () => {
+            const nav = document.querySelector('.nav');
+            return (nav ? nav.offsetHeight : 0) + 20;
+        };
+
+        const setResearchActiveLink = (id) => {
+            researchSectionLinks.forEach((link) => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+            });
+        };
+
+        researchSectionLinks.forEach((link) => {
+            link.addEventListener('click', (event) => {
+                const targetSelector = link.getAttribute('href');
+                const targetSection = targetSelector ? document.querySelector(targetSelector) : null;
+
+                if (!targetSection) {
+                    return;
+                }
+
+                event.preventDefault();
+
+                const targetTop = targetSection.getBoundingClientRect().top + window.scrollY - getResearchScrollOffset();
+                researchNavLockUntil = Date.now() + 1200;
+                window.history.replaceState(null, '', targetSelector);
+                window.scrollTo({ top: targetTop, behavior: 'smooth' });
+                setResearchActiveLink(targetSection.id);
+            });
+        });
+
+        if (researchSections.length) {
+            const updateResearchActiveSection = () => {
+                if (Date.now() < researchNavLockUntil) {
+                    return;
+                }
+
+                const threshold = getResearchScrollOffset() + 30;
+                let activeSection = researchSections[0];
+
+                researchSections.forEach((section) => {
+                    if (section.getBoundingClientRect().top <= threshold) {
+                        activeSection = section;
+                    }
+                });
+
+                if (activeSection) {
+                    setResearchActiveLink(activeSection.id);
+                }
+            };
+
+            window.addEventListener('scroll', updateResearchActiveSection, { passive: true });
+            window.addEventListener('resize', updateResearchActiveSection);
+            updateResearchActiveSection();
+        }
+    </script>
+
+</body>
+</html>

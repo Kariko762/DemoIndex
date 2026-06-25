@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Demo Index | Research Manifesto</title>
+    <script src="../device-router.js?v=20260602c"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+
+        :root {
+            --bg-dark: #090E1B;
+            --bg-darker: #0F1629;
+            --orange: #F97316;
+            --green: #4bcd3e;
+            --text-white: #FFFFFF;
+            --text-grey: #97A3AF;
+            --blue: #00d4ff;
+            --nav-offset: 5.5rem;
+            --research-nav-height: 5.5rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            color: var(--text-white);
+            background: var(--bg-dark);
+            line-height: 1.6;
+            animation: fadeIn 0.6s ease-in;
+            overflow-x: hidden;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            background: var(--bg-darker);
+            border-bottom: 2px solid var(--orange);
+            padding: 0.9rem 1.5rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .nav-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        .nav-brand img {
+            width: auto;
+            height: 2.6rem;
+            object-fit: contain;
+            display: block;
+            flex: 0 0 auto;
+        }
+
+        .nav-brand-copy {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 0.28rem;
+            font-family: 'Montserrat', 'Segoe UI', sans-serif;
+            font-size: 0.98rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .nav-brand-copy .accent {
+            color: var(--orange);
+        }
+
+        .nav-brand-copy .neutral {
+            color: var(--text-white);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav-links a {
+            color: var(--text-grey);
+            text-decoration: none;
+            font-size: 0.92rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--orange);
+        }
+
+        .nav-links a.active {
+            color: var(--orange);
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .research-layout {
+            display: grid;
+            grid-template-columns: 240px minmax(0, 1fr);
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .section-index {
+            position: sticky;
+            top: var(--nav-offset);
+            align-self: start;
+            background: rgba(15, 22, 41, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 1.25rem;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.16);
+        }
+
+        .section-index-label {
+            display: block;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-size: 0.76rem;
+            margin-bottom: 0.85rem;
+            font-weight: 700;
+        }
+
+        .section-index-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .section-index-link {
+            color: var(--text-grey);
+            text-decoration: none;
+            padding: 0.7rem 0.85rem;
+            border-radius: 10px;
+            border: 1px solid transparent;
+            transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+            font-size: 0.94rem;
+            line-height: 1.4;
+        }
+
+        .section-index-link:hover,
+        .section-index-link:focus-visible {
+            color: var(--text-white);
+            background: rgba(75, 205, 62, 0.08);
+            border-color: rgba(75, 205, 62, 0.22);
+            outline: none;
+            transform: translateX(2px);
+        }
+
+        .section-index-link.active {
+            color: var(--text-white);
+            background: rgba(75, 205, 62, 0.14);
+            border-color: rgba(75, 205, 62, 0.32);
+            box-shadow: inset 3px 0 0 var(--green);
+        }
+
+        .anchor-fab-shell,
+        .anchor-fab-scrim {
+            display: none;
+        }
+
+        .anchor-fab-toggle {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 4.75rem;
+            height: 4.75rem;
+            border: 1px solid rgba(176, 255, 170, 0.4);
+            border-radius: 50%;
+            background: rgba(75, 205, 62, 0.98);
+            color: var(--text-white);
+            padding: 0;
+            box-shadow: 0 18px 36px rgba(18, 57, 14, 0.38);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            z-index: 2;
+            opacity: 0.75;
+        }
+
+        .anchor-fab-toggle::before {
+            content: '';
+            position: absolute;
+            inset: 0.7rem;
+            border-radius: 50%;
+            border: 0.22rem solid rgba(255, 255, 255, 0.2);
+        }
+
+        .anchor-fab-toggle-label {
+            position: relative;
+            z-index: 1;
+            display: inline-grid;
+            grid-template-columns: repeat(3, 0.26rem);
+            gap: 0.18rem;
+            align-items: center;
+            justify-content: center;
+            transform: translateY(-0.22rem);
+        }
+
+        .anchor-fab-toggle-dot {
+            width: 0.26rem;
+            height: 0.26rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+        }
+
+        .anchor-fab-toggle:hover,
+        .anchor-fab-toggle:focus-visible {
+            transform: translateX(-50%) translateY(-1px);
+            box-shadow: 0 20px 40px rgba(18, 57, 14, 0.46);
+            border-color: rgba(217, 255, 214, 0.86);
+            outline: none;
+        }
+
+        .anchor-fab-toggle[aria-expanded='true'] {
+            border-color: rgba(217, 255, 214, 0.92);
+            box-shadow: 0 22px 42px rgba(18, 57, 14, 0.52);
+        }
+
+        .anchor-fab-panel {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .anchor-fab-panel.is-open {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        .anchor-fab-panel[hidden],
+        .anchor-fab-scrim[hidden] {
+            display: none;
+        }
+
+        body.research-menu-open {
+            overflow: hidden;
+        }
+
+        .anchor-fab-link {
+            position: absolute;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 5.2rem;
+            min-height: 2.35rem;
+            padding: 0.52rem 0.72rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(29, 31, 38, 0.98);
+            color: var(--text-white);
+            text-align: center;
+            font-size: 0.64rem;
+            line-height: 1.2;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+            white-space: nowrap;
+            opacity: 0;
+            transition: transform 0.24s ease, opacity 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+        }
+
+        .anchor-fab-link-top {
+            left: 50%;
+            bottom: 10rem;
+            transform: translateX(-50%) scale(0.78);
+        }
+
+        .anchor-fab-link-upper-left {
+            left: 0.65rem;
+            bottom: 7.95rem;
+            transform: scale(0.78);
+        }
+
+        .anchor-fab-link-upper-right {
+            right: 0.65rem;
+            bottom: 7.95rem;
+            transform: scale(0.78);
+        }
+
+        .anchor-fab-link-lower-left {
+            left: 1.5rem;
+            bottom: 4.95rem;
+            transform: scale(0.78);
+        }
+
+        .anchor-fab-link-lower-right {
+            right: 1.5rem;
+            bottom: 4.95rem;
+            transform: scale(0.78);
+        }
+
+        .anchor-fab-link::after {
+            display: none;
+        }
+
+        .anchor-fab-panel.is-open .anchor-fab-link {
+            opacity: 1;
+        }
+
+        .anchor-fab-panel.is-open .anchor-fab-link-top {
+            transform: translateX(-50%) scale(1);
+        }
+
+        .anchor-fab-panel.is-open .anchor-fab-link-upper-left,
+        .anchor-fab-panel.is-open .anchor-fab-link-upper-right,
+        .anchor-fab-panel.is-open .anchor-fab-link-lower-left,
+        .anchor-fab-panel.is-open .anchor-fab-link-lower-right {
+            transform: scale(1);
+        }
+
+        .anchor-fab-link:hover,
+        .anchor-fab-link:focus-visible,
+        .anchor-fab-link.active {
+            color: var(--text-white);
+            background: linear-gradient(135deg, rgba(61, 138, 54, 0.98) 0%, rgba(75, 205, 62, 0.98) 100%);
+            border-color: rgba(176, 255, 170, 0.92);
+            box-shadow: 0 14px 28px rgba(34, 95, 29, 0.34);
+        }
+
+        .research-content {
+            min-width: 0;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            scroll-margin-top: calc(var(--nav-offset) + 1.25rem);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--orange);
+            margin-bottom: 0.5rem;
+            line-height: 1.04;
+        }
+
+        .page-title-line {
+            display: block;
+        }
+
+        .page-title-line.page-title-kicker {
+            font-size: 0.42em;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-white);
+            margin-bottom: 0.16rem;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: var(--orange);
+            margin: 2.5rem 0 1.5rem 0;
+            padding-left: 1rem;
+            border-left: 4px solid var(--orange);
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--orange);
+            margin: 2rem 0 1rem 0;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            color: var(--orange);
+            margin: 1.5rem 0 0.75rem 0;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-grey);
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 0.96rem;
+            color: var(--text-grey);
+            margin-bottom: 1.15rem;
+            font-style: italic;
+        }
+
+        .intro-box {
+            background:
+                radial-gradient(circle at top right, rgba(0, 212, 255, 0.12), transparent 34%),
+                linear-gradient(135deg, rgba(249, 115, 22, 0.16) 0%, rgba(249, 115, 22, 0.06) 42%, rgba(255, 255, 255, 0.02) 100%);
+            border: 1px solid rgba(249, 115, 22, 0.26);
+            border-radius: 14px;
+            padding: 1.2rem 1.15rem;
+            margin-bottom: 1.7rem;
+            text-align: left;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+        }
+
+        .intro-box p {
+            font-size: 0.95rem;
+            color: var(--text-white);
+            margin-bottom: 0;
+            line-height: 1.62;
+        }
+
+        .intro-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-white);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .intro-eyebrow::before {
+            content: '';
+            width: 0.45rem;
+            height: 0.45rem;
+            border-radius: 999px;
+            background: var(--green);
+            box-shadow: 0 0 0 0.18rem rgba(75, 205, 62, 0.12);
+        }
+
+        .intro-highlight {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+            margin-top: 1rem;
+        }
+
+        .intro-highlight-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 2rem;
+            padding: 0.38rem 0.72rem;
+            border-radius: 999px;
+            background: rgba(15, 22, 41, 0.82);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-white);
+            font-size: 0.76rem;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .callout {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(249, 115, 22, 0.02) 100%);
+            border: 1px solid var(--orange);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .data-box {
+            background: rgba(0, 212, 255, 0.05);
+            border-left: 4px solid var(--blue);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .quote {
+            font-style: italic;
+            color: var(--text-white);
+            font-size: 1.1rem;
+            border-left: 3px solid var(--orange);
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .journey-tabs {
+            margin: 2rem 0;
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.12) 0%, rgba(75, 205, 62, 0.05) 100%);
+            border: 1px solid rgba(249, 115, 22, 0.28);
+            border-radius: 14px;
+            padding: 1.75rem;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+        }
+
+        .journey-tab-list {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 1.1rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.35rem;
+            scrollbar-width: none;
+        }
+
+        .journey-tab-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        .journey-tab {
+            appearance: none;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.56);
+            border-radius: 0;
+            padding: 0.2rem 0 0.7rem;
+            font: inherit;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+        }
+
+        .journey-tab::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 2px;
+            border-radius: 999px;
+            background: var(--orange);
+            opacity: 0;
+            transform: scaleX(0.35);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .journey-tab:hover,
+        .journey-tab:focus-visible {
+            color: var(--text-white);
+            outline: none;
+        }
+
+        .journey-tab[aria-selected="true"] {
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        .journey-tab[aria-selected="true"]::after {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        .journey-panel {
+            background: rgba(15, 22, 41, 0.84);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .journey-panel[hidden] {
+            display: none;
+        }
+
+        .journey-panel-label {
+            display: inline-block;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.76rem;
+            margin-bottom: 0.65rem;
+            font-weight: 700;
+        }
+
+        .journey-panel h3,
+        .journey-panel h4 {
+            margin-top: 0;
+            margin-bottom: 0.8rem;
+        }
+
+        .journey-panel p:last-child {
+            margin-bottom: 0;
+        }
+
+        ul {
+            margin: 1rem 0 1rem 2rem;
+            color: var(--text-grey);
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        strong {
+            color: var(--text-white);
+        }
+
+        footer {
+            background: var(--bg-darker);
+            border-top: 2px solid var(--orange);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-grey);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--orange);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--green);
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 0.85rem 1rem;
+            }
+
+            .nav-brand {
+                max-width: 12rem;
+            }
+
+            .nav-brand img {
+                height: 2rem;
+            }
+
+            .nav-links {
+                gap: 0.85rem;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            .research-layout {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .section-index {
+                position: static;
+                padding: 1rem;
+            }
+
+            .section-index-list {
+                gap: 0.6rem;
+            }
+
+            .journey-tabs {
+                padding: 1.25rem;
+            }
+
+            .journey-tab-list {
+                gap: 1rem;
+            }
+
+            .journey-tab {
+                width: auto;
+                text-align: center;
+            }
+
+            h2 {
+                padding-left: 0.75rem;
+                border-left-width: 3px;
+            }
+        }
+        @media (max-width: 560px) {
+            .nav {
+                padding: 0.75rem 0.85rem;
+                gap: 0.75rem;
+                align-items: flex-start;
+            }
+
+            .nav-brand {
+                width: 100%;
+                max-width: none;
+                justify-content: center;
+            }
+
+            .nav-brand img {
+                height: 1.9rem;
+                width: 1.9rem;
+            }
+
+            .nav-brand-copy {
+                font-size: 0.98rem;
+                gap: 0.28rem;
+                letter-spacing: 0.12em;
+                justify-content: center;
+            }
+
+            .nav-links {
+                width: 100%;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                overflow-x: auto;
+                gap: 1.1rem;
+                padding-bottom: 0.35rem;
+                scrollbar-width: none;
+            }
+
+            .nav-links::-webkit-scrollbar {
+                display: none;
+            }
+
+            .nav-links a {
+                white-space: nowrap;
+                font-size: 0.8rem;
+                padding: 0.15rem 0 0.7rem;
+                border: none;
+                border-radius: 0;
+                background: transparent;
+                color: rgba(255, 255, 255, 0.56);
+                font-weight: 500;
+                position: relative;
+            }
+
+            .nav-links a::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 2px;
+                border-radius: 999px;
+                background: var(--orange);
+                opacity: 0;
+                transform: scaleX(0.35);
+                transition: opacity 0.25s ease, transform 0.25s ease;
+            }
+
+            .nav-links a:hover,
+            .nav-links a.active {
+                color: var(--text-white);
+                font-weight: 600;
+            }
+
+            .nav-links a.active::after {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+
+            .container {
+                padding: 1rem 0.85rem 6.75rem;
+            }
+
+            .section-index {
+                display: none;
+            }
+
+            h1 {
+                font-size: clamp(1.85rem, 8vw, 2.45rem);
+            }
+
+            .subtitle {
+                font-size: 0.98rem;
+            }
+
+            .intro-box {
+                padding: 1rem;
+                margin-bottom: 1.4rem;
+            }
+
+            .intro-box p {
+                font-size: 0.92rem;
+            }
+
+            .intro-highlight {
+                gap: 0.45rem;
+            }
+
+            .intro-highlight-chip {
+                font-size: 0.72rem;
+                min-height: 1.85rem;
+            }
+
+            footer {
+                padding: 1.5rem 1rem 6rem;
+            }
+
+            .anchor-fab-panel .anchor-fab-link {
+                position: absolute;
+                min-width: 5.2rem;
+                min-height: 2.35rem;
+                padding: 0.52rem 0.72rem;
+                border-radius: 999px;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                background: rgba(29, 31, 38, 0.98);
+                color: var(--text-white);
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+                font-size: 0.64rem;
+                line-height: 1.2;
+                letter-spacing: 0.02em;
+            }
+
+            .anchor-fab-panel .anchor-fab-link-top {
+                left: 50%;
+                bottom: 10rem;
+                transform: translateX(-50%) scale(0.78);
+            }
+
+            .anchor-fab-shell,
+            .anchor-fab-scrim {
+                display: block;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .nav {
+                padding: 0.45rem max(0.65rem, env(safe-area-inset-right)) 0.45rem max(0.65rem, env(safe-area-inset-left));
+                gap: 0.4rem;
+            }
+
+            .nav-brand img {
+                height: 1.45rem;
+                width: 1.45rem;
+            }
+
+            .nav-brand-copy {
+                font-size: 0.74rem;
+                letter-spacing: 0.06em;
+                .subtitle {
+                    font-size: 0.94rem;
+                }
+
+                .intro-box {
+                    padding: 0.95rem;
+                }
+
+                .intro-box p {
+                    font-size: 0.9rem;
+                }
+
+                .intro-eyebrow {
+                    font-size: 0.68rem;
+                    letter-spacing: 0.12em;
+                }
+
+                .intro-highlight-chip {
+                    font-size: 0.68rem;
+                    padding: 0.34rem 0.62rem;
+                }
+
+                footer {
+                    padding: 1.25rem 0.85rem 5.5rem;
+                }
+            .section-index-link {
+                font-size: 0.74rem;
+            }
+
+            .anchor-fab-toggle {
+                width: 4.15rem;
+                height: 4.15rem;
+            }
+
+            .anchor-fab-toggle::before {
+                inset: 0.62rem;
+            }
+
+            .anchor-fab-toggle-label {
+                grid-template-columns: repeat(3, 0.22rem);
+                gap: 0.15rem;
+            }
+
+            .anchor-fab-toggle-dot {
+                width: 0.22rem;
+                height: 0.22rem;
+            }
+
+            footer {
+                padding: 1.25rem 0.85rem 5.5rem;
+            }
+        }
+            .container {
+                padding: 1rem 0.85rem 6.75rem;
+            }
+
+            .section-index {
+                display: none;
+            }
+
+            footer {
+                padding: 1.5rem 1rem 6rem;
+            }
+
+            .anchor-fab-panel {
+                top: auto;
+                right: auto;
+                bottom: 5.5rem;
+                left: 50%;
+                width: 100%;
+                max-width: min(12rem, calc(100vw - 1.5rem));
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.42rem;
+                transform: translateX(-50%) translateY(0.35rem) scale(0.96);
+                transform-origin: bottom center;
+            }
+
+            .anchor-fab-panel .anchor-fab-link {
+                position: relative;
+                inset: auto;
+                width: 100%;
+                min-width: 0;
+                min-height: 2rem;
+                padding: 0.42rem 0.72rem;
+                border-radius: 999px;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                background: rgba(29, 31, 38, 0.98);
+                color: var(--text-white);
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+                font-size: 0.62rem;
+                line-height: 1.1;
+                letter-spacing: 0.02em;
+                justify-content: center;
+                transform: translateY(0.25rem) scale(0.94);
+            }
+
+            .anchor-fab-panel .anchor-fab-link::after {
+                display: none;
+            }
+
+            .anchor-fab-panel.is-open .anchor-fab-link {
+                opacity: 1;
+            }
+
+            .anchor-fab-panel.is-open {
+                transform: translateX(-50%) translateY(0) scale(1);
+            }
+
+            .anchor-fab-panel.is-open .anchor-fab-link {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            .anchor-fab-panel .anchor-fab-link:hover,
+            .anchor-fab-panel .anchor-fab-link:focus-visible,
+            .anchor-fab-panel .anchor-fab-link.active {
+                color: var(--text-white);
+                background: linear-gradient(135deg, rgba(61, 138, 54, 0.98) 0%, rgba(75, 205, 62, 0.98) 100%);
+                border-color: rgba(176, 255, 170, 0.92);
+                box-shadow: 0 14px 28px rgba(34, 95, 29, 0.34);
+            }
+
+            .anchor-fab-scrim.is-open {
+                display: block;
+                position: fixed;
+                top: var(--research-nav-height);
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background:
+                    radial-gradient(circle at 50% 88%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.06) 18%, rgba(9, 14, 27, 0.12) 36%, rgba(9, 14, 27, 0.62) 100%),
+                    linear-gradient(180deg, rgba(9, 14, 27, 0.18) 0%, rgba(9, 14, 27, 0.7) 100%);
+                backdrop-filter: blur(6px) saturate(118%);
+                -webkit-backdrop-filter: blur(6px) saturate(118%);
+                z-index: 1190;
+                transition: opacity 0.22s ease, backdrop-filter 0.22s ease;
+            }
+
+            .anchor-fab-shell {
+                position: fixed;
+                left: 50%;
+                bottom: 1rem;
+                transform: translateX(-50%);
+                z-index: 1200;
+                display: block;
+                width: min(12rem, calc(100vw - 1.5rem));
+                max-width: calc(100vw - 1.5rem);
+                height: 17rem;
+                pointer-events: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav-brand"><img src="di-icon.png" alt="The Demo Index icon"><span class="nav-brand-copy" aria-label="The Demo Index"><span class="neutral">THE</span><span class="accent">DEMO</span><span class="neutral">INDEX</span></span></div>
+        <div class="nav-links">
+            <a href="index.html">Hub</a>
+            <a href="Demo-Index-Framework-Web.html">Framework</a>
+            <a href="Demo-Index-Methodology-Web.html">Methodology</a>
+            <a href="Demo-Index-Assessment-Web.html">Assessment</a>
+            <a href="#" class="active">Research</a>
+            <a href="Demo-Index-Measurement-Engine-Web.html">Technical Spec</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <section class="section section-header">
+            <h1>
+                <span class="page-title-line page-title-kicker">Index</span>
+                <span class="page-title-line">Research</span>
+            </h1>
+            <p class="subtitle">Why revenue experience maturity now needs a research foundation</p>
+            
+            <div class="intro-box">
+                <span class="intro-eyebrow">Research at a glance</span>
+                <p>
+                    This page defines the research case behind The Demo Index: how B2B buying behavior changed, why narrative fragmentation became a revenue blocker, and why Revenue Experience Maturity should be measured as a distinct capability.
+                </p>
+                <div class="intro-highlight" aria-label="Research highlights">
+                    <span class="intro-highlight-chip">Buyer-led evaluation shift</span>
+                    <span class="intro-highlight-chip">Narrative fragmentation problem</span>
+                    <span class="intro-highlight-chip">Measurement and benchmark case</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="research-layout">
+            <aside class="section-index" aria-label="Research sections">
+                <span class="section-index-label">On This Page</span>
+                <nav class="section-index-list">
+                    <a class="section-index-link active" href="#buying-transformation">B2B Buying</a>
+                    <a class="section-index-link" href="#narrative-fragmentation">Narrative Fragmentation</a>
+                    <a class="section-index-link" href="#measurement-gap">Measurement Gap</a>
+                    <a class="section-index-link" href="#maturity-evolution">Maturity Evolution</a>
+                    <a class="section-index-link" href="#industry-standard">Industry Standard</a>
+                </nav>
+            </aside>
+
+            <main class="research-content">
+        <section class="section" id="buying-transformation">
+            <h2>The Transformation of B2B Buying</h2>
+
+            <p>
+                The past decade has fundamentally altered how enterprise buyers evaluate, select, and purchase complex software solutions. What was once a linear, sales-controlled process has evolved into a non-linear, buyer-led journey characterized by self-directed research, asynchronous evaluation, and distributed decision-making across large stakeholder committees.
+            </p>
+
+            <h3>The Expansion of Buying Committees</h3>
+
+            <p>
+                McKinsey B2B Pulse Survey research reveals that the average B2B purchasing committee now involves <strong>13 internal stakeholders</strong>, each bringing distinct priorities, evaluation criteria, and success metrics. This expansion creates coordination complexity that traditional sales methodologies were not designed to address.
+            </p>
+
+            <div class="data-box">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Market Research: Committee Complexity</strong></p>
+                <ul style="margin-bottom: 0;">
+                    <li>Average B2B buying committee: <strong>13 stakeholders</strong> (McKinsey B2B Pulse Survey)</li>
+                    <li><strong>86% of active deals stall</strong> due to decision drag and stakeholder misalignment</li>
+                    <li><strong>67% of B2B buyers prefer rep-free experiences</strong> (Gartner Future of Sales 2025)</li>
+                    <li><strong>70% demand completely digital, self-service buying journeys</strong> (Gartner)</li>
+                </ul>
+            </div>
+
+            <p>
+                These committees do not operate as unified decision-making bodies. They fragment across departments, geographies, and seniority levels, each member conducting independent research, exploring product capabilities through different lenses, and forming conclusions asynchronously. The seller's challenge is no longer simply convincing a buyer; it is maintaining narrative coherence across multiple parallel evaluation tracks.
+            </p>
+
+            <h3>The Rise of Self-Service Buying Behavior</h3>
+
+            <p>
+                Gartner research documenting B2B buying preferences reveals a stark departure from traditional sales-led engagement models:
+            </p>
+
+            <ul>
+                <li><strong>67% of B2B buyers prefer a representative-free experience</strong></li>
+                <li><strong>70% demand completely digital, self-service buying journeys</strong></li>
+                <li><strong>83% of buyers expect to independently access product environments</strong></li>
+                <li><strong>71% want personalized demos without sales involvement</strong></li>
+            </ul>
+
+            <p>
+                This is not a marginal shift in preference, it represents a fundamental recalibration of buyer expectations. Organizations that continue to gate product access behind sales choreography risk alienating the majority of their target market.
+            </p>
+
+            <div class="quote">
+                "The buyer journey is no longer a funnel. It's a constellation of independent research paths that occasionally intersect with vendor-provided experiences, most of which fail to maintain context across touchpoints."
+            </div>
+        </section>
+
+        <section class="section" id="narrative-fragmentation">
+            <h2>The Narrative Fragmentation Problem</h2>
+
+            <p>
+                At the intersection of expanding buying committees, self-service expectations, and non-linear journeys lies a critical but under-measured challenge: <strong>narrative fragmentation</strong>.
+            </p>
+
+            <h3>What Is Narrative Fragmentation?</h3>
+
+            <p>
+                Narrative fragmentation occurs when buyers experience disconnected, context-free interactions with a vendor's product demonstrations, trials, videos, and collateral. Each touchpoint exists in isolation, lacking awareness of:
+            </p>
+
+            <ul>
+                <li>What the buyer has already seen</li>
+                <li>Which stakeholders have explored which capabilities</li>
+                <li>What problems were identified during discovery</li>
+                <li>Which value propositions resonated in previous conversations</li>
+                <li>Where the buyer is in their evaluation process</li>
+            </ul>
+
+            <h3>The Revenue Impact</h3>
+
+            <div class="data-box">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Business Impact of Fragmentation</strong></p>
+                <ul style="margin-bottom: 0;">
+                    <li>Sales cycles extend as buyers restart evaluations with new stakeholders</li>
+                    <li>Win rates decline due to stakeholder misalignment on value</li>
+                    <li>No-decision outcomes increase as buying committees fail to reach consensus</li>
+                    <li>SE resources become bottlenecks as every interaction requires manual orchestration</li>
+                    <li>Competitive losses accelerate when competitors deliver coherent narratives</li>
+                </ul>
+            </div>
+
+            <p>
+                McKinsey research attributes <strong>86% of active deal stalls</strong> to "decision drag", the inability of buying committees to align on evaluation criteria, priorities, and vendor selection. While multiple factors contribute to decision drag, narrative fragmentation sits at the core: when different stakeholders experience different narratives, alignment becomes nearly impossible.
+            </p>
+
+            <div class="callout">
+                <p style="margin-bottom: 0;"><strong style="color: var(--orange);">The Core Problem:</strong> None of traditional approaches address the underlying capability gap, organizations lack infrastructure for maintaining narrative integrity across distributed, asynchronous buyer interactions. What's needed is not better content or more training, but a fundamentally different approach to revenue experience delivery.</p>
+            </div>
+        </section>
+
+        <section class="section" id="measurement-gap">
+            <h2>The Measurement Gap</h2>
+
+            <p>
+                Despite the clear revenue impact of narrative fragmentation and experience delivery maturity, no established framework measures this capability. Existing maturity models focus on adjacent but distinct domains:
+            </p>
+
+            <h3>Why Existing Frameworks Don't Measure This</h3>
+
+            <ul>
+                <li><strong>Sales Maturity Models:</strong> Measure how sellers sell, not how buyers experience product demonstrations</li>
+                <li><strong>Revenue Operations Maturity:</strong> Assess system integration and operational efficiency but overlook buyer-facing experience</li>
+                <li><strong>Customer Experience Maturity:</strong> Focus on post-sale engagement; pre-sale demo experiences fall outside these models</li>
+                <li><strong>Digital Transformation Maturity:</strong> Evaluate enabling technologies but don't measure demo experience delivery</li>
+                <li><strong>Product-Led Growth Metrics:</strong> Track what happens after trial entry but ignore orchestration required to get buyers there with proper context</li>
+            </ul>
+
+            <div class="callout">
+                <p style="margin-bottom: 0;"><strong style="color: var(--orange);">The Insight:</strong> No existing framework measures an organization's capability to deliver scalable, contextualized, narratively coherent demo experiences across distributed buying committees. This capability gap sits at the intersection of Sales, RevOps, Product, and Customer Experience, yet belongs fully to none of them. <strong>This is the opening for The Demo Index.</strong></p>
+            </div>
+
+            <h2>The Case for Revenue Experience Maturity</h2>
+
+            <p>
+                The Demo Index introduces <strong>Revenue Experience Maturity</strong> as a distinct organizational capability worthy of measurement, benchmarking, and strategic investment. This capability encompasses five core dimensions that determine whether an organization can meet modern buyer expectations.
+            </p>
+        </section>
+
+        <section class="section" id="maturity-evolution">
+            <h2>The Maturity Evolution</h2>
+
+            <p>
+                Organizations progress through five distinct stages, each with specific capabilities, constraints, and business outcomes:
+            </p>
+
+            <div class="journey-tabs" data-journey-tabs>
+                <div class="journey-tab-list" role="tablist" aria-label="Maturity evolution stages">
+                    <button class="journey-tab" type="button" role="tab" id="maturity-tab-1" aria-selected="true" aria-controls="maturity-panel-1" data-tab-target="maturity-panel-1">DI-1</button>
+                    <button class="journey-tab" type="button" role="tab" id="maturity-tab-2" aria-selected="false" aria-controls="maturity-panel-2" data-tab-target="maturity-panel-2">DI-2</button>
+                    <button class="journey-tab" type="button" role="tab" id="maturity-tab-3" aria-selected="false" aria-controls="maturity-panel-3" data-tab-target="maturity-panel-3">DI-3</button>
+                    <button class="journey-tab" type="button" role="tab" id="maturity-tab-4" aria-selected="false" aria-controls="maturity-panel-4" data-tab-target="maturity-panel-4">DI-4</button>
+                    <button class="journey-tab" type="button" role="tab" id="maturity-tab-5" aria-selected="false" aria-controls="maturity-panel-5" data-tab-target="maturity-panel-5">DI-5</button>
+                </div>
+
+                <div class="journey-panels">
+                    <div class="journey-panel" role="tabpanel" id="maturity-panel-1" aria-labelledby="maturity-tab-1">
+                        <span class="journey-panel-label">Demo Index 1</span>
+                        <h3>Manual Creation</h3>
+                        <p>Every demo is built from scratch. Time-to-Demo measures in weeks, SE capacity becomes the bottleneck, and scale rarely extends beyond 1-2 demos per SE per week.</p>
+                    </div>
+
+                    <div class="journey-panel" role="tabpanel" id="maturity-panel-2" aria-labelledby="maturity-tab-2" hidden>
+                        <span class="journey-panel-label">Demo Index 2</span>
+                        <h3>Templated Reusability</h3>
+                        <p>Standardized templates reduce creation time to days. Templates multiply faster than governance, and fragmentation shifts from between-demo inconsistency to within-library chaos.</p>
+                    </div>
+
+                    <div class="journey-panel" role="tabpanel" id="maturity-panel-3" aria-labelledby="maturity-tab-3" hidden>
+                        <span class="journey-panel-label">Demo Index 3</span>
+                        <h3>Distributed Library</h3>
+                        <p>Centralized libraries enable persona-level customization. However, each demo asset still exists independently, so buyers lose context between assets.</p>
+                        <div class="callout">
+                            <p style="margin-bottom: 0;"><strong style="color: var(--orange);">The DI-3 Plateau:</strong> Most mid-market and enterprise B2B companies operate at Demo Index 3. They have solved the volume problem (producing enough demo content) but not the coherence problem (maintaining narrative integrity). This is where the competitive differentiation opportunity exists.</p>
+                        </div>
+                    </div>
+
+                    <div class="journey-panel" role="tabpanel" id="maturity-panel-4" aria-labelledby="maturity-tab-4" hidden>
+                        <span class="journey-panel-label">Demo Index 4</span>
+                        <h3>Orchestrated Infrastructure</h3>
+                        <p>Organizations implement unified experience orchestration infrastructure. Demos become connected experiences within buyer portals, CRM context injects automatically, state management preserves progress, and narrative integrity becomes infrastructure.</p>
+                    </div>
+
+                    <div class="journey-panel" role="tabpanel" id="maturity-panel-5" aria-labelledby="maturity-tab-5" hidden>
+                        <span class="journey-panel-label">Demo Index 5</span>
+                        <h3>AI-Orchestrated Hyper-Personalization</h3>
+                        <p>AI systems analyze buyer behavior, predict optimal experience composition, and autonomously recommend demo pathways. Self-service portals let anonymous prospects generate hyper-personalized experiences instantly.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Why Organizations Must Invest Now</h2>
+
+            <div class="data-box">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Three Converging Market Forces</strong></p>
+                <ul style="margin-bottom: 0;">
+                    <li><strong>Buyer Expectations Have Shifted:</strong> 67% prefer rep-free experiences, 70% demand self-service</li>
+                    <li><strong>Experience as Differentiator:</strong> Forrester shows 3.2x higher revenue growth and 2.1x higher shareholder returns for superior buyer experiences</li>
+                    <li><strong>AI Enables What Was Impossible:</strong> Infrastructure for DI-4 and DI-5 was technically infeasible five years ago; modern AI makes it achievable today</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section" id="industry-standard">
+            <h2>From Framework to Industry Standard</h2>
+
+            <p>
+                The Demo Index is designed to evolve from thought leadership into an industry-recognized measurement system. This evolution follows a deliberate path:
+            </p>
+
+            <div class="journey-tabs" data-journey-tabs>
+                <div class="journey-tab-list" role="tablist" aria-label="Industry standard phases">
+                    <button class="journey-tab" type="button" role="tab" id="phase-tab-1" aria-selected="true" aria-controls="phase-panel-1" data-tab-target="phase-panel-1">Phase 1</button>
+                    <button class="journey-tab" type="button" role="tab" id="phase-tab-2" aria-selected="false" aria-controls="phase-panel-2" data-tab-target="phase-panel-2">Phase 2</button>
+                    <button class="journey-tab" type="button" role="tab" id="phase-tab-3" aria-selected="false" aria-controls="phase-panel-3" data-tab-target="phase-panel-3">Phase 3</button>
+                    <button class="journey-tab" type="button" role="tab" id="phase-tab-4" aria-selected="false" aria-controls="phase-panel-4" data-tab-target="phase-panel-4">Phase 4</button>
+                    <button class="journey-tab" type="button" role="tab" id="phase-tab-5" aria-selected="false" aria-controls="phase-panel-5" data-tab-target="phase-panel-5">Phase 5</button>
+                </div>
+
+                <div class="journey-panels">
+                    <div class="journey-panel" role="tabpanel" id="phase-panel-1" aria-labelledby="phase-tab-1">
+                        <span class="journey-panel-label">Phase 1</span>
+                        <h3>Framework Introduction</h3>
+                        <p>Establish the intellectual foundation: the problem (narrative fragmentation), the solution (Revenue Experience Maturity), and the measurement system (five capability domains across five maturity levels).</p>
+                    </div>
+
+                    <div class="journey-panel" role="tabpanel" id="phase-panel-2" aria-labelledby="phase-tab-2" hidden>
+                        <span class="journey-panel-label">Phase 2</span>
+                        <h3>Assessment & Adoption</h3>
+                        <p>Deploy the Demo Index Assessment to capture organizational maturity data. Target 50-100 early adopters to validate scoring methodology and refine capability definitions.</p>
+                    </div>
+
+                    <div class="journey-panel" role="tabpanel" id="phase-panel-3" aria-labelledby="phase-tab-3" hidden>
+                        <span class="journey-panel-label">Phase 3</span>
+                        <h3>Benchmark Publication</h3>
+                        <p>Publish the first <em>State of Demo Maturity</em> report with aggregate industry data. Establish baseline benchmarks by vertical, company size, and go-to-market model.</p>
+                    </div>
+
+                    <div class="journey-panel" role="tabpanel" id="phase-panel-4" aria-labelledby="phase-tab-4" hidden>
+                        <span class="journey-panel-label">Phase 4</span>
+                        <h3>Analyst Engagement</h3>
+                        <p>Present research to Gartner, Forrester, and category analysts. Demonstrate correlation between Demo Index scores and business outcomes.</p>
+                    </div>
+
+                    <div class="journey-panel" role="tabpanel" id="phase-panel-5" aria-labelledby="phase-tab-5" hidden>
+                        <span class="journey-panel-label">Phase 5</span>
+                        <h3>Certification & Standards</h3>
+                        <p>Introduce Demo Index Certification for organizations achieving DI-4 and DI-5 maturity. Establish The Demo Index as the recognized standard for Revenue Experience Maturity.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2>The Intellectual Property</h2>
+
+            <p>
+                The Demo Index's defensible intellectual property lies in three breakthrough concepts:
+            </p>
+
+            <h4>1. Narrative Integrity as a Measurable Capability</h4>
+            <p>
+                Framing context preservation, journey coherence, and cross-asset continuity as an infrastructure capability rather than a training problem. This concept is genuinely novel.
+            </p>
+
+            <h4>2. Revenue Experience Maturity as a Category</h4>
+            <p>
+                Positioning demo operations not as a sales enablement task but as a strategic business capability worthy of C-level investment.
+            </p>
+
+            <h4>3. The Capability-Outcome Model</h4>
+            <p>
+                Measuring underlying capabilities that produce business outcomes rather than measuring outputs directly. This analyst-grade structure establishes credibility.
+            </p>
+
+            <div class="callout">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--orange);">The Opportunity:</strong></p>
+                <p style="margin-bottom: 0;">
+                    The first organizations to achieve Demo Index 4 and 5 maturity will establish defensible competitive advantages. They will capture the 67% of buyers preferring rep-free experiences. They will compress sales cycles by eliminating narrative fragmentation. They will scale efficiently by removing SE bottlenecks. And they will set the standard that competitors must eventually match.
+                </p>
+            </div>
+        </section>
+            </main>
+        </div>
+
+    </div>
+
+    <div class="anchor-fab-scrim" data-anchor-fab-scrim hidden></div>
+    <div class="anchor-fab-shell" data-anchor-fab>
+        <nav class="anchor-fab-panel" id="research-anchor-panel" aria-label="Research sections" hidden>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-top active" href="#buying-transformation" aria-label="B2B Buying">Buying</a>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-upper-left" href="#narrative-fragmentation" aria-label="Narrative Fragmentation">Narrative</a>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-upper-right" href="#measurement-gap" aria-label="Measurement Gap">Gap</a>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-lower-left" href="#maturity-evolution" aria-label="Maturity Evolution">Evolution</a>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-lower-right" href="#industry-standard" aria-label="Industry Standard">Standard</a>
+        </nav>
+        <button class="anchor-fab-toggle" type="button" aria-controls="research-anchor-panel" aria-expanded="false">
+            <span class="anchor-fab-toggle-label" aria-hidden="true">
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+            </span>
+        </button>
+    </div>
+
+    <footer>
+        <p><strong>The Demo Index</strong> | Research Manifesto</p>
+        <p style="margin-top: 0.5rem;">© 2026 | <a href="Demo-Index-Framework-Web.html">Framework</a> | <a href="Demo-Index-Methodology-Web.html">Methodology</a> | <a href="Demo-Index-Assessment-Web.html">Assessment</a> | <a href="Demo-Index-Measurement-Engine-Web.html">Technical Specification</a></p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('[data-journey-tabs]').forEach((tabGroup) => {
+            const tabs = Array.from(tabGroup.querySelectorAll('[role="tab"]'));
+            const panels = Array.from(tabGroup.querySelectorAll('[role="tabpanel"]'));
+
+            const setActiveTab = (targetId) => {
+                tabs.forEach((tab) => {
+                    const isActive = tab.dataset.tabTarget === targetId;
+                    tab.setAttribute('aria-selected', String(isActive));
+                    tab.tabIndex = isActive ? 0 : -1;
+                });
+
+                panels.forEach((panel) => {
+                    panel.hidden = panel.id !== targetId;
+                });
+            };
+
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('click', () => {
+                    setActiveTab(tab.dataset.tabTarget);
+                });
+
+                tab.addEventListener('keydown', (event) => {
+                    if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') {
+                        return;
+                    }
+
+                    event.preventDefault();
+
+                    const direction = event.key === 'ArrowRight' ? 1 : -1;
+                    const nextIndex = (index + direction + tabs.length) % tabs.length;
+                    const nextTab = tabs[nextIndex];
+
+                    setActiveTab(nextTab.dataset.tabTarget);
+                    nextTab.focus();
+                });
+            });
+
+            if (tabs[0]) {
+                setActiveTab(tabs[0].dataset.tabTarget);
+            }
+        });
+
+        const researchSectionLinks = Array.from(document.querySelectorAll('.section-index-link'));
+        const researchSections = researchSectionLinks
+            .map((link) => document.querySelector(link.getAttribute('href')))
+            .filter(Boolean);
+        let researchNavLockUntil = 0;
+        const researchAnchorFabToggle = document.querySelector('.anchor-fab-toggle');
+        const researchAnchorFabPanel = document.querySelector('.anchor-fab-panel');
+        const researchAnchorFabScrim = document.querySelector('[data-anchor-fab-scrim]');
+
+        const syncResearchNavHeight = () => {
+            const nav = document.querySelector('.nav');
+            document.documentElement.style.setProperty('--research-nav-height', `${nav ? nav.offsetHeight : 88}px`);
+        };
+
+        const setResearchAnchorFabOpen = (isOpen) => {
+            if (!researchAnchorFabToggle || !researchAnchorFabPanel || !researchAnchorFabScrim) {
+                return;
+            }
+
+            syncResearchNavHeight();
+            researchAnchorFabToggle.setAttribute('aria-expanded', String(isOpen));
+            researchAnchorFabPanel.hidden = !isOpen;
+            researchAnchorFabScrim.hidden = !isOpen;
+            researchAnchorFabPanel.classList.toggle('is-open', isOpen);
+            researchAnchorFabScrim.classList.toggle('is-open', isOpen);
+            document.body.classList.toggle('research-menu-open', isOpen);
+        };
+
+        const getResearchScrollOffset = () => {
+            const nav = document.querySelector('.nav');
+            return (nav ? nav.offsetHeight : 0) + 20;
+        };
+
+        syncResearchNavHeight();
+
+        const setResearchActiveLink = (id) => {
+            researchSectionLinks.forEach((link) => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+            });
+
+            if (researchAnchorFabToggle) {
+                const activeLink = researchSectionLinks.find((link) => link.getAttribute('href') === `#${id}`);
+                const activeLabel = activeLink ? activeLink.getAttribute('aria-label') || activeLink.textContent.trim() : 'current section';
+                researchAnchorFabToggle.setAttribute('aria-label', `Open section menu. Current section: ${activeLabel}`);
+            }
+        };
+
+        if (researchAnchorFabToggle) {
+            researchAnchorFabToggle.addEventListener('click', () => {
+                const isOpen = researchAnchorFabToggle.getAttribute('aria-expanded') === 'true';
+                setResearchAnchorFabOpen(!isOpen);
+            });
+        }
+
+        if (researchAnchorFabScrim) {
+            researchAnchorFabScrim.addEventListener('click', () => setResearchAnchorFabOpen(false));
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                setResearchAnchorFabOpen(false);
+            }
+        });
+
+        researchSectionLinks.forEach((link) => {
+            link.addEventListener('click', (event) => {
+                const targetSelector = link.getAttribute('href');
+                const targetSection = targetSelector ? document.querySelector(targetSelector) : null;
+
+                if (!targetSection) {
+                    return;
+                }
+
+                event.preventDefault();
+
+                setResearchAnchorFabOpen(false);
+                const targetTop = targetSection.getBoundingClientRect().top + window.scrollY - getResearchScrollOffset();
+                researchNavLockUntil = Date.now() + 1200;
+                window.history.replaceState(null, '', targetSelector);
+                window.scrollTo({ top: targetTop, behavior: 'smooth' });
+                setResearchActiveLink(targetSection.id);
+            });
+        });
+
+        if (researchSections.length) {
+            const updateResearchActiveSection = () => {
+                if (Date.now() < researchNavLockUntil) {
+                    return;
+                }
+
+                const threshold = getResearchScrollOffset() + 30;
+                let activeSection = researchSections[0];
+
+                researchSections.forEach((section) => {
+                    if (section.getBoundingClientRect().top <= threshold) {
+                        activeSection = section;
+                    }
+                });
+
+                if (activeSection) {
+                    setResearchActiveLink(activeSection.id);
+                }
+            };
+
+            window.addEventListener('scroll', updateResearchActiveSection, { passive: true });
+            window.addEventListener('resize', updateResearchActiveSection);
+            updateResearchActiveSection();
+        }
+
+        window.addEventListener('resize', () => {
+            syncResearchNavHeight();
+            if (window.innerWidth > 560) {
+                setResearchAnchorFabOpen(false);
+            }
+        });
+
+        window.addEventListener('load', syncResearchNavHeight);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Demo Index | Methodology</title>
+    <script src="../device-router.js?v=20260602c"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+
+        :root {
+            --bg-dark: #090E1B;
+            --bg-darker: #0F1629;
+            --orange: #F97316;
+            --green: #4bcd3e;
+            --text-white: #FFFFFF;
+            --text-grey: #97A3AF;
+            --blue: #00d4ff;
+            --nav-offset: 5.5rem;
+            --methodology-nav-height: 5.5rem;
+            --di-1: #e74c3c;
+            --di-2: #f39c12;
+            --di-3: #B21a53;
+            --di-4: #4bcd3e;
+            --di-5: #00d4ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            color: var(--text-white);
+            background: var(--bg-dark);
+            line-height: 1.6;
+            animation: fadeIn 0.6s ease-in;
+            overflow-x: hidden;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            background: var(--bg-darker);
+            border-bottom: 2px solid var(--orange);
+            padding: 0.9rem 1.5rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .nav-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        .nav-brand img {
+            width: auto;
+            height: 2.6rem;
+            object-fit: contain;
+            display: block;
+            flex: 0 0 auto;
+        }
+
+        .nav-brand-copy {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 0.28rem;
+            font-family: 'Montserrat', 'Segoe UI', sans-serif;
+            font-size: 0.98rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .nav-brand-copy .accent {
+            color: var(--orange);
+        }
+
+        .nav-brand-copy .neutral {
+            color: var(--text-white);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav-links a {
+            color: var(--text-grey);
+            text-decoration: none;
+            font-size: 0.92rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--orange);
+        }
+
+        .nav-links a.active {
+            color: var(--orange);
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .methodology-layout {
+            display: grid;
+            grid-template-columns: 240px minmax(0, 1fr);
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .section-index {
+            position: sticky;
+            top: var(--nav-offset);
+            align-self: start;
+            background: rgba(15, 22, 41, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 1.25rem;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.16);
+        }
+
+        .section-index-label {
+            display: block;
+            color: var(--orange);
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-size: 0.76rem;
+            margin-bottom: 0.85rem;
+            font-weight: 700;
+        }
+
+        .section-index-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .section-index-link {
+            color: var(--text-grey);
+            text-decoration: none;
+            padding: 0.7rem 0.85rem;
+            border-radius: 10px;
+            border: 1px solid transparent;
+            transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+            font-size: 0.94rem;
+            line-height: 1.4;
+        }
+
+        .section-index-link:hover,
+        .section-index-link:focus-visible {
+            color: var(--text-white);
+            background: rgba(75, 205, 62, 0.08);
+            border-color: rgba(75, 205, 62, 0.22);
+            outline: none;
+            transform: translateX(2px);
+        }
+
+        .section-index-link.active {
+            color: var(--text-white);
+            background: rgba(75, 205, 62, 0.14);
+            border-color: rgba(75, 205, 62, 0.32);
+            box-shadow: inset 3px 0 0 var(--green);
+        }
+
+        .anchor-fab-shell,
+        .anchor-fab-scrim {
+            display: none;
+        }
+
+        .anchor-fab-toggle {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 4.75rem;
+            height: 4.75rem;
+            border: 1px solid rgba(176, 255, 170, 0.4);
+            border-radius: 50%;
+            background: rgba(75, 205, 62, 0.98);
+            color: var(--text-white);
+            padding: 0;
+            box-shadow: 0 18px 36px rgba(18, 57, 14, 0.38);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            z-index: 2;
+            opacity: 0.75;
+        }
+
+        .anchor-fab-toggle::before {
+            content: '';
+            position: absolute;
+            inset: 0.7rem;
+            border-radius: 50%;
+            border: 0.22rem solid rgba(255, 255, 255, 0.2);
+        }
+
+        .anchor-fab-toggle-label {
+            position: relative;
+            z-index: 1;
+            display: inline-grid;
+            grid-template-columns: repeat(3, 0.26rem);
+            gap: 0.18rem;
+            align-items: center;
+            justify-content: center;
+            transform: translateY(-0.22rem);
+        }
+
+        .anchor-fab-toggle-dot {
+            width: 0.26rem;
+            height: 0.26rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+        }
+
+        .anchor-fab-toggle:hover,
+        .anchor-fab-toggle:focus-visible {
+            transform: translateX(-50%) translateY(-1px);
+            box-shadow: 0 20px 40px rgba(18, 57, 14, 0.46);
+            border-color: rgba(217, 255, 214, 0.86);
+            outline: none;
+        }
+
+        .anchor-fab-toggle[aria-expanded='true'] {
+            border-color: rgba(217, 255, 214, 0.92);
+            box-shadow: 0 22px 42px rgba(18, 57, 14, 0.52);
+        }
+
+        .anchor-fab-panel {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .anchor-fab-panel.is-open {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        .anchor-fab-panel[hidden],
+        .anchor-fab-scrim[hidden] {
+            display: none;
+        }
+
+        body.methodology-menu-open {
+            overflow: hidden;
+        }
+
+        .anchor-fab-link {
+            position: absolute;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 5.2rem;
+            min-height: 2.35rem;
+            padding: 0.52rem 0.72rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(29, 31, 38, 0.98);
+            color: var(--text-white);
+            text-align: center;
+            font-size: 0.64rem;
+            line-height: 1.2;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+            white-space: nowrap;
+            opacity: 0;
+            transition: transform 0.24s ease, opacity 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+        }
+
+        .anchor-fab-link-top {
+            left: 50%;
+            bottom: 10rem;
+            transform: translateX(-50%) scale(0.78);
+        }
+
+        .anchor-fab-link-upper-left {
+            left: 0.65rem;
+            bottom: 7.95rem;
+            transform: scale(0.78);
+        }
+
+        .anchor-fab-link-upper-right {
+            right: 0.65rem;
+            bottom: 7.95rem;
+            transform: scale(0.78);
+        }
+
+        .anchor-fab-link-lower-left {
+            left: 1.5rem;
+            bottom: 4.95rem;
+            transform: scale(0.78);
+        }
+
+        .anchor-fab-link-lower-right {
+            right: 1.5rem;
+            bottom: 4.95rem;
+            transform: scale(0.78);
+        }
+
+        .anchor-fab-link-bottom {
+            left: 50%;
+            bottom: 5.1rem;
+            transform: translateX(-50%) scale(0.78);
+        }
+
+        .anchor-fab-link::after {
+            display: none;
+        }
+
+        .anchor-fab-panel.is-open .anchor-fab-link {
+            opacity: 1;
+        }
+
+        .anchor-fab-panel.is-open .anchor-fab-link-top,
+        .anchor-fab-panel.is-open .anchor-fab-link-bottom {
+            transform: translateX(-50%) scale(1);
+        }
+
+        .anchor-fab-panel.is-open .anchor-fab-link-upper-left,
+        .anchor-fab-panel.is-open .anchor-fab-link-upper-right,
+        .anchor-fab-panel.is-open .anchor-fab-link-lower-left,
+        .anchor-fab-panel.is-open .anchor-fab-link-lower-right {
+            transform: scale(1);
+        }
+
+        .anchor-fab-link:hover,
+        .anchor-fab-link:focus-visible,
+        .anchor-fab-link.active {
+            color: var(--text-white);
+            background: linear-gradient(135deg, rgba(61, 138, 54, 0.98) 0%, rgba(75, 205, 62, 0.98) 100%);
+            border-color: rgba(176, 255, 170, 0.92);
+            box-shadow: 0 14px 28px rgba(34, 95, 29, 0.34);
+        }
+
+        .methodology-content {
+            min-width: 0;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            scroll-margin-top: calc(var(--nav-offset) + 1.25rem);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--orange);
+            margin-bottom: 0.5rem;
+            line-height: 1.04;
+        }
+
+        .page-title-line {
+            display: block;
+        }
+
+        .page-title-line.page-title-kicker {
+            font-size: 0.42em;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-white);
+            margin-bottom: 0.16rem;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: var(--orange);
+            margin: 2.5rem 0 1.5rem 0;
+            padding-left: 1rem;
+            border-left: 4px solid var(--orange);
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--orange);
+            margin: 2rem 0 1rem 0;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            color: var(--text-white);
+            margin: 1.5rem 0 0.75rem 0;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-grey);
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 0.96rem;
+            color: var(--text-grey);
+            margin-bottom: 1.15rem;
+            font-style: italic;
+        }
+
+        .intro-box {
+            background:
+                radial-gradient(circle at top right, rgba(0, 212, 255, 0.12), transparent 34%),
+                linear-gradient(135deg, rgba(249, 115, 22, 0.16) 0%, rgba(249, 115, 22, 0.06) 42%, rgba(255, 255, 255, 0.02) 100%);
+            border: 1px solid rgba(249, 115, 22, 0.26);
+            border-radius: 14px;
+            padding: 1.2rem 1.15rem;
+            margin-bottom: 1.7rem;
+            text-align: left;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+        }
+
+        .intro-box p {
+            font-size: 0.95rem;
+            color: var(--text-white);
+            margin-bottom: 0;
+            line-height: 1.62;
+        }
+
+        .intro-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-white);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .intro-eyebrow::before {
+            content: '';
+            width: 0.45rem;
+            height: 0.45rem;
+            border-radius: 999px;
+            background: var(--green);
+            box-shadow: 0 0 0 0.18rem rgba(75, 205, 62, 0.14);
+        }
+
+        .intro-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+            margin-top: 0.9rem;
+        }
+
+        .intro-highlight {
+            display: inline-flex;
+            align-items: center;
+            min-height: 2rem;
+            padding: 0.42rem 0.72rem;
+            border-radius: 999px;
+            background: rgba(15, 22, 41, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.74rem;
+            letter-spacing: 0.02em;
+        }
+
+        .callout {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(249, 115, 22, 0.02) 100%);
+            border: 1px solid var(--orange);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .callout.current-state {
+            background: linear-gradient(135deg, rgba(75, 205, 62, 0.12) 0%, rgba(75, 205, 62, 0.03) 100%);
+            border-color: rgba(75, 205, 62, 0.8);
+            box-shadow: 0 10px 24px rgba(75, 205, 62, 0.08);
+        }
+
+        .spec-box {
+            background: rgba(0, 212, 255, 0.05);
+            border-left: 4px solid var(--blue);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .definition-box {
+            background: rgba(249, 115, 22, 0.05);
+            border-left: 4px solid var(--orange);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .measures-tabs {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.12) 0%, rgba(0, 212, 255, 0.05) 100%);
+            border: 1px solid rgba(249, 115, 22, 0.35);
+            border-radius: 14px;
+            padding: 2rem;
+            margin: 2rem 0 2.5rem;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+        }
+
+        .measures-tabs h3 {
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+        }
+
+        .measures-tabs-intro {
+            max-width: 760px;
+            color: var(--text-white);
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+        }
+
+        .measures-tab-cue {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.38rem;
+            margin-bottom: 0.55rem;
+            color: rgba(255, 255, 255, 0.62);
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .measures-tab-cue::after {
+            content: '→';
+            color: var(--orange);
+            font-size: 0.92rem;
+            line-height: 1;
+        }
+
+        .measures-tab-strip {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .measures-tab-list {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 1.1rem;
+            margin-bottom: 0;
+            overflow-x: auto;
+            padding-bottom: 0.35rem;
+            scrollbar-width: none;
+        }
+
+        .measures-tab-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        .measures-tab {
+            appearance: none;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.56);
+            border-radius: 0;
+            padding: 0.2rem 0 0.7rem;
+            font: inherit;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+        }
+
+        .measures-tab::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 2px;
+            border-radius: 999px;
+            background: var(--orange);
+            opacity: 0;
+            transform: scaleX(0.35);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .measures-tab:hover,
+        .measures-tab:focus-visible {
+            color: var(--text-white);
+            outline: none;
+        }
+
+        .measures-tab[aria-selected="true"] {
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        .measures-tab[aria-selected="true"]::after {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        .measures-panel {
+            background: rgba(15, 22, 41, 0.84);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .measures-panel[hidden] {
+            display: none;
+        }
+
+        .measures-panel-label {
+            display: inline-block;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.78rem;
+            margin-bottom: 0.65rem;
+        }
+
+        .measures-panel h4 {
+            margin-top: 0;
+            margin-bottom: 0.8rem;
+            font-size: clamp(1.35rem, 2.4vw, 1.8rem);
+        }
+
+        .measures-panel p {
+            margin-bottom: 0;
+            color: var(--text-white);
+            max-width: 820px;
+        }
+
+        .roadmap-carousel {
+            position: relative;
+            margin: 1.75rem 0 2rem;
+            padding: 0 4rem;
+        }
+
+        .roadmap-carousel-track {
+            overflow: hidden;
+            width: 100%;
+            padding: 0.5rem 0 1rem;
+            margin: -0.5rem 0 -0.5rem;
+        }
+
+        .roadmap-carousel-grid {
+            display: flex;
+            gap: 1.5rem;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .roadmap-slide {
+            flex: 0 0 100%;
+            min-width: 0;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015));
+            border: 1px solid rgba(249, 115, 22, 0.18);
+            border-radius: 14px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+        }
+
+        .roadmap-slide-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: nowrap;
+        }
+
+        .roadmap-slide-step {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.35rem 0.75rem;
+            border-radius: 999px;
+            background: rgba(75, 205, 62, 0.16);
+            color: var(--green);
+                font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        .roadmap-slide h4 {
+            margin: 0;
+            font-size: clamp(1.25rem, 2.6vw, 1.7rem);
+            flex: 1;
+        }
+
+        .roadmap-slide ul {
+            margin: 1rem 0 0;
+            padding-left: 1.15rem;
+        }
+
+        .roadmap-slide li {
+            margin-bottom: 0.8rem;
+        }
+
+        .roadmap-slide li:last-child {
+            margin-bottom: 0;
+        }
+
+        .roadmap-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(249, 115, 22, 0.8);
+            border: none;
+            color: var(--bg-dark);
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .roadmap-nav:hover {
+            background: var(--green);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .roadmap-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .roadmap-nav:disabled:hover {
+            transform: translateY(-50%) scale(1);
+        }
+
+        .roadmap-nav.prev {
+            left: 0;
+        }
+
+        .roadmap-nav.next {
+            right: 0;
+        }
+
+        .roadmap-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.25rem;
+        }
+
+        .roadmap-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .roadmap-indicator.active {
+            background: var(--green);
+            width: 30px;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: rgba(249, 115, 22, 0.1);
+            color: var(--orange);
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--orange);
+            font-weight: 600;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-grey);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        ul {
+            margin: 1rem 0 1rem 2rem;
+            color: var(--text-grey);
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        strong {
+            color: var(--text-white);
+        }
+
+        #benchmark-integrity.section {
+            margin-bottom: 0.65rem;
+        }
+
+        #benchmark-integrity .callout:last-child {
+            margin-bottom: 0;
+        }
+
+        footer {
+            background: var(--bg-darker);
+            border-top: 2px solid var(--orange);
+            padding: 3rem 2rem;
+            margin-top: 0.85rem;
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-grey);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--orange);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--green);
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 0.85rem 1rem;
+            }
+
+            .nav-brand {
+                max-width: 12rem;
+            }
+
+            .nav-brand img {
+                height: 2rem;
+            }
+
+            .nav-links {
+                gap: 0.85rem;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            .methodology-layout {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .section-index {
+                position: static;
+                padding: 1rem;
+            }
+
+            .section-index-list {
+                gap: 0.6rem;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            th, td {
+                padding: 0.75rem 0.5rem;
+            }
+
+            h2 {
+                padding-left: 0.75rem;
+                border-left-width: 3px;
+            }
+
+            .measures-tabs {
+                padding: 1.5rem;
+            }
+
+            .measures-tab-list {
+                gap: 1rem;
+            }
+
+            .measures-tab {
+                width: auto;
+                text-align: center;
+            }
+
+            .roadmap-carousel {
+                padding: 0 2.5rem;
+            }
+
+            .roadmap-slide {
+                padding: 1.5rem;
+            }
+
+            .roadmap-nav {
+                width: 2.5rem;
+                height: 2.5rem;
+                font-size: 1.2rem;
+            }
+
+            .roadmap-nav.prev {
+                left: -0.5rem;
+            }
+
+            .roadmap-nav.next {
+                right: -0.5rem;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .nav {
+                padding: 0.75rem 0.85rem;
+                gap: 0.75rem;
+                align-items: flex-start;
+            }
+
+            .nav-brand {
+                width: 100%;
+                max-width: none;
+                justify-content: center;
+            }
+
+            .nav-brand img {
+                height: 1.9rem;
+                width: 1.9rem;
+            }
+
+            .nav-links {
+                width: 100%;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                overflow-x: auto;
+                gap: 0.55rem;
+                gap: 1.35rem;
+                padding-bottom: 0.35rem;
+                scrollbar-width: none;
+            }
+
+            .nav-links::-webkit-scrollbar {
+                display: none;
+            }
+
+            .nav-links a {
+                white-space: nowrap;
+                font-size: 0.8rem;
+                padding: 0.2rem 0 0.7rem;
+                border: none;
+                border-radius: 0;
+                background: transparent;
+                color: rgba(255, 255, 255, 0.56);
+                font-weight: 500;
+                position: relative;
+            }
+
+            .nav-links a::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 2px;
+                border-radius: 999px;
+                background: var(--orange);
+                opacity: 0;
+                transform: scaleX(0.35);
+                transition: opacity 0.25s ease, transform 0.25s ease;
+            }
+
+            .nav-links a:hover,
+            .nav-links a.active {
+                color: var(--text-white);
+                font-weight: 600;
+            }
+
+            .nav-links a.active::after {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+
+            .container {
+                padding: 1rem 0.85rem 6.75rem;
+            }
+
+            .section {
+                margin-bottom: 3rem;
+            }
+
+            .section-index {
+                display: none;
+            }
+
+            .section-index-list {
+                flex-direction: row;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 0.35rem;
+                scrollbar-width: none;
+            }
+
+            .section-index-list::-webkit-scrollbar {
+                display: none;
+            }
+
+            .section-index-link {
+                flex: 0 0 auto;
+                white-space: nowrap;
+                font-size: 0.8rem;
+                padding: 0.55rem 0.75rem;
+            }
+
+            h1 {
+                font-size: clamp(1.85rem, 8vw, 2.45rem);
+            }
+
+            h2 {
+                font-size: 1.35rem;
+                margin: 1.8rem 0 1rem;
+            }
+
+            h3 {
+                font-size: 1.1rem;
+            }
+
+            .intro-box,
+            .callout,
+            .spec-box,
+            .definition-box,
+            .measures-tabs,
+            .roadmap-slide {
+                padding: 1rem;
+            }
+
+            .intro-box {
+                padding: 1rem;
+                margin-bottom: 1.45rem;
+            }
+
+            .intro-highlights {
+                gap: 0.45rem;
+            }
+
+            .intro-highlight {
+                font-size: 0.7rem;
+                padding: 0.36rem 0.62rem;
+            }
+
+            .measures-tab-list {
+                gap: 1rem;
+            }
+
+            .measures-tab-cue {
+                font-size: 0.64rem;
+            }
+
+            .measures-tab-list::-webkit-scrollbar {
+                display: none;
+            }
+
+            .measures-tab {
+                width: auto;
+                flex: 0 0 auto;
+                white-space: nowrap;
+                text-align: center;
+                font-size: 0.8rem;
+            }
+
+            .roadmap-carousel {
+                padding: 0 1.95rem;
+            }
+
+            .roadmap-nav {
+                width: 2.2rem;
+                height: 2.2rem;
+                font-size: 1rem;
+            }
+
+            footer {
+                padding: 1.5rem 1rem 6rem;
+                margin-top: 0.45rem;
+            }
+
+            .anchor-fab-panel {
+                top: auto;
+                right: auto;
+                bottom: 4.9rem;
+                left: 50%;
+                width: 100%;
+                max-width: min(12rem, calc(100vw - 1.5rem));
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.42rem;
+                transform: translateX(-50%) translateY(0.35rem) scale(0.96);
+                transform-origin: bottom center;
+            }
+
+            .anchor-fab-panel .anchor-fab-link {
+                position: relative;
+                inset: auto;
+                width: 100%;
+                min-width: 0;
+                min-height: 2rem;
+                padding: 0.42rem 0.72rem;
+                border-radius: 999px;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                background: rgba(29, 31, 38, 0.98);
+                color: var(--text-white);
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+                font-size: 0.62rem;
+                line-height: 1.1;
+                letter-spacing: 0.02em;
+                justify-content: center;
+                transform: translateY(0.25rem) scale(0.94);
+            }
+
+            .anchor-fab-panel .anchor-fab-link::after {
+                display: none;
+            }
+
+            .anchor-fab-panel.is-open .anchor-fab-link {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            .anchor-fab-panel.is-open {
+                transform: translateX(-50%) translateY(0) scale(1);
+            }
+
+            .anchor-fab-panel .anchor-fab-link:hover,
+            .anchor-fab-panel .anchor-fab-link:focus-visible,
+            .anchor-fab-panel .anchor-fab-link.active {
+                color: var(--text-white);
+                background: linear-gradient(135deg, rgba(61, 138, 54, 0.98) 0%, rgba(75, 205, 62, 0.98) 100%);
+                border-color: rgba(176, 255, 170, 0.92);
+                box-shadow: 0 14px 28px rgba(34, 95, 29, 0.34);
+            }
+
+            .anchor-fab-scrim.is-open {
+                display: block;
+                position: fixed;
+                top: var(--methodology-nav-height);
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background:
+                    radial-gradient(circle at 50% 88%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.06) 18%, rgba(9, 14, 27, 0.12) 36%, rgba(9, 14, 27, 0.62) 100%),
+                    linear-gradient(180deg, rgba(9, 14, 27, 0.18) 0%, rgba(9, 14, 27, 0.7) 100%);
+                backdrop-filter: blur(6px) saturate(118%);
+                -webkit-backdrop-filter: blur(6px) saturate(118%);
+                z-index: 1190;
+                transition: opacity 0.22s ease, backdrop-filter 0.22s ease;
+            }
+
+            .anchor-fab-shell {
+                position: fixed;
+                left: 50%;
+                bottom: 1rem;
+                transform: translateX(-50%);
+                z-index: 1200;
+                display: block;
+                width: min(12rem, calc(100vw - 1.5rem));
+                max-width: calc(100vw - 1.5rem);
+                height: 17rem;
+                pointer-events: auto;
+            }
+        }
+        @media (max-width: 560px) {
+            .nav-links a {
+                color: rgba(255, 255, 255, 0.56);
+                padding-bottom: 0.7rem;
+            }
+
+            .nav-links a:hover,
+            .nav-links a.active {
+                color: var(--text-white);
+            }
+        }
+
+        @media (max-width: 430px) {
+            .nav {
+                padding: 0.45rem max(0.65rem, env(safe-area-inset-right)) 0.45rem max(0.65rem, env(safe-area-inset-left));
+                gap: 0.4rem;
+            }
+
+            .nav-brand img {
+                height: 1.45rem;
+                width: 1.45rem;
+            }
+
+            .nav-brand-copy {
+                font-size: 0.74rem;
+                letter-spacing: 0.06em;
+                gap: 0.12rem;
+            }
+
+            .nav-links {
+                gap: 0.8rem;
+                padding-bottom: 0.2rem;
+            }
+
+            .nav-links a {
+                font-size: 0.74rem;
+                padding-bottom: 0.45rem;
+            }
+
+            .container {
+                padding: 0.85rem 0.7rem 6.35rem;
+            }
+
+            .section {
+                margin-bottom: 2.2rem;
+            }
+
+            h1 {
+                font-size: clamp(1.7rem, 7.4vw, 2.25rem);
+            }
+
+            h2 {
+                font-size: 1.2rem;
+                margin: 1.55rem 0 0.85rem;
+            }
+
+            h3 {
+                font-size: 1rem;
+            }
+
+            p,
+            li {
+                font-size: 0.94rem;
+            }
+
+            .section-index-link,
+            .measures-tab,
+            .roadmap-step,
+            .roadmap-stage {
+                font-size: 0.74rem;
+            }
+
+            .anchor-fab-toggle {
+                width: 4.15rem;
+                height: 4.15rem;
+            }
+
+            .anchor-fab-toggle::before {
+                inset: 0.62rem;
+            }
+
+            .anchor-fab-toggle-label {
+                grid-template-columns: repeat(3, 0.22rem);
+                gap: 0.15rem;
+            }
+
+            .anchor-fab-toggle-dot {
+                width: 0.22rem;
+                height: 0.22rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav-brand"><img src="di-icon.png" alt="The Demo Index icon"><span class="nav-brand-copy" aria-label="The Demo Index"><span class="neutral">THE</span><span class="accent">DEMO</span><span class="neutral">INDEX</span></span></div>
+        <div class="nav-links">
+            <a href="index.html">Hub</a>
+            <a href="Demo-Index-Framework-Web.html">Framework</a>
+            <a href="#" class="active">Methodology</a>
+            <a href="Demo-Index-Assessment-Web.html">Assessment</a>
+            <a href="Demo-Index-Research-Manifesto-Web.html">Research</a>
+            <a href="Demo-Index-Measurement-Engine-Web.html">Technical Spec</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <section class="section section-header">
+            <h1>
+                <span class="page-title-line page-title-kicker">Index</span>
+                <span class="page-title-line">Methodology</span>
+            </h1>
+            <p class="subtitle">Assessment framework and measurement specification</p>
+            
+            <div class="intro-box">
+                <span class="intro-eyebrow">Methodology At A Glance</span>
+                <p>This page defines how the Demo Index evaluates capability maturity, converts findings into weighted scores, and builds toward credible industry benchmarks.</p>
+                <div class="intro-highlights" aria-label="Methodology highlights">
+                    <span class="intro-highlight">5 capability domains</span>
+                    <span class="intro-highlight">Weighted scoring logic</span>
+                    <span class="intro-highlight">Benchmark roadmap</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="methodology-layout">
+            <aside class="section-index" aria-label="Methodology sections">
+                <span class="section-index-label">On This Page</span>
+                <nav class="section-index-list">
+                    <a class="section-index-link active" href="#purpose">1. Purpose</a>
+                    <a class="section-index-link" href="#measurement-layer">2. Measurement Layer</a>
+                    <a class="section-index-link" href="#weighting-model">3. Weighting Model</a>
+                    <a class="section-index-link" href="#maturity-bands">4. Maturity Bands</a>
+                    <a class="section-index-link" href="#benchmark-integrity">5. Benchmark Integrity</a>
+                </nav>
+            </aside>
+
+            <main class="methodology-content">
+        <section class="section" id="purpose">
+            <h2>1. Purpose</h2>
+
+            <p>
+                The Demo Index measures an organization's ability to deliver scalable, contextualized, and personalized buyer experiences across the full spectrum of demo operations, from initial prospect engagement through post-sales adoption.
+            </p>
+
+            <p>
+                Unlike traditional sales enablement or product marketing assessments, the Demo Index specifically evaluates the infrastructure, processes, and capabilities required to orchestrate high-velocity, high-personalization demo services at scale.
+            </p>
+
+            <div class="measures-tabs" data-tabs>
+                <h3>What The Demo Index Measures</h3>
+                <p class="measures-tabs-intro">
+                    The Demo Index evaluates five interconnected capabilities that determine whether an organization can deliver fast, contextual, narratively coherent, and increasingly autonomous demo experiences at scale.
+                </p>
+
+                <div class="measures-tab-cue" aria-hidden="true">Swipe for more</div>
+                <div class="measures-tab-strip">
+                    <div class="measures-tab-list" role="tablist" aria-label="Demo Index measurement dimensions">
+                        <button class="measures-tab" type="button" role="tab" id="measure-tab-delivery" aria-selected="true" aria-controls="measure-panel-delivery" data-tab-target="measure-panel-delivery">Experience Delivery</button>
+                        <button class="measures-tab" type="button" role="tab" id="measure-tab-context" aria-selected="false" aria-controls="measure-panel-context" data-tab-target="measure-panel-context">Context Intelligence</button>
+                        <button class="measures-tab" type="button" role="tab" id="measure-tab-narrative" aria-selected="false" aria-controls="measure-panel-narrative" data-tab-target="measure-panel-narrative">Narrative Integrity</button>
+                        <button class="measures-tab" type="button" role="tab" id="measure-tab-orchestration" aria-selected="false" aria-controls="measure-panel-orchestration" data-tab-target="measure-panel-orchestration">Orchestration Capability</button>
+                        <button class="measures-tab" type="button" role="tab" id="measure-tab-autonomy" aria-selected="false" aria-controls="measure-panel-autonomy" data-tab-target="measure-panel-autonomy">Buyer Autonomy</button>
+                    </div>
+                </div>
+
+                <div class="measures-panels">
+                    <div class="measures-panel" role="tabpanel" id="measure-panel-delivery" aria-labelledby="measure-tab-delivery">
+                        <span class="measures-panel-label">Dimension 01</span>
+                        <h4>Experience Delivery</h4>
+                        <p>The organizational capability to create, provision, and deploy personalized demo experiences at scale. Measured through Time-to-Demo outcomes: velocity and parallel delivery capacity.</p>
+                    </div>
+
+                    <div class="measures-panel" role="tabpanel" id="measure-panel-context" aria-labelledby="measure-tab-context" hidden>
+                        <span class="measures-panel-label">Dimension 02</span>
+                        <h4>Context Intelligence</h4>
+                        <p>The capability to capture, interpret, and apply buyer context, account signals, and behavioral intelligence across demo experiences. Measured through Personalization outcomes: level of relevance and customization depth.</p>
+                    </div>
+
+                    <div class="measures-panel" role="tabpanel" id="measure-panel-narrative" aria-labelledby="measure-tab-narrative" hidden>
+                        <span class="measures-panel-label">Dimension 03</span>
+                        <h4>Narrative Integrity</h4>
+                        <p>The ability to preserve buyer context, value alignment, and journey continuity across multiple demo touchpoints, assets, and interactions. Measures coherence, not just customization.</p>
+                    </div>
+
+                    <div class="measures-panel" role="tabpanel" id="measure-panel-orchestration" aria-labelledby="measure-tab-orchestration" hidden>
+                        <span class="measures-panel-label">Dimension 04</span>
+                        <h4>Orchestration Capability</h4>
+                        <p>The infrastructure maturity enabling automated demo assembly, deployment, and experience delivery without manual intervention. Measured through automation percentage and system integration depth.</p>
+                    </div>
+
+                    <div class="measures-panel" role="tabpanel" id="measure-panel-autonomy" aria-labelledby="measure-tab-autonomy" hidden>
+                        <span class="measures-panel-label">Dimension 05</span>
+                        <h4>Buyer Autonomy</h4>
+                        <p>The capability to enable prospects to generate, explore, and engage with personalized demo experiences independently without requiring sales or SE involvement. Measured through self-service adoption and buyer-initiated experience rates.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="measurement-layer">
+            <h2>2. Measurement Layer Specification</h2>
+
+            <p>
+                The Demo Index employs a dual-track measurement approach combining <strong>declarative scoring</strong> (what organizations report they do) with <strong>empirical scoring</strong> (what systems demonstrate they actually do). This separation increases measurement validity and reduces self-assessment bias.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Measurement Track</th>
+                        <th>Data Source</th>
+                        <th>Validity Constraint</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Declarative Score</strong></td>
+                        <td>Self-reported assessment responses, process documentation, stated capabilities</td>
+                        <td>Subject to perception bias; requires external validation at higher maturity levels</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Empirical Score</strong></td>
+                        <td>System telemetry, CRM logs, demo platform analytics, timestamp data, integration evidence</td>
+                        <td>Objective but requires technical instrumentation; not available for all dimensions at DI-1/DI-2</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="callout current-state">
+                <p style="margin-bottom: 0;"><strong style="color: var(--orange);">Current State (V1.0):</strong> The initial Demo Index assessment relies primarily on declarative scoring due to the absence of standardized telemetry infrastructure across organizations. Future versions will introduce empirical validation layers as measurement instrumentation matures and integrations become available.</p>
+            </div>
+
+            <h3>Observable Signals & System Evidence</h3>
+
+            <p>
+                Each capability dimension requires specific observable signals and system evidence to validate scoring accuracy. Organizations at DI-4 and DI-5 require empirical validation; declarative-only scores are capped at DI-3 equivalent (60 points).
+            </p>
+
+            <h4>Narrative Integrity Sub-Metrics</h4>
+
+            <ul>
+                <li><strong>Context Persistence Score:</strong> % of sessions where buyer context is retained across interactions</li>
+                <li><strong>Journey Continuity Index:</strong> % of multi-session journeys maintaining narrative thread</li>
+                <li><strong>Cross-Asset Coherence Rate:</strong> Consistency of value messaging across demo assets</li>
+                <li><strong>Session State Stability:</strong> Successful context restoration rate after session interruption</li>
+                <li><strong>Stakeholder Context Mapping:</strong> % of multi-stakeholder accounts with individual narrative tracking</li>
+            </ul>
+        </section>
+
+        <section class="section" id="weighting-model">
+            <h2>3. Weighting Model</h2>
+
+            <p>
+                Each capability dimension contributes to the overall Demo Index Score through a weighted calculation. The weighting reflects the relative importance of each dimension to overall demo operations maturity.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Capability Dimension</th>
+                        <th style="text-align: center;">Weight</th>
+                        <th>Rationale</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Experience Delivery</strong></td>
+                        <td style="text-align: center;"><strong style="color: var(--orange);">25%</strong></td>
+                        <td>Velocity directly impacts revenue efficiency and sales capacity.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Context Intelligence</strong></td>
+                        <td style="text-align: center;"><strong style="color: var(--orange);">25%</strong></td>
+                        <td>Relevance drives conversion and buyer engagement quality.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Narrative Integrity</strong></td>
+                        <td style="text-align: center;"><strong style="color: var(--orange);">20%</strong></td>
+                        <td>Context preservation differentiates mature demo operations.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Orchestration Capability</strong></td>
+                        <td style="text-align: center;"><strong style="color: var(--orange);">15%</strong></td>
+                        <td>Infrastructure maturity enables scale and reduces operational burden.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Buyer Autonomy</strong></td>
+                        <td style="text-align: center;"><strong style="color: var(--orange);">15%</strong></td>
+                        <td>Self-service capability captures modern buyer preferences and expands reach.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="section" id="maturity-bands">
+            <h2>4. Maturity Bands</h2>
+
+            <p>
+                Organizations are classified into one of five Demo Index maturity levels based on their overall score. Each band represents a distinct stage in demo operations evolution.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th style="text-align: center;">Score Range</th>
+                        <th style="text-align: center;">Classification</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align: center;"><strong>0-20</strong></td>
+                        <td style="text-align: center;"><strong style="color: var(--di-1);">DI-1</strong></td>
+                        <td>Manual demo creation with no standardization or reusable infrastructure.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>21-40</strong></td>
+                        <td style="text-align: center;"><strong style="color: var(--di-2);">DI-2</strong></td>
+                        <td>Standardized demo templates with basic reusability but limited personalization.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>41-60</strong></td>
+                        <td style="text-align: center;"><strong style="color: var(--di-3);">DI-3</strong></td>
+                        <td>Distributed demo library with persona-level customization and some automation.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>61-80</strong></td>
+                        <td style="text-align: center;"><strong style="color: var(--di-4);">DI-4</strong></td>
+                        <td>Orchestrated infrastructure enabling account-level personalization at scale.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>81-100</strong></td>
+                        <td style="text-align: center;"><strong style="color: var(--di-5);">DI-5</strong></td>
+                        <td>AI-orchestrated hyper-personalization with self-service and autonomous adaptation.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="section" id="benchmark-integrity">
+            <h2>5. Benchmark Integrity & Future Research</h2>
+
+            <div class="callout">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--orange);">Critical Transparency Statement:</strong></p>
+                <p style="margin-bottom: 0;"><strong>The Demo Index framework does not yet have external benchmark data.</strong> Version 1.0 represents a research-derived maturity model built on documented buyer behavior patterns, observed demo operations practices, and structured capability analysis. <strong>Industry benchmarking requires cohort participation and data accumulation before comparative scores become statistically valid.</strong> This section outlines the roadmap to establish benchmark authority.</p>
+            </div>
+
+            <h3>The Path to Benchmark Credibility</h3>
+
+            <p>
+                Establishing The Demo Index as an industry-standard measurement system requires a phased approach to data collection, validation, and benchmark publication:
+            </p>
+
+            <div class="roadmap-carousel" data-roadmap-carousel>
+                <button class="roadmap-nav prev" type="button" aria-label="Previous phase">‹</button>
+
+                <div class="roadmap-carousel-track">
+                    <div class="roadmap-carousel-grid">
+                        <article class="roadmap-slide">
+                            <div class="roadmap-slide-header">
+                                <h4>Benchmark Cohort Program (Current State)</h4>
+                                <span class="roadmap-slide-step">Phase 0</span>
+                            </div>
+                            <ul>
+                                <li><strong>Target:</strong> Recruit 50-100 early-adopter organizations to complete assessments</li>
+                                <li><strong>Purpose:</strong> Generate initial dataset for scoring distribution analysis</li>
+                                <li><strong>Output:</strong> Internal validation of assessment instrument and scoring methodology</li>
+                                <li><strong>Timeline:</strong> 6 months from framework publication</li>
+                            </ul>
+                        </article>
+
+                        <article class="roadmap-slide">
+                            <div class="roadmap-slide-header">
+                                <h4>Validation & Correlation Study</h4>
+                                <span class="roadmap-slide-step">Phase 1</span>
+                            </div>
+                            <ul>
+                                <li><strong>Target:</strong> 100-250 participating organizations with consent for anonymized data usage</li>
+                                <li><strong>Purpose:</strong> Validate correlation between Demo Index scores and revenue outcomes</li>
+                                <li><strong>Output:</strong> Statistical evidence linking capability maturity to business performance</li>
+                                <li><strong>Timeline:</strong> 12 months post-launch</li>
+                            </ul>
+                        </article>
+
+                        <article class="roadmap-slide">
+                            <div class="roadmap-slide-header">
+                                <h4>First Industry Benchmark Report</h4>
+                                <span class="roadmap-slide-step">Phase 2</span>
+                            </div>
+                            <ul>
+                                <li><strong>Target:</strong> 250+ organizations with sufficient vertical/size distribution</li>
+                                <li><strong>Purpose:</strong> Publish first <em>State of Demo Maturity Report</em> with aggregate industry data</li>
+                                <li><strong>Output:</strong> Benchmark scores by industry, company size, and maturity band distribution</li>
+                                <li><strong>Timeline:</strong> 18 months post-launch</li>
+                            </ul>
+                        </article>
+
+                        <article class="roadmap-slide">
+                            <div class="roadmap-slide-header">
+                                <h4>Analyst Validation & Category Recognition</h4>
+                                <span class="roadmap-slide-step">Phase 3</span>
+                            </div>
+                            <ul>
+                                <li><strong>Target:</strong> Gartner, Forrester, SiriusDecisions engagement with empirical data</li>
+                                <li><strong>Purpose:</strong> Establish Demo Index as recognized measurement standard in analyst frameworks</li>
+                                <li><strong>Output:</strong> Citation in industry reports, inclusion in vendor evaluations</li>
+                                <li><strong>Timeline:</strong> 24 months post-launch</li>
+                            </ul>
+                        </article>
+                    </div>
+                </div>
+
+                <button class="roadmap-nav next" type="button" aria-label="Next phase">›</button>
+
+                <div class="roadmap-indicators" aria-label="Benchmark roadmap pagination"></div>
+            </div>
+
+            <div class="callout">
+                <p style="margin-bottom: 0;"><strong style="color: var(--orange);">Transparency Principle:</strong> The Demo Index is an evolving framework designed to become the industry-standard measurement system for Revenue Experience Maturity. As adoption grows and empirical data accumulates, the methodology will be continuously refined to reflect observed best practices, emerging capabilities, and validated correlation between maturity levels and business outcomes. <strong>Transparency about current limitations strengthens long-term credibility.</strong></p>
+            </div>
+        </section>
+            </main>
+        </div>
+
+    </div>
+
+    <footer>
+        <p><strong>The Demo Index</strong> | Methodology Appendix</p>
+        <p style="margin-top: 0.5rem;">© 2026 | <a href="Demo-Index-Framework-Web.html">Framework</a> | <a href="Demo-Index-Assessment-Web.html">Assessment</a> | <a href="Demo-Index-Research-Manifesto-Web.html">Research Manifesto</a> | <a href="Demo-Index-Measurement-Engine-Web.html">Technical Specification</a></p>
+    </footer>
+    <div class="anchor-fab-scrim" data-anchor-fab-scrim hidden></div>
+    <div class="anchor-fab-shell" data-anchor-fab>
+        <nav class="anchor-fab-panel" id="methodology-anchor-panel" aria-label="Methodology sections" hidden>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-top active" href="#purpose" aria-label="Purpose">Purpose</a>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-upper-left" href="#measurement-layer" aria-label="Measurement Layer">Measure</a>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-upper-right" href="#weighting-model" aria-label="Weighting Model">Weighting</a>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-lower-left" href="#maturity-bands" aria-label="Maturity Bands">Bands</a>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-lower-right" href="#benchmark-integrity" aria-label="Benchmark Integrity">Integrity</a>
+        </nav>
+        <button class="anchor-fab-toggle" type="button" aria-controls="methodology-anchor-panel" aria-expanded="false">
+            <span class="anchor-fab-toggle-label" aria-hidden="true">
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+            </span>
+        </button>
+    </div>
+
+    <script>
+        document.querySelectorAll('[data-tabs]').forEach((tabGroup) => {
+            const tabs = Array.from(tabGroup.querySelectorAll('[role="tab"]'));
+            const panels = Array.from(tabGroup.querySelectorAll('[role="tabpanel"]'));
+
+            const setActiveTab = (targetId) => {
+                tabs.forEach((tab) => {
+                    const isActive = tab.dataset.tabTarget === targetId;
+                    tab.setAttribute('aria-selected', String(isActive));
+                    tab.tabIndex = isActive ? 0 : -1;
+                });
+
+                panels.forEach((panel) => {
+                    panel.hidden = panel.id !== targetId;
+                });
+            };
+
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('click', () => {
+                    setActiveTab(tab.dataset.tabTarget);
+                });
+
+                tab.addEventListener('keydown', (event) => {
+                    if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') {
+                        return;
+                    }
+
+                    event.preventDefault();
+
+                    const direction = event.key === 'ArrowRight' ? 1 : -1;
+                    const nextIndex = (index + direction + tabs.length) % tabs.length;
+                    const nextTab = tabs[nextIndex];
+
+                    setActiveTab(nextTab.dataset.tabTarget);
+                    nextTab.focus();
+                });
+            });
+
+            if (tabs[0]) {
+                setActiveTab(tabs[0].dataset.tabTarget);
+            }
+        });
+
+        document.querySelectorAll('[data-roadmap-carousel]').forEach((carousel) => {
+            const grid = carousel.querySelector('.roadmap-carousel-grid');
+            const slides = Array.from(grid.children);
+            const prevBtn = carousel.querySelector('.roadmap-nav.prev');
+            const nextBtn = carousel.querySelector('.roadmap-nav.next');
+            const indicatorsContainer = carousel.querySelector('.roadmap-indicators');
+            let currentIndex = 0;
+
+            const createIndicators = () => {
+                indicatorsContainer.innerHTML = '';
+
+                slides.forEach((_, index) => {
+                    const indicator = document.createElement('button');
+                    indicator.type = 'button';
+                    indicator.className = 'roadmap-indicator' + (index === 0 ? ' active' : '');
+                    indicator.setAttribute('aria-label', `Go to phase ${index}`);
+                    indicator.addEventListener('click', () => {
+                        currentIndex = index;
+                        updateCarousel();
+                    });
+                    indicatorsContainer.appendChild(indicator);
+                });
+            };
+
+            const updateCarousel = () => {
+                const baseOffset = slides[0] ? slides[0].offsetLeft : 0;
+                const targetSlide = slides[currentIndex];
+                const offset = -((targetSlide ? targetSlide.offsetLeft : 0) - baseOffset);
+                grid.style.transform = `translateX(${offset}px)`;
+
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex === slides.length - 1;
+
+                indicatorsContainer.querySelectorAll('.roadmap-indicator').forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === currentIndex);
+                });
+            };
+
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex -= 1;
+                    updateCarousel();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentIndex < slides.length - 1) {
+                    currentIndex += 1;
+                    updateCarousel();
+                }
+            });
+
+            window.addEventListener('resize', updateCarousel);
+
+            createIndicators();
+            updateCarousel();
+        });
+
+        const sectionLinks = Array.from(document.querySelectorAll('.section-index-link'));
+        const indexedSections = sectionLinks
+            .map((link) => document.querySelector(link.getAttribute('href')))
+            .filter(Boolean);
+        const methodologyAnchorFabToggle = document.querySelector('.anchor-fab-toggle');
+        const methodologyAnchorFabPanel = document.querySelector('.anchor-fab-panel');
+        const methodologyAnchorFabScrim = document.querySelector('[data-anchor-fab-scrim]');
+
+        const syncMethodologyNavHeight = () => {
+            const nav = document.querySelector('.nav');
+            document.documentElement.style.setProperty('--methodology-nav-height', `${nav ? nav.offsetHeight : 88}px`);
+        };
+
+        const setMethodologyAnchorFabOpen = (isOpen) => {
+            if (!methodologyAnchorFabToggle || !methodologyAnchorFabPanel || !methodologyAnchorFabScrim) {
+                return;
+            }
+
+            syncMethodologyNavHeight();
+            methodologyAnchorFabToggle.setAttribute('aria-expanded', String(isOpen));
+            methodologyAnchorFabPanel.hidden = !isOpen;
+            methodologyAnchorFabScrim.hidden = !isOpen;
+            methodologyAnchorFabPanel.classList.toggle('is-open', isOpen);
+            methodologyAnchorFabScrim.classList.toggle('is-open', isOpen);
+            document.body.classList.toggle('methodology-menu-open', isOpen);
+        };
+
+        const getScrollOffset = () => {
+            const nav = document.querySelector('.nav');
+            return (nav ? nav.offsetHeight : 0) + 20;
+        };
+
+        syncMethodologyNavHeight();
+
+        const setActiveSectionLink = (id) => {
+            sectionLinks.forEach((link) => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+            });
+
+            if (methodologyAnchorFabToggle) {
+                const activeLink = sectionLinks.find((link) => link.getAttribute('href') === `#${id}`);
+                const activeLabel = activeLink ? activeLink.getAttribute('aria-label') || activeLink.textContent.trim() : 'current section';
+                methodologyAnchorFabToggle.setAttribute('aria-label', `Open section menu. Current section: ${activeLabel}`);
+            }
+        };
+
+        if (methodologyAnchorFabToggle) {
+            methodologyAnchorFabToggle.addEventListener('click', () => {
+                const isOpen = methodologyAnchorFabToggle.getAttribute('aria-expanded') === 'true';
+                setMethodologyAnchorFabOpen(!isOpen);
+            });
+        }
+
+        if (methodologyAnchorFabScrim) {
+            methodologyAnchorFabScrim.addEventListener('click', () => setMethodologyAnchorFabOpen(false));
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                setMethodologyAnchorFabOpen(false);
+            }
+        });
+
+        sectionLinks.forEach((link) => {
+            link.addEventListener('click', (event) => {
+                const targetSelector = link.getAttribute('href');
+                const targetSection = targetSelector ? document.querySelector(targetSelector) : null;
+
+                if (!targetSection) {
+                    return;
+                }
+
+                event.preventDefault();
+
+                setMethodologyAnchorFabOpen(false);
+                const targetTop = targetSection.getBoundingClientRect().top + window.scrollY - getScrollOffset();
+                window.history.replaceState(null, '', targetSelector);
+                window.scrollTo({ top: targetTop, behavior: 'smooth' });
+                setActiveSectionLink(targetSection.id);
+            });
+        });
+
+        if (indexedSections.length) {
+            const observer = new IntersectionObserver((entries) => {
+                const visibleEntry = entries
+                    .filter((entry) => entry.isIntersecting)
+                    .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+                if (visibleEntry) {
+                    setActiveSectionLink(visibleEntry.target.id);
+                }
+            }, {
+                rootMargin: '-25% 0px -60% 0px',
+                threshold: [0.2, 0.4, 0.6]
+            });
+
+            indexedSections.forEach((section) => observer.observe(section));
+        }
+
+        window.addEventListener('resize', () => {
+            syncMethodologyNavHeight();
+            if (window.innerWidth > 560) {
+                setMethodologyAnchorFabOpen(false);
+            }
+        });
+
+        window.addEventListener('load', syncMethodologyNavHeight);
+    </script>
+</body>
+</html>
