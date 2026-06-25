@@ -1,0 +1,263 @@
+<!-- NAVIGATION COMPONENT FOR STAGE 4 COLLECTION -->
+<!-- Add this CSS to the <style> section of each page -->
+
+<style>
+/* Journey Navigation */
+.journey-nav {
+    max-width: 1200px;
+    margin: 0 auto 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.journey-progress {
+    background: var(--bg-darker);
+    padding: 16px 24px;
+    border-radius: 6px;
+    border-left: 3px solid var(--orange);
+    flex: 1;
+    min-width: 200px;
+}
+
+.journey-progress .step-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 8px;
+}
+
+.journey-progress .step-title {
+    font-size: 1rem;
+    color: var(--text-white);
+    font-weight: 600;
+}
+
+.journey-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.journey-btn {
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 200ms ease;
+    border: 2px solid;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.journey-btn.prev {
+    background: transparent;
+    border-color: var(--text-grey);
+    color: var(--text-grey);
+}
+
+.journey-btn.prev:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--text-white);
+    color: var(--text-white);
+}
+
+.journey-btn.next {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: var(--bg-dark);
+}
+
+.journey-btn.next:hover {
+    background: var(--green);
+    border-color: var(--green);
+}
+
+.journey-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* Story Position Banner */
+.story-banner {
+    max-width: 1200px;
+    margin: 0 auto 32px;
+    padding: 20px 24px;
+    background: rgba(75, 205, 62, 0.08);
+    border: 2px solid var(--green);
+    border-radius: 6px;
+    color: var(--text-grey);
+    line-height: 1.6;
+}
+
+.story-banner strong {
+    color: var(--green);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+}
+
+.story-banner a {
+    color: var(--orange);
+    text-decoration: underline;
+}
+
+.story-banner a:hover {
+    color: var(--green);
+}
+
+@media (max-width: 900px) {
+    .journey-nav {
+        flex-direction: column;
+    }
+
+    .journey-progress {
+        width: 100%;
+    }
+
+    .journey-buttons {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .journey-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+</style>
+
+<!-- ADD THIS HTML AFTER THE GLOBAL NAV, BEFORE MAIN CONTENT -->
+
+<!-- For Page 1: Revenue-Operations-Infographic.html -->
+<div class="journey-nav">
+    <div class="journey-progress">
+        <div class="step-label">Step 1 of 8</div>
+        <div class="step-title">Visual Opening</div>
+    </div>
+    <div class="journey-buttons">
+        <a href="index.html" class="journey-btn prev">← Hub</a>
+        <a href="ExecutiveSummary-Condensed.html" class="journey-btn next">Next: Thesis →</a>
+    </div>
+</div>
+<div class="story-banner">
+    <strong>Where You Are:</strong> This is the visual opening of the collection. It establishes the maturity shift, the Stage 3 failure mode, and the Stage 4 response at a glance. Next, move to <a href="ExecutiveSummary-Condensed.html">the condensed brief</a> for the core strategic argument.
+</div>
+
+<!-- For Page 2: ExecutiveSummary-Condensed.html -->
+<div class="journey-nav">
+    <div class="journey-progress">
+        <div class="step-label">Step 2 of 8</div>
+        <div class="step-title">Thesis Layer</div>
+    </div>
+    <div class="journey-buttons">
+        <a href="Revenue-Operations-Infographic.html" class="journey-btn prev">← Visual Opening</a>
+        <a href="ExecutiveSummary.html" class="journey-btn next">Next: Full Case →</a>
+    </div>
+</div>
+<div class="story-banner">
+    <strong>Where You Are:</strong> This is the condensed thesis layer—the shortest statement of the collection's strategic argument. After this, see <a href="ExecutiveSummary.html">the full summary</a> for research-backed depth, or jump to <a href="narrative-orchestration-glossary.html">the glossary</a> for language alignment.
+</div>
+
+<!-- For Page 3: ExecutiveSummary.html -->
+<div class="journey-nav">
+    <div class="journey-progress">
+        <div class="step-label">Step 3 of 8</div>
+        <div class="step-title">Full Business Case</div>
+    </div>
+    <div class="journey-buttons">
+        <a href="ExecutiveSummary-Condensed.html" class="journey-btn prev">← Condensed Brief</a>
+        <a href="narrative-orchestration-glossary.html" class="journey-btn next">Next: Language →</a>
+    </div>
+</div>
+<div class="story-banner">
+    <strong>Where You Are:</strong> This is the full business case with research backing. It assumes the maturity problem has already been introduced. Next, move to <a href="narrative-orchestration-glossary.html">the executive glossary</a> for leadership language, or <a href="Stage-4-5-Technical-Glossary.html">the technical glossary</a> for implementation terms.
+</div>
+
+<!-- For Page 4: narrative-orchestration-glossary.html -->
+<div class="journey-nav">
+    <div class="journey-progress">
+        <div class="step-label">Step 4 of 8</div>
+        <div class="step-title">Leadership Language</div>
+    </div>
+    <div class="journey-buttons">
+        <a href="ExecutiveSummary.html" class="journey-btn prev">← Full Summary</a>
+        <a href="Stage-4-5-Technical-Glossary.html" class="journey-btn next">Next: Technical Terms →</a>
+    </div>
+</div>
+<div class="story-banner">
+    <strong>Where You Are:</strong> This is the leadership language layer—translating the framework into decision-making terms for executives and RevOps leaders. Next, see <a href="Stage-4-5-Technical-Glossary.html">the technical glossary</a> for implementation language, then <a href="User-Journey-Experience-Workflow.html">the workflow</a> for the operating model.
+</div>
+
+<!-- For Page 5: Stage-4-5-Technical-Glossary.html -->
+<div class="journey-nav">
+    <div class="journey-progress">
+        <div class="step-label">Step 5 of 8</div>
+        <div class="step-title">Implementation Language</div>
+    </div>
+    <div class="journey-buttons">
+        <a href="narrative-orchestration-glossary.html" class="journey-btn prev">← Executive Glossary</a>
+        <a href="User-Journey-Experience-Workflow.html" class="journey-btn next">Next: Workflow →</a>
+    </div>
+</div>
+<div class="story-banner">
+    <strong>Where You Are:</strong> This is the implementation language layer—architecture, stack patterns, and technical distinctions. It assumes the executive glossary has already aligned the core language. Next, see <a href="User-Journey-Experience-Workflow.html">the workflow</a> for the 73-step operating model.
+</div>
+
+<!-- For Page 6: User-Journey-Experience-Workflow.html -->
+<div class="journey-nav">
+    <div class="journey-progress">
+        <div class="step-label">Step 6 of 8</div>
+        <div class="step-title">Operating Model</div>
+    </div>
+    <div class="journey-buttons">
+        <a href="Stage-4-5-Technical-Glossary.html" class="journey-btn prev">← Technical Glossary</a>
+        <a href="Stage-4-in-practice.html" class="journey-btn next">Next: Example →</a>
+    </div>
+</div>
+<div class="story-banner">
+    <strong>Where You Are:</strong> This is the operating model—showing how Stage 4 actually runs across qualification, assembly, guidance, and activation. It assumes the strategic case and glossary terms are already understood. Next, see <a href="Stage-4-in-practice.html">the in-practice page</a> for a concrete stack example.
+</div>
+
+<!-- For Page 7: Stage-4-in-practice.html -->
+<div class="journey-nav">
+    <div class="journey-progress">
+        <div class="step-label">Step 7 of 8</div>
+        <div class="step-title">Concrete Example</div>
+    </div>
+    <div class="journey-buttons">
+        <a href="User-Journey-Experience-Workflow.html" class="journey-btn prev">← Workflow</a>
+        <a href="Revenue-Operations-Strategy.html" class="journey-btn next">Next: Strategy →</a>
+    </div>
+</div>
+<div class="story-banner">
+    <strong>Where You Are:</strong> This is the concrete implementation layer—showing what the model looks like in a real stack (Salesforce + Coast.io + Synthesia). It assumes the problem, language, and workflow have already been established. Next, see <a href="Revenue-Operations-Strategy.html">the strategy page</a> for broader contextual extension.
+</div>
+
+<!-- For Page 8: Revenue-Operations-Strategy.html -->
+<div class="journey-nav">
+    <div class="journey-progress">
+        <div class="step-label">Step 8 of 8</div>
+        <div class="step-title">Contextual Extension</div>
+    </div>
+    <div class="journey-buttons">
+        <a href="Stage-4-in-practice.html" class="journey-btn prev">← In Practice</a>
+        <a href="index.html" class="journey-btn next">Back to Hub →</a>
+    </div>
+</div>
+<div class="story-banner">
+    <strong>Where You Are:</strong> This is the contextual extension layer—adapting the Stage 4 model to broader strategic and industry-specific framing. It assumes the core story is already understood. You've completed the collection journey. Return to <a href="index.html">the hub</a> or explore other pages as needed.
+</div>
+
+<!-- IMPLEMENTATION NOTES:
+1. Add the CSS to each page's <style> section
+2. Add the appropriate journey-nav and story-banner HTML after the global-nav but before the main content
+3. Each page should have its own step number and navigation buttons
+4. The story-banner content should be customized for each page's role in the collection
+-->

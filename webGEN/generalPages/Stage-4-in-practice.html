@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage 4 in Practice | Real-World Implementation</title>
+    <style>
+        @page {
+            size: Letter;
+            margin: 0;
+        }
+        
+        @media print {
+            .page-break {
+                page-break-after: always;
+            }
+        }
+        
+        :root {
+            --bg-dark: #090E1B;
+            --bg-darker: #0F1629;
+            --orange: #F97316;
+            --green: #4bcd3e;
+            --raspberry: #B21a53;
+            --text-white: #FFFFFF;
+            --text-grey: #97A3AF;
+            --content-width: 1200px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            color: var(--text-white);
+            background: var(--bg-dark);
+            line-height: 1.4;
+        }
+
+        a {
+            color: var(--orange);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--green);
+        }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            margin: 0 auto;
+            background: var(--bg-dark);
+            position: relative;
+            padding: 0.5in;
+        }
+
+        .header {
+            background: var(--bg-darker);
+            padding: 0.25in;
+            margin: -0.5in -0.5in 0.3in -0.5in;
+            border-bottom: 3px solid var(--orange);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.1in;
+            color: var(--text-white);
+        }
+
+        .header .highlight {
+            color: var(--orange);
+        }
+
+        .header .subtitle {
+            font-size: 0.85rem;
+            color: var(--text-grey);
+            font-weight: 400;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            color: var(--orange);
+            margin: 0.2in 0 0.12in 0;
+            padding-left: 0.15in;
+            border-left: 4px solid var(--orange);
+        }
+
+        .intro-box {
+            background: var(--bg-darker);
+            padding: 0.2in;
+            border-radius: 6px;
+            border-left: 4px solid var(--green);
+            margin-bottom: 0.2in;
+        }
+
+        .intro-box p {
+            font-size: 0.8rem;
+            color: var(--text-grey);
+            line-height: 1.6;
+            margin-bottom: 0.1in;
+        }
+
+        .intro-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .intro-box strong {
+            color: var(--text-white);
+        }
+
+        /* Scenario Section */
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.15in;
+            margin: 0.15in 0 0.2in 0;
+        }
+
+        .scenario-card {
+            background: var(--bg-darker);
+            padding: 0.15in;
+            border-radius: 6px;
+            border-top: 3px solid var(--orange);
+        }
+
+        .scenario-card h3 {
+            font-size: 0.85rem;
+            color: var(--orange);
+            margin-bottom: 0.08in;
+        }
+
+        .scenario-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .scenario-card li {
+            font-size: 0.7rem;
+            color: var(--text-grey);
+            line-height: 1.4;
+            padding-left: 0.15in;
+            margin: 0.04in 0;
+            position: relative;
+        }
+
+        .scenario-card li:before {
+            content: "•";
+            color: var(--green);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Stack Architecture */
+        .stack {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0.12in;
+            margin: 0.15in 0 0.2in 0;
+        }
+
+        .stack-item {
+            background: var(--bg-darker);
+            padding: 0.15in;
+            border-radius: 6px;
+            text-align: center;
+            position: relative;
+        }
+
+        .stack-item.crm {
+            border: 2px solid var(--raspberry);
+        }
+
+        .stack-item.orchestration {
+            border: 2px solid var(--orange);
+        }
+
+        .stack-item.ai {
+            border: 2px solid var(--green);
+        }
+
+        .stack-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-grey);
+            margin-bottom: 0.05in;
+        }
+
+        .stack-logo {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 0.08in;
+        }
+
+        .stack-item.crm .stack-logo {
+            color: var(--raspberry);
+        }
+
+        .stack-item.orchestration .stack-logo {
+            color: var(--orange);
+        }
+
+        .stack-item.ai .stack-logo {
+            color: var(--green);
+        }
+
+        .stack-description {
+            font-size: 0.65rem;
+            color: var(--text-grey);
+            line-height: 1.4;
+        }
+
+        /* Workflow Steps */
+        .workflow-flow {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.1in;
+            margin: 0.15in 0 0.2in 0;
+        }
+
+        .flow-step {
+            background: var(--bg-darker);
+            padding: 0.12in;
+            border-radius: 6px;
+            position: relative;
+            border-left: 3px solid var(--green);
+        }
+
+        .flow-number {
+            width: 0.25in;
+            height: 0.25in;
+            background: var(--orange);
+            color: var(--bg-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.75rem;
+            margin-bottom: 0.08in;
+        }
+
+        .flow-step h4 {
+            font-size: 0.75rem;
+            color: var(--text-white);
+            margin-bottom: 0.06in;
+        }
+
+        .flow-step p {
+            font-size: 0.65rem;
+            color: var(--text-grey);
+            line-height: 1.4;
+        }
+
+        /* Data Flow Diagram */
+        .data-flow {
+            background: var(--bg-darker);
+            padding: 0.2in;
+            border-radius: 8px;
+            margin: 0.15in 0 0.2in 0;
+            border: 2px solid var(--orange);
+        }
+
+        .data-flow-grid {
+            display: grid;
+            grid-template-columns: 1.2fr auto 1.5fr auto 1.2fr;
+            gap: 0.08in;
+            align-items: center;
+            margin-top: 0.1in;
+        }
+
+        .data-node {
+            background: rgba(249, 115, 22, 0.08);
+            padding: 0.1in;
+            border-radius: 6px;
+            border: 1px solid var(--orange);
+            text-align: center;
+        }
+
+        .data-node h4 {
+            font-size: 0.75rem;
+            color: var(--orange);
+            margin-bottom: 0.05in;
+        }
+
+        .data-node ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .data-node li {
+            font-size: 0.6rem;
+            color: var(--text-grey);
+            line-height: 1.3;
+            margin: 0.02in 0;
+        }
+
+        .data-arrow {
+            color: var(--green);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        /* Impact Metrics */
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.12in;
+            margin: 0.15in 0 0.2in 0;
+        }
+
+        .impact-card {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(75, 205, 62, 0.08) 100%);
+            padding: 0.15in;
+            border-radius: 6px;
+            border: 1px solid var(--orange);
+            text-align: center;
+        }
+
+        .impact-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--green);
+            margin-bottom: 0.05in;
+        }
+
+        .impact-label {
+            font-size: 0.75rem;
+            color: var(--text-white);
+            margin-bottom: 0.06in;
+            font-weight: 600;
+        }
+
+        .impact-description {
+            font-size: 0.65rem;
+            color: var(--text-grey);
+            line-height: 1.4;
+        }
+
+        /* Key Benefits */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.12in;
+            margin: 0.15in 0 0.2in 0;
+        }
+
+        .benefit-item {
+            background: var(--bg-darker);
+            padding: 0.12in;
+            border-radius: 6px;
+            border-left: 3px solid var(--green);
+        }
+
+        .benefit-item h4 {
+            font-size: 0.8rem;
+            color: var(--orange);
+            margin-bottom: 0.06in;
+        }
+
+        .benefit-item p {
+            font-size: 0.7rem;
+            color: var(--text-grey);
+            line-height: 1.4;
+        }
+
+        .benefit-item strong {
+            color: var(--text-white);
+        }
+
+        /* Quote Box */
+        .quote-box {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(75, 205, 62, 0.1) 100%);
+            padding: 0.2in;
+            border-radius: 8px;
+            border-left: 4px solid var(--green);
+            margin: 0.2in 0;
+            text-align: center;
+        }
+
+        .quote-box p {
+            font-size: 0.85rem;
+            color: var(--text-white);
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .quote-box .author {
+            font-size: 0.7rem;
+            color: var(--green);
+            margin-top: 0.1in;
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        .footer {
+            margin-top: 0.2in;
+            padding-top: 0.15in;
+            border-top: 1px solid var(--text-grey);
+            text-align: center;
+            font-size: 0.65rem;
+            color: var(--text-grey);
+        }
+
+        /* Callout */
+        .callout {
+            background: rgba(75, 205, 62, 0.08);
+            padding: 0.15in;
+            border-radius: 6px;
+            border: 2px solid var(--green);
+            margin: 0.15in 0 0.2in 0;
+        }
+
+        .callout h3 {
+            font-size: 0.9rem;
+            color: var(--green);
+            margin-bottom: 0.08in;
+        }
+
+        .callout p {
+            font-size: 0.75rem;
+            color: var(--text-grey);
+            line-height: 1.5;
+        }
+
+        .callout strong {
+            color: var(--text-white);
+        }
+
+        /* Navigation */
+        .global-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--bg-darker);
+            padding: 16px 24px;
+            border-bottom: 3px solid var(--orange);
+            margin-bottom: 32px;
+            transition: all 300ms ease;
+        }
+
+        .global-nav.scrolled {
+            padding: 8px 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-container {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .global-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
+            transition: all 300ms ease;
+        }
+
+        .global-brand-mark {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--green);
+            line-height: 1;
+            transition: all 300ms ease;
+        }
+
+        .global-nav.scrolled .global-brand-mark {
+            font-size: 0.55rem;
+        }
+
+        .global-brand-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            color: var(--text-white);
+            line-height: 1;
+            transition: all 300ms ease;
+        }
+
+        .global-nav.scrolled .global-brand-title {
+            font-size: 1rem;
+        }
+
+        .global-links {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 8px;
+        }
+
+        .global-links a {
+            padding: 6px 10px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-grey);
+            font-size: 0.75rem;
+            transition: all 200ms ease;
+            white-space: nowrap;
+        }
+
+        .global-nav.scrolled .global-links a {
+            padding: 4px 8px;
+            font-size: 0.7rem;
+        }
+
+        .global-links a:hover,
+        .global-links a:focus-visible {
+            background: rgba(249, 115, 22, 0.2);
+            color: var(--text-white);
+            outline: none;
+        }
+
+        .global-links a[aria-current="page"] {
+            background: var(--green);
+            color: var(--bg-dark);
+            font-weight: 600;
+        }
+
+        .story-banner {
+            max-width: 1200px;
+            margin: 0 auto 32px;
+            padding: 20px 24px;
+            background: rgba(75, 205, 62, 0.08);
+            border: 2px solid var(--green);
+            border-radius: 6px;
+            color: var(--text-grey);
+        }
+
+        .story-banner strong,
+        .story-banner a {
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+        }
+
+        .story-banner strong {
+            color: var(--green);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+        }
+
+        .story-banner a {
+            color: var(--orange);
+        }
+
+        /* Journey Navigation */
+        .journey-nav {
+            max-width: 1200px;
+            margin: 16px auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .journey-progress {
+            background: var(--bg-darker);
+            padding: 10px 16px;
+            border-radius: 4px;
+            border-left: 3px solid var(--orange);
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .journey-progress .step-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 4px;
+        }
+
+        .journey-progress .step-title {
+            font-size: 0.9rem;
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        .journey-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .journey-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 200ms ease;
+            border: 2px solid;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .journey-btn.prev {
+            background: transparent;
+            border-color: var(--text-grey);
+            color: var(--text-grey);
+        }
+
+        .journey-btn.prev:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-white);
+            color: var(--text-white);
+        }
+
+        .journey-btn.next {
+            background: var(--orange);
+            border-color: var(--orange);
+            color: var(--bg-dark);
+        }
+
+        .journey-btn.next:hover {
+            background: var(--green);
+            border-color: var(--green);
+        }
+
+        @media (max-width: 900px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .global-links {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .journey-nav {
+                flex-direction: column;
+            }
+
+            .journey-progress {
+                width: 100%;
+            }
+
+            .journey-buttons {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .journey-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Sticky header shrink on scroll
+        (function() {
+            const nav = document.querySelector('.global-nav');
+            let scrolled = false;
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50 && !scrolled) {
+                    nav.classList.add('scrolled');
+                    scrolled = true;
+                } else if (window.scrollY <= 50 && scrolled) {
+                    nav.classList.remove('scrolled');
+                    scrolled = false;
+                }
+            });
+        })();
+    </script>
+    <nav class="global-nav">
+        <div class="nav-container">
+            <a class="global-brand" href="index.html">
+                <span class="global-brand-mark">Stage 4 Narrative Infrastructure</span>
+                <span class="global-brand-title">In Practice</span>
+            </a>
+            <div class="global-links">
+                <a href="index.html">Hub</a>
+                <a href="ExecutiveSummary-Condensed.html">Condensed Brief</a>
+                <a href="ExecutiveSummary.html">Full Summary</a>
+                <a href="narrative-orchestration-glossary.html">Exec Glossary</a>
+                <a href="Stage-4-5-Technical-Glossary.html">Glossary</a>
+                <a href="User-Journey-Experience-Workflow.html">Workflow</a>
+                <a href="Stage-4-in-practice.html" aria-current="page">In Practice</a>
+                <a href="Revenue-Operations-Infographic.html">Infographic</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="journey-nav">
+        <div class="journey-progress">
+            <div class="step-label">Step 6 of 7</div>
+            <div class="step-title">Concrete Example</div>
+        </div>
+        <div class="journey-buttons">
+            <a href="User-Journey-Experience-Workflow.html" class="journey-btn prev">← Workflow</a>
+            <a href="Revenue-Operations-Infographic.html" class="journey-btn next">Next: Visual Summary →</a>
+        </div>
+    </div>
+
+    <div class="story-banner">
+        <strong>Where You Are:</strong> This is the concrete implementation layer—showing what the model looks like in a real stack (Salesforce + Coast.io + Synthesia). It assumes the problem, language, and workflow have already been established. Next, see <a href="Revenue-Operations-Infographic.html">the infographic</a> for the complete visual summary.
+    </div>
+
+    <script>
+        (function () {
+            var path = window.location.pathname.split('/').pop() || 'index.html';
+            var links = document.querySelectorAll('.global-links a');
+            for (var i = 0; i < links.length; i += 1) {
+                if (links[i].getAttribute('href') === path) {
+                    links[i].setAttribute('aria-current', 'page');
+                }
+            }
+        }());
+    </script>
+
+    <!-- PAGE 1 -->
+    <div class="page">
+        <div class="header">
+            <h1>Stage 4 <span class="highlight">in Practice</span></h1>
+            <p class="subtitle">Real-World Implementation: Salesforce + Coast.io + Synthesia = Unified Narrative Infrastructure</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="intro-box">
+            <p>
+                <strong>Purpose:</strong> This page does not restate the full strategic argument. It assumes the problem, language, and workflow have already been established and shows what Stage 4 looks like when translated into a concrete working stack.
+            </p>
+            <p>
+                <strong>What It Demonstrates:</strong> A practical example in which Salesforce, Coast.io, and the presentation layer operate together so human strategy decisions become a governed buyer experience at scale.
+            </p>
+        </div>
+
+        <!-- The Scenario -->
+        <h2 class="section-title">The Example Account</h2>
+        <div class="scenario-grid">
+            <div class="scenario-card">
+                <h3>The Account</h3>
+                <ul>
+                    <li><strong>Company:</strong> TechFlow Industries</li>
+                    <li><strong>Size:</strong> 2,500 employees, $500M ARR</li>
+                    <li><strong>Industry:</strong> SaaS Manufacturing Ops</li>
+                    <li><strong>Pain Point:</strong> Disconnected demo experiences</li>
+                    <li><strong>Buyer Persona:</strong> VP of Sales Operations</li>
+                    <li><strong>Stage:</strong> Qualified Opportunity</li>
+                </ul>
+            </div>
+            <div class="scenario-card">
+                <h3>The SE's Strategic Input</h3>
+                <ul>
+                    <li>Positioning: "Unified buyer journey infrastructure"</li>
+                    <li>Key Workflows: Integration hub, Analytics dashboard</li>
+                    <li>Narrative Priority: Contextual continuity value prop</li>
+                    <li>Objection Framing: Address "too complex to implement"</li>
+                    <li>Governance: Maintain on-brand messaging</li>
+                    <li>Desired Outcome: Self-guided exploration with guidance</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- The Technology Stack -->
+        <h2 class="section-title">The Example Stack</h2>
+        <div class="stack">
+            <div class="stack-item crm">
+                <div class="stack-label">Intelligence Layer</div>
+                <div class="stack-logo">Salesforce CRM</div>
+                <div class="stack-description">
+                    Account context, firmographics, deal stage, persona data, engagement history
+                </div>
+            </div>
+            <div class="stack-item orchestration">
+                <div class="stack-label">Orchestration Layer</div>
+                <div class="stack-logo">Coast.io</div>
+                <div class="stack-description">
+                    Unified narrative infrastructure, guided pathways, contextual branching, persistent state
+                </div>
+            </div>
+            <div class="stack-item ai">
+                <div class="stack-label">Presentation Layer</div>
+                <div class="stack-logo">Seismic / Coast.io Portal</div>
+                <div class="stack-description">
+                    Buyer-facing microsite or engagement portal where guided workflows, personalized content, and embedded Synthesia video are rendered
+                </div>
+            </div>
+        </div>
+
+        <!-- The Orchestration Flow -->
+        <h2 class="section-title">The Example Operating Flow</h2>
+        <div class="workflow-flow">
+            <div class="flow-step">
+                <div class="flow-number">1</div>
+                <h4>Strategic Input</h4>
+                <p>SE defines positioning, workflows, and narrative priorities in Coast.io. CRM data auto-populates account context.</p>
+            </div>
+            <div class="flow-step">
+                <div class="flow-number">2</div>
+                <h4>Narrative Assembly</h4>
+                <p>Coast.io provisions unified experience, assembles guided pathways, injects Salesforce data into UI templates.</p>
+            </div>
+            <div class="flow-step">
+                <div class="flow-number">3</div>
+                <h4>AI Personalization</h4>
+                <p>Synthesia generates contextual AI video with account-specific messaging, localized to buyer persona and industry.</p>
+            </div>
+            <div class="flow-step">
+                <div class="flow-number">4</div>
+                <h4>Presentation Layer Delivery</h4>
+                <p>Prospect receives a single URL into the presentation layer, where the interactive demo, persistent AI guidance, personalized content, and governed exploration paths are delivered together.</p>
+            </div>
+        </div>
+
+        <!-- Data Flow Diagram -->
+        <div class="data-flow">
+            <h3 style="font-size: 0.9rem; color: var(--orange); text-align: center; margin-bottom: 0.08in;">Data Flow: CRM → Orchestration → Experience</h3>
+            <div class="data-flow-grid">
+                <div class="data-node">
+                    <h4>Salesforce Data</h4>
+                    <ul>
+                        <li>Company: TechFlow</li>
+                        <li>Industry: SaaS MFG</li>
+                        <li>Stage: Qualified</li>
+                        <li>Persona: VP Sales Ops</li>
+                        <li>Pain: Fragmentation</li>
+                    </ul>
+                </div>
+                <div class="data-arrow">→</div>
+                <div class="data-node">
+                    <h4>Coast.io Assembly</h4>
+                    <ul>
+                        <li>Inject CRM data to UI</li>
+                        <li>Load SE-defined pathways</li>
+                        <li>Apply governance rules</li>
+                        <li>Generate Synthesia script</li>
+                        <li>Build contextual branches</li>
+                    </ul>
+                </div>
+                <div class="data-arrow">→</div>
+                <div class="data-node">
+                    <h4>Presentation Layer</h4>
+                    <ul>
+                        <li>Interactive demo (TechFlow data)</li>
+                        <li>AI video (VP persona)</li>
+                        <li>Guided exploration</li>
+                        <li>Contextual continuity</li>
+                        <li>Full journey tracking</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Innovation -->
+        <div class="callout">
+            <h3>The Core Innovation: Human-Authored Intelligence Meets System-Level Execution</h3>
+            <p>
+                The SE retains <strong>strategic authority</strong> — defining positioning, workflows, narrative priorities, and governance rules. But instead of manually building separate assets, the infrastructure <strong>operationalizes delivery at scale</strong>: data injection, personalization, guided assembly, and contextual continuity happen automatically. This is <strong>augmentation infrastructure</strong>, not replacement AI.
+            </p>
+        </div>
+
+        <div class="footer">
+            © 2026 Knolled | Stage 4 Real-World Implementation Example
+        </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="page page-break">
+        <div class="header">
+            <h1>RevOps <span class="highlight">Impact Model</span></h1>
+            <p class="subtitle">Measured Outcomes from Stage 4 Unified Narrative Infrastructure</p>
+        </div>
+
+        <!-- Before vs After -->
+        <h2 class="section-title">Stage 3 Versus Stage 4 Impact</h2>
+        <div class="benefits-grid">
+            <div class="benefit-item">
+                <h4>Before (Stage 3): Distributed Assets</h4>
+                <p>
+                    SE spends <strong>4-6 hours</strong> customizing separate demo, creating personalized video, writing email copy. Prospect receives 3+ links. Each asset has <strong>different data</strong>. Zero contextual continuity. Value prop gets buried. <strong>32% engagement rate.</strong>
+                </p>
+            </div>
+            <div class="benefit-item">
+                <h4>After (Stage 4): Unified Infrastructure</h4>
+                <p>
+                    SE defines strategy in <strong>15 minutes</strong>. System assembles unified experience with CRM data, AI guidance, and governed pathways. Prospect receives <strong>1 URL</strong>. Persistent contextual continuity. Value prop reinforced at every branch. <strong>68% engagement rate.</strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- Impact Metrics -->
+        <h2 class="section-title">Example RevOps Impact</h2>
+        <div class="impact-grid">
+            <div class="impact-card">
+                <div class="impact-value">87%</div>
+                <div class="impact-label">SE Time Reduction</div>
+                <div class="impact-description">From 5 hours per qualified opp to 40 minutes. SEs become Experience Architects.</div>
+            </div>
+            <div class="impact-card">
+                <div class="impact-value">2.1x</div>
+                <div class="impact-label">Buyer Engagement</div>
+                <div class="impact-description">Unified experiences with persistent guidance drive deeper exploration and comprehension.</div>
+            </div>
+            <div class="impact-card">
+                <div class="impact-value">94%</div>
+                <div class="impact-label">Narrative Integrity</div>
+                <div class="impact-description">Governed pathways ensure value prop coherence across all exploration branches.</div>
+            </div>
+        </div>
+
+        <!-- Technical Architecture -->
+        <h2 class="section-title">How The Stack Connects</h2>
+        <div class="benefits-grid">
+            <div class="benefit-item">
+                <h4>Salesforce → Coast.io</h4>
+                <p>
+                    <strong>API Integration:</strong> Coast.io pulls account data, deal stage, persona attributes, and custom fields from Salesforce via REST API. <strong>Webhook Triggers:</strong> When deal moves to "Qualified," Coast.io auto-generates base experience template. <strong>Bi-directional sync:</strong> Engagement analytics push back to Salesforce activity timeline.
+                </p>
+            </div>
+            <div class="benefit-item">
+                <h4>Coast.io → Synthesia</h4>
+                <p>
+                    <strong>Dynamic Script Generation:</strong> Coast.io generates video scripts with account-specific context, persona messaging, and narrative framing. <strong>API Rendering:</strong> Synthesia renders AI video with injected data, industry-specific language, and buyer persona avatars. <strong>Embedded Delivery:</strong> Video embeds directly in Coast.io unified experience with contextual branching.
+                </p>
+            </div>
+        </div>
+
+        <!-- Governance & Control -->
+        <h2 class="section-title">How Governance Is Maintained</h2>
+        <div class="benefits-grid">
+            <div class="benefit-item">
+                <h4>Pre-Structured Pathways</h4>
+                <p>
+                    SEs define <strong>allowed exploration branches</strong> in Coast.io. Prospects can navigate nonlinearly, but all paths are <strong>pre-authored</strong> with contextual bridges. No chaotic free-form exploration. <strong>Human-guided narrative branching.</strong>
+                </p>
+            </div>
+            <div class="benefit-item">
+                <h4>Messaging Consistency</h4>
+                <p>
+                    All video scripts, UI copy, and guidance messages follow <strong>approved templates</strong>. Synthesia generates variations <strong>within guardrails</strong>. RevOps teams control positioning, competitive framing, and value prop emphasis. <strong>Brand-safe AI personalization.</strong>
+                </p>
+            </div>
+            <div class="benefit-item">
+                <h4>Persistent Contextual State</h4>
+                <p>
+                    Coast.io maintains <strong>journey state</strong> across all touchpoints. If prospect jumps from Integrations → Analytics → Security, AI guidance adjusts to maintain narrative thread. <strong>No cognitive resets.</strong>
+                </p>
+            </div>
+            <div class="benefit-item">
+                <h4>Full Journey Analytics</h4>
+                <p>
+                    Track <strong>narrative comprehension</strong>, not just clicks. See where buyer understanding accelerated, where narrative confidence weakened, which contextual pathways produced strongest engagement. <strong>Intelligence-grade analytics.</strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- What Makes This Stage 4 -->
+        <div class="callout">
+            <h3>Why This Is Stage 4 (Not Stage 3 with Better Tools)</h3>
+            <p>
+                Stage 3 companies have Salesforce, demo tools, and AI video — but they operate as <strong>disconnected point solutions</strong>. Stage 4 is the architectural shift to <strong>Unified Narrative Infrastructure</strong> where: (1) <strong>Humans retain strategic authority</strong> over positioning and narrative design, (2) <strong>Systems operationalize delivery</strong> through data injection, personalization, and assembly, (3) <strong>Persistent contextual continuity</strong> is maintained across all exploration paths, and (4) <strong>Governance rules</strong> ensure brand-safe, controlled experiences. This is <strong>orchestration infrastructure</strong>, not better demos.
+            </p>
+        </div>
+
+        <!-- Quote -->
+        <div class="quote-box">
+            <p>"We went from 'let me customize 6 separate assets per deal' to 'let me define the strategic narrative once and the system provisions 1,000 bespoke experiences.' Our SEs are finally Experience Architects instead of manual asset coordinators."</p>
+            <p class="author">— VP of Sales Operations, Enterprise SaaS Company</p>
+        </div>
+
+        <!-- Next Steps -->
+        <h2 class="section-title">Implementation Roadmap</h2>
+        <div class="workflow-flow">
+            <div class="flow-step">
+                <div class="flow-number">1</div>
+                <h4>Audit Current State</h4>
+                <p>Identify distributed assets, measure SE prep time, baseline engagement rates.</p>
+            </div>
+            <div class="flow-step">
+                <div class="flow-number">2</div>
+                <h4>Define Governance</h4>
+                <p>Establish narrative pathways, messaging templates, positioning guardrails.</p>
+            </div>
+            <div class="flow-step">
+                <div class="flow-number">3</div>
+                <h4>Integrate Stack</h4>
+                <p>Connect Salesforce → Coast.io → Synthesia via APIs and webhooks.</p>
+            </div>
+            <div class="flow-step">
+                <div class="flow-number">4</div>
+                <h4>Pilot & Scale</h4>
+                <p>Test with 10 opps, measure impact, roll out to full sales org.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2026 Knolled | Unified Narrative Infrastructure Implementation Guide | www.knolled.com
+        </div>
+    </div>
+</body>
+</html>

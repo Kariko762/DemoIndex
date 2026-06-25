@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narrative Orchestration Glossary | Executive Translation Layer</title>
+    <style>
+        @page {
+            size: Letter;
+            margin: 0;
+        }
+        
+        @media print {
+            .page-break {
+                page-break-after: always;
+            }
+            
+            body {
+                orphans: 3;
+                widows: 3;
+            }
+            
+            .term, .summary-box, .intro-box {
+                page-break-inside: avoid;
+            }
+        }
+        
+        :root {
+            --bg-dark: #090E1B;
+            --bg-darker: #0F1629;
+            --orange: #F97316;
+            --green: #4bcd3e;
+            --raspberry: #B21a53;
+            --text-white: #FFFFFF;
+            --text-grey: #97A3AF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            color: var(--text-white);
+            background: var(--bg-dark);
+            line-height: 1.4;
+        }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            margin: 0 auto;
+            background: var(--bg-dark);
+            position: relative;
+            padding: 0.4in;
+        }
+
+        .header {
+            background: var(--bg-darker);
+            padding: 0.2in;
+            margin: -0.4in -0.4in 0.2in -0.4in;
+            border-bottom: 3px solid var(--orange);
+        }
+
+        .header h1 {
+            font-size: 1.6rem;
+            margin-bottom: 0.06in;
+            color: var(--text-white);
+        }
+
+        .header .highlight {
+            color: var(--orange);
+        }
+
+        .header .subtitle {
+            font-size: 0.75rem;
+            color: var(--text-grey);
+            font-weight: 400;
+        }
+
+        .intro-box {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(75, 205, 62, 0.1) 100%);
+            padding: 0.15in;
+            border-radius: 6px;
+            border-left: 4px solid var(--orange);
+            margin-bottom: 0.2in;
+            page-break-inside: avoid;
+        }
+
+        .intro-box p {
+            font-size: 0.7rem;
+            color: var(--text-grey);
+            line-height: 1.5;
+            margin-bottom: 0.06in;
+        }
+
+        .intro-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .intro-box strong {
+            color: var(--text-white);
+        }
+
+        .section-header {
+            background: var(--bg-darker);
+            padding: 0.1in 0.12in;
+            border-left: 4px solid var(--green);
+            margin: 0.15in 0 0.12in 0;
+            page-break-after: avoid;
+        }
+
+        .section-header h2 {
+            font-size: 0.95rem;
+            color: var(--green);
+        }
+
+        .term {
+            background: var(--bg-darker);
+            padding: 0.12in;
+            border-radius: 6px;
+            margin-bottom: 0.12in;
+            border-top: 2px solid var(--orange);
+            page-break-inside: avoid;
+        }
+
+        .term-title {
+            font-size: 0.9rem;
+            color: var(--orange);
+            margin-bottom: 0.08in;
+            font-weight: 700;
+        }
+
+        .term-section {
+            margin-bottom: 0.06in;
+        }
+
+        .term-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .term-label {
+            font-size: 0.65rem;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.03in;
+            font-weight: 600;
+        }
+
+        .term-content {
+            font-size: 0.7rem;
+            color: var(--text-grey);
+            line-height: 1.5;
+        }
+
+        .term-content strong {
+            color: var(--text-white);
+        }
+
+        .term-example {
+            background: rgba(75, 205, 62, 0.08);
+            padding: 0.06in;
+            border-radius: 4px;
+            border-left: 2px solid var(--green);
+            margin-top: 0.05in;
+        }
+
+        .term-example p {
+            font-size: 0.68rem;
+            color: var(--text-grey);
+            line-height: 1.4;
+            font-style: italic;
+        }
+
+        .term-example strong {
+            color: var(--text-white);
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.12) 0%, rgba(75, 205, 62, 0.12) 100%);
+            padding: 0.15in;
+            border-radius: 8px;
+            border: 2px solid var(--orange);
+            margin: 0.15in 0;
+            text-align: center;
+            page-break-inside: avoid;
+        }
+
+        .summary-box h3 {
+            font-size: 0.9rem;
+            color: var(--orange);
+            margin-bottom: 0.08in;
+        }
+
+        .summary-box p {
+            font-size: 0.75rem;
+            color: var(--text-white);
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .summary-box .quote {
+            font-size: 0.8rem;
+            margin-top: 0.08in;
+            padding-top: 0.08in;
+            border-top: 1px solid rgba(249, 115, 22, 0.3);
+        }
+
+        .footer {
+            margin-top: 0.15in;
+            padding-top: 0.1in;
+            border-top: 1px solid var(--text-grey);
+            text-align: center;
+            font-size: 0.6rem;
+            color: var(--text-grey);
+        }
+
+        .terms-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.1in;
+            margin-bottom: 0.12in;
+            page-break-inside: avoid;
+        }
+
+        .terms-grid .term {
+            margin-bottom: 0;
+        }
+
+        /* Stage Badge */
+        .stage-badge {
+            display: inline-block;
+            background: rgba(75, 205, 62, 0.15);
+            color: var(--green);
+            font-size: 0.65rem;
+            padding: 0.03in 0.08in;
+            border-radius: 3px;
+            font-weight: 600;
+            margin-left: 0.08in;
+        }
+
+        .stage-badge.stage-5 {
+            background: rgba(178, 26, 83, 0.15);
+            color: var(--raspberry);
+        }
+    </style>
+</head>
+<body>
+    <!-- PAGE 1 -->
+    <div class="page">
+        <div class="header">
+            <h1>Unified Narrative Infrastructure <span class="highlight">Executive Glossary</span></h1>
+            <p class="subtitle">Stage 4 / Stage 5 Terminology Cheat Sheet, Operational Definitions for Leadership</p>
+        </div>
+
+        <div class="intro-box">
+            <p>
+                <strong>Purpose:</strong> This glossary translates strategic framework concepts into practical operational meaning. These definitions explain <strong>what each term means in practice</strong>, why it matters to RevOps, and how it manifests in real buyer experiences.
+            </p>
+            <p>
+                <strong>Not</strong> technical jargon. <strong>Not</strong> marketing fluff. <strong>Practical interpretation</strong> for executive decision-making.
+            </p>
+        </div>
+
+        <!-- Core Infrastructure Terms -->
+        <div class="section-header">
+            <h2>Core Infrastructure Concepts</h2>
+        </div>
+
+        <div class="term">
+            <div class="term-title">Unified Narrative Infrastructure <span class="stage-badge">STAGE 4</span></div>
+            <div class="term-section">
+                <div class="term-label">What It Means</div>
+                <div class="term-content">
+                    A connected orchestration system where CRM data, personalization, AI guidance, demo environments, analytics, and buyer pathways all operate together as a single governed experience layer.
+                </div>
+            </div>
+            <div class="term-section">
+                <div class="term-label">Why It Matters</div>
+                <div class="term-content">
+                    Instead of delivering disconnected assets, organizations deliver <strong>orchestrated buyer experiences</strong>.
+                </div>
+            </div>
+            <div class="term-section">
+                <div class="term-label">Real-World Example</div>
+                <div class="term-example">
+                    <p>Salesforce + Coast.io + Synthesia operate together through a shared narrative state engine.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="term">
+            <div class="term-title">Narrative Orchestration Engine</div>
+            <div class="term-section">
+                <div class="term-label">What It Means</div>
+                <div class="term-content">
+                    The central coordination layer that manages pathways, personalization, guidance, context, analytics, and buyer progression.
+                </div>
+            </div>
+            <div class="term-section">
+                <div class="term-label">Why It Matters</div>
+                <div class="term-content">
+                    This is what transforms multiple disconnected tools into one cohesive experience.
+                </div>
+            </div>
+            <div class="term-section">
+                <div class="term-label">Real-World Example</div>
+                <div class="term-example">
+                    <p>The orchestration engine decides which guidance appears, which workflows are prioritized, which contextual bridge is required, and how buyer exploration remains coherent.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="term">
+            <div class="term-title">Human-Led Orchestration</div>
+            <div class="term-section">
+                <div class="term-label">What It Means</div>
+                <div class="term-content">
+                    Sales and Solution Engineering teams still define positioning, priorities, workflows, messaging, and strategic narrative direction. The system operationalizes execution at scale.
+                </div>
+            </div>
+            <div class="term-section">
+                <div class="term-label">Why It Matters</div>
+                <div class="term-content">
+                    This is <strong>augmentation infrastructure</strong>, not AI replacing sales strategy.
+                </div>
+            </div>
+            <div class="term-section">
+                <div class="term-label">Real-World Example</div>
+                <div class="term-example">
+                    <p>An SE selects manufacturing workflows, operational reporting, and automation use cases. The platform automatically assembles and personalizes the experience.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2026 Jason Hanscomb | Narrative Orchestration Glossary, Page 1 of 6
+        </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="page page-break">
+        <!-- Context & State Management -->
+        <div class="section-header">
+            <h2>Context & State Management</h2>
+        </div>
+
+        <div class="terms-grid">
+            <div class="term">
+                <div class="term-title">Persistent Context</div>
+                <div class="term-section">
+                    <div class="term-label">What It Means</div>
+                    <div class="term-content">
+                        The system continuously remembers who the buyer is, what they've explored, what pain points matter, and where they are in the journey.
+                    </div>
+                </div>
+                <div class="term-section">
+                    <div class="term-label">Why It Matters</div>
+                    <div class="term-content">
+                        Traditional demos reset context every time the buyer changes screens or assets. Persistent context ensures the experience remains personalized and coherent.
+                    </div>
+                </div>
+                <div class="term-section">
+                    <div class="term-label">Real-World Example</div>
+                    <div class="term-example">
+                        <p>A CFO exploring analytics receives different guidance than an Operations Lead exploring workflows, even inside the same demo environment.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="term">
+                <div class="term-title">Journey State Tracking</div>
+                <div class="term-section">
+                    <div class="term-label">What It Means</div>
+                    <div class="term-content">
+                        The system tracks where the buyer has been, what they explored, what guidance they received, and what narrative state they are currently in.
+                    </div>
+                </div>
+                <div class="term-section">
+                    <div class="term-label">Why It Matters</div>
+                    <div class="term-content">
+                        Traditional analytics track clicks. Journey state tracking tracks <strong>narrative progression</strong>.
+                    </div>
+                </div>
+                <div class="term-section">
+                    <div class="term-label">Real-World Example</div>
+                    <div class="term-example">
+                        <p>The system knows the buyer already viewed automation workflows, skipped integrations, and spent significant time in reporting. Future guidance adapts accordingly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2026 Jason Hanscomb | Narrative Orchestration Glossary, Page 2 of 6
+        </div>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="page page-break">
+        <div class="header">
+            <h1>Narrative <span class="highlight">Continuity & Guidance</span></h1>
+            <p class="subtitle">How Systems Maintain Coherent Buyer Understanding</p>
+        </div>
+
+        <!-- Continuity Concepts -->
+        <div class="section-header">
+            <h2>Narrative Continuity Mechanisms</h2>
+        </div>
+
+        <div class="term">
+            <div class="term-title">Narrative Continuity</div>
+            <div class="term-section">
+                <div class="term-label">What It Means</div>
+                <div class="term-content">
+                    Maintaining a coherent story and strategic value proposition across all buyer interactions.
+                </div>
+            </div>
+            <div class="term-section">
+                <div class="term-label">Why It Matters</div>
+                <div class="term-content">
+                    Without continuity, demos become fragmented, value propositions disappear, and buyers lose strategic understanding.
+                </div>
+            </div>
+            <div class="term-section">
+                <div class="term-label">Real-World Example</div>
+                <div class="term-example">
+                    <p>Even when buyers jump unpredictably between workflows, the system continuously reconnects interactions back to operational efficiency, cost reduction, or strategic business value.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="term">
+            <div class="term-title">Context Bridges</div>
+            <div class="term-section">
+                <div class="term-label">What It Means</div>
+                <div class="term-content">
+                    Pre-structured transitions that reconnect the buyer to the narrative when they jump between unrelated workflows or topics.
+                </div>
+            </div>
+            <div class="term-section">
+                <div class="term-label">Why It Matters</div>
+                <div class="term-content">
+                    Without context bridges, buyers lose understanding of the "why" behind what they are seeing.
+                </div>
+            </div>
+            <div class="term-section">
+                <div class="term-label">Real-World Example</div>
+                <div class="term-example">
+                    <p>A buyer skips directly from an executive overview into a technical API integration screen. The system injects guidance: <strong>"Before exploring integrations, it's important to understand how operational data flows through the reporting layer…"</strong> This restores narrative continuity.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="term">
+            <div class="term-title">Narrative Drift</div>
+            <div class="term-section">
+                <div class="term-label">What It Means</div>
+                <div class="term-content">
+                    The loss of contextual understanding that occurs when buyers move between disconnected assets or unrelated workflows.
+                </div>
+            </div>
+            <div class="term-section">
+                <div class="term-label">Why It Matters</div>
+                <div class="term-content">
+                    This is the core failure of Stage 3 environments.
+                </div>
+            </div>
+            <div class="term-section">
+                <div class="term-label">Real-World Example</div>
+                <div class="term-example">
+                    <p>A buyer watches a high-level AI avatar overview, then opens a completely unrelated product demo with different data and no contextual transition. <strong>The narrative collapses.</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2026 Jason Hanscomb | Narrative Orchestration Glossary, Page 3 of 6
+        </div>
+    </div>
+
+    <!-- PAGE 4 -->
+    <div class="page page-break">
+        <!-- Guidance Layer -->
+        <div class="section-header">
+            <h2>Presentation, Guidance & Personalization</h2>
+        </div>
+
+        <div class="terms-grid">
+            <div class="term">
+                <div class="term-title">Presentation Layer</div>
+                <div class="term-section">
+                    <div class="term-label">What It Means</div>
+                    <div class="term-content">
+                        The buyer-facing delivery surface where orchestrated content, guidance, workflows, and personalization are rendered and interacted with across the journey.
+                    </div>
+                </div>
+                <div class="term-section">
+                    <div class="term-label">Why It Matters</div>
+                    <div class="term-content">
+                        This is the actual environment the buyer experiences. Without a governed presentation layer, orchestration logic stays hidden and disconnected from buyer engagement.
+                    </div>
+                </div>
+                <div class="term-section">
+                    <div class="term-label">Real-World Example</div>
+                    <div class="term-example">
+                        <p>A Seismic Interactive Content microsite or a Coast.io engagement portal acts as the <strong>presentation layer</strong>, rendering guided workflows, AI guidance, contextual transitions, and personalized proof points inside a single buyer-facing experience.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="term">
+                <div class="term-title">Persistent Guidance Layer</div>
+                <div class="term-section">
+                    <div class="term-label">What It Means</div>
+                    <div class="term-content">
+                        An always-present guidance system embedded directly into the buyer experience. Unlike standalone videos, guidance persists throughout exploration.
+                    </div>
+                </div>
+                <div class="term-section">
+                    <div class="term-label">Why It Matters</div>
+                    <div class="term-content">
+                        The buyer is never left "alone" inside the software. The system continuously reinforces value propositions, business outcomes, and contextual relevance.
+                    </div>
+                </div>
+                <div class="term-section">
+                    <div class="term-label">Real-World Example</div>
+                    <div class="term-example">
+                        <p>As the buyer clicks into forecasting dashboards, the guidance layer explains: <strong>"This view helps reduce reporting overhead by consolidating regional operational data into a single reporting structure."</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="term">
+                <div class="term-title">Operationalized Personalization</div>
+                <div class="term-section">
+                    <div class="term-label">What It Means</div>
+                    <div class="term-content">
+                        Personalization delivered systematically through connected infrastructure rather than manual preparation.
+                    </div>
+                </div>
+                <div class="term-section">
+                    <div class="term-label">Why It Matters</div>
+                    <div class="term-content">
+                        Enables scalable "white glove" experiences without requiring manual rebuilds.
+                    </div>
+                </div>
+                <div class="term-section">
+                    <div class="term-label">Real-World Example</div>
+                    <div class="term-example">
+                        <p>CRM data automatically populates logos, KPIs, localized currencies, business terminology, and role-specific workflows.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Governance -->
+        <div class="section-header">
+            <h2>Governance & Control</h2>
+        </div>
+
+        <div class="terms-grid">
+            <div class="term">
+                <div class="term-title">Structured Branching Logic</div>
+                <div class="term-section">
+                    <div class="term-label">What It Means</div>
+                    <div class="term-content">
+                        Human-defined pathways that allow buyers to explore freely while maintaining strategic narrative coherence.
+                    </div>
+                </div>
+                <div class="term-section">
+                    <div class="term-label">Why It Matters</div>
+                    <div class="term-content">
+                        Buyers want autonomy. Sales teams need governance. Structured branching provides both.
+                    </div>
+                </div>
+                <div class="term-section">
+                    <div class="term-label">Real-World Example</div>
+                    <div class="term-example">
+                        <p>A technical buyer may branch toward integrations while an executive buyer branches toward ROI dashboards, without losing contextual continuity.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="term">
+                <div class="term-title">Governed Exploration Pathways</div>
+                <div class="term-section">
+                    <div class="term-label">What It Means</div>
+                    <div class="term-content">
+                        Buyer exploration remains flexible, but within intentionally designed narrative boundaries.
+                    </div>
+                </div>
+                <div class="term-section">
+                    <div class="term-label">Why It Matters</div>
+                    <div class="term-content">
+                        Provides autonomy while preserving strategic messaging.
+                    </div>
+                </div>
+                <div class="term-section">
+                    <div class="term-label">Real-World Example</div>
+                    <div class="term-example">
+                        <p>Buyers can explore multiple workflows freely, but guidance logic continuously reconnects exploration back to defined business outcomes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2026 Jason Hanscomb | Narrative Orchestration Glossary, Page 4 of 6
+        </div>
+    </div>
+
+    <!-- PAGE 5 -->
+    <div class="page page-break">
+        <div class="header">
+            <h1>Analytics & <span class="highlight">Future Evolution</span></h1>
+            <p class="subtitle">Measuring Narrative Performance + Stage 5 Intelligence Layer</p>
+        </div>
+
+        <!-- Analytics -->
+        <div class="section-header">
+            <h2>Narrative Analytics</h2>
+        </div>
+
+        <div class="terms-grid">
+            <div class="term">
+                <div class="term-title">Narrative Integrity Score</div>
+                <div class="term-section">
+                    <div class="term-label">What It Means</div>
+                    <div class="term-content">
+                        A measurement of how effectively the buyer maintained understanding of the core value proposition throughout the journey.
+                    </div>
+                </div>
+                <div class="term-section">
+                    <div class="term-label">Why It Matters</div>
+                    <div class="term-content">
+                        Traditional analytics measure activity. Narrative integrity measures <strong>comprehension consistency</strong>.
+                    </div>
+                </div>
+                <div class="term-section">
+                    <div class="term-label">Real-World Example</div>
+                    <div class="term-example">
+                        <p>A high score indicates the buyer maintained contextual understanding, followed coherent progression, and consistently engaged with value-driven workflows.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="term">
+                <div class="term-title">Granular Intent Capture</div>
+                <div class="term-section">
+                    <div class="term-label">What It Means</div>
+                    <div class="term-content">
+                        Tracking buyer engagement at the narrative and comprehension level, not just clicks.
+                    </div>
+                </div>
+                <div class="term-section">
+                    <div class="term-label">Why It Matters</div>
+                    <div class="term-content">
+                        It reveals buyer priorities, interest depth, confusion points, and engagement patterns.
+                    </div>
+                </div>
+                <div class="term-section">
+                    <div class="term-label">Real-World Example</div>
+                    <div class="term-example">
+                        <p>The system identifies which workflows generated strongest engagement, where buyer confidence weakened, and which paths correlated with executive buy-in.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stage 5 -->
+        <div class="section-header">
+            <h2>Stage 5: Future Evolution</h2>
+        </div>
+
+        <div class="term">
+            <div class="term-title">Narrative Intelligence Infrastructure <span class="stage-badge stage-5">STAGE 5</span></div>
+            <div class="term-section">
+                <div class="term-label">What It Means</div>
+                <div class="term-content">
+                    The future evolution where intelligence systems proactively recommend optimal workflows, experience composition, narrative emphasis, and buyer-specific orchestration strategies.
+                </div>
+            </div>
+            <div class="term-section">
+                <div class="term-label">Why It Matters</div>
+                <div class="term-content">
+                    The system evolves from <strong>orchestration execution</strong> to <strong>orchestration intelligence support</strong>.
+                </div>
+            </div>
+            <div class="term-section">
+                <div class="term-label">Real-World Example</div>
+                <div class="term-example">
+                    <p>The platform detects healthcare persona, integration-heavy interest patterns, and pricing sensitivity, then recommends specific workflows, relevant customer stories, and strategic narrative emphasis before experience assembly.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="summary-box">
+            <h3>The Simplest Executive Summary</h3>
+            <p>If leadership asks: <strong>"What is this really?"</strong></p>
+            <p class="quote">
+                "Stage 4 transforms demos from disconnected assets into orchestrated buyer experiences. Humans define the strategy. The infrastructure operationalizes delivery through personalization, guidance, and contextual continuity."
+            </p>
+        </div>
+
+        <div class="footer">
+            © 2026 Jason Hanscomb | Narrative Orchestration Glossary, Page 5 of 6
+        </div>
+    </div>
+
+    <!-- PAGE 6 -->
+    <div class="page page-break">
+        <!-- Key Distinctions Table -->
+        <div class="section-header">
+            <h2>Key Framework Distinctions</h2>
+        </div>
+
+        <div style="background: var(--bg-darker); padding: 0.12in; border-radius: 6px; margin-bottom: 0.15in;">
+            <table style="width: 100%; font-size: 0.68rem; color: var(--text-grey); border-collapse: collapse;">
+                <thead>
+                    <tr style="border-bottom: 2px solid var(--orange);">
+                        <th style="padding: 0.06in; text-align: left; color: var(--orange);">Concept</th>
+                        <th style="padding: 0.06in; text-align: left; color: var(--orange);">Stage 3 (Distributed)</th>
+                        <th style="padding: 0.06in; text-align: left; color: var(--green);">Stage 4 (Unified)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid rgba(151, 163, 175, 0.2);">
+                        <td style="padding: 0.05in; color: var(--text-white); font-weight: 600;">Asset Delivery</td>
+                        <td style="padding: 0.05in;">Separate links, disconnected tools</td>
+                        <td style="padding: 0.05in; color: var(--text-white);">Single orchestrated experience</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(151, 163, 175, 0.2);">
+                        <td style="padding: 0.05in; color: var(--text-white); font-weight: 600;">Personalization</td>
+                        <td style="padding: 0.05in;">Manual SE preparation</td>
+                        <td style="padding: 0.05in; color: var(--text-white);">Operationalized at scale</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(151, 163, 175, 0.2);">
+                        <td style="padding: 0.05in; color: var(--text-white); font-weight: 600;">Context</td>
+                        <td style="padding: 0.05in;">Resets with each asset</td>
+                        <td style="padding: 0.05in; color: var(--text-white);">Persistent across journey</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(151, 163, 175, 0.2);">
+                        <td style="padding: 0.05in; color: var(--text-white); font-weight: 600;">Guidance</td>
+                        <td style="padding: 0.05in;">Standalone videos/documents</td>
+                        <td style="padding: 0.05in; color: var(--text-white);">Embedded, persistent layer</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(151, 163, 175, 0.2);">
+                        <td style="padding: 0.05in; color: var(--text-white); font-weight: 600;">Analytics</td>
+                        <td style="padding: 0.05in;">Click tracking, time on page</td>
+                        <td style="padding: 0.05in; color: var(--text-white);">Narrative comprehension, intent capture</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.05in; color: var(--text-white); font-weight: 600;">SE Role</td>
+                        <td style="padding: 0.05in;">Manual asset coordinator</td>
+                        <td style="padding: 0.05in; color: var(--text-white);">Experience Architect</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="background: rgba(75, 205, 62, 0.08); padding: 0.12in; border-radius: 6px; border-left: 3px solid var(--green);">
+            <p style="font-size: 0.7rem; color: var(--text-grey); line-height: 1.5;">
+                <strong style="color: var(--green);">For RevOps Leaders:</strong> This glossary provides the operational vocabulary for evaluating vendor capabilities, defining transformation roadmaps, and communicating infrastructure evolution to executive stakeholders. Use these definitions to distinguish genuine orchestration platforms from incrementally improved point solutions.
+            </p>
+        </div>
+
+        <div class="footer">
+            © 2026 Jason Hanscomb | Narrative Orchestration Glossary, Page 6 of 6
+        </div>
+    </div>
+</body>
+</html>

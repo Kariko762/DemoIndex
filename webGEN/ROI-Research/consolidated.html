@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Executive Business Case & ROI Analysis | AI Demo Automation Platforms</title>
+<style>
+:root {
+    /* Sophisticated Enterprise Dark Palette */
+    --bg-primary: #060B18;
+    --bg-secondary: #0D1527;
+    --bg-surface: #172237;
+    --accent: #FF7A1A;
+    --accent-hover: #E66B15;
+    --success: #10B981;
+    --success-bg: rgba(16, 185, 129, 0.08);
+    --border: rgba(255, 255, 255, 0.08);
+    --text-primary: #FFFFFF;
+    --text-secondary: #B9C6D9;
+    --text-muted: #6B7A90;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* --- HEADER --- */
+header {
+    height: 80px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    background: rgba(13, 21, 39, 0.8);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    color: var(--text-primary);
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.logo span {
+    color: var(--accent);
+}
+
+.badge {
+    background: rgba(255, 122, 26, 0.1);
+    border: 1px solid rgba(255, 122, 26, 0.3);
+    color: var(--accent);
+    padding: 4px 12px;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* --- LAYOUT --- */
+.wrapper {
+    /* Step 1: Expand or remove the maximum boundary constraint */
+    max-width: 95%; /* Use 100% for absolute edge-to-edge layout */
+    margin: 0 auto;
+    /* Step 2: Use percentage or flexible sizing for the grid columns */
+    display: grid;
+    grid-template-columns: 22% 1fr; /* Left navigation takes 22% of total screen, content takes the remaining space */
+    gap: 3%; /* Scales spacing proportionally with screen resolution */
+    padding: 3% 0;
+}
+
+/* --- SIDEBAR --- */
+aside {
+    position: sticky;
+    top: 40px;
+    height: fit-content;
+    width: 80%; /* Ensures the panel fills its assigned grid section fluidly */
+}
+
+.sidebar-nav {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.sidebar-nav h4 {
+    color: var(--text-primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+    padding-left: 8px;
+}
+
+.sidebar-nav a {
+    display: block;
+    padding: 12px 16px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    margin-bottom: 4px;
+}
+
+.sidebar-nav a:hover {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-primary);
+}
+
+.sidebar-nav a.active {
+    background: rgba(255, 122, 26, 0.1);
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/* --- CONTENT ARCHITECTURE --- */
+.content {
+    width: 100%; /* Dynamically expands to fill the larger fractional grid area */
+    max-width: none; /* Crucial: Disables the previous 960px ceiling to allow full expansion */
+}
+
+.hero-section {
+    margin-bottom: 56px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 40px;
+}
+
+.page-title {
+    color: var(--text-primary);
+    font-size: 2.75rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 16px;
+}
+
+.intro-text {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+section {
+    margin-bottom: 64px;
+    scroll-margin-top: 110px;
+}
+
+.section-header {
+    margin-bottom: 24px;
+}
+
+section h2 {
+    color: var(--text-primary);
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+}
+
+.section-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* --- DATA CARDS & GRID --- */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+    width: 100%;
+}
+
+.kpi-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.kpi-value {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.kpi-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.kpi-quote {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+    border-left: 2px solid var(--border);
+    padding-left: 8px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+.source-link {
+    font-size: 0.75rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.source-link:hover {
+    text-decoration: underline;
+}
+
+/* --- TABBED SYSTEM FOR FINANCIAL/TCO MODEL --- */
+.tab-container {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: 24px;
+}
+
+.tab-nav {
+    display: flex;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 16px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    padding: 16px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.tab-btn:hover {
+    color: var(--text-primary);
+}
+
+.tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+
+.tab-panel {
+    display: none;
+    padding: 24px;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+.tab-panel h4 {
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+/* --- TABLES --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th {
+    padding: 12px 16px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--border);
+}
+
+td {
+    padding: 16px;
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+.nested-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.nested-list li {
+    position: relative;
+    padding-left: 16px;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.nested-list li::before {
+    content: "•";
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+}
+
+/* --- CALLOUTS & SUMMARIES --- */
+.callout-box {
+    background: rgba(255, 122, 26, 0.02);
+    border-left: 4px solid var(--accent);
+    padding: 20px;
+    border-radius: 0 12px 12px 0;
+    margin: 24px 0;
+}
+
+.callout-box h4 {
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    font-size: 1rem;
+}
+
+.formula-display {
+    background: rgba(0, 0, 0, 0.3);
+    font-family: monospace;
+    padding: 14px;
+    border-radius: 8px;
+    color: var(--text-primary);
+    margin-top: 12px;
+    font-size: 1rem;
+    border: 1px solid var(--border);
+    text-align: center;
+}
+
+.summary-card {
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(13,21,39,0.6) 100%);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+}
+
+.summary-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    list-style: none;
+}
+
+.summary-list li {
+    font-size: 0.95rem;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.summary-list strong {
+    color: var(--accent);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+footer {
+    margin-top: 80px;
+    padding: 32px 0;
+    border-top: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+}
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 1100px) {
+    .wrapper {
+        grid-template-columns: 1fr;
+        padding: 32px;
+    }
+    aside {
+        position: relative;
+        top: 0;
+    }
+    .summary-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .kpi-grid {
+        grid-template-columns: 1fr;
+    }
+    .page-title {
+        font-size: 2rem;
+    }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo"><span>DEMO</span> INDEX</div>
+    <div class="badge">Demo Automation ROI</div>
+</header>
+
+<div class="wrapper">
+
+    <aside>
+        <nav class="sidebar-nav">
+            <h4>Strategic Sections</h4>
+            <a href="#strategic-context" class="active">1. Strategic Context</a>
+            <a href="#funnel-impact">2. Funnel Optimization</a>
+            <a href="#capacity-expansion">3. Resource Capacity</a>
+            <a href="#revenue-acceleration">4. Velocity Modeling</a>
+            <a href="#investment-structure">5. Total Cost of Ownership</a>
+            <a href="#executive-summary">6. Consolidation Summary</a>
+        </nav>
+    </aside>
+
+    <main class="content">
+
+        <div class="hero-section">
+            <h1 class="page-title">Evaluating the Business Case for AI-Driven Demo Automation Platforms</h1>
+            <p class="intro-text">
+                An authoritative business-case analysis cross-referencing global market research and validated platform telemetry. 
+                Prepared to define efficiency targets, resource scales, and compound revenue growth vectors across Go-To-Market operations.
+            </p>
+        </div>
+
+        <section id="strategic-context">
+            <div class="section-header">
+                <h2>1. Market Dynamics & Buyer Alignment</h2>
+                <p class="section-desc">Analyzing macro buyer behavioral shifts and product-led infrastructure integration.</p>
+            </div>
+            
+            <p style="margin-bottom: 20px;">
+                Modern business-to-business purchasing architectures have radically drifted away from traditional sales-led cadences. 
+                Organizations scaling efficiently optimize for friction-free self-service pathways to match buyer behaviors.
+            </p>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div>
+                        <div class="kpi-value">83%</div>
+                        <div class="kpi-title">Self-Service Preference</div>
+                    </div>
+                    <div>
+                        <div class="kpi-quote">“83% of B2B buyers prefer digital self-service…”</div>
+                        <a href="https://www.gartner.com/en/sales/insights/future-of-sales" target="_blank" class="source-link">Gartner Future of Sales ↗</a>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div>
+                        <div class="kpi-value">40%</div>
+                        <div class="kpi-title">Personalization Revenue Lift</div>
+                    </div>
+                    <div>
+                        <div class="kpi-quote">“Leaders excelling at personalization-at-scale generate 40% more revenue…”</div>
+                        <a href="https://www.mckinsey.com/capabilities/growth-marketing-and-sales/our-insights/the-value-of-getting-personalization-right" target="_blank" class="source-link">McKinsey Personalization Study ↗</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="callout-box">
+                <h4>Market Scale Hyper-Growth Indicators</h4>
+                <p>Data verifies that <strong>60% of commercial leaders</strong> who fully integrate deep automation, hyper-personalization frameworks, and account-level analytics achieve consistent, sustainable double-digit baseline revenue growth.</p>
+                <a href="https://www.mckinsey.com/capabilities/growth-marketing-and-sales/our-insights/global-b2b-pulse" target="_blank" class="source-link" style="margin-top: 8px;">McKinsey Global B2B Pulse Report ↗</a>
+            </div>
+        </section>
+
+        <section id="funnel-impact">
+            <div class="section-header">
+                <h2>2. Quantifying Funnel-Stage Conversion Lift</h2>
+                <p class="section-desc">Empirical metrics measuring prospect movement from initial traffic to qualified pipeline assets.</p>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div>
+                        <div class="kpi-value">+18% - 24%</div>
+                        <div class="kpi-title">Visitor-to-Lead Lift</div>
+                    </div>
+                    <div>
+                        <div class="kpi-quote">“+18% to +24% lift in visitor-to-lead conversion rates…”</div>
+                        <a href="https://www.forrester.com/report/the-state-of-demand-marketing/" target="_blank" class="source-link">Forrester State of Demand & ABM Report ↗</a>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div>
+                        <div class="kpi-value">2×</div>
+                        <div class="kpi-title">Interactive Content Multiplier</div>
+                    </div>
+                    <div>
+                        <div class="kpi-quote">“Interactive content formats generate 2x more conversions…”</div>
+                        <a href="https://www.forrester.com/report/the-state-of-demand-marketing/" target="_blank" class="source-link">Forrester State of Demand & ABM Report ↗</a>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div>
+                        <div class="kpi-value">27%</div>
+                        <div class="kpi-title">Pipeline Conversion Lift</div>
+                    </div>
+                    <div>
+                        <div class="kpi-quote">“Pipeline conversion rates improve by an average of 27%…”</div>
+                        <a href="https://www.forrester.com/report/the-state-of-demand-marketing/" target="_blank" class="source-link">Forrester State of Demand & ABM Report ↗</a>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div>
+                        <div class="kpi-value">2.3×</div>
+                        <div class="kpi-title">Deep Session Probability</div>
+                    </div>
+                    <div>
+                        <div class="kpi-quote">“Users passing step 7 are 2.3x more likely to convert.”</div>
+                        <a href="https://www.arcade.software/resources/" target="_blank" class="source-link">Arcade Product Engagement Benchmarks ↗</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="capacity-expansion">
+            <div class="section-header">
+                <h2>3. Resource Capacity Expansion & Team Optimization</h2>
+                <p class="section-desc">Reallocating engineering assets from early administrative workloads to active pipeline conversions.</p>
+            </div>
+
+            <p style="margin-bottom: 24px;">
+                The primary bottleneck across enterprise revenue streams rests on technical headcount execution capacity. Automated solutions directly address resource fatigue by replacing repeatable early-stage steps with interactive workflows.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Impact Domain</th>
+                        <th style="width: 35%;">Validated Operational Scale</th>
+                        <th style="width: 40%;">Primary Authority Source Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Sales Engineers (SE)</strong></td>
+                        <td>30% – 50% technical hours reduced</td>
+                        <td><a href="https://www.gartner.com/en/documents/5620791" target="_blank" class="source-link">Gartner Market Guide for Interactive Demos ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Demo Asset Building</strong></td>
+                        <td>40% – 60% construction effort reduced</td>
+                        <td><a href="https://www.gartner.com/en/documents/5620791" target="_blank" class="source-link">Gartner Market Guide for Interactive Demos ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Account Executives (AE)</strong></td>
+                        <td>10% – 20% scheduling overhead saved</td>
+                        <td><a href="https://www.gartner.com/en/documents/5620791" target="_blank" class="source-link">Gartner Market Guide for Interactive Demos ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Marketing Programs</strong></td>
+                        <td>10% – 30% overall marketing efficiency lift</td>
+                        <td><a href="https://www.mckinsey.com/capabilities/growth-marketing-and-sales/our-insights/the-value-of-getting-personalization-right" target="_blank" class="source-link">McKinsey Personalization & Context Study ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Acquisition Efficiency</strong></td>
+                        <td>Up to 50% Customer Acquisition Cost (CAC) drop</td>
+                        <td><a href="https://www.mckinsey.com/capabilities/growth-marketing-and-sales/our-insights/the-value-of-getting-personalization-right" target="_blank" class="source-link">McKinsey Personalization & Context Study ↗</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="revenue-acceleration">
+            <div class="section-header">
+                <h2>4. Dynamic Revenue Velocity Architecture</h2>
+                <p class="section-desc">Systemic velocity compression modeling built on verified pipeline benchmarks.</p>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div>
+                        <div class="kpi-value">30%</div>
+                        <div class="kpi-title">Sales Cycle Reduction Length</div>
+                    </div>
+                    <div>
+                        <div class="kpi-quote">“30% reduction in sales cycle lengths…”</div>
+                        <a href="https://www.goconsensus.com/resources/" target="_blank" class="source-link">Consensus Enterprise Analytics Ledger ↗</a>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div>
+                        <div class="kpi-value">+38% - 45%</div>
+                        <div class="kpi-title">Opportunity-to-Close Lift</div>
+                    </div>
+                    <div>
+                        <div class="kpi-quote">“38% to 45% increase in opportunity-to-close rates…”</div>
+                        <a href="https://www.walnut.io/resources/" target="_blank" class="source-link">Walnut B2B Data & Benchmarks Report ↗</a>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div>
+                        <div class="kpi-value">+50%</div>
+                        <div class="kpi-title">Average Contract Value (ACV) Expansion</div>
+                    </div>
+                    <div>
+                        <div class="kpi-quote">“50% expansion in closed-won ACV.”</div>
+                        <a href="https://www.goconsensus.com/resources/" target="_blank" class="source-link">Consensus Enterprise Analytics Ledger ↗</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="callout-box">
+                <h4>Systemic Impact on Deal Pipeline Velocity</h4>
+                <p>By eliminating scheduling dead-zones and delivering instant access to interactive assets, revenue throughput expands non-linearly across the sales organization.</p>
+                <div class="formula-display">
+                    Revenue Velocity = (Pipeline × Win Rate × ACV) ÷ Sales Cycle Length
+                </div>
+                <a href="https://www.forrester.com/bold/tei/" target="_blank" class="source-link" style="margin-top: 12px; display: block;">Forrester TEI Framework Modeling ↗</a>
+            </div>
+        </section>
+
+        <!--<section id="investment-structure">
+            <div class="section-header">
+                <h2>5. Total Cost of Ownership & Resource Allocation</h2>
+                <p class="section-desc">Pragmatic planning parameters surrounding upfront software licenses, engineering deployment, and maintenance tracks.</p>
+            </div>
+
+            <div class="tab-container">
+                <div class="tab-nav">
+                    <button class="tab-btn active" onclick="switchTab(event, 'licensing')">Licensing Tiers</button>
+                    <button class="tab-btn" onclick="switchTab(event, 'labor')">Deployment Capital</button>
+                    <button class="tab-btn" onclick="switchTab(event, 'maintenance')">Resource Maintenance</button>
+                </div>
+                
+                <div id="licensing" class="tab-panel active">
+                    <h4>Software Subscription Profiles</h4>
+                    <p style="margin-bottom: 16px;">Standard enterprise baseline allocations calculated over typical baseline frameworks.</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Deployment Scale Target</th>
+                                <th>Annual Software Baseline Investment</th>
+                                <th>Methodology Origin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Standard Enterprise Baseline</td>
+                                <td><strong>£60,000 / annum</strong></td>
+                                <td><a href="https://www.forrester.com/bold/tei/" target="_blank" class="source-link">Forrester TEI Standard Case Study ↗</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="labor" class="tab-panel">
+                    <h4>Internal Engineering Resource Requirements</h4>
+                    <p style="margin-bottom: 16px;">Quantifying internal technical investment hours needed to build structural integration setups.</p>
+                    <ul class="nested-list">
+                        <li><strong>Structural Implementation Scope:</strong> 40 – 200 total deployment hours across cross-functional application endpoints. <span style="color: var(--text-muted); font-style: italic;">“Typical effort: 40–200 hours.”</span></li>
+                        <li><strong>Content Production Scope:</strong> 100 – 500 initial construction hours mapping customized client use paths. <span style="color: var(--text-muted); font-style: italic;">“Typical first-year effort: 100–500 hours.”</span></li>
+                        <li><strong>System Integration Layout:</strong> Connects automated intent logs, client behavioral streams, and native CRM records.</li>
+                    </ul>
+                </div>
+
+                <div id="maintenance" class="tab-panel">
+                    <h4>System Upkeep Time Commitments</h4>
+                    <p style="margin-bottom: 16px;">Anticipated recurring operational hours required to manage content accuracy.</p>
+                    <ul class="nested-list">
+                        <li><strong>Monthly Track Allocation:</strong> 5 – 15 deployment maintenance hours across active asset libraries.</li>
+                        <li><strong>Ecosystem Synchronization:</strong> Scheduled updates directly synchronized against internal core product releases.</li>
+                        <li><strong>Friction Mitigation Strategy:</strong> Minimal operational training footprint required compared to legacy sales technology replacements.</li>
+                    </ul>
+                </div>
+            </div>
+        </section> -->
+
+        <section id="investment-structure">
+            <div class="section-header">
+                <h2>5. Total Cost of Ownership & Resource Allocation Architecture</h2>
+                <p class="section-desc">A granular, auditable projection of software expenditure, upfront implementation engineering, content manufacturing, and rolling operational overhead.</p>
+            </div>
+
+            <div class="tab-container">
+                <div class="tab-nav">
+                    <button class="tab-btn active" onclick="switchTab(event, 'licensing')">Licensing & TCO Math</button>
+                    <button class="tab-btn" onclick="switchTab(event, 'labor')">Engineering Implementation</button>
+                    <button class="tab-btn" onclick="switchTab(event, 'maintenance')">Lifecycle Maintenance</button>
+                </div>
+                
+                <div id="licensing" class="tab-panel active">
+                    <h4>Software Subscription & Financial Constraints</h4>
+                    <p style="margin-bottom: 16px;">The baseline licensing model evaluates fixed SaaS subscription variables against variable resource capacity reclamation.</p>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Investment Category</th>
+                                <th>Fiscal Year 1 Cost Baseline</th>
+                                <th>Economic Attribution Model</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Core Platform Subscription</strong></td>
+                                <td>£60,000 / annum</td>
+                                <td>Fixed annual operating expense (OpEx). Includes unlimited viewer runtime volumes and primary AI personalization models.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Internal Capitalized Labor</strong></td>
+                                <td>£60,000 / initial setup</td>
+                                <td>Aggregated upfront internal resource allocation comprising engineering implementation and asset manufacturing.</td>
+                            </tr>
+                            <tr style="background: rgba(255, 122, 26, 0.03);">
+                                <td><strong>Total Year 1 Investment</strong></td>
+                                <td><strong>£120,000</strong></td>
+                                <td>Combined total cost of ownership including platform licensing and fully loaded internal operational labor.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="callout-box">
+                        <h4>Resource ROI Extraction Math</h4>
+                        <p>To justify this TCO layout, the financial case uses a standard loaded presales capacity equation:</p>
+                        <div class="formula-display" style="text-align: left; font-size: 0.9rem;">
+                            Annual SE Savings = (Saved Hours/Week × Active SE Headcount × Weeks Active) × Loaded Hourly SE Rate<br><br>
+                            <strong>Execution Baseline:</strong> (5 Hours/Week Saved × 50 SEs × 48 Weeks) × £58/Hour Loaded Cost = <strong>£696,000 Recurring Productivity Benefit</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="labor" class="tab-panel">
+                    <h4>Cross-Functional Engineering Implementation (40 – 200 Total Hours)</h4>
+                    <p style="margin-bottom: 16px;">The technical deployment timeline requires parallel execution tracks across three primary internal divisions to mitigate integration risks:</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px;">
+                        <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+                            <h5 style="color: var(--accent); margin-bottom: 8px;">1. Architecture & Security</h5>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Estimated Effort: 15–40 Hours</strong></p>
+                            <ul class="nested-list" style="font-size: 0.85rem;">
+                                <li>SSO/SAML protocol provisioning for corporate access identity governance.</li>
+                                <li>Configuring reverse proxy exclusions and domain record verification (SPF/DKIM/DMARC) for whitelabeled hosting surfaces.</li>
+                                <li>Establishing strict custom data governance isolation scopes.</li>
+                            </ul>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+                            <h5 style="color: var(--accent); margin-bottom: 8px;">2. RevOps Ecosystem Sync</h5>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Estimated Effort: 20–60 Hours</strong></p>
+                            <ul class="nested-list" style="font-size: 0.85rem;">
+                                <li>Mapping platform custom webhook fields into central CRM object architecture (Leads, Contacts, Opportunities).</li>
+                                <li>Writing bi-directional lead routing automation code based on real-time viewer tracking scores.</li>
+                                <li>Configuring programmatic alerts to notify AEs when accounts pass key engagement depth thresholds.</li>
+                            </ul>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+                            <h5 style="color: var(--accent); margin-bottom: 8px;">3. Production & Design</h5>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Estimated Effort: 100–500 Hours</strong></p>
+                            <ul class="nested-list" style="font-size: 0.85rem;">
+                                <li>Constructing 5–10 core reusable template paths representing high-priority customer workflows.</li>
+                                <li>CSS UI inject compilation to enforce brand identity consistency across sandbox frames.</li>
+                                <li>Writing micro-copy strings for interactive tooltip guidelines across product tours.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="maintenance" class="tab-panel">
+                    <h4>Recurring Maintenance Framework (5 – 15 Hours/Month Per Track)</h4>
+                    <p style="margin-bottom: 16px;">To prevent content drift, the platform requires systematic maintenance scheduled around product development release intervals:</p>
+                    
+                    <ul class="nested-list">
+                        <li><strong>UI Change Management Testing (Monthly Audit):</strong> Inspecting active tracking assets immediately following engineering deployment cycles. If native application DOM structures, component element IDs, or class layouts shift during core application updates, the platform requires element-selector remapping to ensure interactive click-regions do not break.</li>
+                        <li><strong>Hyperlink & Analytics Audit:</strong> Validating outbound target references, custom integration endpoints, and CRM payload logs to ensure zero intent-data dropouts across account-level tracking dashboards.</li>
+                        <li><strong>Feature Update Refreshes (Quarterly Strategy Cycle):</strong> Retiring legacy product screens. Swapping out screenshots or dynamic HTML code captures to accurately represent new value positions, user flows, and redesigned features.</li>
+                        <li><strong>Organizational Enablement Controls:</strong> Auditing internal user access profiles to restrict stale seat consumption and standardizing cross-department messaging libraries across Marketing and Sales teams to prevent unauthorized messaging variations.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="executive-summary">
+            <div class="section-header">
+                <h2>6. Consolidated Executive Ledger</h2>
+                <p class="section-desc">The unified single-page summary metrics compiled for executive board presentation.</p>
+            </div>
+
+            <div class="summary-card">
+                <ul class="summary-list">
+                    <li><strong>30% – 50%</strong> reduction in SE workload hours</li>
+                    <li><strong>10% – 20%</strong> reduction in AE admin lag</li>
+                    <li><strong>+18% – 24%</strong> lift in visitor-to-lead pathways</li>
+                    <li><strong>27%</strong> average pipeline conversion lift</li>
+                    <li><strong>20% – 40%</strong> increase in high-quality leads</li>
+                    <li><strong>15% – 30%</strong> faster pipeline execution velocity</li>
+                    <li><strong>10% – 30%</strong> reduction in sales cycle length</li>
+                    <li><strong>+38% – 45%</strong> higher opportunity close rates</li>
+                    <li><strong>+50%</strong> expansion in closed enterprise deal size</li>
+                    <li><strong>Up to 50%</strong> reduction in Customer Acquisition Cost</li>
+                    <li><strong>10% – 30%</strong> improvement in marketing ROI metrics</li>
+                    <li><strong>40%</strong> more revenue from personalization leaders</li>
+                    <li><strong>2.3×</strong> higher conversion on deep engagement depth</li>
+                    <li><strong>60%</strong> of leaders hit double-digit revenue growth</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer>
+            <div>Source Registry: McKinsey &bull; Gartner &bull; Forrester TEI &bull; Platform Benchmarks</div>
+            <div>Strictly Confidential &bull; Executive Proposal Framework</div>
+        </footer>
+
+    </main>
+</div>
+
+<script>
+// Tab View Switching Logic Engine
+function switchTab(event, panelId) {
+    const container = event.currentTarget.closest('.tab-container');
+    
+    // Clear out active classifications on sibling navigation options
+    container.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    // Clear out active layouts on content cards
+    container.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+    
+    // Set target designations active
+    event.currentTarget.classList.add('active');
+    container.querySelector('#' + panelId).classList.add('active');
+}
+
+// Sidebar Highlight on Scroll Tracking Mechanism
+window.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            const id = entry.target.getAttribute('id');
+            const navLink = document.querySelector(`.sidebar-nav a[href="#${id}"]`);
+            if (navLink && entry.isIntersecting) {
+                document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+                navLink.classList.add('active');
+            }
+        });
+    }, { target: null, rootMargin: '-25% 0px -55% 0px' });
+
+    document.querySelectorAll('section').forEach(section => observer.observe(section));
+});
+</script>
+</body>
+</html>

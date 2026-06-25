@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Demo Index™ Measurement Engine Specification</title>
+    <style>
+        :root {
+            --bg-dark: #090E1B;
+            --bg-darker: #0F1629;
+            --orange: #F97316;
+            --green: #4bcd3e;
+            --text-white: #FFFFFF;
+            --text-grey: #97A3AF;
+            --blue: #00d4ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: Letter;
+            margin: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Consolas', 'Monaco', monospace;
+            background: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+        }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            background: var(--bg-dark);
+            padding: 0.4in;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+
+        .with-footer {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.65rem;
+            color: var(--text-grey);
+            padding-top: 0.15in;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: auto;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--orange);
+            margin-bottom: 0.08in;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            color: var(--orange);
+            margin: 0.15in 0 0.1in 0;
+            padding-left: 0.08in;
+            border-left: 4px solid var(--orange);
+        }
+
+        h3 {
+            font-size: 1rem;
+            color: var(--orange);
+            margin: 0.12in 0 0.08in 0;
+        }
+
+        h4 {
+            font-size: 0.85rem;
+            color: var(--text-white);
+            margin: 0.08in 0 0.05in 0;
+        }
+
+        p, li {
+            font-size: 0.78rem;
+            line-height: 1.6;
+            color: var(--text-grey);
+            margin-bottom: 0.08in;
+        }
+
+        ul {
+            margin-left: 0.2in;
+            margin-bottom: 0.1in;
+        }
+
+        li {
+            margin-bottom: 0.05in;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.1in 0;
+            font-size: 0.72rem;
+        }
+
+        th {
+            background: rgba(249, 115, 22, 0.1);
+            color: var(--orange);
+            padding: 0.08in;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 600;
+        }
+
+        td {
+            padding: 0.08in;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-grey);
+            vertical-align: top;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 4px;
+            padding: 0.1in;
+            margin: 0.08in 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.7rem;
+            color: #00d4ff;
+            overflow-x: auto;
+        }
+
+        .callout {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(249, 115, 22, 0.02) 100%);
+            border: 1px solid var(--orange);
+            border-radius: 6px;
+            padding: 0.12in;
+            margin: 0.1in 0;
+        }
+
+        .spec-box {
+            background: rgba(0, 212, 255, 0.05);
+            border-left: 4px solid var(--blue);
+            padding: 0.1in;
+            margin: 0.08in 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: rgba(231, 76, 60, 0.05);
+            border-left: 4px solid #e74c3c;
+            padding: 0.1in;
+            margin: 0.08in 0;
+            border-radius: 4px;
+        }
+
+        strong {
+            color: var(--text-white);
+        }
+
+        code {
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+            padding: 0.02in 0.04in;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.72rem;
+        }
+
+        @media print {
+            body {
+                background: var(--bg-dark);
+            }
+            .page {
+                margin: 0;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1: TITLE & OVERVIEW -->
+    <div class="page page-break with-footer">
+        <div>
+        <h1>The Demo Index™</h1>
+        <p style="font-size: 1.1rem; color: var(--orange); margin-bottom: 0.15in;">Measurement Engine Specification v1.0</p>
+        
+        <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1); padding: 0.12in; border-radius: 6px; margin-bottom: 0.15in;">
+            <p style="font-size: 0.8rem; line-height: 1.6; color: var(--text-white); margin-bottom: 0;">
+                <strong>Technical Specification Document:</strong> This document defines the operational architecture for Demo Index measurement systems. It provides scoring engine logic, telemetry mapping specifications, CRM integration requirements, evidence-based validation rules, and benchmark data ingestion models. Intended audience: Engineers, data architects, product managers, and platform developers implementing Demo Index measurement capabilities.
+            </p>
+        </div>
+
+        <h2>1. System Architecture Overview</h2>
+
+        <p>
+            The Demo Index Measurement Engine is a data processing system that ingests organizational telemetry, applies scoring logic, and outputs standardized maturity classifications. The architecture consists of five core subsystems:
+        </p>
+
+        <div class="spec-box">
+            <p style="margin-bottom: 0.05in;"><strong style="color: var(--blue);">Core Subsystems</strong></p>
+            <ul style="margin-bottom: 0;">
+                <li><strong>Data Ingestion Layer:</strong> Telemetry collection from CRM, demo platforms, analytics tools, infrastructure logs</li>
+                <li><strong>Scoring Engine:</strong> Calculation logic applying dimension-specific algorithms and weighting models</li>
+                <li><strong>Validation Layer:</strong> Evidence-based verification comparing declarative and empirical scores</li>
+                <li><strong>Benchmark Aggregation Engine:</strong> Anonymous data pooling and statistical analysis for peer comparison</li>
+                <li><strong>Reporting & API Layer:</strong> Output standardization, visualization, and integration endpoints</li>
+            </ul>
+        </div>
+
+        <h3>Design Principles</h3>
+
+        <ul>
+            <li><strong>Transparency:</strong> All scoring logic is deterministic and auditable</li>
+            <li><strong>Privacy:</strong> No PII or customer data leaves organizational boundaries without explicit consent</li>
+            <li><strong>Extensibility:</strong> Modular architecture supports future dimension additions and algorithm refinements</li>
+            <li><strong>Hybrid Measurement:</strong> Supports both declarative (survey) and empirical (system-based) data sources</li>
+            <li><strong>Degraded Mode Operation:</strong> Provides scoring even with incomplete telemetry (with confidence penalties)</li>
+        </ul>
+
+        <h2>2. Data Ingestion Layer</h2>
+
+        <h3>Supported Data Sources</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Source Category</th>
+                    <th>Examples</th>
+                    <th>Data Extracted</th>
+                    <th>Integration Method</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>CRM Systems</strong></td>
+                    <td>Salesforce, HubSpot, Pipedrive</td>
+                    <td>Opportunity timestamps, demo request logs, account context, activity history</td>
+                    <td>REST API, Webhooks</td>
+                </tr>
+                <tr>
+                    <td><strong>Demo Platforms</strong></td>
+                    <td>Demostack, Consensus, Saleo, Reprise</td>
+                    <td>Environment provisioning logs, session analytics, personalization configs, usage telemetry</td>
+                    <td>API, Event Streams</td>
+                </tr>
+                <tr>
+                    <td><strong>Infrastructure</strong></td>
+                    <td>AWS, GCP, Azure</td>
+                    <td>Provisioning timestamps, deployment automation logs, resource utilization</td>
+                    <td>CloudWatch, Stackdriver, Azure Monitor APIs</td>
+                </tr>
+                <tr>
+                    <td><strong>Analytics Platforms</strong></td>
+                    <td>Segment, Amplitude, Mixpanel</td>
+                    <td>Buyer behavior patterns, navigation paths, engagement metrics</td>
+                    <td>API, Data Warehouse Sync</td>
+                </tr>
+                <tr>
+                    <td><strong>Orchestration Tools</strong></td>
+                    <td>Zapier, Workato, Custom</td>
+                    <td>Workflow automation evidence, integration depth, trigger configurations</td>
+                    <td>API, Config Inspection</td>
+                </tr>
+                <tr>
+                    <td><strong>Survey Responses</strong></td>
+                    <td>Assessment Tool</td>
+                    <td>Declarative capability scores, process documentation, maturity self-assessment</td>
+                    <td>Direct Input</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Data Schema Requirements</h3>
+
+        <p>
+            Ingested data must be normalized to a standardized schema before processing. The following core entities are required:
+        </p>
+
+        <div class="code-block">
+<strong style="color: var(--orange);">// Core Entity: DemoRequest</strong>
+{
+  "request_id": "string",
+  "account_id": "string",
+  "opportunity_id": "string",
+  "requested_at": "ISO8601 timestamp",
+  "delivered_at": "ISO8601 timestamp",
+  "time_to_demo_hours": "float",
+  "personalization_level": "enum: [generic, industry, persona, account, realtime]",
+  "automation_percentage": "float 0-100",
+  "self_service_initiated": "boolean",
+  "session_count": "integer",
+  "context_preserved": "boolean"
+}
+</div>
+        </div>
+
+        <div class="footer">
+            © 2026 | The Demo Index™ Measurement Engine Specification | v1.0
+        </div>
+    </div>
+
+    <!-- PAGE 2: SCORING ENGINE LOGIC -->
+    <div class="page page-break with-footer">
+        <div>
+        <h2>3. Scoring Engine Logic</h2>
+
+        <p>
+            The scoring engine applies dimension-specific algorithms to convert raw telemetry and survey responses into normalized 0-100 scores. Each dimension uses distinct scoring logic based on its measurement characteristics.
+        </p>
+
+        <h3>3.1 Experience Delivery Scoring</h3>
+
+        <div class="spec-box">
+            <p style="margin-bottom: 0.05in;"><strong style="color: var(--blue);">Primary Metric:</strong> Time-to-Demo (hours from request to delivery)</p>
+            
+            <p style="margin-bottom: 0.05in;"><strong>Empirical Scoring Algorithm:</strong></p>
+            <div class="code-block">
+<strong style="color: var(--orange);">// Calculate median Time-to-Demo over trailing 90 days</strong>
+median_ttd = MEDIAN(time_to_demo_hours)
+
+<strong style="color: var(--orange);">// Score mapping (inverse relationship: lower time = higher score)</strong>
+IF median_ttd >= 40:
+    score = 10  <span style="color: var(--text-grey);">// DI-1: 1+ week</span>
+ELSE IF median_ttd >= 16:
+    score = 30  <span style="color: var(--text-grey);">// DI-2: 2-5 days</span>
+ELSE IF median_ttd >= 4:
+    score = 50  <span style="color: var(--text-grey);">// DI-3: 4-16 hours</span>
+ELSE IF median_ttd >= 1:
+    score = 75  <span style="color: var(--text-grey);">// DI-4: 1-4 hours</span>
+ELSE:
+    score = 95  <span style="color: var(--text-grey);">// DI-5: <1 hour</span>
+            </div>
+
+            <p style="margin-bottom: 0;"><strong>Declarative Fallback:</strong> If insufficient telemetry, use survey response: "How quickly can your team deliver a customized demo?" (mapped to same score bands)</p>
+        </div>
+
+        <h3>3.2 Context Intelligence Scoring</h3>
+
+        <div class="spec-box">
+            <p style="margin-bottom: 0.05in;"><strong style="color: var(--blue);">Primary Metric:</strong> Personalization Depth Level</p>
+            
+            <p style="margin-bottom: 0.05in;"><strong>Empirical Scoring Algorithm:</strong></p>
+            <div class="code-block">
+<strong style="color: var(--orange);">// Analyze personalization distribution over trailing 90 days</strong>
+personalization_distribution = COUNT_BY_LEVEL(demos)
+
+<strong style="color: var(--orange);">// Calculate weighted average personalization level</strong>
+weighted_avg = (
+    (generic_count * 0) +
+    (industry_count * 25) +
+    (persona_count * 50) +
+    (account_count * 75) +
+    (realtime_count * 100)
+) / total_demo_count
+
+score = weighted_avg
+
+<strong style="color: var(--orange);">// Bonus: CRM integration depth (0-15 points)</strong>
+IF crm_integration_active:
+    IF bidirectional_sync:
+        score += 15
+    ELSE:
+        score += 8
+            </div>
+
+            <p style="margin-bottom: 0;"><strong>System Evidence Required:</strong> CRM API logs showing data injection, demo platform configs with account-specific data, personalization engine telemetry</p>
+        </div>
+
+        <h3>3.3 Narrative Integrity Scoring</h3>
+
+        <div class="spec-box">
+            <p style="margin-bottom: 0.05in;"><strong style="color: var(--blue);">Composite Metric:</strong> Five sub-metrics averaged</p>
+            
+            <p style="margin-bottom: 0.05in;"><strong>Sub-Metric Calculations:</strong></p>
+            <div class="code-block">
+<strong style="color: var(--orange);">// 1. Context Persistence Score</strong>
+context_persistence = (sessions_with_retained_context / total_sessions) * 100
+
+<strong style="color: var(--orange);">// 2. Journey Continuity Index</strong>
+journey_continuity = (multi_session_journeys_coherent / total_multi_session) * 100
+
+<strong style="color: var(--orange);">// 3. Cross-Asset Coherence Rate</strong>
+cross_asset_coherence = (consistent_value_props / total_asset_pairs) * 100
+
+<strong style="color: var(--orange);">// 4. Session State Stability</strong>
+session_stability = (successful_context_restorations / interrupted_sessions) * 100
+
+<strong style="color: var(--orange);">// 5. Stakeholder Context Mapping</strong>
+stakeholder_mapping = (accounts_with_individual_tracking / multi_stakeholder_accounts) * 100
+
+<strong style="color: var(--orange);">// Final Score</strong>
+narrative_integrity_score = AVERAGE(
+    context_persistence,
+    journey_continuity,
+    cross_asset_coherence,
+    session_stability,
+    stakeholder_mapping
+)
+            </div>
+
+            <p style="margin-bottom: 0;"><strong>Measurement Challenge:</strong> Most organizations at DI-1 through DI-3 lack instrumentation for these sub-metrics. Declarative scoring dominates until DI-4.</p>
+        </div>
+        </div>
+
+        <div class="footer">
+            © 2026 | The Demo Index™ Measurement Engine Specification | v1.0
+        </div>
+    </div>
+
+    <!-- PAGE 3: ORCHESTRATION & AUTONOMY SCORING -->
+    <div class="page page-break with-footer">
+        <div>
+        <h3>3.4 Orchestration Capability Scoring</h3>
+
+        <div class="spec-box">
+            <p style="margin-bottom: 0.05in;"><strong style="color: var(--blue);">Primary Metric:</strong> Automation Percentage</p>
+            
+            <p style="margin-bottom: 0.05in;"><strong>Empirical Scoring Algorithm:</strong></p>
+            <div class="code-block">
+<strong style="color: var(--orange);">// Calculate automation rate</strong>
+automation_percentage = (automated_demos / total_demos) * 100
+
+<strong style="color: var(--orange);">// Score mapping (linear relationship)</strong>
+IF automation_percentage <= 10:
+    base_score = 10  <span style="color: var(--text-grey);">// DI-1: 0-10%</span>
+ELSE IF automation_percentage <= 30:
+    base_score = 30  <span style="color: var(--text-grey);">// DI-2: 11-30%</span>
+ELSE IF automation_percentage <= 60:
+    base_score = 50  <span style="color: var(--text-grey);">// DI-3: 31-60%</span>
+ELSE IF automation_percentage <= 85:
+    base_score = 75  <span style="color: var(--text-grey);">// DI-4: 61-85%</span>
+ELSE:
+    base_score = 95  <span style="color: var(--text-grey);">// DI-5: 86-100%</span>
+
+<strong style="color: var(--orange);">// Bonus: Integration depth (0-10 points)</strong>
+integration_score = MIN(10, integration_count * 2)
+
+final_score = MIN(100, base_score + integration_score)
+            </div>
+
+            <p style="margin-bottom: 0;"><strong>System Evidence:</strong> Orchestration platform logs, API call volumes, manual intervention tickets, CI/CD deployment frequency</p>
+        </div>
+
+        <h3>3.5 Buyer Autonomy Scoring</h3>
+
+        <div class="spec-box">
+            <p style="margin-bottom: 0.05in;"><strong style="color: var(--blue);">Primary Metric:</strong> Self-Service Adoption Rate</p>
+            
+            <p style="margin-bottom: 0.05in;"><strong>Empirical Scoring Algorithm:</strong></p>
+            <div class="code-block">
+<strong style="color: var(--orange);">// Calculate buyer-initiated demo percentage</strong>
+self_service_rate = (buyer_initiated_demos / total_demos) * 100
+
+<strong style="color: var(--orange);">// Score mapping</strong>
+IF self_service_rate == 0:
+    base_score = 5   <span style="color: var(--text-grey);">// DI-1: No self-service</span>
+ELSE IF self_service_rate <= 15:
+    base_score = 25  <span style="color: var(--text-grey);">// DI-2: 1-15%</span>
+ELSE IF self_service_rate <= 40:
+    base_score = 50  <span style="color: var(--text-grey);">// DI-3: 16-40%</span>
+ELSE IF self_service_rate <= 70:
+    base_score = 75  <span style="color: var(--text-grey);">// DI-4: 41-70%</span>
+ELSE:
+    base_score = 95  <span style="color: var(--text-grey);">// DI-5: 71-100%</span>
+
+<strong style="color: var(--orange);">// Bonus: Anonymous access capability (0-5 points)</strong>
+IF allows_anonymous_access:
+    base_score += 5
+
+final_score = MIN(100, base_score)
+            </div>
+
+            <p style="margin-bottom: 0;"><strong>System Evidence:</strong> Buyer portal analytics, session initiation logs (buyer vs SE-initiated), registration requirements audit</p>
+        </div>
+
+        <h2>4. Validation Layer</h2>
+
+        <h3>Declarative vs. Empirical Score Reconciliation</h3>
+
+        <p>
+            When both declarative (survey) and empirical (system) scores exist for a dimension, the validation layer applies confidence-weighted blending:
+        </p>
+
+        <div class="code-block">
+<strong style="color: var(--orange);">// Confidence weights based on data quality</strong>
+empirical_confidence = data_completeness_percentage * data_recency_factor
+declarative_confidence = MAX(0.6, survey_response_quality_score)
+
+<strong style="color: var(--orange);">// Weighted blend</strong>
+IF empirical_data_available:
+    final_score = (
+        (empirical_score * empirical_confidence) +
+        (declarative_score * declarative_confidence)
+    ) / (empirical_confidence + declarative_confidence)
+ELSE:
+    final_score = declarative_score * 0.9  <span style="color: var(--text-grey);">// 10% confidence penalty</span>
+        </div>
+
+        <h3>Outlier Detection</h3>
+
+        <p>
+            The validation layer flags significant discrepancies between declarative and empirical scores:
+        </p>
+
+        <ul>
+            <li><strong>Warning Threshold:</strong> ±20 point difference between survey and system scores</li>
+            <li><strong>Error Threshold:</strong> ±40 point difference (likely measurement error or misrepresentation)</li>
+            <li><strong>Action:</strong> Flag for manual review, request additional evidence, or apply confidence penalty</li>
+        </ul>
+
+        <div class="warning-box">
+            <p style="margin-bottom: 0;"><strong style="color: #e74c3c;">Measurement Integrity Principle:</strong> Organizations claiming DI-4 or DI-5 maturity <strong>require empirical validation</strong>. Declarative-only scores are capped at DI-3 equivalent (60 points) to prevent unsubstantiated claims at advanced maturity levels.</p>
+        </div>
+        </div>
+
+        <div class="footer">
+            © 2026 | The Demo Index™ Measurement Engine Specification | v1.0
+        </div>
+    </div>
+
+    <!-- PAGE 4: BENCHMARK AGGREGATION -->
+    <div class="page page-break with-footer">
+        <div>
+        <h2>5. Benchmark Aggregation Engine</h2>
+
+        <h3>Data Anonymization & Privacy</h3>
+
+        <p>
+            Organizations contributing to benchmark data must explicitly consent to anonymized aggregation. All identifying information is stripped before ingestion into the benchmark database:
+        </p>
+
+        <div class="spec-box">
+            <p style="margin-bottom: 0.05in;"><strong style="color: var(--blue);">Anonymization Process</strong></p>
+            <ul style="margin-bottom: 0;">
+                <li>Company names, domains, and account identifiers replaced with UUID tokens</li>
+                <li>Individual user data (names, emails) completely removed</li>
+                <li>Geographic data generalized to region level (e.g., "North America" not "San Francisco")</li>
+                <li>Employee count bucketed (e.g., "100-500" not exact headcount)</li>
+                <li>Revenue data bucketed (e.g., "$50M-$100M ARR" not exact figures)</li>
+            </ul>
+        </div>
+
+        <h3>Benchmark Calculation Methodology</h3>
+
+        <p>
+            Benchmark scores are calculated by vertical, company size, and maturity band. Minimum cohort sizes apply:
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Benchmark Type</th>
+                    <th>Minimum Cohort Size</th>
+                    <th>Statistical Method</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Overall Industry Benchmark</strong></td>
+                    <td>100 organizations</td>
+                    <td>Median, P25, P75 scores by dimension</td>
+                </tr>
+                <tr>
+                    <td><strong>Vertical-Specific Benchmark</strong></td>
+                    <td>30 organizations in vertical</td>
+                    <td>Median score, distribution by maturity band</td>
+                </tr>
+                <tr>
+                    <td><strong>Company Size Benchmark</strong></td>
+                    <td>25 organizations in size bracket</td>
+                    <td>Median score, range (P10-P90)</td>
+                </tr>
+                <tr>
+                    <td><strong>Maturity Band Distribution</strong></td>
+                    <td>50 organizations</td>
+                    <td>Percentage distribution across DI-1 to DI-5</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="callout">
+            <p style="font-size: 0.75rem; margin-bottom: 0;">
+                <strong style="color: var(--orange);">Current State (2026):</strong> Benchmark data does not yet exist. The specification above defines requirements for future benchmark publication once sufficient cohort participation is achieved.
+            </p>
+        </div>
+
+        <h3>Benchmark Data Schema</h3>
+
+        <div class="code-block">
+<strong style="color: var(--orange);">// Benchmark Output Format</strong>
+{
+  "benchmark_id": "industry_2026_q2",
+  "cohort_size": 150,
+  "filters": {
+    "vertical": "B2B SaaS",
+    "size_bracket": "100-500 employees",
+    "region": "North America"
+  },
+  "scores": {
+    "overall_di_score": {
+      "median": 48.5,
+      "p25": 32.0,
+      "p75": 61.0
+    },
+    "experience_delivery": {
+      "median": 55.0,
+      "p25": 40.0,
+      "p75": 70.0
+    },
+    "context_intelligence": { ... },
+    "narrative_integrity": { ... },
+    "orchestration_capability": { ... },
+    "buyer_autonomy": { ... }
+  },
+  "maturity_distribution": {
+    "DI-1": 12,
+    "DI-2": 28,
+    "DI-3": 45,
+    "DI-4": 13,
+    "DI-5": 2
+  }
+}
+        </div>
+
+        <h2>6. Reporting & API Layer</h2>
+
+        <h3>Output Formats</h3>
+
+        <p>
+            The Measurement Engine provides three standardized output formats:
+        </p>
+
+        <ul>
+            <li><strong>Individual Organization Report:</strong> Full dimensional scores, maturity classification, peer comparison (if benchmarks available), improvement recommendations</li>
+            <li><strong>Benchmark Report:</strong> Aggregate industry data, maturity distribution, vertical analysis, year-over-year trends</li>
+            <li><strong>API Response:</strong> JSON format for programmatic integration with BI tools, dashboards, CRM systems</li>
+        </ul>
+
+        <h3>API Endpoints</h3>
+
+        <div class="code-block">
+<strong style="color: var(--orange);">// Submit Assessment Data</strong>
+POST /api/v1/assessment
+Content-Type: application/json
+Authorization: Bearer {api_key}
+
+Body: {organization_data, survey_responses, telemetry_data}
+Response: {assessment_id, status, estimated_completion_time}
+
+<strong style="color: var(--orange);">// Retrieve Score Report</strong>
+GET /api/v1/assessment/{assessment_id}/report
+Response: {di_score, dimension_scores, maturity_band, recommendations}
+
+<strong style="color: var(--orange);">// Get Benchmark Data (requires cohort participation consent)</strong>
+GET /api/v1/benchmarks/{vertical}/{size_bracket}
+Response: {benchmark_scores, peer_comparison, percentile_rank}
+        </div>
+        </div>
+
+        <div class="footer">
+            © 2026 | The Demo Index™ Measurement Engine Specification | v1.0
+        </div>
+    </div>
+
+    <!-- PAGE 5: IMPLEMENTATION ROADMAP -->
+    <div class="page with-footer">
+        <div>
+        <h2>7. Implementation Roadmap</h2>
+
+        <p>
+            Building a production-grade Demo Index Measurement Engine requires phased implementation. The following roadmap balances speed-to-market with measurement integrity:
+        </p>
+
+        <h3>Phase 1: MVP Measurement System (Months 1-3)</h3>
+
+        <div class="spec-box">
+            <p style="margin-bottom: 0.05in;"><strong style="color: var(--blue);">Scope:</strong></p>
+            <ul style="margin-bottom: 0.08in;">
+                <li>Build declarative scoring engine (survey-based assessment)</li>
+                <li>Implement core dimensional algorithms (Experience Delivery, Context Intelligence, Orchestration)</li>
+                <li>Create basic validation layer (outlier detection, confidence scoring)</li>
+                <li>Deploy assessment tool with immediate scoring output</li>
+                <li><strong>No benchmarking at this stage</strong> (insufficient data)</li>
+            </ul>
+            <p style="margin-bottom: 0;"><strong>Output:</strong> Functional assessment tool capable of scoring individual organizations</p>
+        </div>
+
+        <h3>Phase 2: Empirical Telemetry Integration (Months 4-6)</h3>
+
+        <div class="spec-box">
+            <p style="margin-bottom: 0.05in;"><strong style="color: var(--blue);">Scope:</strong></p>
+            <ul style="margin-bottom: 0.08in;">
+                <li>Build CRM integrations (Salesforce, HubSpot) for Time-to-Demo measurement</li>
+                <li>Add demo platform connectors (Demostack, Consensus, Saleo, Reprise)</li>
+                <li>Implement blended scoring (declarative + empirical)</li>
+                <li>Add confidence weighting and validation rules</li>
+                <li>Begin anonymized data collection for future benchmarking</li>
+            </ul>
+            <p style="margin-bottom: 0;"><strong>Output:</strong> Hybrid measurement system with system-based validation</p>
+        </div>
+
+        <h3>Phase 3: Narrative Integrity Operationalization (Months 7-9)</h3>
+
+        <div class="spec-box">
+            <p style="margin-bottom: 0.05in;"><strong style="color: var(--blue);">Scope:</strong></p>
+            <ul style="margin-bottom: 0.08in;">
+                <li>Define measurement instrumentation for five Narrative Integrity sub-metrics</li>
+                <li>Build session state tracking integrations</li>
+                <li>Implement cross-asset coherence analysis</li>
+                <li>Deploy stakeholder context mapping capabilities</li>
+                <li><strong>Challenge:</strong> Most organizations lack this telemetry (DI-1 through DI-3)</li>
+            </ul>
+            <p style="margin-bottom: 0;"><strong>Output:</strong> Full five-dimension measurement capability</p>
+        </div>
+
+        <h3>Phase 4: Benchmark Engine & Industry Report (Months 10-12)</h3>
+
+        <div class="spec-box">
+            <p style="margin-bottom: 0.05in;"><strong style="color: var(--blue);">Scope:</strong></p>
+            <ul style="margin-bottom: 0.08in;">
+                <li>Build benchmark aggregation engine with anonymization layer</li>
+                <li>Achieve minimum cohort size (100-250 organizations)</li>
+                <li>Publish first <em>State of Demo Maturity Report</em></li>
+                <li>Enable peer comparison and percentile ranking in assessment tool</li>
+                <li>Deliver vertical-specific and size-specific benchmarks</li>
+            </ul>
+            <p style="margin-bottom: 0;"><strong>Output:</strong> Industry-standard benchmark authority</p>
+        </div>
+
+        <h2>8. Technical Considerations</h2>
+
+        <h3>Scalability Requirements</h3>
+
+        <ul>
+            <li><strong>Target:</strong> Support 10,000+ organizations within 18 months</li>
+            <li><strong>Data Volume:</strong> Process 1M+ demo events monthly per large customer</li>
+            <li><strong>Real-Time Scoring:</strong> Assessment results within 5 seconds for survey-only, 30 seconds with telemetry integration</li>
+            <li><strong>Benchmark Refresh:</strong> Quarterly recalculation as new data arrives</li>
+        </ul>
+
+        <h3>Security & Compliance</h3>
+
+        <ul>
+            <li><strong>Data Residency:</strong> Support region-specific deployment (US, EU, APAC)</li>
+            <li><strong>Encryption:</strong> TLS 1.3 in transit, AES-256 at rest</li>
+            <li><strong>Access Controls:</strong> Role-based permissions (Admin, Analyst, Read-Only)</li>
+            <li><strong>Audit Logging:</strong> All scoring calculations logged for reproducibility</li>
+            <li><strong>GDPR/CCPA Compliance:</strong> Right to deletion, data portability, consent management</li>
+        </ul>
+
+        <h3>Open Questions for Future Versions</h3>
+
+        <div class="callout">
+            <p style="font-size: 0.75rem; line-height: 1.5; margin-bottom: 0.05in;"><strong style="color: var(--orange);">Unresolved Design Decisions:</strong></p>
+            <ul style="font-size: 0.72rem; margin-bottom: 0;">
+                <li><strong>Revenue Correlation Validation:</strong> How to measure causal linkage between DI scores and revenue outcomes without multi-year longitudinal data?</li>
+                <li><strong>Narrative Integrity Instrumentation:</strong> Should a reference implementation or SDK be provided to help organizations instrument this capability?</li>
+                <li><strong>Certification Threshold:</strong> What empirical evidence is required for DI-4 and DI-5 certification claims?</li>
+                <li><strong>Algorithm Versioning:</strong> How to handle scoring algorithm changes while preserving historical score comparability?</li>
+                <li><strong>Self-Reporting Bias:</strong> What statistical techniques can detect and correct for systematic over-reporting in declarative scores?</li>
+            </ul>
+        </div>
+
+        <div style="margin-top: 0.15in; padding-top: 0.12in; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+            <p style="font-size: 0.75rem; text-align: center; color: var(--text-grey); margin-bottom: 0;">
+                <strong>The Demo Index™ Measurement Engine Specification v1.0</strong><br>
+                Technical Foundation for Revenue Experience Maturity Measurement<br>
+                <em>From Category Definition to Measurement Infrastructure</em>
+            </p>
+        </div>
+        </div>
+
+        <div class="footer">
+            © 2026 | The Demo Index™ Measurement Engine Specification | v1.0
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage 4 / Stage 5 Technical Glossary</title>
+    <style>
+        :root {
+            --bg-dark: #090e1b;
+            --bg-darker: #0f1629;
+            --bg-panel: rgba(15, 22, 41, 0.84);
+            --bg-soft: rgba(255, 255, 255, 0.035);
+            --orange: #f97316;
+            --green: #4bcd3e;
+            --text-white: #ffffff;
+            --text-grey: #97a3af;
+            --text-muted: #c7d0da;
+            --panel-border: rgba(249, 115, 22, 0.14);
+            --panel-shadow: 0 22px 70px rgba(0, 0, 0, 0.34);
+            --radius-lg: 28px;
+            --radius-md: 18px;
+            --content-width: 1440px;
+            --nav-width: 290px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            min-height: 100vh;
+            font-family: Georgia, 'Times New Roman', serif;
+            line-height: 1.5;
+            color: var(--text-white);
+            background:
+                radial-gradient(circle at 15% 0%, rgba(249, 115, 22, 0.18), transparent 28%),
+                radial-gradient(circle at 100% 10%, rgba(75, 205, 62, 0.12), transparent 24%),
+                linear-gradient(180deg, #07101f 0%, #090e1b 50%, #07101f 100%);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0));
+            pointer-events: none;
+        }
+
+        a { color: var(--green); text-decoration: none; }
+        a:hover { color: var(--text-white); }
+
+        .site-shell {
+            width: min(calc(100% - 48px), var(--content-width));
+            margin: 0 auto;
+            padding: 32px 0 56px;
+        }
+
+        .hero,
+        .intro-box,
+        .section-block,
+        .summary-box,
+        .section-nav {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-lg);
+            background: var(--bg-panel);
+            box-shadow: var(--panel-shadow);
+            backdrop-filter: blur(14px);
+        }
+
+        .hero {
+            padding: 36px;
+            background:
+                linear-gradient(135deg, rgba(15, 22, 41, 0.98) 0%, rgba(9, 14, 27, 0.92) 60%, rgba(75, 205, 62, 0.12) 100%),
+                var(--bg-darker);
+        }
+
+        .eyebrow,
+        .section-kicker,
+        .section-title,
+        .section-nav h2,
+        .summary-box h3,
+        .term h3,
+        .label {
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--green);
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 42px;
+            height: 1px;
+            background: currentColor;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.85fr);
+            gap: 28px;
+            align-items: start;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 4.8vw, 4.9rem);
+            line-height: 0.98;
+            letter-spacing: -0.04em;
+            margin-bottom: 16px;
+            max-width: 11ch;
+        }
+
+        .highlight { color: var(--orange); }
+        .subtitle { max-width: 62ch; font-size: 1rem; color: var(--text-muted); }
+
+        .hero-note {
+            padding: 18px 20px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .hero-note strong {
+            display: block;
+            margin-bottom: 8px;
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--orange);
+        }
+
+        .hero-note p { color: var(--text-muted); }
+
+        .content-shell {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) var(--nav-width);
+            gap: 28px;
+            margin-top: 28px;
+            align-items: start;
+        }
+
+        .main-column { display: grid; gap: 20px; }
+        .intro-box,
+        .section-block,
+        .summary-box { padding: 24px; }
+        .intro-box { border-left: 4px solid var(--green); }
+
+        .intro-box p,
+        .summary-box p,
+        .summary-box li,
+        .term p,
+        .term li,
+        .section-kicker { color: var(--text-muted); }
+
+        .section-block { scroll-margin-top: 110px; }
+
+        .section-kicker {
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+            font-size: 1.12rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--orange);
+        }
+
+        .section-title::before {
+            content: "";
+            width: 4px;
+            align-self: stretch;
+            border-radius: 999px;
+            background: linear-gradient(180deg, var(--orange), rgba(249, 115, 22, 0.06));
+        }
+
+        .term-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .term,
+        .summary-box {
+            border-radius: var(--radius-md);
+            background: var(--bg-soft);
+            border: 1px solid var(--panel-border);
+        }
+
+        .term {
+            height: 100%;
+            padding: 20px;
+        }
+
+        .term h3,
+        .summary-box h3 {
+            font-size: 1rem;
+            color: var(--text-white);
+            margin-bottom: 12px;
+        }
+
+        .label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--green);
+            margin: 14px 0 6px;
+        }
+
+        .term p,
+        .term li,
+        .summary-box p,
+        .summary-box li { font-size: 0.97rem; }
+
+        .term ul,
+        .summary-box ul {
+            list-style: none;
+            display: grid;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .term li,
+        .summary-box li {
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .term li::before,
+        .summary-box li::before {
+            content: "â€¢";
+            position: absolute;
+            left: 0;
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .section-nav {
+            position: sticky;
+            top: 24px;
+            padding: 22px;
+        }
+
+        .section-nav h2 {
+            font-size: 0.86rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 14px;
+        }
+
+        .section-nav ul { list-style: none; display: grid; gap: 10px; }
+        .section-nav a {
+            display: block;
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-muted);
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+            font-size: 0.9rem;
+            transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+        }
+
+        .section-nav a:hover,
+        .section-nav a:focus-visible {
+            background: rgba(249, 115, 22, 0.14);
+            color: var(--text-white);
+            transform: translateX(3px);
+            outline: none;
+        }
+
+        .footer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 18px 6px 0;
+            color: var(--text-grey);
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+            font-size: 0.82rem;
+        }
+
+        @media (max-width: 1160px) {
+            .content-shell { grid-template-columns: 1fr; }
+            .section-nav { position: static; order: -1; }
+            .section-nav ul { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+        }
+
+        @media (max-width: 900px) {
+            .site-shell { width: min(calc(100% - 28px), var(--content-width)); padding: 18px 0 36px; }
+            .hero,
+            .intro-box,
+            .section-block,
+            .summary-box,
+            .section-nav { padding: 20px; border-radius: 22px; }
+            .hero-grid,
+            .term-grid { grid-template-columns: 1fr; }
+            .hero h1 { max-width: none; }
+        }
+        .global-nav-wrap {
+            width: min(calc(100% - 32px), 1460px);
+            margin: 16px auto 0;
+            position: sticky;
+            top: 14px;
+            z-index: 40;
+        }
+
+        .global-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 16px 22px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            background: rgba(9, 14, 27, 0.78);
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+            backdrop-filter: blur(18px);
+        }
+
+        .global-brand {
+            display: grid;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+
+        .global-brand-mark,
+        .global-brand-title,
+        .global-links a {
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+        }
+
+        .global-brand-mark {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--green);
+        }
+
+        .global-brand-title {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--text-white);
+        }
+
+        .global-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .global-links a {
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.78);
+            font-size: 0.86rem;
+            transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+        }
+
+        .global-links a:hover,
+        .global-links a:focus-visible,
+        .global-links a[aria-current="page"] {
+            background: rgba(249, 115, 22, 0.16);
+            color: var(--text-white);
+            transform: translateY(-1px);
+            outline: none;
+        }
+
+        .story-banner {
+            width: min(calc(100% - 48px), var(--content-width));
+            margin: 18px auto 0;
+            padding: 16px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            background: rgba(15, 22, 41, 0.78);
+            box-shadow: var(--panel-shadow);
+            color: var(--text-muted);
+        }
+
+        .story-banner strong,
+        .story-banner a {
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+        }
+
+        .story-banner strong {
+            color: var(--orange);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 0.76rem;
+        }
+
+        .story-banner a {
+            color: var(--green);
+        }
+
+        @media (max-width: 900px) {
+            .story-banner {
+                width: min(calc(100% - 28px), var(--content-width));
+            }
+
+            .global-nav {
+                flex-direction: column;
+                align-items: stretch;
+                border-radius: 24px;
+            }
+
+            .global-links {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="global-nav-wrap">
+        <nav class="global-nav" aria-label="Document navigation">
+            <a class="global-brand" href="index.html">
+                <span class="global-brand-mark">Stage 4 Narrative Infrastructure</span>
+                <span class="global-brand-title">Content Hub</span>
+            </a>
+            <div class="global-links">
+                <a href="index.html">Hub</a>
+                <a href="ExecutiveSummary-Condensed.html">Condensed Brief</a>
+                <a href="ExecutiveSummary.html">Full Summary</a>
+                <a href="Stage-4-5-Technical-Glossary.html">Glossary</a>
+                <a href="User-Journey-Experience-Workflow.html">Workflow</a>
+                <a href="narrative-orchestration-glossary.html">Exec Glossary</a>
+                <a href="Revenue-Operations-Infographic.html">Infographic</a>
+                <a href="Revenue-Operations-Strategy.html">Strategy</a>
+                <a href="Stage-4-in-practice.html">In Practice</a>
+            </div>
+        </nav>
+    </div>
+    <script>
+        (function () {
+            var path = window.location.pathname.split('/').pop() || 'index.html';
+            var links = document.querySelectorAll('.global-links a');
+            for (var i = 0; i < links.length; i += 1) {
+                if (links[i].getAttribute('href') === path) {
+                    links[i].setAttribute('aria-current', 'page');
+                }
+            }
+        }());
+    </script>
+    <div class="story-banner">
+        <strong>Story Position</strong> This is the implementation-language layer. Read it after <a href="narrative-orchestration-glossary.html">the executive glossary</a> when the team needs precise definitions, then continue into <a href="User-Journey-Experience-Workflow.html">the workflow</a> to see those capabilities in motion.
+    </div>
+    <div class="site-shell">
+        <header class="hero">
+            <div class="eyebrow">Technical Glossary</div>
+            <div class="hero-grid">
+                <div>
+                    <h1>Stage 4 / Stage 5 <span class="highlight">Technical Glossary</span></h1>
+                    <p class="subtitle">Operational definitions, implementation guidance, quantification, and stack patterns for the primary framework terms.</p>
+                </div>
+                <div class="hero-note">
+                    <strong>Hosted Reference</strong>
+                    <p>This version is organized as a continuous reference document with section anchors so teams can link directly to term groups instead of page numbers.</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-shell">
+            <main class="main-column">
+                <section class="intro-box" id="overview">
+                    <p>This document assumes the executive glossary has already aligned the core language. Its role is to translate those same terms into implementation logic, stack patterns, quantifiable signals, and operating design choices.</p>
+                </section>
+
+                <section class="section-block" id="core-infrastructure">
+                    <div class="section-kicker">Infrastructure</div>
+                    <h2 class="section-title">Core Infrastructure Terms</h2>
+                    <div class="term-grid">
+                        <div class="term">
+                            <h3>Unified Narrative Infrastructure</h3>
+                            <div class="label">Definition</div><p>The system architecture that turns disconnected buyer-facing assets into one governed, stateful experience layer.</p>
+                            <div class="label">Core Function</div><p>Unifies data, content, workflow logic, guidance, analytics, and buyer context so buyers experience one coherent journey instead of multiple disconnected touchpoints.</p>
+                            <div class="label">What It Does in Practice</div>
+                            <ul>
+                                <li>serves a single experience entry point or tightly linked experience surface</li>
+                                <li>carries context across demos, videos, documents, tours, and follow-up workflows</li>
+                                <li>applies role, industry, account, and journey-state personalization</li>
+                                <li>enforces governance over what can be shown and in what sequence</li>
+                                <li>records behavioral and narrative signals for later optimization</li>
+                            </ul>
+                            <div class="label">Technical Implementation</div>
+                            <ul>
+                                <li>presentation layer for buyer-facing experiences</li>
+                                <li>orchestration layer that decides what happens next</li>
+                                <li>context store for account, persona, and journey state</li>
+                                <li>CRM, MAP, analytics, and content integrations</li>
+                                <li>event pipeline capturing journey behavior in real time</li>
+                            </ul>
+                            <div class="label">Quantifiable Signals</div>
+                            <ul>
+                                <li>number of disconnected assets replaced by a unified flow</li>
+                                <li>percentage of experiences launched from a single entry point</li>
+                                <li>percentage of sessions carrying forward prior context</li>
+                                <li>reduction in manual SE/demo prep time</li>
+                                <li>increase in downstream engagement depth, progression, or meeting conversion</li>
+                            </ul>
+                            <div class="label">Common Stack Patterns</div>
+                            <ul>
+                                <li>Front end: Next.js, React, Vue, Nuxt</li>
+                                <li>CMS: Contentful, Sanity, Storyblok, headless custom CMS</li>
+                                <li>Integration layer: Node.js/NestJS, FastAPI, serverless functions</li>
+                                <li>Data/state: PostgreSQL, Redis, DynamoDB, Firestore</li>
+                                <li>Eventing: Segment, RudderStack, Kafka, EventBridge</li>
+                            </ul>
+                        </div>
+
+                        <div class="term">
+                            <h3>Presentation Layer</h3>
+                            <div class="label">Definition</div><p>The buyer-facing delivery surface where orchestrated content, guidance, workflows, and personalization are rendered and interacted with across the journey.</p>
+                            <div class="label">Core Function</div><p>Turns orchestration decisions into an actual buyer experience.</p>
+                            <div class="label">What It Does in Practice</div>
+                            <ul>
+                                <li>renders landing pages, workflow modules, guidance panels, and media assets</li>
+                                <li>presents personalized content based on account, persona, and journey state</li>
+                                <li>handles navigation between approved pathways and workflow transitions</li>
+                                <li>displays context bridges, prompts, and next-step guidance</li>
+                                <li>captures clickstream, dwell-time, and engagement events for analytics</li>
+                            </ul>
+                            <div class="label">Technical Implementation</div>
+                            <ul>
+                                <li>web application or portal framework</li>
+                                <li>modular UI components for workflows, overlays, media, and guidance</li>
+                                <li>client-side state handling for session continuity</li>
+                                <li>event instrumentation connected to analytics pipelines</li>
+                                <li>APIs requesting content, state, and next-step instructions from orchestration</li>
+                            </ul>
+                            <div class="label">Common Stack Patterns</div>
+                            <ul>
+                                <li>Platforms: Seismic Interactive Content, Seismic Microsites, Coast.io Engagement Portal</li>
+                                <li>Custom front end: Next.js, React, Vue, Nuxt</li>
+                                <li>UI patterns: embedded guidance panels, overlays, modular workflow cards, dynamic media regions</li>
+                            </ul>
+                        </div>
+
+                        <div class="term">
+                            <h3>Narrative Orchestration Engine</h3>
+                            <div class="label">Definition</div><p>The decision layer that assembles, sequences, and adapts buyer experiences based on context, rules, and engagement signals.</p>
+                            <div class="label">Core Function</div><p>Answers what the buyer should see next, why, and under what constraints.</p>
+                            <div class="label">What It Does in Practice</div>
+                            <ul>
+                                <li>selects starting pathways by persona, industry, account tier, or stage</li>
+                                <li>controls transitions between workflows, demos, proof points, and guidance moments</li>
+                                <li>injects business context and role-specific emphasis</li>
+                                <li>enforces exclusions, approvals, and compliance rules</li>
+                                <li>triggers seller alerts, follow-up tasks, or recommended actions</li>
+                            </ul>
+                            <div class="label">Common Stack Patterns</div>
+                            <ul>
+                                <li>Workflow/orchestration: Temporal, Camunda, AWS Step Functions, custom state machines</li>
+                                <li>Rules/policy: Open Policy Agent, JSON rules engines, custom business rules services</li>
+                                <li>Recommendation logic: Python services, feature stores, lightweight ML ranking services</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section-block" id="human-control">
+                    <div class="section-kicker">Control and Context</div>
+                    <h2 class="section-title">Human Control and Context</h2>
+                    <div class="term-grid">
+                        <div class="term">
+                            <h3>Human-Led Orchestration</h3>
+                            <div class="label">Definition</div><p>People still define strategy, positioning, approvals, and narrative logic, while systems execute those decisions consistently at scale.</p>
+                            <div class="label">What It Does in Practice</div>
+                            <ul>
+                                <li>lets SE and GTM teams define approved workflows, message hierarchy, and value narratives</li>
+                                <li>controls what can be personalized automatically versus what needs approval</li>
+                                <li>creates guardrails for regulated, competitive, or pricing-sensitive content</li>
+                            </ul>
+                            <div class="label">Technical Implementation</div>
+                            <ul>
+                                <li>admin configuration UI</li>
+                                <li>role-based access controls</li>
+                                <li>approval workflows</li>
+                                <li>audit logs and versioned narrative templates</li>
+                            </ul>
+                        </div>
+
+                        <div class="term">
+                            <h3>Persistent Context</h3>
+                            <div class="label">Definition</div><p>The durable memory of who the buyer is, what matters to them, what they have already seen, and what the system should remember across sessions and channels.</p>
+                            <div class="label">What It Does in Practice</div>
+                            <ul>
+                                <li>stores account, persona, use case, geography, language, and product-interest metadata</li>
+                                <li>remembers prior content views, workflow choices, objections, and engagement depth</li>
+                                <li>carries context from email, sales room, demo, and follow-up experiences</li>
+                            </ul>
+                            <div class="label">Technical Implementation</div>
+                            <ul>
+                                <li>identity resolution</li>
+                                <li>profile store or customer data layer</li>
+                                <li>session store for recent activity</li>
+                                <li>APIs that expose context to every experience surface</li>
+                            </ul>
+                        </div>
+
+                        <div class="term">
+                            <h3>Journey State Tracking</h3>
+                            <div class="label">Definition</div><p>The structured representation of where a buyer currently is within a narrative journey, not just which page they clicked.</p>
+                            <div class="label">What It Does in Practice</div>
+                            <ul>
+                                <li>records completed steps, skipped steps, loops, stalls, and repeat views</li>
+                                <li>distinguishes exploration, evaluation, validation, and decision behaviors</li>
+                                <li>tells sellers and systems what narrative stage the buyer is likely in</li>
+                            </ul>
+                            <div class="label">Common Stack Patterns</div>
+                            <ul>
+                                <li>Event collection: Segment, RudderStack, Snowplow, custom telemetry</li>
+                                <li>State computation: dbt, Kafka Streams, Flink, Python jobs</li>
+                                <li>Storage/reporting: BigQuery, Snowflake, Databricks, Looker</li>
+                            </ul>
+                        </div>
+
+                        <div class="term">
+                            <h3>Narrative Continuity</h3>
+                            <div class="label">Definition</div><p>The system's ability to preserve the same strategic story as the buyer moves across workflows, channels, stakeholders, and time.</p>
+                            <div class="label">What It Does in Practice</div>
+                            <ul>
+                                <li>keeps message hierarchy stable across different content formats</li>
+                                <li>reconnects technical details to business outcomes</li>
+                                <li>maintains role-specific framing without contradicting the overall value story</li>
+                            </ul>
+                            <div class="label">Technical Implementation</div>
+                            <ul>
+                                <li>narrative model or message map</li>
+                                <li>content tagging by value theme, persona, workflow, and objection</li>
+                                <li>orchestration rules that enforce consistent framing</li>
+                                <li>guidance copy or prompts tied to narrative state</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section-block" id="guidance-governance">
+                    <div class="section-kicker">Experience Control</div>
+                    <h2 class="section-title">Guidance and Governance</h2>
+                    <div class="term-grid">
+                        <div class="term">
+                            <h3>Context Bridges</h3>
+                            <div class="label">Definition</div><p>Explicit transition mechanisms that reconnect the buyer to the narrative when they jump between topics, workflows, or asset types.</p>
+                            <div class="label">What They Do in Practice</div>
+                            <ul>
+                                <li>explain why the next workflow matters</li>
+                                <li>translate one stakeholder lens into another</li>
+                                <li>connect tactical screens back to strategic business outcomes</li>
+                                <li>recover context when a buyer enters midstream from a shared link or deep-link</li>
+                            </ul>
+                        </div>
+
+                        <div class="term">
+                            <h3>Persistent Guidance Layer</h3>
+                            <div class="label">Definition</div><p>The always-available assistance surface embedded in the experience that explains relevance, next steps, and business meaning as the buyer explores.</p>
+                            <div class="label">What It Does in Practice</div>
+                            <ul>
+                                <li>shows narrative cues, recommended next steps, and role-based guidance</li>
+                                <li>adapts messaging to the buyer's current context and prior actions</li>
+                                <li>supports both self-guided journeys and seller-assisted sessions</li>
+                            </ul>
+                            <div class="label">Common Stack Patterns</div>
+                            <ul>
+                                <li>Presentation layer: Seismic Interactive Content, Seismic Microsites, Coast.io Engagement Portal, Next.js, React SPA</li>
+                                <li>Guidance content: CMS, knowledge base, prompt library</li>
+                                <li>Conversational layer: Intercom, custom chatbot, Azure OpenAI/OpenAI assistant service</li>
+                            </ul>
+                        </div>
+
+                        <div class="term">
+                            <h3>Operationalized Personalization</h3>
+                            <div class="label">Definition</div><p>The ability to generate tailored experiences from reusable system components rather than manual one-off assembly.</p>
+                            <div class="label">What It Does in Practice</div>
+                            <ul>
+                                <li>injects account-specific language, metrics, branding, industry workflows, and proof points</li>
+                                <li>swaps content based on persona, segment, region, maturity, or opportunity context</li>
+                                <li>keeps personalization within approved boundaries</li>
+                            </ul>
+                        </div>
+
+                        <div class="term">
+                            <h3>Structured Branching Logic and Governed Exploration Pathways</h3>
+                            <div class="label">Definition</div><p>The ruleset that determines valid branches and the resulting buyer paths that preserve flexibility without allowing the narrative to become chaotic.</p>
+                            <div class="label">What They Do in Practice</div>
+                            <ul>
+                                <li>allow executive, technical, operations, and finance buyers to choose relevant routes</li>
+                                <li>prevent invalid or strategically harmful jumps</li>
+                                <li>ensure each branch contains required narrative anchors, proofs, and transitions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section-block" id="measurement-intelligence">
+                    <div class="section-kicker">Measurement</div>
+                    <h2 class="section-title">Measurement and Intelligence</h2>
+                    <div class="term-grid">
+                        <div class="term">
+                            <h3>Narrative Integrity Score</h3>
+                            <div class="label">Definition</div><p>A composite metric estimating how well the buyer journey preserved strategic understanding from start to finish.</p>
+                            <div class="label">What It Should Include</div>
+                            <ul>
+                                <li>presence of key narrative anchors</li>
+                                <li>depth of engagement with value-relevant content</li>
+                                <li>continuity across transitions</li>
+                                <li>evidence of confusion, abandonment, or contradictory pathing</li>
+                                <li>stakeholder coverage across the buying group</li>
+                            </ul>
+                            <div class="label">Example Scoring Structure</div>
+                            <ul>
+                                <li>30% progression through required narrative checkpoints</li>
+                                <li>25% reinforcement of value themes</li>
+                                <li>20% continuity across branch transitions</li>
+                                <li>15% stakeholder-relevant coverage</li>
+                                <li>10% low-confusion signals</li>
+                            </ul>
+                        </div>
+
+                        <div class="term">
+                            <h3>Granular Intent Capture</h3>
+                            <div class="label">Definition</div><p>The collection of high-resolution behavioral and narrative signals that reveal what the buyer cares about, how strongly they care, and where confidence is rising or falling.</p>
+                            <div class="label">What It Does in Practice</div>
+                            <ul>
+                                <li>distinguishes curiosity from sustained evaluation</li>
+                                <li>identifies which workflows, proof points, objections, and role themes are gaining traction</li>
+                                <li>surfaces likely stakeholder interests and readiness signals</li>
+                            </ul>
+                        </div>
+
+                        <div class="term">
+                            <h3>Narrative Intelligence Infrastructure</h3>
+                            <div class="label">Definition</div><p>The Stage 5 evolution where the system continuously recommends, optimizes, and adapts orchestration strategy using accumulated signals.</p>
+                            <div class="label">What It Does in Practice</div>
+                            <ul>
+                                <li>recommends which pathway to start with before a session launches</li>
+                                <li>suggests likely winning proof points, customer stories, or stakeholder routes</li>
+                                <li>detects underperforming pathways and recommends design changes</li>
+                                <li>supports next-best-action recommendations for sellers and RevOps</li>
+                            </ul>
+                            <div class="label">Common Stack Patterns</div>
+                            <ul>
+                                <li>AI/ranking: Python, scikit-learn, XGBoost, managed ML platforms</li>
+                                <li>LLM support: Azure OpenAI, OpenAI, Anthropic, prompt orchestration frameworks</li>
+                                <li>Retrieval/memory: pgvector, Pinecone, Weaviate, warehouse-native embeddings</li>
+                                <li>Serving/monitoring: FastAPI, BentoML, MLflow, Evidently, Arize</li>
+                            </ul>
+                        </div>
+
+                        <div class="term">
+                            <h3>Secondary Supporting Term: Narrative Drift</h3>
+                            <div class="label">Definition</div><p>The failure state where the buyer's understanding breaks because transitions, content, or workflow choices no longer connect back to the core value story.</p>
+                            <div class="label">Useful Proxy Metrics</div>
+                            <ul>
+                                <li>abrupt exits after branch changes</li>
+                                <li>repeated backtracking</li>
+                                <li>low completion of bridge content</li>
+                                <li>engagement concentrated in isolated technical screens without business-context reinforcement</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section-block" id="minimum-viable-stack">
+                    <div class="section-kicker">Implementation</div>
+                    <h2 class="section-title">Minimum Viable Stack</h2>
+                    <div class="term-grid">
+                        <div class="summary-box">
+                            <h3>Minimum Viable Stage 4 Stack</h3>
+                            <ul>
+                                <li>CRM and account data source: Salesforce or HubSpot</li>
+                                <li>buyer-facing presentation layer: Seismic Interactive Content, Seismic Microsites, Coast.io Engagement Portal, or a custom React/Next.js app</li>
+                                <li>orchestration and decision service: Node.js/NestJS or Python/FastAPI</li>
+                                <li>context and state store: PostgreSQL plus Redis</li>
+                                <li>content and personalization layer: headless CMS plus modular templates</li>
+                                <li>event collection and analytics: Segment or RudderStack feeding Snowflake or BigQuery</li>
+                                <li>guidance and AI assist: approved prompt service using Azure OpenAI or OpenAI</li>
+                                <li>reporting and activation: Looker or Power BI plus CRM sync</li>
+                            </ul>
+                        </div>
+
+                        <div class="summary-box">
+                            <h3>Minimum Viable Stage 5 Additions</h3>
+                            <ul>
+                                <li>recommendation features derived from journey and account history</li>
+                                <li>scoring models for pathway fit and proof-point relevance</li>
+                                <li>experimentation framework for measuring recommendation lift</li>
+                                <li>model monitoring and human override controls</li>
+                                <li>seller-facing recommendation UI and feedback capture loop</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="summary-box" style="margin-top: 16px;">
+                        <h3>Practical Distinction</h3>
+                        <p>Stage 4 is primarily about systematized execution. Stage 5 is primarily about systematized recommendation and optimization. Many platforms claim intelligence when they are only automating assembly. Stage 4 can be rules-driven and still be highly valuable. Stage 5 requires measured learning, recommendation quality, and closed-loop improvement.</p>
+                    </div>
+                </section>
+
+                <div class="footer">
+                    <span>Technical Glossary</span>
+                    <span>Hosted web reference with direct section linking</span>
+                </div>
+            </main>
+
+            <aside class="section-nav" aria-label="Section navigation">
+                <h2>On This Page</h2>
+                <ul>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#core-infrastructure">Core Infrastructure</a></li>
+                    <li><a href="#human-control">Human Control</a></li>
+                    <li><a href="#guidance-governance">Guidance and Governance</a></li>
+                    <li><a href="#measurement-intelligence">Measurement</a></li>
+                    <li><a href="#minimum-viable-stack">Minimum Viable Stack</a></li>
+                </ul>
+            </aside>
+        </div>
+    </div>
+</body>
+</html>

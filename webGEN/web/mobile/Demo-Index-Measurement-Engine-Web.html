@@ -1,0 +1,2625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Demo Index | Measurement Engine</title>
+    <script src="../device-router.js?v=20260602c"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+
+        :root {
+            --bg-dark: #090E1B;
+            --bg-darker: #0F1629;
+            --orange: #F97316;
+            --green: #4bcd3e;
+            --text-white: #FFFFFF;
+            --text-grey: #97A3AF;
+            --blue: #00d4ff;
+            --nav-offset: 5.5rem;
+            --spec-nav-height: 5.5rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            color: var(--text-white);
+            background: var(--bg-dark);
+            line-height: 1.6;
+            animation: fadeIn 0.6s ease-in;
+            overflow-x: hidden;
+        }
+
+        body.spec-engine-intro .spec-layout,
+        body.spec-engine-intro .hero-category-grid {
+            display: none;
+        }
+
+        body:not(.spec-engine-intro) .engine-intro {
+            display: none;
+        }
+
+        body.spec-engine-intro .container {
+            padding-bottom: 1.5rem;
+        }
+
+        body.spec-engine-intro footer {
+            display: block;
+            position: static;
+            margin-top: 0;
+            padding: 1.25rem 1rem calc(1.25rem + env(safe-area-inset-bottom));
+        }
+
+        body.spec-engine-intro footer p {
+            font-size: 0.78rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            background: var(--bg-darker);
+            border-bottom: 2px solid var(--orange);
+            padding: 0.9rem 1.5rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .nav-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        .nav-brand img {
+            width: auto;
+            height: 2.6rem;
+            object-fit: contain;
+            display: block;
+            flex: 0 0 auto;
+        }
+
+        .nav-brand-copy {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 0.28rem;
+            font-family: 'Montserrat', 'Segoe UI', sans-serif;
+            font-size: 0.98rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .nav-brand-copy .accent {
+            color: var(--orange);
+        }
+
+        .nav-brand-copy .neutral {
+            color: var(--text-white);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav-links a {
+            color: var(--text-grey);
+            text-decoration: none;
+            font-size: 0.92rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--orange);
+        }
+
+        .nav-links a.active {
+            color: var(--orange);
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .spec-layout {
+            display: grid;
+            grid-template-columns: 240px minmax(0, 1fr);
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .section-index {
+            position: sticky;
+            top: var(--nav-offset);
+            align-self: start;
+            background: rgba(15, 22, 41, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 1.25rem;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.16);
+        }
+
+        .section-index-label {
+            display: block;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-size: 0.76rem;
+            margin-bottom: 0.85rem;
+            font-weight: 700;
+        }
+
+        .section-index-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .section-index-link {
+            color: var(--text-grey);
+            text-decoration: none;
+            padding: 0.7rem 0.85rem;
+            border-radius: 10px;
+            border: 1px solid transparent;
+            transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+            font-size: 0.94rem;
+            line-height: 1.4;
+        }
+
+        .section-index-link:hover,
+        .section-index-link:focus-visible {
+            color: var(--text-white);
+            background: rgba(75, 205, 62, 0.08);
+            border-color: rgba(75, 205, 62, 0.22);
+            outline: none;
+            transform: translateX(2px);
+        }
+
+        .section-index-link.active {
+            color: var(--text-white);
+            background: rgba(75, 205, 62, 0.14);
+            border-color: rgba(75, 205, 62, 0.32);
+            box-shadow: inset 3px 0 0 var(--green);
+        }
+
+        .anchor-fab-shell,
+        .anchor-fab-scrim {
+            display: none;
+        }
+
+        .anchor-fab-toggle {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 4.75rem;
+            height: 4.75rem;
+            border: 1px solid rgba(176, 255, 170, 0.4);
+            border-radius: 50%;
+            background: rgba(75, 205, 62, 0.98);
+            color: var(--text-white);
+            padding: 0;
+            box-shadow: 0 18px 36px rgba(18, 57, 14, 0.38);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            z-index: 2;
+            opacity: 0.75;
+        }
+
+        .anchor-fab-toggle::before {
+            content: '';
+            position: absolute;
+            inset: 0.7rem;
+            border-radius: 50%;
+            border: 0.22rem solid rgba(255, 255, 255, 0.2);
+        }
+
+        .anchor-fab-toggle-label {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateY(-0.08rem);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .anchor-fab-toggle:hover,
+        .anchor-fab-toggle:focus-visible {
+            transform: translateX(-50%) translateY(-1px);
+            box-shadow: 0 20px 40px rgba(18, 57, 14, 0.46);
+            border-color: rgba(217, 255, 214, 0.86);
+            outline: none;
+        }
+
+        .anchor-fab-toggle[aria-expanded='true'] {
+            border-color: rgba(217, 255, 214, 0.92);
+            box-shadow: 0 22px 42px rgba(18, 57, 14, 0.52);
+        }
+
+        .anchor-fab-panel {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .anchor-fab-panel.is-open {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        .anchor-fab-panel[hidden],
+        .anchor-fab-scrim[hidden] {
+            display: none;
+        }
+
+        body.spec-menu-open {
+            overflow: hidden;
+        }
+
+        .anchor-fab-link {
+            position: absolute;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 5.2rem;
+            min-height: 2.35rem;
+            padding: 0.52rem 0.72rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(29, 31, 38, 0.98);
+            color: var(--text-white);
+            text-align: center;
+            font-size: 0.64rem;
+            line-height: 1.2;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+            white-space: nowrap;
+            opacity: 0;
+            transition: transform 0.24s ease, opacity 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+        }
+
+        .anchor-fab-link-top {
+            left: 50%;
+            bottom: 10rem;
+            transform: translateX(-50%) scale(0.78);
+        }
+
+        .anchor-fab-link-upper-left {
+            left: 0.65rem;
+            bottom: 7.95rem;
+            transform: scale(0.78);
+        }
+
+        .anchor-fab-link-upper-right {
+            right: 0.65rem;
+            bottom: 7.95rem;
+            transform: scale(0.78);
+        }
+
+        .anchor-fab-link-lower-left {
+            left: 1.5rem;
+            bottom: 4.95rem;
+            transform: scale(0.78);
+        }
+
+        .anchor-fab-link-lower-right {
+            right: 1.5rem;
+            bottom: 4.95rem;
+            transform: scale(0.78);
+        }
+
+        .anchor-fab-link-bottom {
+            left: 50%;
+            bottom: 5.1rem;
+            transform: translateX(-50%) scale(0.78);
+        }
+
+        .anchor-fab-link::after {
+            display: none;
+        }
+
+        .anchor-fab-panel.is-open .anchor-fab-link {
+            opacity: 1;
+        }
+
+        .anchor-fab-panel.is-open .anchor-fab-link-top,
+        .anchor-fab-panel.is-open .anchor-fab-link-bottom {
+            transform: translateX(-50%) scale(1);
+        }
+
+        .anchor-fab-panel.is-open .anchor-fab-link-upper-left,
+        .anchor-fab-panel.is-open .anchor-fab-link-upper-right,
+        .anchor-fab-panel.is-open .anchor-fab-link-lower-left,
+        .anchor-fab-panel.is-open .anchor-fab-link-lower-right {
+            transform: scale(1);
+        }
+
+        .anchor-fab-link:hover,
+        .anchor-fab-link:focus-visible,
+        .anchor-fab-link.active {
+            color: var(--text-white);
+            background: linear-gradient(135deg, rgba(61, 138, 54, 0.98) 0%, rgba(75, 205, 62, 0.98) 100%);
+            border-color: rgba(176, 255, 170, 0.92);
+            box-shadow: 0 14px 28px rgba(34, 95, 29, 0.34);
+        }
+
+        .spec-content {
+            min-width: 0;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            scroll-margin-top: calc(var(--nav-offset) + 1.25rem);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--orange);
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: var(--orange);
+            margin: 2.5rem 0 1.5rem 0;
+            padding-left: 1rem;
+            border-left: 4px solid var(--orange);
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--orange);
+            margin: 2rem 0 1rem 0;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            color: var(--text-white);
+            margin: 1.5rem 0 0.75rem 0;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-grey);
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 0.96rem;
+            color: var(--text-grey);
+            margin-bottom: 1.15rem;
+            font-style: italic;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(15, 22, 41, 0.84);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 0.9rem 0.85rem;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        th {
+            color: var(--text-white);
+            font-size: 0.84rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: rgba(249, 115, 22, 0.08);
+        }
+
+        td {
+            color: var(--text-grey);
+            font-size: 0.94rem;
+            line-height: 1.55;
+        }
+
+        .source-accordion {
+            display: grid;
+            gap: 0.8rem;
+            margin: 1.35rem 0 1.6rem;
+        }
+
+        .source-card {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            background: rgba(15, 22, 41, 0.84);
+            overflow: hidden;
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16);
+        }
+
+        .source-card summary {
+            list-style: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.9rem;
+            padding: 1rem 1rem 0.95rem;
+        }
+
+        .source-card summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .source-card-title {
+            display: grid;
+            gap: 0.18rem;
+        }
+
+        .source-card-kicker {
+            color: var(--text-grey);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .source-card-name {
+            color: var(--text-white);
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .source-card-toggle {
+            flex: 0 0 auto;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 999px;
+            border: 1px solid rgba(249, 115, 22, 0.28);
+            background: rgba(249, 115, 22, 0.08);
+            position: relative;
+            transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+        }
+
+        .source-card-toggle::before,
+        .source-card-toggle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0.75rem;
+            height: 2px;
+            border-radius: 999px;
+            background: var(--orange);
+            transform: translate(-50%, -50%);
+        }
+
+        .source-card-toggle::after {
+            transform: translate(-50%, -50%) rotate(90deg);
+            transition: transform 0.22s ease, opacity 0.22s ease;
+        }
+
+        .source-card[open] .source-card-toggle {
+            background: rgba(75, 205, 62, 0.12);
+            border-color: rgba(75, 205, 62, 0.34);
+        }
+
+        .source-card[open] .source-card-toggle::after {
+            opacity: 0;
+            transform: translate(-50%, -50%) rotate(90deg) scaleX(0.2);
+        }
+
+        .source-card-content {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 0.95rem 1rem 1rem;
+            display: grid;
+            gap: 0.78rem;
+        }
+
+        .source-card-field {
+            display: grid;
+            gap: 0.22rem;
+        }
+
+        .source-card-label {
+            color: var(--text-white);
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .source-card-value {
+            color: var(--text-grey);
+            font-size: 0.94rem;
+            line-height: 1.55;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .page-title-line {
+            display: block;
+        }
+
+        .page-title-line.page-title-kicker {
+            font-size: 0.42em;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-white);
+            margin-bottom: 0.16rem;
+        }
+
+        .intro-box {
+            background:
+                radial-gradient(circle at top right, rgba(0, 212, 255, 0.12), transparent 34%),
+                linear-gradient(135deg, rgba(249, 115, 22, 0.16) 0%, rgba(249, 115, 22, 0.06) 42%, rgba(255, 255, 255, 0.02) 100%);
+            border: 1px solid rgba(249, 115, 22, 0.26);
+            border-radius: 14px;
+            padding: 1.2rem 1.15rem;
+            margin-bottom: 1.7rem;
+            text-align: left;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+        }
+
+        .intro-box p {
+            font-size: 0.95rem;
+            color: var(--text-white);
+            margin-bottom: 0;
+            line-height: 1.62;
+        }
+
+        .intro-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-white);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .intro-eyebrow::before {
+            content: '';
+            width: 0.45rem;
+            height: 0.45rem;
+            border-radius: 999px;
+            background: var(--green);
+            box-shadow: 0 0 0 0.18rem rgba(75, 205, 62, 0.12);
+        }
+
+        .intro-highlight {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+            margin-top: 1rem;
+        }
+
+        .intro-highlight-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 2rem;
+            padding: 0.38rem 0.72rem;
+            border-radius: 999px;
+            background: rgba(15, 22, 41, 0.82);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-white);
+            font-size: 0.76rem;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .hero-category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.85rem;
+            margin-top: 1.4rem;
+        }
+
+        .engine-start-cta {
+            margin-top: 1.2rem;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.55rem;
+            width: 100%;
+        }
+
+        .engine-start-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 12rem;
+            padding: 0.95rem 1.4rem;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--green), #66e05b);
+            color: var(--bg-dark);
+            font-size: 0.98rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+            box-shadow: 0 18px 40px rgba(75, 205, 62, 0.22);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .engine-start-button:hover,
+        .engine-start-button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 44px rgba(75, 205, 62, 0.28);
+            outline: none;
+        }
+
+        .engine-start-caption {
+            font-size: 0.76rem;
+            color: rgba(255, 255, 255, 0.72);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .section-index-cue {
+            display: none;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.38rem;
+            color: rgba(255, 255, 255, 0.62);
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 0.55rem;
+        }
+
+        .section-index-cue::after {
+            content: '→';
+            color: var(--orange);
+            font-size: 0.92rem;
+            line-height: 1;
+        }
+
+        .hero-category-card {
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            background: linear-gradient(180deg, rgba(15, 22, 41, 0.96) 0%, rgba(11, 16, 29, 0.98) 100%);
+            padding: 0.95rem 0.9rem;
+            text-align: left;
+            color: var(--text-white);
+            cursor: pointer;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .hero-category-card:hover,
+        .hero-category-card:focus-visible,
+        .hero-category-card.active {
+            transform: translateY(-2px);
+            border-color: rgba(75, 205, 62, 0.4);
+            box-shadow: 0 18px 34px rgba(0, 0, 0, 0.24);
+            outline: none;
+        }
+
+        .hero-category-card.active {
+            background: linear-gradient(180deg, rgba(29, 54, 29, 0.98) 0%, rgba(14, 24, 18, 0.98) 100%);
+        }
+
+        .hero-category-kicker {
+            display: block;
+            color: var(--green);
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            margin-bottom: 0.38rem;
+        }
+
+        .hero-category-title {
+            display: block;
+            font-size: 0.96rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.3rem;
+        }
+
+        .hero-category-copy {
+            display: block;
+            color: var(--text-grey);
+            font-size: 0.78rem;
+            line-height: 1.5;
+        }
+
+        .callout {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(249, 115, 22, 0.02) 100%);
+            border: 1px solid var(--orange);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .spec-box {
+            background: rgba(0, 212, 255, 0.05);
+            border-left: 4px solid var(--blue);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box {
+            background: rgba(231, 76, 60, 0.05);
+            border-left: 4px solid #e74c3c;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--blue);
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+
+        .code-block strong {
+            color: var(--orange);
+        }
+
+        .algorithm-disclosure {
+            margin: 1rem 0 1.5rem;
+        }
+
+        .algorithm-toggle {
+            list-style: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.72rem 1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(75, 205, 62, 0.32);
+            background: rgba(75, 205, 62, 0.08);
+            color: var(--text-white);
+            font-size: 0.92rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+        }
+
+        .algorithm-toggle::-webkit-details-marker {
+            display: none;
+        }
+
+        .algorithm-toggle::before {
+            content: '+';
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 999px;
+            background: rgba(75, 205, 62, 0.18);
+            color: var(--green);
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .algorithm-disclosure[open] .algorithm-toggle::before {
+            content: '-';
+        }
+
+        .algorithm-toggle:hover,
+        .algorithm-toggle:focus-visible {
+            background: rgba(75, 205, 62, 0.14);
+            border-color: rgba(75, 205, 62, 0.5);
+            transform: translateY(-1px);
+            outline: none;
+        }
+
+        .algorithm-disclosure .code-block {
+            margin-bottom: 0;
+        }
+
+        .scoring-tabs {
+            margin: 2rem 0;
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.12) 0%, rgba(75, 205, 62, 0.05) 100%);
+            border: 1px solid rgba(249, 115, 22, 0.28);
+            border-radius: 14px;
+            padding: 1.75rem;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+        }
+
+        .scoring-tabs-intro {
+            margin-bottom: 1.1rem;
+        }
+
+        .scoring-tab-cue {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.38rem;
+            margin-bottom: 0.55rem;
+            color: rgba(255, 255, 255, 0.62);
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .scoring-tab-cue::after {
+            content: '→';
+            color: var(--orange);
+            font-size: 0.92rem;
+            line-height: 1;
+        }
+
+        .scoring-tab-list {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 1.1rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.35rem;
+            scrollbar-width: none;
+        }
+
+        .scoring-tab-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scoring-tab {
+            appearance: none;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.56);
+            border-radius: 0;
+            padding: 0.2rem 0 0.7rem;
+            font: inherit;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+        }
+
+        .scoring-tab::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 2px;
+            border-radius: 999px;
+            background: var(--orange);
+            opacity: 0;
+            transform: scaleX(0.35);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .scoring-tab:hover,
+        .scoring-tab:focus-visible {
+            color: var(--text-white);
+            outline: none;
+        }
+
+        .scoring-tab[aria-selected="true"] {
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        .scoring-tab[aria-selected="true"]::after {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        .scoring-panel {
+            background: rgba(15, 22, 41, 0.84);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .scoring-panel[hidden] {
+            display: none;
+        }
+
+        .scoring-panel-label {
+            display: inline-block;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.76rem;
+            margin-bottom: 0.65rem;
+            font-weight: 700;
+        }
+
+        .scoring-panel h3 {
+            margin-top: 0;
+            margin-bottom: 0.8rem;
+        }
+
+        .scoring-panel .algorithm-disclosure {
+            margin-top: 0.9rem;
+        }
+
+        .scoring-panel p:last-child {
+            margin-bottom: 0;
+        }
+
+        code {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--blue);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: rgba(249, 115, 22, 0.1);
+            color: var(--orange);
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--orange);
+            font-weight: 600;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-grey);
+            vertical-align: top;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        ul {
+            margin: 1rem 0 1rem 2rem;
+            color: var(--text-grey);
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        strong {
+            color: var(--text-white);
+        }
+
+        footer {
+            background: var(--bg-darker);
+            border-top: 2px solid var(--orange);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-grey);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--orange);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--green);
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 0.85rem 1rem;
+            }
+
+            .nav-brand {
+                max-width: 12rem;
+            }
+
+            .nav-brand img {
+                height: 2rem;
+            }
+
+            .nav-links {
+                gap: 0.85rem;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            .spec-layout {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 1.5rem;
+            }
+
+            .spec-layout > * {
+                min-width: 0;
+                max-width: 100%;
+            }
+
+            .section-index {
+                position: static;
+                padding: 1rem;
+            }
+
+            .spec-content,
+            .section {
+                width: 100%;
+                max-width: 100%;
+                min-width: 0;
+            }
+
+            .section-index-list {
+                gap: 0.6rem;
+            }
+
+            table {
+                font-size: 0.85rem;
+                display: block;
+                overflow-x: auto;
+            }
+
+            th, td {
+                padding: 0.75rem 0.5rem;
+            }
+
+            .code-block {
+                font-size: 0.8rem;
+                padding: 1rem;
+            }
+
+            h2 {
+                padding-left: 0.75rem;
+                border-left-width: 3px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .nav {
+                padding: 0.75rem 0.85rem;
+                gap: 0.75rem;
+                align-items: flex-start;
+            }
+
+            .nav-brand {
+                width: 100%;
+                max-width: none;
+                justify-content: center;
+            }
+
+            .nav-brand img {
+                height: 1.9rem;
+                width: 1.9rem;
+            }
+
+            .nav-links {
+                width: 100%;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                overflow-x: auto;
+                gap: 0.55rem;
+                gap: 1.35rem;
+                padding-bottom: 0.35rem;
+                scrollbar-width: none;
+            }
+
+            .nav-links::-webkit-scrollbar {
+                display: none;
+            }
+
+            .nav-links a {
+                white-space: nowrap;
+                font-size: 0.8rem;
+                padding: 0.2rem 0 0.7rem;
+                border: none;
+                border-radius: 0;
+                background: transparent;
+                color: rgba(255, 255, 255, 0.56);
+                font-weight: 500;
+                position: relative;
+            }
+
+            .nav-links a::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 2px;
+                border-radius: 999px;
+                background: var(--orange);
+                opacity: 0;
+                transform: scaleX(0.35);
+                transition: opacity 0.25s ease, transform 0.25s ease;
+            }
+
+            .nav-links a:hover,
+            .nav-links a.active {
+                color: var(--text-white);
+                font-weight: 600;
+            }
+
+            .nav-links a.active::after {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+
+            .container {
+                padding: 1rem 0.85rem 1.5rem;
+            }
+
+            .section {
+                margin-bottom: 3rem;
+            }
+
+
+            .section[hidden] {
+                display: none;
+            }
+
+            .section[aria-hidden='false'] {
+                animation: fadeIn 0.35s ease;
+            }
+
+            .section-next-step {
+                margin-top: 2rem;
+                padding: 1.15rem 1.2rem;
+                border-radius: 16px;
+                border: 1px solid rgba(75, 205, 62, 0.2);
+                background: linear-gradient(180deg, rgba(14, 24, 18, 0.95) 0%, rgba(10, 18, 15, 0.98) 100%);
+            }
+
+            .section-next-step-label {
+                display: block;
+                margin-bottom: 0.42rem;
+                color: rgba(176, 255, 170, 0.88);
+                font-size: 0.72rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.14em;
+            }
+
+            .section-next-step-link {
+                color: var(--text-white);
+                font-size: 1rem;
+                font-weight: 700;
+                text-decoration: none;
+                border-bottom: 1px solid rgba(249, 115, 22, 0.45);
+                padding-bottom: 0.12rem;
+            }
+
+            .section-next-step-link:hover,
+            .section-next-step-link:focus-visible {
+                color: #ffd3b0;
+                border-bottom-color: rgba(249, 115, 22, 0.8);
+                outline: none;
+            }
+
+            .section-next-step-note {
+                margin-top: 0.5rem;
+                margin-bottom: 0;
+                font-size: 0.88rem;
+            }
+
+            body:not(.spec-engine-intro) .container {
+                padding-top: 0;
+            }
+
+            .section-index {
+                display: block;
+                position: sticky;
+                top: var(--spec-nav-height);
+                z-index: 950;
+                grid-column: 1 / -1;
+                width: 100vw;
+                max-width: 100vw;
+                min-width: 0;
+                margin: 0 calc(50% - 50vw) 0.55rem;
+                padding: 0 1rem 0.2rem;
+                border: none;
+                border-radius: 0;
+                background: linear-gradient(180deg, rgba(15, 22, 41, 0.98) 0%, rgba(15, 22, 41, 0.92) 78%, rgba(15, 22, 41, 0) 100%);
+                box-shadow: none;
+                overflow: hidden;
+            }
+
+            .section-index-label {
+                display: none;
+            }
+
+            .section-index-cue {
+                display: block;
+                width: 100%;
+                max-width: 100%;
+                padding: 0;
+                text-align: right;
+                font-size: 0.6rem;
+                margin-top: 0.22rem;
+                margin-bottom: 0.36rem;
+            }
+
+            .section-index-list {
+                flex-direction: row;
+                flex-wrap: nowrap;
+                width: 100%;
+                max-width: 100%;
+                overflow-x: auto;
+                gap: 1.05rem;
+                padding: 0 0 0.45rem;
+                scrollbar-width: none;
+                overscroll-behavior-x: contain;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .section-index-list::-webkit-scrollbar {
+                display: none;
+            }
+
+            .section-index-link {
+                flex: 0 0 auto;
+                white-space: nowrap;
+                font-size: 0.78rem;
+                padding: 0.18rem 0 0.62rem;
+                border: none;
+                border-radius: 0;
+                background: transparent;
+                color: rgba(255, 255, 255, 0.56);
+                font-weight: 500;
+                position: relative;
+                box-shadow: none;
+                transform: none;
+            }
+
+            .spec-content {
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 100%;
+                min-width: 0;
+                overflow-x: hidden;
+            }
+
+            .section-index-link::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 2px;
+                border-radius: 999px;
+                background: var(--orange);
+                opacity: 0;
+                transform: scaleX(0.35);
+                transition: opacity 0.25s ease, transform 0.25s ease;
+            }
+
+            .section-index-link:hover,
+            .section-index-link:focus-visible,
+            .section-index-link.active {
+                color: var(--text-white);
+                background: transparent;
+                border-color: transparent;
+                font-weight: 600;
+                box-shadow: none;
+                transform: none;
+            }
+
+            .section-index-link.active::after {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+
+            .engine-start-button {
+                min-width: 11.2rem;
+                padding: 0.88rem 1.2rem;
+                font-size: 0.92rem;
+            }
+
+            h1 {
+                font-size: clamp(1.85rem, 8vw, 2.45rem);
+                line-height: 1.04;
+            }
+
+            h2 {
+                font-size: 1.35rem;
+                margin: 1.8rem 0 1rem;
+            }
+
+            h3 {
+                font-size: 1.1rem;
+            }
+
+            .intro-box,
+            .callout,
+            .spec-box,
+            .warning-box,
+            .scoring-tabs,
+            .scoring-panel {
+                padding: 1rem;
+            }
+
+            .subtitle {
+                font-size: 0.98rem;
+            }
+
+            .intro-box {
+                margin-bottom: 1.4rem;
+            }
+
+            .intro-box p {
+                font-size: 0.92rem;
+            }
+
+            .intro-highlight {
+                gap: 0.45rem;
+            }
+
+            .hero-category-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .intro-highlight-chip {
+                font-size: 0.72rem;
+                min-height: 1.85rem;
+            }
+
+            .source-card summary {
+                padding: 0.9rem 0.9rem 0.85rem;
+            }
+
+            .source-card-content {
+                padding: 0.85rem 0.9rem 0.95rem;
+            }
+
+            .source-card-name {
+                font-size: 0.95rem;
+            }
+
+            table {
+                display: block;
+                border: none;
+                background: transparent;
+                margin: 1.1rem 0;
+            }
+
+            table thead {
+                display: none;
+            }
+
+            table tbody {
+                display: grid;
+                gap: 0.9rem;
+            }
+
+            table tr {
+                display: block;
+                background: rgba(15, 22, 41, 0.84);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 12px;
+                padding: 0.2rem 0;
+                box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+            }
+
+            table td {
+                display: grid;
+                grid-template-columns: minmax(0, 7.2rem) minmax(0, 1fr);
+                gap: 0.65rem;
+                padding: 0.72rem 0.85rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+                font-size: 0.9rem;
+            }
+
+            table td::before {
+                content: attr(data-label);
+                color: var(--text-white);
+                font-size: 0.68rem;
+                font-weight: 700;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+            }
+
+            table tr td:last-child {
+                border-bottom: none;
+            }
+
+            .scoring-tab-list {
+                gap: 1rem;
+            }
+
+            .scoring-tab-list::-webkit-scrollbar {
+                display: none;
+            }
+
+            .scoring-tab {
+                flex: 0 0 auto;
+                white-space: nowrap;
+                font-size: 0.8rem;
+                padding: 0.2rem 0 0.7rem;
+            }
+
+            .algorithm-toggle {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .code-block {
+                font-size: 0.75rem;
+                padding: 0.9rem;
+            }
+
+            footer {
+                padding: 1.5rem 1rem;
+            }
+
+            .anchor-fab-shell,
+            .anchor-fab-scrim {
+                display: none !important;
+            }
+        }
+        @media (max-width: 560px) {
+            .nav-links a {
+                color: rgba(255, 255, 255, 0.56);
+                padding-bottom: 0.7rem;
+            }
+
+            .nav-links a:hover,
+            .nav-links a.active {
+                color: var(--text-white);
+            }
+        }
+
+        @media (max-width: 430px) {
+            .nav {
+                padding: 0.45rem max(0.65rem, env(safe-area-inset-right)) 0.45rem max(0.65rem, env(safe-area-inset-left));
+                gap: 0.4rem;
+            }
+
+            .nav-brand img {
+                height: 1.45rem;
+                width: 1.45rem;
+            }
+
+            .nav-brand-copy {
+                font-size: 0.74rem;
+                letter-spacing: 0.06em;
+                gap: 0.12rem;
+            }
+
+            .nav-links {
+                gap: 0.8rem;
+                padding-bottom: 0.2rem;
+            }
+
+            .nav-links a {
+                font-size: 0.74rem;
+                padding-bottom: 0.45rem;
+            }
+
+            .container {
+                padding: 0.85rem 0.7rem 1.25rem;
+            }
+
+            .section {
+                margin-bottom: 2.2rem;
+            }
+
+            h1 {
+                font-size: clamp(1.7rem, 7.4vw, 2.25rem);
+            }
+
+            .subtitle {
+                font-size: 0.94rem;
+            }
+
+            .intro-box p {
+                font-size: 0.9rem;
+            }
+
+            .intro-eyebrow {
+                font-size: 0.68rem;
+                letter-spacing: 0.12em;
+            }
+
+            .intro-highlight-chip {
+                font-size: 0.68rem;
+                padding: 0.34rem 0.62rem;
+            }
+
+            .hero-category-grid {
+                display: none;
+            }
+
+            .engine-start-button {
+                min-width: 10.2rem;
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .engine-start-caption {
+                font-size: 0.68rem;
+            }
+
+            .hero-category-card {
+                padding: 0.9rem;
+            }
+
+            .source-card {
+                border-radius: 12px;
+            }
+
+            .source-card-toggle {
+                width: 1.85rem;
+                height: 1.85rem;
+            }
+
+            .source-card-value {
+                font-size: 0.9rem;
+            }
+
+            table td {
+                grid-template-columns: 1fr;
+                gap: 0.32rem;
+            }
+
+            table td::before {
+                font-size: 0.64rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+                margin: 1.55rem 0 0.85rem;
+            }
+
+            h3 {
+                font-size: 1rem;
+            }
+
+            p,
+            li {
+                font-size: 0.94rem;
+            }
+
+            .section-index-link,
+            .scoring-tab,
+            .algorithm-toggle {
+                font-size: 0.74rem;
+            }
+        }
+    </style>
+</head>
+<body class="spec-engine-intro">
+
+    <nav class="nav">
+        <div class="nav-brand"><img src="di-icon.png" alt="The Demo Index icon"><span class="nav-brand-copy" aria-label="The Demo Index"><span class="neutral">THE</span><span class="accent">DEMO</span><span class="neutral">INDEX</span></span></div>
+        <div class="nav-links">
+            <a href="index.html">Hub</a>
+            <a href="Demo-Index-Framework-Web.html">Framework</a>
+            <a href="Demo-Index-Methodology-Web.html">Methodology</a>
+            <a href="Demo-Index-Assessment-Web.html">Assessment</a>
+            <a href="Demo-Index-Research-Manifesto-Web.html">Research</a>
+            <a href="#" class="active">Technical Spec</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <section class="section section-header engine-intro">
+            <h1>
+                <span class="page-title-line page-title-kicker">Index</span>
+                <span class="page-title-line">Measurement Engine</span>
+            </h1>
+            <p class="subtitle">Applied scoring model, evidence guidance, and progression from self-assessment to continued audit</p>
+            
+            <div class="intro-box">
+                <span class="intro-eyebrow">Applied measurement model</span>
+                <p>
+                    This page explains how to apply the Demo Index as a practical maturity framework: define the scoring intent behind each dimension, understand what evidence increases confidence, use BI and operational systems as supporting inputs, and progress from a baseline self-assessment into a more structured continued audit over time.
+                </p>
+                <div class="intro-highlight" aria-label="Measurement model highlights">
+                    <span class="intro-highlight-chip">Dimensions and scoring intent</span>
+                    <span class="intro-highlight-chip">Evidence that strengthens confidence</span>
+                    <span class="intro-highlight-chip">Assessment lane to continued audit</span>
+                </div>
+                <div class="hero-category-grid" aria-label="Measurement Engine categories">
+                    <button class="hero-category-card active" type="button" data-section-target="architecture-overview">
+                        <span class="hero-category-kicker">Model</span>
+                        <span class="hero-category-title">Applied framing</span>
+                        <span class="hero-category-copy">Start with purpose, principles, and evidence inputs.</span>
+                    </button>
+                    <button class="hero-category-card" type="button" data-section-target="scoring-engine">
+                        <span class="hero-category-kicker">Dimensions</span>
+                        <span class="hero-category-title">Scoring intent</span>
+                        <span class="hero-category-copy">Review how each Demo Index dimension is meant to be interpreted.</span>
+                    </button>
+                    <button class="hero-category-card" type="button" data-section-target="validation-layer">
+                        <span class="hero-category-kicker">Confidence</span>
+                        <span class="hero-category-title">Validation rules</span>
+                        <span class="hero-category-copy">See how baseline scoring becomes more credible through evidence.</span>
+                    </button>
+                    <button class="hero-category-card" type="button" data-section-target="benchmark-engine">
+                        <span class="hero-category-kicker">Audit</span>
+                        <span class="hero-category-title">Continued review</span>
+                        <span class="hero-category-copy">Understand the reassessment rhythm and comparative learning layer.</span>
+                    </button>
+                    <button class="hero-category-card" type="button" data-section-target="reporting-api">
+                        <span class="hero-category-kicker">Outputs</span>
+                        <span class="hero-category-title">Team readouts</span>
+                        <span class="hero-category-copy">Jump to the deliverables leaders and operators can actually use.</span>
+                    </button>
+                    <button class="hero-category-card" type="button" data-section-target="implementation-roadmap">
+                        <span class="hero-category-kicker">Action</span>
+                        <span class="hero-category-title">Adoption path</span>
+                        <span class="hero-category-copy">Move from baseline assessment into a practical audit cadence.</span>
+                    </button>
+                </div>
+                <div class="engine-start-cta">
+                    <button class="engine-start-button" type="button" data-engine-start>Review Engine</button>
+                    <span class="engine-start-caption">Starts at Applied Framing</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="spec-layout">
+            <aside class="section-index" aria-label="Technical specification sections">
+                <span class="section-index-label">On This Page</span>
+                <div class="section-index-cue" aria-hidden="true">Swipe for more</div>
+                <nav class="section-index-list">
+                    <a class="section-index-link active" href="#architecture-overview">Applied Model</a>
+                    <a class="section-index-link" href="#scoring-engine">Scoring Intent</a>
+                    <a class="section-index-link" href="#validation-layer">Confidence</a>
+                    <a class="section-index-link" href="#benchmark-engine">Continued Audit</a>
+                    <a class="section-index-link" href="#reporting-api">Outputs</a>
+                    <a class="section-index-link" href="#implementation-roadmap">Adoption Path</a>
+                </nav>
+            </aside>
+
+            <main class="spec-content">
+        <section class="section" id="architecture-overview">
+            <h2>1. Applied Measurement Model</h2>
+
+            <p>
+                The Demo Index is intended to be applied as a maturity framework, not approached as a prerequisite software build. The purpose of this model is to help teams define what each dimension means, establish a practical baseline through assessment, and identify which forms of evidence can increase confidence over time.
+            </p>
+
+            <div class="spec-box">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">What This Page Is For</strong></p>
+                <ul style="margin-bottom: 0;">
+                    <li><strong>Define the dimensions:</strong> Clarify what Experience, Context, Narrative, Orchestration, and Autonomy are intended to measure</li>
+                    <li><strong>Set scoring intent:</strong> Provide a practical reference for how organizations can interpret stronger or weaker maturity signals</li>
+                    <li><strong>Strengthen confidence:</strong> Show how operational evidence can support, challenge, or refine a baseline assessment</li>
+                    <li><strong>Guide progression:</strong> Help teams move from self-assessment toward a repeatable continued-audit rhythm</li>
+                </ul>
+            </div>
+
+            <h3>Design Principles</h3>
+
+            <ul>
+                <li><strong>Accessibility first:</strong> Organizations should be able to establish a baseline without integrations or instrumentation work</li>
+                <li><strong>Confidence over certainty:</strong> Evidence improves confidence in a score, but lack of evidence should not block initial participation</li>
+                <li><strong>Transparency:</strong> Scoring logic should be understandable enough to support workshop use, leadership discussion, and audit review</li>
+                <li><strong>Evidence-informed maturity:</strong> BI, telemetry, CRM, demo systems, and analytics can inform scoring when available</li>
+                <li><strong>Progressive rigor:</strong> The framework should support a path from self-assessment to validated assessment over time</li>
+            </ul>
+
+            <h3>Optional Evidence Inputs from Existing Systems</h3>
+
+            <div class="source-accordion" aria-label="Supported data source categories">
+                <details class="source-card">
+                    <summary>
+                        <span class="source-card-title">
+                            <span class="source-card-kicker">Source Category</span>
+                            <span class="source-card-name">CRM Systems</span>
+                        </span>
+                        <span class="source-card-toggle" aria-hidden="true"></span>
+                    </summary>
+                    <div class="source-card-content">
+                        <div class="source-card-field">
+                            <span class="source-card-label">Examples</span>
+                            <span class="source-card-value">Salesforce, HubSpot, Pipedrive</span>
+                        </div>
+                        <div class="source-card-field">
+                            <span class="source-card-label">Data Extracted</span>
+                            <span class="source-card-value">Opportunity timestamps, demo request logs, account context, activity history</span>
+                        </div>
+                        <div class="source-card-field">
+                            <span class="source-card-label">How It Can Inform Scoring</span>
+                            <span class="source-card-value">Reveal request volume, delivery timing, account context use, and opportunity-stage alignment</span>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="source-card">
+                    <summary>
+                        <span class="source-card-title">
+                            <span class="source-card-kicker">Source Category</span>
+                            <span class="source-card-name">Demo Platforms</span>
+                        </span>
+                        <span class="source-card-toggle" aria-hidden="true"></span>
+                    </summary>
+                    <div class="source-card-content">
+                        <div class="source-card-field">
+                            <span class="source-card-label">Examples</span>
+                            <span class="source-card-value">Demostack, Consensus, Saleo, Reprise</span>
+                        </div>
+                        <div class="source-card-field">
+                            <span class="source-card-label">Data Extracted</span>
+                            <span class="source-card-value">Environment provisioning logs, session analytics, personalization configs, usage telemetry</span>
+                        </div>
+                        <div class="source-card-field">
+                            <span class="source-card-label">How It Can Inform Scoring</span>
+                            <span class="source-card-value">Show personalization depth, environment reuse, delivery behavior, and buyer engagement patterns</span>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="source-card">
+                    <summary>
+                        <span class="source-card-title">
+                            <span class="source-card-kicker">Source Category</span>
+                            <span class="source-card-name">Infrastructure</span>
+                        </span>
+                        <span class="source-card-toggle" aria-hidden="true"></span>
+                    </summary>
+                    <div class="source-card-content">
+                        <div class="source-card-field">
+                            <span class="source-card-label">Examples</span>
+                            <span class="source-card-value">AWS, GCP, Azure</span>
+                        </div>
+                        <div class="source-card-field">
+                            <span class="source-card-label">Data Extracted</span>
+                            <span class="source-card-value">Provisioning timestamps, deployment automation logs, resource utilization</span>
+                        </div>
+                        <div class="source-card-field">
+                            <span class="source-card-label">How It Can Inform Scoring</span>
+                            <span class="source-card-value">Indicate automation depth, provisioning speed, operational resilience, and scalability</span>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="source-card">
+                    <summary>
+                        <span class="source-card-title">
+                            <span class="source-card-kicker">Source Category</span>
+                            <span class="source-card-name">Analytics Platforms</span>
+                        </span>
+                        <span class="source-card-toggle" aria-hidden="true"></span>
+                    </summary>
+                    <div class="source-card-content">
+                        <div class="source-card-field">
+                            <span class="source-card-label">Examples</span>
+                            <span class="source-card-value">Segment, Amplitude, Mixpanel</span>
+                        </div>
+                        <div class="source-card-field">
+                            <span class="source-card-label">Data Extracted</span>
+                            <span class="source-card-value">Buyer behavior patterns, navigation paths, engagement metrics</span>
+                        </div>
+                        <div class="source-card-field">
+                            <span class="source-card-label">How It Can Inform Scoring</span>
+                            <span class="source-card-value">Add buyer-behavior signals, repeat engagement patterns, pathing, and conversion indicators</span>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="source-card">
+                    <summary>
+                        <span class="source-card-title">
+                            <span class="source-card-kicker">Source Category</span>
+                            <span class="source-card-name">Orchestration Tools</span>
+                        </span>
+                        <span class="source-card-toggle" aria-hidden="true"></span>
+                    </summary>
+                    <div class="source-card-content">
+                        <div class="source-card-field">
+                            <span class="source-card-label">Examples</span>
+                            <span class="source-card-value">Zapier, Workato, Custom</span>
+                        </div>
+                        <div class="source-card-field">
+                            <span class="source-card-label">Data Extracted</span>
+                            <span class="source-card-value">Workflow automation evidence, integration depth, trigger configurations</span>
+                        </div>
+                        <div class="source-card-field">
+                            <span class="source-card-label">How It Can Inform Scoring</span>
+                            <span class="source-card-value">Surface workflow automation, handoff quality, integration depth, and reduction of manual intervention</span>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="source-card">
+                    <summary>
+                        <span class="source-card-title">
+                            <span class="source-card-kicker">Source Category</span>
+                            <span class="source-card-name">Survey Responses</span>
+                        </span>
+                        <span class="source-card-toggle" aria-hidden="true"></span>
+                    </summary>
+                    <div class="source-card-content">
+                        <div class="source-card-field">
+                            <span class="source-card-label">Examples</span>
+                            <span class="source-card-value">Assessment Tool</span>
+                        </div>
+                        <div class="source-card-field">
+                            <span class="source-card-label">Data Extracted</span>
+                            <span class="source-card-value">Declarative capability scores, process documentation, maturity self-assessment</span>
+                        </div>
+                        <div class="source-card-field">
+                            <span class="source-card-label">How It Can Inform Scoring</span>
+                            <span class="source-card-value">Provide a baseline classification and expose where further evidence review would be most useful</span>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <h3>Evidence Interpretation Guide</h3>
+
+            <p>
+                Teams do not need to normalize every source into a scoring application to use this framework. The practical question is simpler: which signals from existing systems help validate or challenge the current score?
+            </p>
+
+            <div class="spec-box">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Examples of Useful Signals</strong></p>
+                <ul style="margin-bottom: 0;">
+                    <li><strong>Experience Delivery:</strong> Request-to-delivery timing, provisioning speed, and repeatability across demo requests</li>
+                    <li><strong>Context Intelligence:</strong> The degree of account, persona, industry, or real-time context embedded into experiences</li>
+                    <li><strong>Narrative Integrity:</strong> Signals showing continuity across sessions, assets, and stakeholders over time</li>
+                    <li><strong>Orchestration Capability:</strong> Workflow automation, system connectivity, and evidence of reduced manual effort</li>
+                    <li><strong>Buyer Autonomy:</strong> Buyer-initiated access, self-service usage, and the share of experiences that do not require direct seller choreography</li>
+                </ul>
+            </div>
+
+            <div class="section-next-step">
+                <span class="section-next-step-label">Next Step</span>
+                <a class="section-next-step-link" href="#scoring-engine" data-section-target="scoring-engine">Review the scoring intent by dimension</a>
+                <p class="section-next-step-note">Use the dimension views to connect the model to concrete maturity signals.</p>
+            </div>
+        </section>
+
+        <section class="section" id="scoring-engine">
+            <h2>2. Scoring Intent by Dimension</h2>
+
+            <div class="scoring-tabs" data-scoring-tabs>
+                <p class="scoring-tabs-intro">
+                    These scoring views are not a mandate to build an application. They show the intent behind each dimension, the kinds of signals that matter, and how an organization can interpret stronger versus weaker evidence over time.
+                </p>
+
+                <div class="scoring-tab-cue" aria-hidden="true">Swipe for more</div>
+                <div class="scoring-tab-list" role="tablist" aria-label="Scoring engine dimensions">
+                    <button class="scoring-tab" type="button" role="tab" id="scoring-tab-experience" aria-selected="true" aria-controls="scoring-panel-experience" data-tab-target="scoring-panel-experience">Experience</button>
+                    <button class="scoring-tab" type="button" role="tab" id="scoring-tab-context" aria-selected="false" aria-controls="scoring-panel-context" data-tab-target="scoring-panel-context">Context</button>
+                    <button class="scoring-tab" type="button" role="tab" id="scoring-tab-narrative" aria-selected="false" aria-controls="scoring-panel-narrative" data-tab-target="scoring-panel-narrative">Narrative</button>
+                    <button class="scoring-tab" type="button" role="tab" id="scoring-tab-orchestration" aria-selected="false" aria-controls="scoring-panel-orchestration" data-tab-target="scoring-panel-orchestration">Orchestration</button>
+                    <button class="scoring-tab" type="button" role="tab" id="scoring-tab-autonomy" aria-selected="false" aria-controls="scoring-panel-autonomy" data-tab-target="scoring-panel-autonomy">Autonomy</button>
+                </div>
+
+                <section class="scoring-panel" id="scoring-panel-experience" role="tabpanel" aria-labelledby="scoring-tab-experience">
+                    <span class="scoring-panel-label">Dimension 01</span>
+                    <h3>Experience Delivery Scoring</h3>
+                    <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Primary Metric:</strong> Time-to-Demo (hours from request to delivery)</p>
+
+                    <p style="margin-bottom: 0.5rem;"><strong>Illustrative scoring logic:</strong></p>
+                    <details class="algorithm-disclosure" data-open-label="Show Algorithm" data-close-label="Hide Algorithm">
+                        <summary class="algorithm-toggle">Show Algorithm</summary>
+                    <div class="code-block"><strong>// Calculate median Time-to-Demo over trailing 90 days</strong>
+median_ttd = MEDIAN(time_to_demo_hours)
+
+<strong>// Score mapping (inverse relationship: lower time = higher score)</strong>
+IF median_ttd >= 40:
+    score = 10  // DI-1: 1+ week
+ELSE IF median_ttd >= 16:
+    score = 30  // DI-2: 2-5 days
+ELSE IF median_ttd >= 4:
+    score = 50  // DI-3: 4-16 hours
+ELSE IF median_ttd >= 1:
+    score = 75  // DI-4: 1-4 hours
+ELSE:
+    score = 95  // DI-5: <1 hour</div>
+                    </details>
+
+                    <p style="margin-bottom: 0;"><strong>Assessment-Lane baseline:</strong> If telemetry is unavailable, use survey and workshop discussion to place the organization in the closest maturity band, then revisit the score as more timing evidence becomes visible.</p>
+                </section>
+
+                <section class="scoring-panel" id="scoring-panel-context" role="tabpanel" aria-labelledby="scoring-tab-context" hidden>
+                    <span class="scoring-panel-label">Dimension 02</span>
+                    <h3>Context Intelligence Scoring</h3>
+                    <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Primary Metric:</strong> Personalization Depth Level</p>
+
+                    <p style="margin-bottom: 0.5rem;"><strong>Illustrative scoring logic:</strong></p>
+                    <details class="algorithm-disclosure" data-open-label="Show Algorithm" data-close-label="Hide Algorithm">
+                        <summary class="algorithm-toggle">Show Algorithm</summary>
+                    <div class="code-block"><strong>// Analyze personalization distribution over trailing 90 days</strong>
+personalization_distribution = COUNT_BY_LEVEL(demos)
+
+<strong>// Calculate weighted average personalization level</strong>
+weighted_avg = (
+    (generic_count * 0) +
+    (industry_count * 25) +
+    (persona_count * 50) +
+    (account_count * 75) +
+    (realtime_count * 100)
+) / total_demo_count
+
+score = weighted_avg
+
+<strong>// Bonus: CRM integration depth (0-15 points)</strong>
+IF crm_integration_active:
+    IF bidirectional_sync:
+        score += 15
+    ELSE:
+        score += 8</div>
+                    </details>
+
+                    <p style="margin-bottom: 0;"><strong>Evidence that strengthens confidence:</strong> CRM enrichment, platform configuration data, and observed personalization behavior all help confirm whether stated personalization depth is truly standard.</p>
+                </section>
+
+                <section class="scoring-panel" id="scoring-panel-narrative" role="tabpanel" aria-labelledby="scoring-tab-narrative" hidden>
+                    <span class="scoring-panel-label">Dimension 03</span>
+                    <h3>Narrative Integrity Scoring</h3>
+                    <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Composite Metric:</strong> Five sub-metrics averaged</p>
+
+                    <p style="margin-bottom: 0.5rem;"><strong>Illustrative sub-metric pattern:</strong></p>
+                    <details class="algorithm-disclosure" data-open-label="Show Algorithm" data-close-label="Hide Algorithm">
+                        <summary class="algorithm-toggle">Show Algorithm</summary>
+                    <div class="code-block"><strong>// 1. Context Persistence Score</strong>
+context_persistence = (sessions_with_retained_context / total_sessions) * 100
+
+<strong>// 2. Journey Continuity Index</strong>
+journey_continuity = (multi_session_journeys_coherent / total_multi_session) * 100
+
+<strong>// 3. Cross-Asset Coherence Rate</strong>
+cross_asset_coherence = (consistent_value_props / total_asset_pairs) * 100
+
+<strong>// 4. Session State Stability</strong>
+session_stability = (successful_context_restorations / interrupted_sessions) * 100
+
+<strong>// 5. Stakeholder Context Mapping</strong>
+stakeholder_mapping = (accounts_with_individual_tracking / multi_stakeholder_accounts) * 100
+
+<strong>// Final Score</strong>
+narrative_integrity_score = AVERAGE(
+    context_persistence,
+    journey_continuity,
+    cross_asset_coherence,
+    session_stability,
+    stakeholder_mapping
+)</div>
+                    </details>
+
+                    <p style="margin-bottom: 0;"><strong>Assessment note:</strong> Narrative Integrity is usually the least instrumented dimension. For many organizations, self-assessment and facilitated review will lead until continued-audit evidence becomes available.</p>
+                </section>
+
+                <section class="scoring-panel" id="scoring-panel-orchestration" role="tabpanel" aria-labelledby="scoring-tab-orchestration" hidden>
+                    <span class="scoring-panel-label">Dimension 04</span>
+                    <h3>Orchestration Capability Scoring</h3>
+                    <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Primary Metric:</strong> Automation Percentage</p>
+
+                    <p style="margin-bottom: 0.5rem;"><strong>Illustrative scoring logic:</strong></p>
+                    <details class="algorithm-disclosure" data-open-label="Show Algorithm" data-close-label="Hide Algorithm">
+                        <summary class="algorithm-toggle">Show Algorithm</summary>
+                    <div class="code-block"><strong>// Calculate automation rate</strong>
+automation_percentage = (automated_demos / total_demos) * 100
+
+<strong>// Score mapping (linear relationship)</strong>
+IF automation_percentage <= 10:
+    base_score = 10  // DI-1: 0-10%
+ELSE IF automation_percentage <= 30:
+    base_score = 30  // DI-2: 11-30%
+ELSE IF automation_percentage <= 60:
+    base_score = 50  // DI-3: 31-60%
+ELSE IF automation_percentage <= 85:
+    base_score = 75  // DI-4: 61-85%
+ELSE:
+    base_score = 95  // DI-5: 86-100%
+
+<strong>// Bonus: Integration depth (0-10 points)</strong>
+integration_score = MIN(10, integration_count * 2)
+
+final_score = MIN(100, base_score + integration_score)</div>
+                    </details>
+
+                    <p style="margin-bottom: 0;"><strong>Evidence that strengthens confidence:</strong> Workflow records, orchestration data, manual intervention logs, and deployment evidence help confirm how much of delivery is truly systematized.</p>
+                </section>
+
+                <section class="scoring-panel" id="scoring-panel-autonomy" role="tabpanel" aria-labelledby="scoring-tab-autonomy" hidden>
+                    <span class="scoring-panel-label">Dimension 05</span>
+                    <h3>Buyer Autonomy Scoring</h3>
+                    <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Primary Metric:</strong> Self-Service Adoption Rate</p>
+
+                    <p style="margin-bottom: 0.5rem;"><strong>Illustrative scoring logic:</strong></p>
+                    <details class="algorithm-disclosure" data-open-label="Show Algorithm" data-close-label="Hide Algorithm">
+                        <summary class="algorithm-toggle">Show Algorithm</summary>
+                    <div class="code-block"><strong>// Calculate buyer-initiated demo percentage</strong>
+self_service_rate = (buyer_initiated_demos / total_demos) * 100
+
+<strong>// Score mapping</strong>
+IF self_service_rate == 0:
+    base_score = 5   // DI-1: No self-service
+ELSE IF self_service_rate <= 15:
+    base_score = 25  // DI-2: 1-15%
+ELSE IF self_service_rate <= 40:
+    base_score = 50  // DI-3: 16-40%
+ELSE IF self_service_rate <= 70:
+    base_score = 75  // DI-4: 41-70%
+ELSE:
+    base_score = 95  // DI-5: 71-100%
+
+<strong>// Bonus: Anonymous access capability (0-5 points)</strong>
+IF allows_anonymous_access:
+    base_score += 5
+
+final_score = MIN(100, base_score)</div>
+                    </details>
+
+                    <p style="margin-bottom: 0;"><strong>Evidence that strengthens confidence:</strong> Buyer-initiated session data, portal usage, and access-pattern analysis help show whether autonomy is real or still heavily mediated by sellers.</p>
+                </section>
+            </div>
+
+            <div class="section-next-step">
+                <span class="section-next-step-label">Next Step</span>
+                <a class="section-next-step-link" href="#validation-layer" data-section-target="validation-layer">Check how confidence and validation change the score</a>
+                <p class="section-next-step-note">This is where the framework separates baseline judgment from evidence-backed maturity.</p>
+            </div>
+        </section>
+
+        <section class="section" id="validation-layer">
+            <h2>3. Confidence and Validation</h2>
+
+            <h3>Assessment Lane vs. Validated Assessment</h3>
+
+            <p>
+                The framework supports two states. In the Assessment Lane, scores are established through self-assessment, facilitated review, and available operating context. In validated assessment, those scores are strengthened or challenged with evidence from systems, BI, telemetry, and audit review.
+            </p>
+
+            <details class="algorithm-disclosure" data-open-label="Show Algorithm" data-close-label="Hide Algorithm">
+                <summary class="algorithm-toggle">Show Algorithm</summary>
+            <div class="code-block"><strong>// Confidence weights based on data quality</strong>
+empirical_confidence = data_completeness_percentage * data_recency_factor
+declarative_confidence = MAX(0.6, survey_response_quality_score)
+
+<strong>// Weighted blend</strong>
+IF empirical_data_available:
+    final_score = (
+        (empirical_score * empirical_confidence) +
+        (declarative_score * declarative_confidence)
+    ) / (empirical_confidence + declarative_confidence)
+ELSE:
+    final_score = declarative_score * 0.9  // 10% confidence penalty</div>
+            </details>
+
+            <h3>Confidence Triggers and Review Thresholds</h3>
+
+            <p>
+                When self-reported maturity and observed evidence diverge meaningfully, the framework should flag the score for discussion rather than presenting false precision:
+            </p>
+
+            <ul>
+                <li><strong>Warning Threshold:</strong> ±20 point difference between survey and system scores</li>
+                <li><strong>Error Threshold:</strong> ±40 point difference (likely measurement error or misrepresentation)</li>
+                <li><strong>Action:</strong> Flag for manual review, request additional evidence, or apply confidence penalty</li>
+            </ul>
+
+            <div class="warning-box">
+                <p style="margin-bottom: 0;"><strong style="color: #e74c3c;">Measurement Integrity Principle:</strong> Advanced maturity claims should be evidence-backed. DI-4 and DI-5 can be discussed aspirationally in the Assessment Lane, but high-confidence classification should rely on validated signals gathered through continued audit.</p>
+            </div>
+
+            <div class="section-next-step">
+                <span class="section-next-step-label">Next Step</span>
+                <a class="section-next-step-link" href="#benchmark-engine" data-section-target="benchmark-engine">See what continued audit looks like in practice</a>
+                <p class="section-next-step-note">Once confidence rules are clear, the next layer is the operating rhythm for reassessment.</p>
+            </div>
+        </section>
+
+        <section class="section" id="benchmark-engine">
+            <h2>4. Continued Audit and Comparative Learning</h2>
+
+            <h3>What Continued Audit Looks Like</h3>
+
+            <p>
+                Continued audit does not mean building a scoring application from scratch. It means revisiting the baseline on a rhythm, reviewing which operational signals have become visible, and using that evidence to either strengthen confidence or adjust the score.
+            </p>
+
+            <div class="spec-box">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">A Practical Continued-Audit Rhythm</strong></p>
+                <ul style="margin-bottom: 0;">
+                    <li>Revisit the original assessment and identify which dimensions still rely mostly on declarative judgment</li>
+                    <li>Review available evidence from CRM, demo systems, BI layers, analytics, and workflow tooling</li>
+                    <li>Note where evidence supports the current score, where it weakens confidence, and where it suggests a different maturity band</li>
+                    <li>Document the rationale behind any score adjustment so the audit trail remains understandable</li>
+                    <li>Repeat on a planned cadence rather than only when a major initiative is underway</li>
+                </ul>
+            </div>
+
+            <h3>Illustrative Review Views</h3>
+
+            <p>
+                Comparative learning can become more useful over time, but it should be treated as an optional extension to the framework, not a prerequisite for using it:
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Review View</th>
+                        <th>Useful Comparison Basis</th>
+                        <th>What It Helps Show</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Review View"><strong>Internal trend review</strong></td>
+                        <td data-label="Useful Comparison Basis">Quarter-over-quarter reassessment</td>
+                        <td data-label="What It Helps Show">Whether maturity is actually improving, stagnating, or slipping by dimension</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Review View"><strong>Team-to-team comparison</strong></td>
+                        <td data-label="Useful Comparison Basis">Business unit, region, or segment</td>
+                        <td data-label="What It Helps Show">Where operating maturity is uneven across the organization</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Review View"><strong>Peer cohort learning</strong></td>
+                        <td data-label="Useful Comparison Basis">Voluntary anonymized cohort by vertical or model</td>
+                        <td data-label="What It Helps Show">How the organization compares directionally to peers facing similar conditions</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Review View"><strong>Confidence review</strong></td>
+                        <td data-label="Useful Comparison Basis">Dimension-by-dimension evidence strength</td>
+                        <td data-label="What It Helps Show">Which scores are stable and which still depend heavily on subjective judgment</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="callout">
+                <p style="margin-bottom: 0;">
+                    <strong style="color: var(--orange);">Current State (2026):</strong> Comparative benchmarks are optional and future-facing. The priority today is making the framework usable through assessment and evidence-backed review before introducing formal cohort comparisons.
+                </p>
+            </div>
+
+            <h3>What a Comparative Readout Might Include</h3>
+
+            <div class="spec-box">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Practical Comparative Output</strong></p>
+                <ul style="margin-bottom: 0;">
+                    <li>A current maturity classification with confidence notes by dimension</li>
+                    <li>A record of which evidence sources informed the reassessment</li>
+                    <li>A short explanation of what changed since the previous review</li>
+                    <li>An optional directional view against a voluntary cohort, if one exists</li>
+                </ul>
+            </div>
+
+            <div class="section-next-step">
+                <span class="section-next-step-label">Next Step</span>
+                <a class="section-next-step-link" href="#reporting-api" data-section-target="reporting-api">Jump into the outputs teams and leaders need</a>
+                <p class="section-next-step-note">The audit becomes useful when it generates clear decisions, readouts, and follow-up actions.</p>
+            </div>
+        </section>
+
+        <section class="section" id="reporting-api">
+            <h2>5. Outputs for Teams and Leadership</h2>
+
+            <h3>Useful Output Formats</h3>
+
+            <p>
+                A practical application of the framework should create outputs that support discussion, prioritization, and reassessment rather than software integration requirements:
+            </p>
+
+            <ul>
+                <li><strong>Assessment readout:</strong> Current maturity position, dimension-level rationale, and likely blind spots</li>
+                <li><strong>Leadership summary:</strong> A concise view of where the operating model is strong, fragile, or over-reliant on manual effort</li>
+                <li><strong>Continued-audit brief:</strong> A record of which evidence strengthened confidence and which questions remain unresolved</li>
+            </ul>
+
+            <h3>What a Practical Output Should Include</h3>
+
+            <div class="spec-box">
+                <ul style="margin-bottom: 0;">
+                    <li>A maturity score with a clear explanation of what the score does and does not imply</li>
+                    <li>Dimension-level commentary explaining where confidence is high, moderate, or low</li>
+                    <li>Priority actions linked to operating gaps rather than generic recommendations</li>
+                    <li>A short list of evidence sources to review before the next continued-audit cycle</li>
+                </ul>
+            </div>
+
+            <div class="section-next-step">
+                <span class="section-next-step-label">Next Step</span>
+                <a class="section-next-step-link" href="#implementation-roadmap" data-section-target="implementation-roadmap">Move into the adoption path</a>
+                <p class="section-next-step-note">Use the output layer to decide how quickly the organization should progress into continued audit.</p>
+            </div>
+        </section>
+
+        <section class="section" id="implementation-roadmap">
+            <h2>6. From Assessment Lane to Continued Audit</h2>
+
+            <p>
+                The framework becomes more valuable when organizations treat maturity scoring as a progression. Start with a baseline, strengthen it with evidence, and establish a repeatable audit rhythm instead of trying to engineer a full scoring platform upfront.
+            </p>
+
+            <h3>Stage 1: Assessment Lane Baseline</h3>
+
+            <div class="spec-box">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Scope:</strong></p>
+                <ul style="margin-bottom: 0.75rem;">
+                    <li>Run the self-assessment and establish an initial maturity position</li>
+                    <li>Document the reasoning behind each dimension score</li>
+                    <li>Identify which scores are strong enough to act on now and which need further evidence review</li>
+                    <li>Align stakeholders on what the baseline does and does not prove</li>
+                </ul>
+                <p style="margin-bottom: 0;"><strong>Output:</strong> A usable baseline classification with clear assumptions and next-step questions</p>
+            </div>
+
+            <h3>Stage 2: Evidence-Informed Review</h3>
+
+            <div class="spec-box">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Scope:</strong></p>
+                <ul style="margin-bottom: 0.75rem;">
+                    <li>Review available BI, CRM, telemetry, demo platform, and analytics signals</li>
+                    <li>Strengthen or challenge the baseline where operational evidence is already visible</li>
+                    <li>Separate high-confidence scores from provisional ones</li>
+                    <li>Record which signals should be tracked more consistently going forward</li>
+                </ul>
+                <p style="margin-bottom: 0;"><strong>Output:</strong> A more credible maturity view anchored in observed operating behavior</p>
+            </div>
+
+            <h3>Stage 3: Continued Audit Rhythm</h3>
+
+            <div class="spec-box">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Scope:</strong></p>
+                <ul style="margin-bottom: 0.75rem;">
+                    <li>Set a recurring cadence for reassessment rather than treating scoring as a one-time exercise</li>
+                    <li>Focus evidence review on dimensions that materially influence strategy, investment, or operating design</li>
+                    <li>Track what has improved, what remains subjective, and where new evidence has changed the interpretation</li>
+                    <li>Use the audit output to prioritize operating changes, not just score movement</li>
+                </ul>
+                <p style="margin-bottom: 0;"><strong>Output:</strong> A repeatable maturity review process with stronger institutional credibility</p>
+            </div>
+
+            <h3>Stage 4: Optional Comparative Learning</h3>
+
+            <div class="spec-box">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Scope:</strong></p>
+                <ul style="margin-bottom: 0.75rem;">
+                    <li>Participate in voluntary anonymized cohorts only if comparative learning will materially improve the operating conversation</li>
+                    <li>Use peer context to inform questions, not to replace internal judgment</li>
+                    <li>Interpret cohort comparisons directionally, especially in an emerging category</li>
+                    <li>Keep the framework usable even when no benchmark cohort exists</li>
+                </ul>
+                <p style="margin-bottom: 0;"><strong>Output:</strong> Optional comparative insight layered on top of a framework that already stands on its own</p>
+            </div>
+
+            <h3>Governance for Evidence Use</h3>
+
+            <ul>
+                <li><strong>Use the minimum necessary evidence:</strong> Review only the operational signals needed to strengthen confidence in the score</li>
+                <li><strong>Protect context:</strong> Treat account, buyer, and operational data with the same governance standards already expected in RevOps and analytics workflows</li>
+                <li><strong>Document interpretation:</strong> Record why evidence changed a score so future reviewers can understand the decision</li>
+                <li><strong>Avoid false precision:</strong> When evidence is thin, state that confidence is limited rather than over-engineering certainty</li>
+            </ul>
+
+            <h3>Questions for Practitioners</h3>
+
+            <ul>
+                <li>Which dimensions can your organization score confidently today without pulling in new systems?</li>
+                <li>Which existing BI, CRM, demo, and analytics signals would most improve confidence in your current score?</li>
+                <li>How often should maturity be reassessed to stay useful without becoming administrative overhead?</li>
+                <li>Where would a structured continued audit create more value than a one-time annual assessment?</li>
+            </ul>
+
+            <div class="section-next-step">
+                <span class="section-next-step-label">Next Step</span>
+                <a class="section-next-step-link" href="#architecture-overview" data-section-target="architecture-overview">Return to the applied model overview</a>
+                <p class="section-next-step-note">Loop back to the framework framing when you need to reset around purpose, evidence, and scope.</p>
+            </div>
+        </section>
+
+            </main>
+        </div>
+
+    </div>
+
+    <div class="anchor-fab-scrim" data-anchor-fab-scrim hidden></div>
+    <div class="anchor-fab-shell" data-anchor-fab>
+        <nav class="anchor-fab-panel" id="spec-anchor-panel" aria-label="Technical specification sections" hidden>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-top active" href="#architecture-overview" aria-label="Applied Measurement Model">Model</a>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-upper-left" href="#scoring-engine" aria-label="Scoring Intent by Dimension">Scoring</a>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-upper-right" href="#validation-layer" aria-label="Confidence and Validation">Confidence</a>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-lower-left" href="#benchmark-engine" aria-label="Continued Audit and Comparative Learning">Audit</a>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-lower-right" href="#reporting-api" aria-label="Outputs for Teams and Leadership">Outputs</a>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-bottom" href="#implementation-roadmap" aria-label="From Assessment Lane to Continued Audit">Path</a>
+        </nav>
+        <button class="anchor-fab-toggle" type="button" aria-controls="spec-anchor-panel" aria-expanded="false">
+            <span class="anchor-fab-toggle-label" aria-hidden="true">Menu</span>
+        </button>
+    </div>
+
+    <footer>
+        <p><strong>The Demo Index</strong> | Measurement Framework v1.0</p>
+        <p style="margin-top: 0.5rem;">© 2026 | <a href="Demo-Index-Framework-Web.html">Framework</a> | <a href="Demo-Index-Methodology-Web.html">Methodology</a> | <a href="Demo-Index-Assessment-Web.html">Assessment</a> | <a href="Demo-Index-Research-Manifesto-Web.html">Research Manifesto</a></p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('[data-scoring-tabs]').forEach((tabGroup) => {
+            const tabs = Array.from(tabGroup.querySelectorAll('[role="tab"]'));
+            const panels = Array.from(tabGroup.querySelectorAll('[role="tabpanel"]'));
+
+            const setActiveTab = (targetId) => {
+                tabs.forEach((tab) => {
+                    const isActive = tab.dataset.tabTarget === targetId;
+                    tab.setAttribute('aria-selected', String(isActive));
+                    tab.tabIndex = isActive ? 0 : -1;
+                });
+
+                panels.forEach((panel) => {
+                    panel.hidden = panel.id !== targetId;
+                });
+            };
+
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('click', () => {
+                    setActiveTab(tab.dataset.tabTarget);
+                });
+
+                tab.addEventListener('keydown', (event) => {
+                    if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') {
+                        return;
+                    }
+
+                    event.preventDefault();
+
+                    const direction = event.key === 'ArrowRight' ? 1 : -1;
+                    const nextIndex = (index + direction + tabs.length) % tabs.length;
+                    const nextTab = tabs[nextIndex];
+
+                    setActiveTab(nextTab.dataset.tabTarget);
+                    nextTab.focus();
+                });
+            });
+
+            if (tabs[0]) {
+                setActiveTab(tabs[0].dataset.tabTarget);
+            }
+        });
+
+        const specSectionLinks = Array.from(document.querySelectorAll('.section-index-link'));
+        const specSections = specSectionLinks
+            .map((link) => document.querySelector(link.getAttribute('href')))
+            .filter(Boolean);
+        const specSectionsById = new Map(specSections.map((section) => [section.id, section]));
+        const heroCategoryCards = Array.from(document.querySelectorAll('.hero-category-card'));
+        const sectionSwitchTriggers = Array.from(document.querySelectorAll('[data-section-target], .section-index-link'));
+        const engineStartTrigger = document.querySelector('[data-engine-start]');
+        const specLayout = document.querySelector('.spec-layout');
+        const specAnchorFabToggle = document.querySelector('.anchor-fab-toggle');
+        const specAnchorFabPanel = document.querySelector('.anchor-fab-panel');
+        const specAnchorFabScrim = document.querySelector('[data-anchor-fab-scrim]');
+
+        const syncSpecNavHeight = () => {
+            const nav = document.querySelector('.nav');
+            document.documentElement.style.setProperty('--spec-nav-height', `${nav ? nav.offsetHeight : 88}px`);
+        };
+
+        const setSpecAnchorFabOpen = (isOpen) => {
+            if (!specAnchorFabToggle || !specAnchorFabPanel || !specAnchorFabScrim) {
+                return;
+            }
+
+            syncSpecNavHeight();
+            specAnchorFabToggle.setAttribute('aria-expanded', String(isOpen));
+            specAnchorFabPanel.hidden = !isOpen;
+            specAnchorFabScrim.hidden = !isOpen;
+            specAnchorFabPanel.classList.toggle('is-open', isOpen);
+            specAnchorFabScrim.classList.toggle('is-open', isOpen);
+            document.body.classList.toggle('spec-menu-open', isOpen);
+        };
+
+        syncSpecNavHeight();
+
+        const setSpecActiveLink = (id) => {
+            specSectionLinks.forEach((link) => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+            });
+
+            heroCategoryCards.forEach((card) => {
+                card.classList.toggle('active', card.dataset.sectionTarget === id);
+            });
+
+            if (specAnchorFabToggle) {
+                const activeLink = specSectionLinks.find((link) => link.getAttribute('href') === `#${id}`);
+                const activeLabel = activeLink ? activeLink.getAttribute('aria-label') || activeLink.textContent.trim() : 'current section';
+                specAnchorFabToggle.setAttribute('aria-label', `Open section menu. Current section: ${activeLabel}`);
+            }
+        };
+
+        const getSpecIntroTargetId = () => {
+            const requestedSectionId = window.location.hash ? window.location.hash.slice(1) : '';
+            return specSectionsById.has(requestedSectionId) ? requestedSectionId : specSections[0]?.id;
+        };
+
+        const scrollSpecLayoutIntoView = (smoothScroll) => {
+            if (!specLayout) {
+                return;
+            }
+
+            const nav = document.querySelector('.nav');
+            const navHeight = nav ? nav.offsetHeight : 0;
+            const targetTop = specLayout.getBoundingClientRect().top + window.scrollY - navHeight - 8;
+            window.scrollTo({ top: Math.max(0, targetTop), behavior: smoothScroll ? 'smooth' : 'auto' });
+        };
+
+        const startSpecEngine = () => {
+            document.body.classList.remove('spec-engine-intro');
+            const introTargetId = getSpecIntroTargetId();
+            if (introTargetId) {
+                showSpecSection(introTargetId, { smoothScroll: false, updateHistory: true });
+            }
+            requestAnimationFrame(() => scrollSpecLayoutIntoView(true));
+        };
+
+        const showSpecSection = (id, options = {}) => {
+            const shouldSmoothScroll = options.smoothScroll === true;
+            const shouldUpdateHistory = options.updateHistory !== false;
+            const targetSection = specSectionsById.get(id);
+
+            if (!targetSection) {
+                return;
+            }
+
+            specSections.forEach((section) => {
+                const isActive = section.id === id;
+                section.hidden = !isActive;
+                section.setAttribute('aria-hidden', String(!isActive));
+            });
+
+            setSpecActiveLink(id);
+            if (shouldUpdateHistory) {
+                window.history.replaceState(null, '', `#${id}`);
+            }
+            window.scrollTo({ top: 0, behavior: shouldSmoothScroll ? 'smooth' : 'auto' });
+            setSpecAnchorFabOpen(false);
+        };
+
+        if (specAnchorFabToggle) {
+            specAnchorFabToggle.addEventListener('click', () => {
+                const isOpen = specAnchorFabToggle.getAttribute('aria-expanded') === 'true';
+                setSpecAnchorFabOpen(!isOpen);
+            });
+        }
+
+        if (specAnchorFabScrim) {
+            specAnchorFabScrim.addEventListener('click', () => setSpecAnchorFabOpen(false));
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                setSpecAnchorFabOpen(false);
+            }
+        });
+
+        sectionSwitchTriggers.forEach((trigger) => {
+            trigger.addEventListener('click', (event) => {
+                const explicitTarget = trigger.dataset.sectionTarget;
+                const anchorTarget = (trigger.getAttribute('href') || '').replace('#', '');
+                const targetId = explicitTarget || anchorTarget;
+
+                if (!targetId || !specSectionsById.has(targetId)) {
+                    return;
+                }
+
+                event.preventDefault();
+                showSpecSection(targetId, { smoothScroll: true });
+            });
+        });
+
+        if (engineStartTrigger) {
+            engineStartTrigger.addEventListener('click', () => startSpecEngine());
+        }
+
+        if (specSections.length) {
+            const requestedSectionId = window.location.hash ? window.location.hash.slice(1) : '';
+            const hasRequestedSection = specSectionsById.has(requestedSectionId);
+            const initialSectionId = hasRequestedSection ? requestedSectionId : specSections[0].id;
+            showSpecSection(initialSectionId, { updateHistory: false });
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+            window.scrollTo({ top: 0, behavior: 'auto' });
+            requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'auto' }));
+        }
+
+        window.addEventListener('resize', () => {
+            syncSpecNavHeight();
+            if (window.innerWidth > 560) {
+                setSpecAnchorFabOpen(false);
+            }
+        });
+
+        window.addEventListener('load', syncSpecNavHeight);
+        window.addEventListener('hashchange', () => {
+            const targetId = window.location.hash ? window.location.hash.slice(1) : '';
+
+            if (specSectionsById.has(targetId)) {
+                showSpecSection(targetId, { smoothScroll: true });
+            }
+        });
+
+        document.querySelectorAll('.algorithm-disclosure').forEach((disclosure) => {
+            const summary = disclosure.querySelector('.algorithm-toggle');
+            const openLabel = disclosure.dataset.openLabel || 'Show Algorithm';
+            const closeLabel = disclosure.dataset.closeLabel || 'Hide Algorithm';
+
+            if (!summary) {
+                return;
+            }
+
+            const setDisclosureLabel = () => {
+                summary.textContent = disclosure.open ? closeLabel : openLabel;
+            };
+
+            disclosure.addEventListener('toggle', setDisclosureLabel);
+            setDisclosureLabel();
+        });
+    </script>
+
+</body>
+</html>

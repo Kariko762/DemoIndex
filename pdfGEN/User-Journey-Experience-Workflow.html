@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage 4 User Journey Experience Workflow</title>
+    <style>
+        @page { size: Letter; margin: 0; }
+        @media print {
+            .page-break { page-break-after: always; }
+            .phase-table, .summary-box { page-break-inside: avoid; }
+        }
+
+        :root {
+            --bg-dark: #090E1B;
+            --bg-darker: #0F1629;
+            --orange: #F97316;
+            --green: #4BCD3E;
+            --text-white: #FFFFFF;
+            --text-grey: #97A3AF;
+            --grid-line: rgba(151, 163, 175, 0.16);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--bg-dark);
+            color: var(--text-white);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            line-height: 1.35;
+        }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            margin: 0 auto;
+            padding: 0.38in;
+            background: var(--bg-dark);
+        }
+
+        .header {
+            background: var(--bg-darker);
+            margin: -0.38in -0.38in 0.18in;
+            padding: 0.24in 0.38in;
+            border-bottom: 3px solid var(--orange);
+        }
+
+        .header h1 { font-size: 1.72rem; margin-bottom: 0.05in; }
+        .header .highlight { color: var(--orange); }
+        .header p { font-size: 0.76rem; color: var(--text-grey); max-width: 6.9in; }
+
+        .intro-box,
+        .summary-box,
+        .phase-table {
+            background: var(--bg-darker);
+            border-radius: 8px;
+        }
+
+        .intro-box {
+            padding: 0.14in;
+            border-left: 4px solid var(--green);
+            margin-bottom: 0.16in;
+        }
+
+        .intro-box p,
+        .summary-box p,
+        .summary-box li {
+            font-size: 0.68rem;
+            color: var(--text-grey);
+            line-height: 1.42;
+        }
+
+        .section-title {
+            font-size: 0.94rem;
+            color: var(--orange);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-left: 4px solid var(--orange);
+            padding-left: 0.12in;
+            margin: 0.16in 0 0.1in;
+        }
+
+        .summary-box {
+            padding: 0.14in;
+            border-top: 2px solid var(--orange);
+            margin-bottom: 0.12in;
+        }
+
+        .summary-box h3 {
+            font-size: 0.8rem;
+            color: var(--text-white);
+            margin-bottom: 0.05in;
+        }
+
+        .summary-box ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 0.04in;
+        }
+
+        .summary-box li {
+            position: relative;
+            padding-left: 0.14in;
+            margin: 0.03in 0;
+        }
+
+        .summary-box li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--green);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .phase-table {
+            overflow: hidden;
+            margin-bottom: 0.14in;
+            border: 1px solid var(--grid-line);
+        }
+
+        th, td {
+            padding: 0.06in;
+            border-bottom: 1px solid var(--grid-line);
+            border-right: 1px solid var(--grid-line);
+            vertical-align: top;
+            font-size: 0.56rem;
+            color: var(--text-grey);
+            line-height: 1.35;
+        }
+
+        th {
+            background: rgba(249, 115, 22, 0.12);
+            color: var(--text-white);
+            text-align: left;
+            font-size: 0.58rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        td strong { color: var(--text-white); }
+        tr:last-child td { border-bottom: none; }
+        td:last-child, th:last-child { border-right: none; }
+
+        .col-step { width: 6%; }
+        .col-action { width: 35%; }
+        .col-actor { width: 11%; }
+        .col-systems { width: 19%; }
+        .col-mode { width: 12%; }
+        .col-glossary { width: 17%; }
+
+        .footer {
+            margin-top: 0.16in;
+            padding-top: 0.08in;
+            border-top: 1px solid rgba(151, 163, 175, 0.25);
+            text-align: center;
+            font-size: 0.58rem;
+            color: var(--text-grey);
+        }
+    </style>
+</head>
+<body>
+    <div class="page page-break">
+        <div class="header">
+            <h1>Stage 4 User Journey <span class="highlight">Experience Workflow</span></h1>
+            <p>Granular operating workflow showing what happens at each step, who engages, which systems are involved, what is automated versus human-controlled, and which glossary capabilities are active.</p>
+        </div>
+
+        <div class="intro-box">
+            <p>This workflow assumes a Stage 4 production environment only. Humans define strategy, approved branches, and guardrails. Connected systems operationalize assembly, guidance, contextual continuity, analytics, and seller activation.</p>
+        </div>
+
+        <h2 class="section-title">Reference Stack and Operating Model</h2>
+        <div class="summary-box">
+            <h3>Reference Stack</h3>
+            <ul>
+                <li>CRM and account system: Salesforce</li>
+                <li>Marketing automation: HubSpot or Marketo</li>
+                <li>Orchestration platform: Coast.io-style orchestration layer or custom orchestration app</li>
+                <li>Presentation layer: Seismic Interactive Content, Seismic Microsites, Coast.io Engagement Portal, or custom React/Next.js</li>
+                <li>CMS and content model: Contentful, Sanity, or structured content service</li>
+                <li>Event collection: Segment, RudderStack, or Snowplow</li>
+                <li>AI gateway service: internal AI service with prompt orchestration and policy controls</li>
+                <li>LLM: Gemini via Vertex AI or Google AI Studio API</li>
+            </ul>
+        </div>
+
+        <div class="summary-box">
+            <h3>Operating Roles and Automation Model</h3>
+            <ul>
+                <li>AE: owns account strategy, progression, and seller follow-up</li>
+                <li>SE: defines narrative, workflow emphasis, objections, and approved paths</li>
+                <li>RevOps: governs templates, measurement, routing rules, and CRM integration</li>
+                <li>Human Orchestrated: a person explicitly decides strategy, pathway, or priority</li>
+                <li>Human in the Loop: a person approves, edits, or overrides machine output</li>
+                <li>Automated: the system executes from rules, triggers, or services</li>
+                <li>Intelligence Assisted: the system suggests options inside human-defined boundaries</li>
+            </ul>
+        </div>
+
+        <h2 class="section-title">Phase 1: Opportunity Qualification and Journey Initiation</h2>
+        <div class="phase-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="col-step">Step</th>
+                        <th class="col-action">Action</th>
+                        <th class="col-actor">Actor</th>
+                        <th class="col-systems">Systems and Tools</th>
+                        <th class="col-mode">Mode</th>
+                        <th class="col-glossary">Glossary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Opportunity reaches the qualification threshold in CRM based on deal stage, fit score, or seller action.</td><td>AE, RevOps</td><td>Salesforce, scoring rules</td><td>Human orchestrated plus automated trigger</td><td>Unified Narrative Infrastructure</td></tr>
+                    <tr><td>2</td><td>Salesforce emits a webhook or platform event indicating the opportunity is eligible for a guided experience.</td><td>Orchestration Platform</td><td>Salesforce Platform Events, webhook endpoint</td><td>Automated</td><td>Unified Narrative Infrastructure</td></tr>
+                    <tr><td>3</td><td>Orchestration service receives the event and opens a new experience job with a unique journey ID.</td><td>Orchestration Platform</td><td>API gateway, orchestration service, PostgreSQL</td><td>Automated</td><td>Narrative Orchestration Engine</td></tr>
+                    <tr><td>4</td><td>The orchestration service queries CRM for account profile, opportunity stage, buyer roles, industry, region, and open objections.</td><td>Orchestration Platform</td><td>Salesforce REST API, integration layer</td><td>Automated</td><td>Persistent Context</td></tr>
+                    <tr><td>5</td><td>The service checks whether an existing journey exists and whether context should be resumed or forked.</td><td>Orchestration Platform</td><td>Journey state store, account lookup service</td><td>Automated</td><td>Persistent Context, Journey State Tracking</td></tr>
+                    <tr><td>6</td><td>RevOps routing rules determine which template family applies.</td><td>RevOps, Orchestration Platform</td><td>Rules engine, config tables</td><td>Human orchestrated rules with automated execution</td><td>Structured Branching Logic</td></tr>
+                    <tr><td>7</td><td>A base presentation layer instance is reserved and linked to the account, opportunity, and stakeholder group.</td><td>Orchestration Platform</td><td>Seismic, Coast.io, app shell, config service, CMS registry</td><td>Automated</td><td>Unified Narrative Infrastructure, Presentation Layer</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="section-title">Phase 2: Human Strategy Definition</h2>
+        <div class="phase-table">
+            <table>
+                <thead><tr><th class="col-step">Step</th><th class="col-action">Action</th><th class="col-actor">Actor</th><th class="col-systems">Systems and Tools</th><th class="col-mode">Mode</th><th class="col-glossary">Glossary</th></tr></thead>
+                <tbody>
+                    <tr><td>8</td><td>AE and SE review account context, pain points, competitive threats, and likely buying committee members.</td><td>AE, SE</td><td>Salesforce, call notes, account plan</td><td>Human orchestrated</td><td>Human-Led Orchestration</td></tr>
+                    <tr><td>9</td><td>SE selects the primary narrative objective.</td><td>SE</td><td>Orchestration admin UI</td><td>Human orchestrated</td><td>Human-Led Orchestration, Narrative Continuity</td></tr>
+                    <tr><td>10</td><td>SE chooses the core workflows to expose first.</td><td>SE</td><td>Orchestration admin UI, CMS content graph</td><td>Human orchestrated</td><td>Structured Branching Logic</td></tr>
+                    <tr><td>11</td><td>SE flags objections that need direct handling.</td><td>SE</td><td>Objection taxonomy, orchestration UI</td><td>Human orchestrated</td><td>Human-Led Orchestration</td></tr>
+                    <tr><td>12</td><td>Product Marketing-approved narrative blocks are suggested based on industry and persona.</td><td>Orchestration Platform</td><td>CMS, taxonomy service, recommendation rules</td><td>Intelligence assisted</td><td>Narrative Continuity, Operationalized Personalization</td></tr>
+                    <tr><td>13</td><td>SE accepts, edits, or rejects suggested narrative blocks and confirms message priority order.</td><td>SE</td><td>Orchestration admin UI</td><td>Human in the loop</td><td>Human-Led Orchestration, Narrative Continuity</td></tr>
+                    <tr><td>14</td><td>Governance service validates selected workflows and copy blocks.</td><td>Orchestration Platform, RevOps</td><td>Policy engine, approval rules</td><td>Automated with human override if blocked</td><td>Governed Exploration Pathways, Human-Led Orchestration</td></tr>
+                    <tr><td>15</td><td>Experience configuration is saved as a versioned narrative plan.</td><td>Orchestration Platform</td><td>PostgreSQL, audit log, config registry</td><td>Automated</td><td>Human-Led Orchestration</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">Workflow Reference | Page 1</div>
+    </div>
+
+    <div class="page page-break">
+        <h2 class="section-title">Phase 3: Data Hydration and Context Modeling</h2>
+        <div class="phase-table"><table><thead><tr><th class="col-step">Step</th><th class="col-action">Action</th><th class="col-actor">Actor</th><th class="col-systems">Systems and Tools</th><th class="col-mode">Mode</th><th class="col-glossary">Glossary</th></tr></thead><tbody>
+            <tr><td>16</td><td>The orchestration service pulls account attributes, custom fields, product usage signals, and prior engagement events.</td><td>Orchestration Platform</td><td>Salesforce API, product telemetry API, warehouse API</td><td>Automated</td><td>Persistent Context</td></tr>
+            <tr><td>17</td><td>Identity service resolves contacts, anonymous visitors, and known stakeholder records into a common account graph.</td><td>Orchestration Platform</td><td>Identity resolution service, Auth0, CRM IDs</td><td>Automated</td><td>Persistent Context</td></tr>
+            <tr><td>18</td><td>Context model is written to a profile object containing account facts, stakeholder hypotheses, objections, and likely use cases.</td><td>Orchestration Platform</td><td>Profile service, PostgreSQL, Redis</td><td>Automated</td><td>Persistent Context</td></tr>
+            <tr><td>19</td><td>Journey state model is initialized with starting state equal to qualified, pre-experience, persona-targeted.</td><td>Orchestration Platform</td><td>State machine service</td><td>Automated</td><td>Journey State Tracking</td></tr>
+            <tr><td>20</td><td>Personalization service computes render variables such as company name, terminology preferences, currency, region, proof points, and role framing.</td><td>Orchestration Platform</td><td>Personalization service, CMS, localization tables</td><td>Automated</td><td>Operationalized Personalization</td></tr>
+            <tr><td>21</td><td>Missing or weak fields trigger fallback logic so the experience remains safe with incomplete CRM data.</td><td>Orchestration Platform</td><td>Fallback rules, config service</td><td>Automated</td><td>Operationalized Personalization, Human-Led Orchestration</td></tr>
+        </tbody></table></div>
+
+        <h2 class="section-title">Phase 4: Content Retrieval and Experience Assembly</h2>
+        <div class="phase-table"><table><thead><tr><th class="col-step">Step</th><th class="col-action">Action</th><th class="col-actor">Actor</th><th class="col-systems">Systems and Tools</th><th class="col-mode">Mode</th><th class="col-glossary">Glossary</th></tr></thead><tbody>
+            <tr><td>22</td><td>The orchestration engine requests all content modules tagged to the selected persona, industry, narrative objective, and workflows.</td><td>Orchestration Platform</td><td>CMS API, taxonomy service</td><td>Automated</td><td>Narrative Continuity, Operationalized Personalization</td></tr>
+            <tr><td>23</td><td>The content service returns approved modules tagged by value theme, objection coverage, proof type, and workflow mapping.</td><td>CMS</td><td>Contentful or Sanity, metadata graph</td><td>Automated</td><td>Narrative Continuity</td></tr>
+            <tr><td>24</td><td>The orchestration engine composes the initial experience path, including landing view, workflow order, proof points, and bridge moments.</td><td>Orchestration Platform</td><td>Orchestration engine, state machine, config registry</td><td>Automated from human-defined plan</td><td>Narrative Orchestration Engine, Structured Branching Logic</td></tr>
+            <tr><td>25</td><td>The presentation layer renders the account-personalized landing page and loads precomputed pathway definitions.</td><td>Presentation Layer</td><td>Seismic, Coast.io portal, Next.js, React, edge config</td><td>Automated</td><td>Unified Narrative Infrastructure, Presentation Layer</td></tr>
+            <tr><td>26</td><td>A single canonical URL is generated and associated with the journey ID, account ID, and access rules.</td><td>Orchestration Platform</td><td>Routing service, token generator</td><td>Automated</td><td>Unified Narrative Infrastructure</td></tr>
+            <tr><td>27</td><td>Analytics instrumentation is attached to all pages, modules, buttons, overlays, and guidance panels before release.</td><td>Orchestration Platform</td><td>Segment, RudderStack, client SDKs</td><td>Automated</td><td>Granular Intent Capture, Journey State Tracking</td></tr>
+        </tbody></table></div>
+
+        <h2 class="section-title">Phase 5: AI Guidance Preparation</h2>
+        <div class="phase-table"><table><thead><tr><th class="col-step">Step</th><th class="col-action">Action</th><th class="col-actor">Actor</th><th class="col-systems">Systems and Tools</th><th class="col-mode">Mode</th><th class="col-glossary">Glossary</th></tr></thead><tbody>
+            <tr><td>28</td><td>The orchestration layer determines which guidance surfaces require generated text, summaries, or bridge explanations.</td><td>Orchestration Platform</td><td>Guidance rules, template registry</td><td>Automated</td><td>Persistent Guidance Layer, Context Bridges</td></tr>
+            <tr><td>29</td><td>For each required guidance unit, the orchestration layer sends a structured request to the AI service.</td><td>Orchestration Platform</td><td>Internal AI gateway, queue or API</td><td>Automated</td><td>Persistent Guidance Layer</td></tr>
+            <tr><td>30</td><td>The AI service builds a prompt package containing buyer context, workflows, approved anchors, blocked topics, tone rules, and content constraints.</td><td>AI Service</td><td>Prompt orchestration service, policy engine</td><td>Automated</td><td>Human-Led Orchestration, Narrative Continuity</td></tr>
+            <tr><td>31</td><td>The AI service converts the request into retrieval tasks, including semantic search and nearest-neighbor lookup by persona and workflow cluster.</td><td>AI Service</td><td>Retrieval service, vector store query planner</td><td>Automated</td><td>Narrative Continuity, Context Bridges</td></tr>
+            <tr><td>32</td><td>The retrieval service embeds the query or uses a cached embedding and submits semantic search to the vector store.</td><td>AI Service</td><td>Gemini embedding model, Pinecone or pgvector</td><td>Automated</td><td>Persistent Guidance Layer</td></tr>
+            <tr><td>33</td><td>The vector store returns nearest approved content groups, prior approved bridge patterns, and relevant proof points.</td><td>Vector Store</td><td>Pinecone, pgvector, Weaviate</td><td>Automated</td><td>Context Bridges, Persistent Guidance Layer</td></tr>
+            <tr><td>34</td><td>The AI service filters retrieved items through policy rules so only approved and context-valid fragments can be used.</td><td>AI Service</td><td>Policy engine, metadata filter</td><td>Automated</td><td>Human-Led Orchestration, Governed Exploration Pathways</td></tr>
+            <tr><td>35</td><td>The AI service sends the final prompt to Gemini with context, retrieved snippets, schema, and guardrails.</td><td>AI Service</td><td>Vertex AI Gemini API</td><td>Automated</td><td>Persistent Guidance Layer, Context Bridges</td></tr>
+            <tr><td>36</td><td>Gemini returns draft outputs such as bridge copy, workflow intros, explanation text, and next-step guidance.</td><td>Gemini</td><td>Gemini</td><td>Automated</td><td>Persistent Guidance Layer, Context Bridges</td></tr>
+            <tr><td>37</td><td>The AI service validates schema compliance, banned-term policies, confidence thresholds, and brand rules.</td><td>AI Service</td><td>Validator, moderation, policy checks</td><td>Automated</td><td>Human-Led Orchestration</td></tr>
+            <tr><td>38</td><td>If the output is flagged as high-risk, low-confidence, or sensitive, it is routed for approval.</td><td>AI Service, SE, Product Marketing</td><td>Approval queue, admin UI</td><td>Human in the loop</td><td>Human-Led Orchestration</td></tr>
+            <tr><td>39</td><td>Approved AI outputs are stored as journey-bound guidance modules with version metadata and provenance.</td><td>Orchestration Platform</td><td>CMS writeback, content cache, audit log</td><td>Automated after approval</td><td>Persistent Guidance Layer, Human-Led Orchestration</td></tr>
+        </tbody></table></div>
+
+        <div class="footer">Workflow Reference | Page 2</div>
+    </div>
+
+    <div class="page page-break">
+        <h2 class="section-title">Phases 6 to 9: Runtime and Activation</h2>
+        <div class="phase-table"><table><thead><tr><th class="col-step">Step</th><th class="col-action">Action</th><th class="col-actor">Actor</th><th class="col-systems">Systems and Tools</th><th class="col-mode">Mode</th><th class="col-glossary">Glossary</th></tr></thead><tbody>
+            <tr><td>40</td><td>The orchestration engine assembles an account-specific rich-media brief with script variables, persona framing, industry phrasing, and CTA targets.</td><td>Orchestration Platform</td><td>Rich-media service, config rules</td><td>Automated</td><td>Operationalized Personalization</td></tr>
+            <tr><td>41</td><td>If video is enabled, the brief is sent to a video generation provider for rendering.</td><td>Orchestration Platform</td><td>Synthesia or equivalent API</td><td>Automated</td><td>Operationalized Personalization</td></tr>
+            <tr><td>42</td><td>Rendered media asset is stored and attached to the journey path at the intended narrative step.</td><td>Orchestration Platform</td><td>Asset store, CDN, CMS</td><td>Automated</td><td>Unified Narrative Infrastructure</td></tr>
+            <tr><td>43</td><td>Media module is tagged so analytics can attribute engagement by persona, role, and objective.</td><td>Orchestration Platform</td><td>Asset metadata service, analytics SDK</td><td>Automated</td><td>Granular Intent Capture</td></tr>
+            <tr><td>44</td><td>AE sends the single journey link or automation delivers it.</td><td>AE, Marketing Automation</td><td>Salesforce email, HubSpot, Marketo</td><td>Human orchestrated or automated</td><td>Unified Narrative Infrastructure</td></tr>
+            <tr><td>45</td><td>Buyer clicks the link and lands in the presentation layer.</td><td>Buyer</td><td>Browser, Seismic microsite, Coast.io portal, or custom app</td><td>Human action</td><td>Unified Narrative Infrastructure, Presentation Layer</td></tr>
+            <tr><td>46</td><td>Access service resolves whether the visitor is authenticated, cookie-known, token-known, or anonymous.</td><td>Orchestration Platform</td><td>Identity service, auth token, cookies</td><td>Automated</td><td>Persistent Context</td></tr>
+            <tr><td>47</td><td>If the buyer is recognized, the platform resumes saved state and likely role framing.</td><td>Orchestration Platform</td><td>Profile store, Redis session cache</td><td>Automated</td><td>Persistent Context, Journey State Tracking</td></tr>
+            <tr><td>48</td><td>If the buyer is unknown, the platform assigns a temporary visitor ID and begins progressive identity resolution.</td><td>Orchestration Platform</td><td>Session service, analytics identity stitching</td><td>Automated</td><td>Persistent Context</td></tr>
+            <tr><td>49</td><td>The landing view presents the primary value narrative, tailored proof points, and the recommended starting workflow.</td><td>Presentation Layer</td><td>React UI, Seismic region, CMS, personalization service</td><td>Automated</td><td>Narrative Continuity, Persistent Guidance Layer, Presentation Layer</td></tr>
+            <tr><td>50</td><td>A persistent guidance panel explains why the workflow matters and what the buyer should learn first.</td><td>Presentation Layer, AI Service</td><td>Guidance module, Gemini-generated or templated text</td><td>Automated</td><td>Persistent Guidance Layer, Presentation Layer</td></tr>
+            <tr><td>51</td><td>Buyer selects a workflow or accepts the recommended path.</td><td>Buyer</td><td>UI navigation</td><td>Human action</td><td>Structured Branching Logic</td></tr>
+            <tr><td>52</td><td>The orchestration engine checks whether the selected path is valid for the current state and context.</td><td>Orchestration Platform</td><td>State machine, policy engine</td><td>Automated</td><td>Governed Exploration Pathways, Journey State Tracking</td></tr>
+            <tr><td>53</td><td>If valid, the next workflow loads with role-specific data and tagged value framing.</td><td>Presentation Layer</td><td>React UI, CMS, data injector</td><td>Automated</td><td>Operationalized Personalization, Narrative Continuity, Presentation Layer</td></tr>
+            <tr><td>54</td><td>If the buyer attempts a non-primary jump, the engine determines whether a context bridge is required.</td><td>Orchestration Platform</td><td>Bridge rules, state machine</td><td>Automated</td><td>Context Bridges, Narrative Orchestration Engine</td></tr>
+            <tr><td>55</td><td>The bridge service requests a suitable bridge asset or AI-generated transition based on source and target state.</td><td>Orchestration Platform, AI Service</td><td>CMS, retrieval service, Gemini</td><td>Automated</td><td>Context Bridges</td></tr>
+            <tr><td>56</td><td>The bridge content is displayed to explain why the target workflow matters and how it connects to the business objective.</td><td>Presentation Layer</td><td>Overlay, side panel, modal</td><td>Automated</td><td>Context Bridges, Narrative Continuity, Presentation Layer</td></tr>
+            <tr><td>57</td><td>Buyer enters the destination workflow with reinforced narrative framing instead of a cold reset.</td><td>Buyer, Presentation Layer</td><td>UI, stateful client app</td><td>Human action plus automated state carry-forward</td><td>Persistent Context, Narrative Continuity, Presentation Layer</td></tr>
+            <tr><td>58</td><td>Every significant interaction emits events including viewed module, dwell time, branch choice, objections, and CTA engagement.</td><td>Presentation Layer</td><td>Segment, RudderStack, custom events</td><td>Automated</td><td>Granular Intent Capture, Presentation Layer</td></tr>
+            <tr><td>59</td><td>Stream processor updates the current journey state based on live behavior.</td><td>Analytics Layer</td><td>Kafka Streams, Flink, Python state updater</td><td>Automated</td><td>Journey State Tracking</td></tr>
+            <tr><td>60</td><td>Guidance logic adapts the next recommended action based on the updated state.</td><td>Orchestration Platform</td><td>Recommendation rules, guidance service</td><td>Automated</td><td>Persistent Guidance Layer, Journey State Tracking</td></tr>
+            <tr><td>61</td><td>If the buyer repeatedly interacts with integration content, the system increases integration relevance and surfaces supporting proof or customer stories using predefined Stage 4 rules.</td><td>Orchestration Platform</td><td>Rules engine, CMS</td><td>Automated</td><td>Granular Intent Capture, Persistent Guidance Layer</td></tr>
+            <tr><td>62</td><td>If engagement weakens after a transition, the platform marks possible narrative drift and injects a recovery bridge or summary.</td><td>Orchestration Platform</td><td>Drift detector, Gemini, guidance panel</td><td>Automated</td><td>Narrative Drift, Context Bridges</td></tr>
+            <tr><td>63</td><td>If the buyer opens high-sensitivity content such as pricing or security, stricter governance logic controls what can be shown and whether seller escalation is needed.</td><td>Orchestration Platform, AE, SE</td><td>Policy engine, escalation rules, Slack alert</td><td>Automated with human follow-up</td><td>Human-Led Orchestration, Governed Exploration Pathways</td></tr>
+            <tr><td>64</td><td>If the buyer requests help, an AI assistant or guided FAQ service answers within approved scope and logs the interaction.</td><td>Buyer, AI Service</td><td>Conversational UI, Gemini, retrieval service</td><td>Automated with fallback to human</td><td>Persistent Guidance Layer, Granular Intent Capture</td></tr>
+            <tr><td>65</td><td>If the AI assistant detects uncertainty, unsupported claims, or a sensitive competitive question, it defers and recommends seller intervention.</td><td>AI Service</td><td>Confidence rules, moderation, escalation workflow</td><td>Automated with human in the loop</td><td>Human-Led Orchestration</td></tr>
+            <tr><td>66</td><td>AE or SE receives a real-time notification if the buyer reaches a critical buying signal.</td><td>Analytics Layer, AE, SE</td><td>Salesforce task, Slack, email alert</td><td>Automated</td><td>Granular Intent Capture</td></tr>
+            <tr><td>67</td><td>Buyer exits or completes the session.</td><td>Buyer</td><td>Browser</td><td>Human action</td><td>Journey State Tracking</td></tr>
+            <tr><td>68</td><td>Event pipeline closes the session and computes summary metrics such as depth, path completion, bridge usage, and stakeholder behavior.</td><td>Analytics Layer</td><td>Segment warehouse sync, dbt, Python jobs</td><td>Automated</td><td>Journey State Tracking, Granular Intent Capture</td></tr>
+            <tr><td>69</td><td>Narrative Integrity Score is computed from anchor coverage, transition coherence, objection handling, and behavioral consistency.</td><td>Analytics Layer</td><td>Warehouse model, scoring job</td><td>Automated</td><td>Narrative Integrity Score</td></tr>
+            <tr><td>70</td><td>Seller-facing summary is generated showing what the buyer explored, where confidence increased, where friction appeared, and which stakeholders likely care most.</td><td>Analytics Layer</td><td>CRM sync, dashboard service, AI summarization service</td><td>Automated</td><td>Granular Intent Capture, Journey State Tracking</td></tr>
+            <tr><td>71</td><td>If configured, the AI service drafts a follow-up summary for the AE using retrieved journey facts and approved email templates.</td><td>AI Service</td><td>Prompt service, Gemini, CRM feed</td><td>Intelligence assisted</td><td>Persistent Guidance Layer</td></tr>
+            <tr><td>72</td><td>AE reviews, edits, and sends the follow-up email or meeting invite.</td><td>AE</td><td>Salesforce, email client</td><td>Human in the loop</td><td>Human-Led Orchestration</td></tr>
+            <tr><td>73</td><td>Engagement summary, narrative score, and pathway signals are written back to CRM for reporting and next-step automation.</td><td>Analytics Layer</td><td>Salesforce API, reverse ETL</td><td>Automated</td><td>Unified Narrative Infrastructure, Narrative Integrity Score</td></tr>
+        </tbody></table></div>
+
+        <div class="footer">Workflow Reference | Page 3</div>
+    </div>
+
+    <div class="page page-break">
+        <h2 class="section-title">Detailed AI Retrieval and Generation Subflow</h2>
+        <div class="phase-table"><table><thead><tr><th class="col-step">Step</th><th class="col-action">Action</th><th class="col-actor">Actor or Service</th><th class="col-systems">Inputs</th><th class="col-mode">Outputs</th><th class="col-glossary">Mode</th></tr></thead><tbody>
+            <tr><td>A1</td><td>Orchestration platform requests a bridge or guidance asset for the current buyer state.</td><td>Orchestration Platform</td><td>journey ID, source state, target state, persona, account context</td><td>generation request</td><td>Automated</td></tr>
+            <tr><td>A2</td><td>AI service loads prompt template and policy template for the requested asset type.</td><td>AI Service</td><td>asset type, governance rules</td><td>prompt skeleton</td><td>Automated</td></tr>
+            <tr><td>A3</td><td>AI service loads approved narrative anchors and blocked claims from the policy registry.</td><td>AI Service</td><td>policy IDs, narrative plan</td><td>allowed content set</td><td>Automated</td></tr>
+            <tr><td>A4</td><td>AI service constructs retrieval query text representing the buyer's situation and intent.</td><td>AI Service</td><td>profile object, workflow target, objection state</td><td>semantic query</td><td>Automated</td></tr>
+            <tr><td>A5</td><td>AI service sends the retrieval query for embedding generation.</td><td>AI Service</td><td>semantic query</td><td>embedding vector</td><td>Automated</td></tr>
+            <tr><td>A6</td><td>Vector retrieval service performs nearest-neighbor search across approved content, bridge assets, and proof snippets.</td><td>Vector Store</td><td>embedding vector, metadata filters</td><td>ranked candidates</td><td>Automated</td></tr>
+            <tr><td>A7</td><td>Retrieval service groups nearest results by content family, persona fit, workflow relevance, and performance history.</td><td>Vector Store</td><td>ranked candidates</td><td>nearest groups</td><td>Automated</td></tr>
+            <tr><td>A8</td><td>AI service selects top groups and discards low-confidence or policy-incompatible candidates.</td><td>AI Service</td><td>nearest groups, policy filters</td><td>filtered context pack</td><td>Automated</td></tr>
+            <tr><td>A9</td><td>AI service builds the final Gemini prompt with context, retrieved snippets, structure, tone instructions, and forbidden content.</td><td>AI Service</td><td>filtered context pack, prompt template</td><td>final prompt</td><td>Automated</td></tr>
+            <tr><td>A10</td><td>AI service sends the final prompt to Gemini.</td><td>AI Service</td><td>final prompt</td><td>model request</td><td>Automated</td></tr>
+            <tr><td>A11</td><td>Gemini produces structured output in JSON or schema-constrained text.</td><td>Gemini</td><td>model request</td><td>generated bridge or guidance draft</td><td>Automated</td></tr>
+            <tr><td>A12</td><td>AI service validates schema, checks for hallucinated entities, and confirms required narrative anchors are present.</td><td>AI Service</td><td>generated draft</td><td>validated draft or exception</td><td>Automated</td></tr>
+            <tr><td>A13</td><td>If validation fails, AI service retries with tighter constraints or falls back to a pre-approved static asset.</td><td>AI Service</td><td>validation result</td><td>revised draft or fallback asset</td><td>Automated</td></tr>
+            <tr><td>A14</td><td>If validation passes but sensitivity is high, the asset enters a human approval queue.</td><td>AI Service, SE, Product Marketing</td><td>validated draft</td><td>approved or rejected asset</td><td>Human in the loop</td></tr>
+            <tr><td>A15</td><td>Approved output is cached and bound to the journey runtime so the UI can render it with low latency.</td><td>Orchestration Platform</td><td>approved asset</td><td>renderable guidance module</td><td>Automated</td></tr>
+        </tbody></table></div>
+
+        <h2 class="section-title">Human-Orchestrated Versus Automated Summary</h2>
+        <div class="summary-box">
+            <ul>
+                <li>Narrative strategy: humans set value proposition, narrative hierarchy, workflow priority, and objection framing; AI suggestions remain reviewable.</li>
+                <li>Experience assembly: humans choose allowed branches and priorities; systems handle presentation-layer assembly, data injection, URL creation, and module loading.</li>
+                <li>Guidance generation: humans define policy boundaries; systems handle prompt building, retrieval, Gemini generation, and runtime rendering, with review on high-risk outputs.</li>
+                <li>Runtime navigation: buyers choose paths; systems handle state updates, bridge injection, recommendation, and analytics capture; sellers respond to high-value alerts.</li>
+                <li>Post-session optimization: humans define KPIs and governance thresholds; systems handle scoring, summarization, and CRM writeback, while AEs review follow-up content.</li>
+            </ul>
+        </div>
+
+        <h2 class="section-title">Glossary-to-Workflow Crosswalk</h2>
+        <div class="summary-box">
+            <ul>
+                <li>Unified Narrative Infrastructure: steps 1 to 7, 22 to 27, 44 to 45, 73</li>
+                <li>Presentation Layer: steps 7, 25, 45, 49 to 58</li>
+                <li>Narrative Orchestration Engine: steps 3, 24, 52, 54</li>
+                <li>Human-Led Orchestration: steps 8 to 15, 30, 34, 38, 65, 72</li>
+                <li>Persistent Context: steps 4 to 5, 16 to 21, 46 to 48, 57</li>
+                <li>Journey State Tracking: steps 5, 19, 27, 47, 52, 59, 67 to 70</li>
+                <li>Narrative Continuity: steps 9, 12 to 13, 22 to 24, 49 to 57</li>
+                <li>Context Bridges: steps 28, 31 to 39, 54 to 56, 62, A1 to A15</li>
+                <li>Persistent Guidance Layer: steps 28 to 39, 49 to 50, 60, 64</li>
+                <li>Operationalized Personalization: steps 20 to 21, 22, 40 to 43, 53</li>
+                <li>Structured Branching Logic: steps 6, 10, 24, 51 to 54</li>
+                <li>Governed Exploration Pathways: steps 14, 34, 52 to 55, 63</li>
+                <li>Narrative Integrity Score: step 69, 73</li>
+                <li>Granular Intent Capture: steps 27, 43, 58, 61, 66, 68, 70</li>
+            </ul>
+        </div>
+
+        <div class="summary-box">
+            <h3>Practical Reading</h3>
+            <p>Stage 4 is human-led orchestration with system-level execution. Humans still define strategy, approved branches, messaging guardrails, and escalation paths, while the platform automates assembly, guidance presentation, state updates, analytics capture, and seller activation. Even when Gemini is used inside Stage 4, it operates within human-defined prompts, approved content boundaries, retrieval filters, and policy checks. AI supports delivery and explanation. It does not independently set journey strategy.</p>
+        </div>
+
+        <div class="footer">Workflow Reference | Page 4</div>
+    </div>
+</body>
+</html>

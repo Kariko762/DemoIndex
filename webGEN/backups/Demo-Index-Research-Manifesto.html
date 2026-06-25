@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Demo Index™ Research Manifesto</title>
+    <style>
+        :root {
+            --bg-dark: #090E1B;
+            --bg-darker: #0F1629;
+            --orange: #F97316;
+            --green: #4bcd3e;
+            --text-white: #FFFFFF;
+            --text-grey: #97A3AF;
+            --blue: #00d4ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: Letter;
+            margin: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+        }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            background: var(--bg-dark);
+            padding: 0.4in;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+
+        .with-footer {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.65rem;
+            color: var(--text-grey);
+            padding-top: 0.15in;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: auto;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--orange);
+            margin-bottom: 0.08in;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            color: var(--orange);
+            margin: 0.15in 0 0.1in 0;
+            padding-left: 0.08in;
+            border-left: 4px solid var(--orange);
+        }
+
+        h3 {
+            font-size: 1rem;
+            color: var(--text-white);
+            margin: 0.12in 0 0.08in 0;
+        }
+
+        h4 {
+            font-size: 0.85rem;
+            color: var(--orange);
+            margin: 0.1in 0 0.05in 0;
+        }
+
+        p, li {
+            font-size: 0.78rem;
+            line-height: 1.6;
+            color: var(--text-grey);
+            margin-bottom: 0.08in;
+        }
+
+        ul {
+            margin-left: 0.2in;
+            margin-bottom: 0.1in;
+        }
+
+        li {
+            margin-bottom: 0.05in;
+        }
+
+        .callout {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(249, 115, 22, 0.02) 100%);
+            border: 1px solid var(--orange);
+            border-radius: 6px;
+            padding: 0.12in;
+            margin: 0.1in 0;
+        }
+
+        .data-box {
+            background: rgba(0, 212, 255, 0.05);
+            border-left: 4px solid var(--blue);
+            padding: 0.1in;
+            margin: 0.08in 0;
+            border-radius: 4px;
+        }
+
+        .quote {
+            font-style: italic;
+            color: var(--text-white);
+            font-size: 0.85rem;
+            border-left: 3px solid var(--orange);
+            padding-left: 0.1in;
+            margin: 0.1in 0;
+        }
+
+        strong {
+            color: var(--text-white);
+        }
+
+        @media print {
+            body {
+                background: var(--bg-dark);
+            }
+            .page {
+                margin: 0;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1: TITLE & INTRODUCTION -->
+    <div class="page page-break with-footer">
+        <div>
+        <h1>The Demo Index™</h1>
+        <p style="font-size: 1.1rem; color: var(--orange); margin-bottom: 0.15in;">Research Manifesto: Why Revenue Experience Maturity Matters</p>
+        
+        <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1); padding: 0.12in; border-radius: 6px; margin-bottom: 0.15in;">
+            <p style="font-size: 0.8rem; line-height: 1.6; color: var(--text-white); margin-bottom: 0;">
+                This document establishes the research foundation for The Demo Index framework. It examines the fundamental shifts in B2B buying behavior, the emergence of narrative fragmentation as a revenue blocker, and the case for measuring Revenue Experience Maturity as a distinct organizational capability.
+            </p>
+        </div>
+
+        <h2>The Transformation of B2B Buying</h2>
+
+        <p>
+            The past decade has fundamentally altered how enterprise buyers evaluate, select, and purchase complex software solutions. What was once a linear, sales-controlled process has evolved into a non-linear, buyer-led journey characterized by self-directed research, asynchronous evaluation, and distributed decision-making across large stakeholder committees.
+        </p>
+
+        <h3>The Expansion of Buying Committees</h3>
+
+        <p>
+            McKinsey B2B Pulse Survey research reveals that the average B2B purchasing committee now involves <strong>13 internal stakeholders</strong>, each bringing distinct priorities, evaluation criteria, and success metrics. This expansion creates coordination complexity that traditional sales methodologies were not designed to address.
+        </p>
+
+        <div class="data-box">
+            <p style="margin-bottom: 0.05in;"><strong style="color: var(--blue);">Market Research: Committee Complexity</strong></p>
+            <ul style="margin-bottom: 0;">
+                <li>Average B2B buying committee: <strong>13 stakeholders</strong> (McKinsey B2B Pulse Survey)</li>
+                <li><strong>86% of active deals stall</strong> due to decision drag and stakeholder misalignment</li>
+                <li><strong>67% of B2B buyers prefer rep-free experiences</strong> (Gartner Future of Sales 2025)</li>
+                <li><strong>70% demand completely digital, self-service buying journeys</strong> (Gartner)</li>
+            </ul>
+        </div>
+
+        <p>
+            These committees do not operate as unified decision-making bodies. They fragment across departments, geographies, and seniority levels—each member conducting independent research, exploring product capabilities through different lenses, and forming conclusions asynchronously. The seller's challenge is no longer simply convincing a buyer; it is maintaining narrative coherence across multiple parallel evaluation tracks.
+        </p>
+
+        <h3>The Rise of Self-Service Buying Behavior</h3>
+
+        <p>
+            Gartner research documenting B2B buying preferences reveals a stark departure from traditional sales-led engagement models:
+        </p>
+
+        <ul>
+            <li><strong>67% of B2B buyers prefer a representative-free experience</strong></li>
+            <li><strong>70% demand completely digital, self-service buying journeys</strong></li>
+            <li><strong>83% of buyers expect to independently access product environments</strong></li>
+            <li><strong>71% want personalized demos without sales involvement</strong></li>
+        </ul>
+
+        <p>
+            This is not a marginal shift in preference—it represents a fundamental recalibration of buyer expectations. Organizations that continue to gate product access behind sales choreography risk alienating the majority of their target market.
+        </p>
+
+        <h3>Non-Linear Buyer Journeys</h3>
+
+        <p>
+            Modern B2B buyers do not progress through predictable stages. They navigate non-linearly: starting with competitive research, jumping to specific feature deep-dives, circling back to pricing, exploring use cases, sharing materials with colleagues, and revisiting capabilities weeks later when new stakeholders join the evaluation.
+        </p>
+
+        <p>
+            Traditional demo delivery models assume linearity. They provide:
+        </p>
+
+        <ul>
+            <li>A single discovery call</li>
+            <li>A tailored product demonstration</li>
+            <li>Follow-up materials (slides, recordings, trial access)</li>
+            <li>Subsequent check-ins to maintain engagement</li>
+        </ul>
+
+        <p>
+            These models break when buyers explore independently, share fragmented assets with new stakeholders, and re-enter the sales cycle at different stages of understanding. Context disappears. Value propositions become disconnected from the problems they solve. Narrative continuity collapses.
+        </p>
+
+        <div class="quote">
+            "The buyer journey is no longer a funnel. It's a constellation of independent research paths that occasionally intersect with vendor-provided experiences—most of which fail to maintain context across touchpoints."
+        </div>
+        </div>
+
+        <div class="footer">
+            © 2026 | The Demo Index™ Research Manifesto | Page 1
+        </div>
+    </div>
+
+    <!-- PAGE 2: THE NARRATIVE FRAGMENTATION PROBLEM -->
+    <div class="page page-break with-footer">
+        <div>
+        <h2>The Narrative Fragmentation Problem</h2>
+
+        <p>
+            At the intersection of expanding buying committees, self-service expectations, and non-linear journeys lies a critical but under-measured challenge: <strong>narrative fragmentation</strong>.
+        </p>
+
+        <h3>What Is Narrative Fragmentation?</h3>
+
+        <p>
+            Narrative fragmentation occurs when buyers experience disconnected, context-free interactions with a vendor's product demonstrations, trials, videos, and collateral. Each touchpoint exists in isolation, lacking awareness of:
+        </p>
+
+        <ul>
+            <li>What the buyer has already seen</li>
+            <li>Which stakeholders have explored which capabilities</li>
+            <li>What problems were identified during discovery</li>
+            <li>Which value propositions resonated in previous conversations</li>
+            <li>Where the buyer is in their evaluation process</li>
+        </ul>
+
+        <p>
+            The result is a disjointed experience where buyers repeatedly encounter generic content, lose track of relevant use cases, and struggle to connect product capabilities back to their original business problems.
+        </p>
+
+        <h3>The Revenue Impact</h3>
+
+        <p>
+            Narrative fragmentation is not merely a buyer experience inconvenience—it is a revenue blocker. When context disappears across demo touchpoints:
+        </p>
+
+        <div class="data-box">
+            <p style="margin-bottom: 0.05in;"><strong style="color: var(--blue);">Business Impact of Fragmentation</strong></p>
+            <ul style="margin-bottom: 0;">
+                <li>Sales cycles extend as buyers restart evaluations with new stakeholders</li>
+                <li>Win rates decline due to stakeholder misalignment on value</li>
+                <li>No-decision outcomes increase as buying committees fail to reach consensus</li>
+                <li>SE resources become bottlenecks as every interaction requires manual orchestration</li>
+                <li>Competitive losses accelerate when competitors deliver coherent narratives</li>
+            </ul>
+        </div>
+
+        <p>
+            McKinsey research attributes <strong>86% of active deal stalls</strong> to "decision drag"—the inability of buying committees to align on evaluation criteria, priorities, and vendor selection. While multiple factors contribute to decision drag, narrative fragmentation sits at the core: when different stakeholders experience different narratives, alignment becomes nearly impossible.
+        </p>
+
+        <h3>Why Traditional Solutions Fail</h3>
+
+        <p>
+            Most organizations attempt to solve narrative fragmentation through:
+        </p>
+
+        <h4>1. Better Sales Enablement</h4>
+        <p>
+            Sales teams are trained to maintain context manually—tracking conversation history in CRM, documenting buyer needs, and tailoring subsequent interactions. This approach fails at scale. As buying committees expand and interactions multiply, manual context management collapses under cognitive load.
+        </p>
+
+        <h4>2. More Demo Environments</h4>
+        <p>
+            Companies build larger libraries of demo content, personas, and use cases. But volume without orchestration worsens fragmentation. Buyers encounter more assets that lack coherence rather than fewer assets with continuity.
+        </p>
+
+        <h4>3. Marketing Automation</h4>
+        <p>
+            Marketing platforms automate content delivery based on behavioral triggers. While effective for top-of-funnel engagement, these systems rarely integrate with product demonstration infrastructure. The result: automated emails pointing to static demos that ignore the buyer's specific context.
+        </p>
+
+        <h4>4. Product-Led Growth</h4>
+        <p>
+            Self-service trials remove sales friction but often amplify narrative fragmentation. Users explore independently without guided pathways, miss critical capabilities, and fail to connect features back to their original use cases. Adoption stalls not because the product lacks value, but because the narrative thread was lost during exploration.
+        </p>
+
+        <div class="callout">
+            <p style="margin-bottom: 0;"><strong style="color: var(--orange);">The Core Problem:</strong> None of these approaches address the underlying capability gap—organizations lack infrastructure for maintaining narrative integrity across distributed, asynchronous buyer interactions. What's needed is not better content or more training, but a fundamentally different approach to revenue experience delivery.</p>
+        </div>
+        </div>
+
+        <div class="footer">
+            © 2026 | The Demo Index™ Research Manifesto | Page 2
+        </div>
+    </div>
+
+    <!-- PAGE 3: WHY EXISTING FRAMEWORKS DON'T MEASURE THIS -->
+    <div class="page page-break with-footer">
+        <div>
+        <h2>The Measurement Gap</h2>
+
+        <p>
+            Despite the clear revenue impact of narrative fragmentation and experience delivery maturity, no established framework measures this capability. Existing maturity models focus on adjacent but distinct domains:
+        </p>
+
+        <h3>Sales Maturity Models</h3>
+        <p>
+            Traditional sales maturity frameworks evaluate process discipline, pipeline management, forecasting accuracy, and sales methodology adoption. They measure <em>how sellers sell</em>, not <em>how buyers experience product demonstrations</em>. Sales maturity can be high while demo delivery remains fragmented and manual.
+        </p>
+
+        <h3>Revenue Operations Maturity</h3>
+        <p>
+            RevOps frameworks assess system integration, data hygiene, analytics capabilities, and operational efficiency. They measure the plumbing of revenue generation but overlook the buyer-facing experience layer. A company can achieve RevOps excellence while delivering disconnected demo experiences.
+        </p>
+
+        <h3>Customer Experience Maturity</h3>
+        <p>
+            CX frameworks focus on post-sale engagement: onboarding, support quality, adoption programs, and customer success operations. Pre-sale demo experiences—where buyers form their initial product impressions—fall outside these models entirely.
+        </p>
+
+        <h3>Digital Transformation Maturity</h3>
+        <p>
+            Digital maturity models evaluate cloud adoption, API integration, data infrastructure, and automation capabilities. While these are enabling technologies for advanced demo operations, they don't measure the specific capability to deliver coherent, personalized buyer experiences at scale.
+        </p>
+
+        <h3>Product-Led Growth Metrics</h3>
+        <p>
+            PLG frameworks track activation rates, time-to-value, and product usage metrics. They measure what happens <em>after</em> a user enters a product trial but ignore the orchestration required to get buyers to that point with proper context and narrative coherence.
+        </p>
+
+        <div class="callout">
+            <p style="margin-bottom: 0.05in;"><strong style="color: var(--orange);">The Insight:</strong></p>
+            <p style="margin-bottom: 0;">No existing framework measures an organization's capability to deliver scalable, contextualized, narratively coherent demo experiences across distributed buying committees. This capability gap sits at the intersection of Sales, RevOps, Product, and Customer Experience—yet belongs fully to none of them. <strong>This is the opening for The Demo Index.</strong></p>
+        </div>
+
+        <h2>The Case for Revenue Experience Maturity</h2>
+
+        <p>
+            The Demo Index introduces <strong>Revenue Experience Maturity</strong> as a distinct organizational capability worthy of measurement, benchmarking, and strategic investment. This capability encompasses:
+        </p>
+
+        <h3>1. Experience Delivery</h3>
+        <p>
+            The infrastructure, processes, and automation enabling rapid creation and deployment of personalized demo experiences. Measured through velocity (Time-to-Demo) and scale (parallel delivery capacity).
+        </p>
+
+        <h3>2. Context Intelligence</h3>
+        <p>
+            The capability to capture, interpret, and apply buyer context—CRM data, behavioral signals, engagement history—across all demo touchpoints. Measured through personalization depth and relevance.
+        </p>
+
+        <h3>3. Narrative Integrity</h3>
+        <p>
+            The ability to maintain buyer context, value alignment, and journey coherence across multiple demo assets, sessions, and stakeholder interactions. This is the breakthrough concept—the capability that differentiates mature demo operations from ad-hoc content delivery.
+        </p>
+
+        <h3>4. Orchestration Capability</h3>
+        <p>
+            The infrastructure maturity enabling automated demo assembly, deployment, and delivery without manual intervention. Measured through automation percentage and system integration depth.
+        </p>
+
+        <h3>5. Buyer Autonomy</h3>
+        <p>
+            The capability to enable prospects to generate, explore, and engage with personalized demo experiences independently—addressing the 67% of B2B buyers who prefer rep-free experiences.
+        </p>
+
+        <div class="data-box">
+            <p style="margin-bottom: 0.05in;"><strong style="color: var(--blue);">Why These Five Dimensions Matter</strong></p>
+            <p style="font-size: 0.75rem; margin-bottom: 0;">
+                Together, these capabilities determine whether an organization can meet modern buyer expectations: instant access to relevant product experiences, maintained context across stakeholder interactions, and self-service exploration without narrative fragmentation. Companies that master Revenue Experience Maturity compress sales cycles, increase win rates, and scale efficiently.
+            </p>
+        </div>
+        </div>
+
+        <div class="footer">
+            © 2026 | The Demo Index™ Research Manifesto | Page 3
+        </div>
+    </div>
+
+    <!-- PAGE 4: THE MATURITY EVOLUTION -->
+    <div class="page page-break with-footer">
+        <div>
+        <h2>The Maturity Evolution: DI-1 Through DI-5</h2>
+
+        <p>
+            Organizations progress through five distinct stages of Revenue Experience Maturity, each characterized by specific capabilities, constraints, and business outcomes.
+        </p>
+
+        <h3>Demo Index 1: Manual Creation</h3>
+        <p>
+            Every demo is built from scratch. SE teams manually configure environments, create custom datasets, and deliver one-off presentations. Time-to-Demo measures in weeks. Personalization is minimal—usually limited to inserting the prospect's company name into slides.
+        </p>
+        <p style="font-size: 0.75rem; color: var(--text-grey);"><strong>Constraint:</strong> SE capacity becomes the bottleneck. Cannot scale beyond 1-2 demos per SE per week.</p>
+
+        <h3>Demo Index 2: Templated Reusability</h3>
+        <p>
+            Organizations build standardized demo templates organized by industry or use case. Reusable components reduce creation time to days rather than weeks. Personalization remains shallow—selecting from pre-built templates rather than true customization.
+        </p>
+        <p style="font-size: 0.75rem; color: var(--text-grey);"><strong>Constraint:</strong> Templates multiply faster than governance. Fragmentation shifts from between-demo to within-library chaos.</p>
+
+        <h3>Demo Index 3: Distributed Library</h3>
+        <p>
+            A centralized demo library enables persona-level customization. Content is tagged, searchable, and distributable across the sales organization. Partial automation reduces manual effort. However, each demo asset exists independently—buyers moving between assets lose context.
+        </p>
+        <p style="font-size: 0.75rem; color: var(--text-grey);"><strong>Constraint:</strong> Narrative fragmentation peaks. Buyers experience disconnected assets without journey coherence.</p>
+
+        <div class="callout">
+            <p style="margin-bottom: 0;"><strong style="color: var(--orange);">The DI-3 Plateau:</strong> Most mid-market and enterprise B2B companies operate at Demo Index 3. They have solved the volume problem (producing enough demo content) but not the coherence problem (maintaining narrative integrity). This is where the competitive differentiation opportunity exists.</p>
+        </div>
+
+        <h3>Demo Index 4: Orchestrated Infrastructure</h3>
+        <p>
+            Organizations implement unified experience orchestration infrastructure. Demos are no longer isolated assets—they become connected experiences within a buyer portal. CRM context injects automatically. State management preserves buyer progress. Guided pathways maintain narrative coherence. Account-level personalization becomes standard.
+        </p>
+        <p style="font-size: 0.75rem; color: var(--text-grey);"><strong>Breakthrough:</strong> Narrative integrity transforms from manual effort to infrastructure capability.</p>
+
+        <h3>Demo Index 5: AI-Orchestrated Hyper-Personalization</h3>
+        <p>
+            AI systems analyze buyer behavior, predict optimal experience composition, and autonomously recommend demo pathways before human intervention. Self-service portals enable anonymous prospects to generate hyper-personalized experiences instantly. Real-time adaptation adjusts content based on exploration patterns. The system learns from aggregate patterns and continuously improves recommendations.
+        </p>
+        <p style="font-size: 0.75rem; color: var(--text-grey);"><strong>Impact:</strong> Organizations capture the 67% of buyers preferring rep-free experiences while maintaining narrative coherence.</p>
+
+        <h2>Why Organizations Must Invest in This Capability Now</h2>
+
+        <p>
+            Three converging market forces make Revenue Experience Maturity a strategic imperative:
+        </p>
+
+        <h4>1. Buyer Expectations Have Permanently Shifted</h4>
+        <p>
+            The Gartner data is unambiguous: 67% of B2B buyers prefer rep-free experiences, 70% demand self-service journeys. Organizations unable to deliver will systematically lose market access.
+        </p>
+
+        <h4>2. Competitive Differentiation Through Experience</h4>
+        <p>
+            As product capabilities commoditize, buyer experience becomes the primary differentiator. Forrester research shows that companies delivering superior buyer experiences achieve <strong>3.2x higher revenue growth</strong> and <strong>2.1x higher shareholder returns</strong>.
+        </p>
+
+        <h4>3. AI Enables What Was Previously Impossible</h4>
+        <p>
+            The infrastructure required for DI-4 and DI-5 maturity—intelligent orchestration, real-time personalization, autonomous experience generation—was technically infeasible five years ago. Modern AI capabilities make it achievable today. Organizations that move quickly establish defensible advantages.
+        </p>
+
+        <div class="quote">
+            "The Demo Index measures a capability that will define competitive advantage in B2B software over the next decade: the ability to deliver scalable, contextually intelligent, narratively coherent buyer experiences without human bottlenecks."
+        </div>
+        </div>
+
+        <div class="footer">
+            © 2026 | The Demo Index™ Research Manifesto | Page 4
+        </div>
+    </div>
+
+    <!-- PAGE 5: CONCLUSION & CALL TO ACTION -->
+    <div class="page with-footer">
+        <div>
+        <h2>From Framework to Industry Standard</h2>
+
+        <p>
+            The Demo Index is designed to evolve from thought leadership into an industry-recognized measurement system. This evolution follows a deliberate path:
+        </p>
+
+        <h3>Phase 1: Framework Introduction</h3>
+        <p>
+            Establish the intellectual foundation: the problem (narrative fragmentation), the solution (Revenue Experience Maturity), and the measurement system (five capability dimensions across five maturity levels).
+        </p>
+
+        <h3>Phase 2: Assessment & Adoption</h3>
+        <p>
+            Deploy the Demo Index Assessment to capture organizational maturity data. Target 50-100 early adopters to validate scoring methodology and refine capability definitions.
+        </p>
+
+        <h3>Phase 3: Benchmark Publication</h3>
+        <p>
+            Publish the first <em>State of Demo Maturity</em> report with aggregate industry data. Establish baseline benchmarks by vertical, company size, and go-to-market model.
+        </p>
+
+        <h3>Phase 4: Analyst Engagement</h3>
+        <p>
+            Present research to Gartner, Forrester, and category analysts. Demonstrate correlation between Demo Index scores and business outcomes (win rates, sales cycle length, revenue efficiency).
+        </p>
+
+        <h3>Phase 5: Certification & Standards</h3>
+        <p>
+            Introduce Demo Index Certification for organizations achieving DI-4 and DI-5 maturity. Establish The Demo Index as the recognized standard for Revenue Experience Maturity.
+        </p>
+
+        <h2>The Intellectual Property</h2>
+
+        <p>
+            The Demo Index's defensible intellectual property is not the maturity model structure—five-level frameworks are common. The IP lies in three breakthrough concepts:
+        </p>
+
+        <h4>1. Narrative Integrity as a Measurable Capability</h4>
+        <p>
+            Framing context preservation, journey coherence, and cross-asset continuity as an infrastructure capability rather than a training problem. This concept is genuinely novel.
+        </p>
+
+        <h4>2. Revenue Experience Maturity as a Category</h4>
+        <p>
+            Positioning demo operations not as a sales enablement task but as a strategic business capability worthy of C-level investment. This reframes the conversation from tactical execution to competitive advantage.
+        </p>
+
+        <h4>3. The Capability-Outcome Model</h4>
+        <p>
+            Measuring underlying capabilities (Experience Delivery, Context Intelligence, Orchestration Capability, Buyer Autonomy) that produce business outcomes (Time-to-Demo, Personalization, Revenue Impact) rather than measuring outputs directly. This analyst-grade structure establishes credibility.
+        </p>
+
+        <h2>Conclusion</h2>
+
+        <p>
+            Modern B2B buyers demand self-service, expect personalization, and navigate non-linearly across expanding stakeholder committees. Traditional demo delivery models—built for linear, sales-controlled processes—collapse under these conditions.
+        </p>
+
+        <p>
+            Organizations need a new capability: <strong>Revenue Experience Maturity</strong>—the ability to deliver scalable, contextualized, narratively coherent buyer experiences without human bottlenecks.
+        </p>
+
+        <p>
+            The Demo Index provides the framework to measure, benchmark, and improve this capability. What begins as a maturity model has the potential to become the industry-standard metric for how well organizations enable modern buyers to evaluate, understand, and ultimately purchase complex B2B solutions.
+        </p>
+
+        <div class="callout">
+            <p style="margin-bottom: 0.05in;"><strong style="color: var(--orange);">The Opportunity:</strong></p>
+            <p style="margin-bottom: 0;">
+                The first organizations to achieve Demo Index 4 and 5 maturity will establish defensible competitive advantages. They will capture the 67% of buyers preferring rep-free experiences. They will compress sales cycles by eliminating narrative fragmentation. They will scale efficiently by removing SE bottlenecks. And they will set the standard that competitors must eventually match.
+            </p>
+        </div>
+
+        <div style="margin-top: 0.15in; padding-top: 0.12in; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+            <p style="font-size: 0.75rem; text-align: center; color: var(--text-grey); margin-bottom: 0;">
+                <strong>The Demo Index™</strong><br>
+                Measuring Revenue Experience Maturity<br>
+                <em>Framework | Methodology | Assessment | Benchmarking</em>
+            </p>
+        </div>
+        </div>
+
+        <div class="footer">
+            © 2026 | The Demo Index™ Research Manifesto | Page 5
+        </div>
+    </div>
+
+</body>
+</html>

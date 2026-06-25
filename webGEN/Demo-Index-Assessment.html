@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Demo Index™ Assessment</title>
+    <style>
+        :root {
+            --bg-dark: #090E1B;
+            --bg-darker: #0F1629;
+            --orange: #F97316;
+            --green: #4bcd3e;
+            --text-white: #FFFFFF;
+            --text-grey: #97A3AF;
+            --di-1: #e74c3c;
+            --di-2: #f39c12;
+            --di-3: #B21a53;
+            --di-4: #4bcd3e;
+            --di-5: #00d4ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: Letter;
+            margin: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+        }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            background: var(--bg-dark);
+            padding: 0.4in;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+
+        .with-footer {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.65rem;
+            color: var(--text-grey);
+            padding-top: 0.15in;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: auto;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--orange);
+            margin-bottom: 0.1in;
+        }
+
+        h2 {
+            font-size: 1rem;
+            color: var(--orange);
+            margin: 0.12in 0 0.08in 0;
+            padding-left: 0.08in;
+            border-left: 4px solid var(--orange);
+        }
+
+        h3 {
+            font-size: 0.85rem;
+            color: var(--text-white);
+            margin: 0.1in 0 0.05in 0;
+        }
+
+        p {
+            font-size: 0.78rem;
+            line-height: 1.5;
+            color: var(--text-grey);
+            margin-bottom: 0.08in;
+        }
+
+        .question {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 3px solid var(--orange);
+            padding: 0.08in;
+            margin: 0.08in 0;
+            border-radius: 4px;
+        }
+
+        .question h3 {
+            margin: 0 0 0.05in 0;
+            font-size: 0.8rem;
+        }
+
+        .options {
+            margin-left: 0.15in;
+            font-size: 0.72rem;
+        }
+
+        .option {
+            margin: 0.03in 0;
+            color: var(--text-grey);
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(249, 115, 22, 0.02) 100%);
+            border: 1px solid var(--orange);
+            border-radius: 4px;
+            padding: 0.08in;
+            margin: 0.12in 0 0.08in 0;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--orange);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.1in 0;
+            font-size: 0.7rem;
+        }
+
+        th {
+            background: rgba(249, 115, 22, 0.1);
+            color: var(--orange);
+            padding: 0.06in;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        td {
+            padding: 0.06in;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-grey);
+        }
+
+        .score-box {
+            background: rgba(249, 115, 22, 0.05);
+            border: 2px solid var(--orange);
+            border-radius: 6px;
+            padding: 0.1in;
+            margin: 0.1in 0;
+            text-align: center;
+        }
+
+        .callout {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(249, 115, 22, 0.02) 100%);
+            border: 1px solid var(--orange);
+            border-radius: 6px;
+            padding: 0.1in;
+            margin: 0.08in 0;
+        }
+
+        @media print {
+            body {
+                background: var(--bg-dark);
+            }
+            .page {
+                margin: 0;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1 -->
+    <div class="page page-break with-footer">
+        <div>
+        <h1>The Demo Index™ Assessment</h1>
+        
+        <div class="callout">
+            <p style="margin-bottom: 0.05in;">
+                <strong style="color: var(--orange);">Purpose:</strong> This 15-question assessment evaluates your organization's demo operations maturity across five capability domains.
+            </p>
+            <p style="margin-bottom: 0;">
+                <strong style="color: var(--orange);">Time Required:</strong> 10 minutes | <strong style="color: var(--orange);">Output:</strong> Demo Index Score (0-100) and Maturity Classification (DI-1 through DI-5)
+            </p>
+        </div>
+
+        <h2>Instructions</h2>
+        <p>
+            For each question, select the response that best describes your current state. Assign points based on the option selected, then calculate your total score using the weighting provided on page 2.
+        </p>
+
+        <!-- EXPERIENCE DELIVERY -->
+        <div class="category-header">EXPERIENCE DELIVERY (3 Questions)</div>
+
+        <div class="question">
+            <h3>Q1. How long does it take to create and deliver a tailored demo experience to a prospect?</h3>
+            <div class="options">
+                <div class="option">☐ <strong>0 pts:</strong> More than 5 business days</div>
+                <div class="option">☐ <strong>25 pts:</strong> 2-5 business days</div>
+                <div class="option">☐ <strong>50 pts:</strong> Same business day</div>
+                <div class="option">☐ <strong>75 pts:</strong> Within 1 hour</div>
+                <div class="option">☐ <strong>100 pts:</strong> Instant (on-demand)</div>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>Q2. What percentage of demo creation is manual effort versus automated assembly?</h3>
+            <div class="options">
+                <div class="option">☐ <strong>0 pts:</strong> 100% manual (every demo built from scratch)</div>
+                <div class="option">☐ <strong>25 pts:</strong> 75% manual / 25% templated</div>
+                <div class="option">☐ <strong>50 pts:</strong> 50% manual / 50% automated</div>
+                <div class="option">☐ <strong>75 pts:</strong> 25% manual / 75% automated</div>
+                <div class="option">☐ <strong>100 pts:</strong> Fully automated (zero manual assembly)</div>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>Q3. How many personalized demo experiences can your team deliver simultaneously?</h3>
+            <div class="options">
+                <div class="option">☐ <strong>0 pts:</strong> 1-2 (one at a time)</div>
+                <div class="option">☐ <strong>25 pts:</strong> 3-10</div>
+                <div class="option">☐ <strong>50 pts:</strong> 11-50</div>
+                <div class="option">☐ <strong>75 pts:</strong> 51-200</div>
+                <div class="option">☐ <strong>100 pts:</strong> Unlimited (system scales automatically)</div>
+            </div>
+        </div>
+
+        <!-- CONTEXT INTELLIGENCE -->
+        <div class="category-header">CONTEXT INTELLIGENCE (3 Questions)</div>
+
+        <div class="question">
+            <h3>Q4. What level of personalization is applied to demo experiences?</h3>
+            <div class="options">
+                <div class="option">☐ <strong>0 pts:</strong> None (generic demo for all prospects)</div>
+                <div class="option">☐ <strong>25 pts:</strong> Industry-level customization</div>
+                <div class="option">☐ <strong>50 pts:</strong> Persona-level customization</div>
+                <div class="option">☐ <strong>75 pts:</strong> Account-specific customization</div>
+                <div class="option">☐ <strong>100 pts:</strong> Real-time adaptive personalization based on behavior</div>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>Q5. Are CRM and account context automatically injected into demo experiences?</h3>
+            <div class="options">
+                <div class="option">☐ <strong>0 pts:</strong> No CRM integration</div>
+                <div class="option">☐ <strong>25 pts:</strong> Manual copy/paste of account details</div>
+                <div class="option">☐ <strong>50 pts:</strong> Semi-automated (requires SE intervention)</div>
+                <div class="option">☐ <strong>75 pts:</strong> Fully automated CRM injection</div>
+                <div class="option">☐ <strong>100 pts:</strong> Real-time CRM + behavioral intelligence</div>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>Q6. Can demo content dynamically adapt to different buyer personas within the same account?</h3>
+            <div class="options">
+                <div class="option">☐ <strong>0 pts:</strong> No (one-size-fits-all)</div>
+                <div class="option">☐ <strong>25 pts:</strong> Different demos per persona (manual selection)</div>
+                <div class="option">☐ <strong>50 pts:</strong> Persona-based content variants (semi-automated)</div>
+                <div class="option">☐ <strong>75 pts:</strong> Automatic persona detection and content routing</div>
+                <div class="option">☐ <strong>100 pts:</strong> Real-time persona adaptation based on behavior</div>
+            </div>
+        </div>
+
+        <!-- NARRATIVE INTEGRITY -->
+        <div class="category-header">NARRATIVE INTEGRITY (3 Questions)</div>
+
+        <div class="question">
+            <h3>Q7. Is buyer context preserved across multiple demo touchpoints and sessions?</h3>
+            <div class="options">
+                <div class="option">☐ <strong>0 pts:</strong> No (every interaction starts from scratch)</div>
+                <div class="option">☐ <strong>25 pts:</strong> Partial (manually tracked by rep)</div>
+                <div class="option">☐ <strong>50 pts:</strong> Some state management (limited continuity)</div>
+                <div class="option">☐ <strong>75 pts:</strong> Full context persistence across sessions</div>
+                <div class="option">☐ <strong>100 pts:</strong> Intelligent journey orchestration with predictive pathways</div>
+            </div>
+        </div>
+        </div>
+
+        <div class="footer">
+            © 2026 | The Demo Index™ Assessment | Page 1 of 2
+        </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="page with-footer">
+        <div>
+        <div class="question">
+            <h3>Q8. Can prospects navigate demo experiences non-linearly while maintaining narrative coherence?</h3>
+            <div class="options">
+                <div class="option">☐ <strong>0 pts:</strong> No (strictly linear presentations)</div>
+                <div class="option">☐ <strong>25 pts:</strong> Limited branching (SE-guided only)</div>
+                <div class="option">☐ <strong>50 pts:</strong> Self-guided exploration within predefined paths</div>
+                <div class="option">☐ <strong>75 pts:</strong> Fully non-linear with contextual guidance</div>
+                <div class="option">☐ <strong>100 pts:</strong> Adaptive pathways that evolve based on exploration</div>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>Q9. Is value proposition messaging consistent across all demo assets and touchpoints?</h3>
+            <div class="options">
+                <div class="option">☐ <strong>0 pts:</strong> No (fragmented, inconsistent messaging)</div>
+                <div class="option">☐ <strong>25 pts:</strong> Somewhat (manually managed by reps)</div>
+                <div class="option">☐ <strong>50 pts:</strong> Centralized messaging templates</div>
+                <div class="option">☐ <strong>75 pts:</strong> Automated narrative consistency enforcement</div>
+                <div class="option">☐ <strong>100 pts:</strong> Dynamic value reinforcement based on buyer journey stage</div>
+            </div>
+        </div>
+
+        <!-- ORCHESTRATION CAPABILITY -->
+        <div class="category-header">ORCHESTRATION CAPABILITY (3 Questions)</div>
+
+        <div class="question">
+            <h3>Q10. What percentage of demo infrastructure provisioning is automated?</h3>
+            <div class="options">
+                <div class="option">☐ <strong>0 pts:</strong> 0% (fully manual setup)</div>
+                <div class="option">☐ <strong>25 pts:</strong> 25% automated</div>
+                <div class="option">☐ <strong>50 pts:</strong> 50% automated</div>
+                <div class="option">☐ <strong>75 pts:</strong> 75% automated</div>
+                <div class="option">☐ <strong>100 pts:</strong> 100% automated (infrastructure-as-code)</div>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>Q11. How much manual configuration is required to deploy a demo experience?</h3>
+            <div class="options">
+                <div class="option">☐ <strong>0 pts:</strong> Extensive (hours of SE time per demo)</div>
+                <div class="option">☐ <strong>25 pts:</strong> Moderate (30-60 minutes)</div>
+                <div class="option">☐ <strong>50 pts:</strong> Minimal (5-15 minutes)</div>
+                <div class="option">☐ <strong>75 pts:</strong> Single-click deployment</div>
+                <div class="option">☐ <strong>100 pts:</strong> Zero-touch (fully autonomous)</div>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>Q12. Can demo experiences be provisioned automatically based on CRM triggers or buyer actions?</h3>
+            <div class="options">
+                <div class="option">☐ <strong>0 pts:</strong> No (all manual requests)</div>
+                <div class="option">☐ <strong>25 pts:</strong> Email-triggered workflows (manual fulfillment)</div>
+                <div class="option">☐ <strong>50 pts:</strong> Semi-automated provisioning (requires approval)</div>
+                <div class="option">☐ <strong>75 pts:</strong> Fully automated based on defined triggers</div>
+                <div class="option">☐ <strong>100 pts:</strong> Predictive provisioning (system anticipates needs)</div>
+            </div>
+        </div>
+
+        <!-- BUYER AUTONOMY -->
+        <div class="category-header">BUYER AUTONOMY (3 Questions)</div>
+
+        <div class="question">
+            <h3>Q13. Can prospects access demo experiences without requiring sales or SE involvement?</h3>
+            <div class="options">
+                <div class="option">☐ <strong>0 pts:</strong> Never (all demos require human orchestration)</div>
+                <div class="option">☐ <strong>25 pts:</strong> Rarely (pre-recorded videos only)</div>
+                <div class="option">☐ <strong>50 pts:</strong> Sometimes (limited self-guided sandbox)</div>
+                <div class="option">☐ <strong>75 pts:</strong> Frequently (full self-service portal)</div>
+                <div class="option">☐ <strong>100 pts:</strong> Always (anonymous prospect generation)</div>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>Q14. Can buyers generate personalized demo experiences on-demand without human input?</h3>
+            <div class="options">
+                <div class="option">☐ <strong>0 pts:</strong> No</div>
+                <div class="option">☐ <strong>25 pts:</strong> Limited (generic sandbox access)</div>
+                <div class="option">☐ <strong>50 pts:</strong> Moderate (form-based customization)</div>
+                <div class="option">☐ <strong>75 pts:</strong> Advanced (AI-guided experience generation)</div>
+                <div class="option">☐ <strong>100 pts:</strong> Full autonomy (buyer-initiated hyper-personalization)</div>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>Q15. Can demo experiences adapt in real-time to prospect behavior without manual intervention?</h3>
+            <div class="options">
+                <div class="option">☐ <strong>0 pts:</strong> No (static experiences)</div>
+                <div class="option">☐ <strong>25 pts:</strong> Basic analytics tracking only</div>
+                <div class="option">☐ <strong>50 pts:</strong> Limited behavioral routing</div>
+                <div class="option">☐ <strong>75 pts:</strong> Real-time content adaptation</div>
+                <div class="option">☐ <strong>100 pts:</strong> Autonomous AI orchestration</div>
+            </div>
+        </div>
+
+        <h2 style="margin-top: 0.15in;">Scoring Instructions</h2>
+
+        <p><strong>Step 1:</strong> Calculate the average score for each category (3 questions per category).</p>
+        <p><strong>Step 2:</strong> Apply the weighting to each category average.</p>
+
+        <table style="margin-top: 0.08in;">
+            <thead>
+                <tr>
+                    <th>Capability Dimension</th>
+                    <th style="text-align: center;">Questions</th>
+                    <th style="text-align: center;">Weight</th>
+                    <th style="text-align: center;">Your Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Experience Delivery</td>
+                    <td style="text-align: center;">Q1-Q3</td>
+                    <td style="text-align: center;">25%</td>
+                    <td style="text-align: center;">_______</td>
+                </tr>
+                <tr>
+                    <td>Context Intelligence</td>
+                    <td style="text-align: center;">Q4-Q6</td>
+                    <td style="text-align: center;">25%</td>
+                    <td style="text-align: center;">_______</td>
+                </tr>
+                <tr>
+                    <td>Narrative Integrity</td>
+                    <td style="text-align: center;">Q7-Q9</td>
+                    <td style="text-align: center;">20%</td>
+                    <td style="text-align: center;">_______</td>
+                </tr>
+                <tr>
+                    <td>Orchestration Capability</td>
+                    <td style="text-align: center;">Q10-Q12</td>
+                    <td style="text-align: center;">15%</td>
+                    <td style="text-align: center;">_______</td>
+                </tr>
+                <tr>
+                    <td>Buyer Autonomy</td>
+                    <td style="text-align: center;">Q13-Q15</td>
+                    <td style="text-align: center;">15%</td>
+                    <td style="text-align: center;">_______</td>
+                </tr>
+                <tr style="background: rgba(249, 115, 22, 0.1);">
+                    <td colspan="3"><strong>DEMO INDEX SCORE (0-100)</strong></td>
+                    <td style="text-align: center;"><strong>_______</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 style="margin-top: 0.12in;">Result Interpretation</h2>
+
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.08in; margin-top: 0.08in;">
+            <div class="score-box" style="border-color: var(--di-1); background: rgba(231, 76, 60, 0.05);">
+                <div style="font-weight: bold; color: var(--di-1); margin-bottom: 0.03in;">DI-1</div>
+                <div style="font-size: 0.7rem; color: var(--text-grey);">Score: 0-20</div>
+            </div>
+            <div class="score-box" style="border-color: var(--di-2); background: rgba(243, 156, 18, 0.05);">
+                <div style="font-weight: bold; color: var(--di-2); margin-bottom: 0.03in;">DI-2</div>
+                <div style="font-size: 0.7rem; color: var(--text-grey);">Score: 21-40</div>
+            </div>
+            <div class="score-box" style="border-color: var(--di-3); background: rgba(178, 26, 83, 0.05);">
+                <div style="font-weight: bold; color: var(--di-3); margin-bottom: 0.03in;">DI-3</div>
+                <div style="font-size: 0.7rem; color: var(--text-grey);">Score: 41-60</div>
+            </div>
+            <div class="score-box" style="border-color: var(--green); background: rgba(75, 205, 62, 0.05);">
+                <div style="font-weight: bold; color: var(--green); margin-bottom: 0.03in;">DI-4</div>
+                <div style="font-size: 0.7rem; color: var(--text-grey);">Score: 61-80</div>
+            </div>
+            <div class="score-box" style="border-color: var(--di-5); background: rgba(0, 212, 255, 0.05);">
+                <div style="font-weight: bold; color: var(--di-5); margin-bottom: 0.03in;">DI-5</div>
+                <div style="font-size: 0.7rem; color: var(--text-grey);">Score: 81-100</div>
+            </div>
+        </div>
+
+        <div class="callout" style="margin-top: 0.1in;">
+            <p style="font-size: 0.75rem; margin-bottom: 0;">
+                <strong style="color: var(--orange);">Next Steps:</strong> For detailed capability definitions, scoring methodology, and benchmark roadmap, refer to <em>The Demo Index™ Framework</em> and <em>Methodology Guide</em>. Organizations interested in participating in benchmark cohort research or formal assessment should contact the framework authors.
+            </p>
+        </div>
+        </div>
+
+        <div class="footer">
+            © 2026 | The Demo Index™ Assessment | Page 2 of 2
+        </div>
+    </div>
+
+</body>
+</html>

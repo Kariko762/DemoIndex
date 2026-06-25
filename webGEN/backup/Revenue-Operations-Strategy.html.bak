@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Stage 4 Transformation | Unified Narrative Infrastructure</title>
+    <style>
+        :root {
+            --bg-dark: #090E1B;
+            --bg-darker: #0F1629;
+            --orange: #F97316;
+            --green: #4bcd3e;
+            --raspberry: #B21a53;
+            --text-white: #FFFFFF;
+            --text-grey: #97A3AF;
+            --stage-1: #e74c3c;
+            --stage-2: #f39c12;
+            --stage-3: #B21a53;
+            --stage-4: #4bcd3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            color: var(--text-white);
+            line-height: 1.6;
+            background: var(--bg-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-darker);
+            color: var(--text-white);
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid var(--orange);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100px); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-description {
+            font-size: 1.3rem;
+            font-weight: 300;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0.95;
+            transition: opacity 0.3s ease;
+        }
+
+        .industry-switcher {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem auto;
+            flex-wrap: wrap;
+        }
+
+        .industry-btn {
+            padding: 0.75rem 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .industry-btn:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.5);
+            transform: translateY(-2px);
+        }
+
+        .industry-btn.active {
+            background: var(--orange);
+            color: var(--bg-dark);
+            border-color: var(--orange);
+        }
+
+        .stage-indicator {
+            display: inline-flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stage-dot {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .stage-dot.s1 { background: var(--stage-1); }
+        .stage-dot.s2 { background: var(--stage-2); }
+        .stage-dot.s3 { background: var(--raspberry); }
+        .stage-dot.s4 { 
+            background: var(--green); 
+            transform: scale(1.3);
+            box-shadow: 0 0 30px rgba(75, 205, 62, 0.6);
+        }
+
+        .stage-dot::after {
+            content: '';
+            position: absolute;
+            right: -1rem;
+            width: 1rem;
+            height: 2px;
+            background: rgba(255,255,255,0.4);
+        }
+
+        .stage-dot:last-child::after {
+            display: none;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--orange);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-grey);
+            font-style: italic;
+        }
+
+        /* Maturity Model Table */
+        .maturity-table {
+            background: var(--bg-darker);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .maturity-row {
+            display: grid;
+            grid-template-columns: 150px 1fr 1fr 1fr;
+            border-bottom: 1px solid var(--bg-dark);
+            transition: all 0.3s ease;
+        }
+
+        .maturity-row:hover {
+            background: rgba(249, 115, 22, 0.05);
+            transform: translateX(5px);
+        }
+
+        .maturity-row.header {
+            background: var(--bg-dark);
+            color: var(--text-white);
+            font-weight: 700;
+        }
+
+        .maturity-row.header:hover {
+            transform: none;
+        }
+
+        .maturity-cell {
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .stage-label {
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stage-badge {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .stage-badge.s1 { background: var(--stage-1); }
+        .stage-badge.s2 { background: var(--stage-2); }
+        .stage-badge.s3 { background: var(--stage-3); }
+        .stage-badge.s4 { background: var(--stage-4); }
+
+        /* Problem Section */
+        .problem-section {
+            background: var(--bg-dark);
+        }
+
+        .problem-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .problem-card {
+            background: var(--bg-darker);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--raspberry);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(178, 26, 83, 0.3);
+        }
+
+        .problem-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .problem-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--orange);
+        }
+
+        .problem-description {
+            color: var(--text-grey);
+            line-height: 1.6;
+        }
+
+        /* Solution Pillars */
+        .pillars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .pillar {
+            background: var(--bg-darker);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pillar.core-innovation {
+            border: 3px solid var(--orange);
+            box-shadow: 0 15px 50px rgba(249, 115, 22, 0.3);
+            transform: scale(1.05);
+        }
+
+        .pillar.core-innovation .pillar-number {
+            background: var(--orange);
+            box-shadow: 0 5px 20px rgba(249, 115, 22, 0.4);
+        }
+
+        .pillar.core-innovation::after {
+            content: 'CORE INNOVATION';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--orange);
+            color: var(--bg-dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .pillar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--orange);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .pillar:hover::before {
+            transform: scaleX(1);
+        }
+
+        .pillar:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(249, 115, 22, 0.2);
+        }
+
+        .pillar-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--orange);
+            color: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+        }
+
+        .pillar-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-white);
+        }
+
+        .pillar-description {
+            color: var(--text-grey);
+            line-height: 1.7;
+        }
+
+        /* Workflow Timeline */
+        .workflow {
+            background: var(--bg-dark);
+        }
+
+        .workflow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 3rem;
+            position: relative;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .workflow-steps::before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: var(--green);
+            z-index: 0;
+        }
+
+        .workflow-step {
+            flex: 1;
+            min-width: 250px;
+            background: var(--bg-darker);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .workflow-step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--green);
+            color: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .workflow-step-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-white);
+        }
+
+        .workflow-step-description {
+            color: var(--text-grey);
+            font-size: 0.95rem;
+        }
+
+        /* Impact Metrics */
+        .impact-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .metric-card {
+            background: var(--bg-darker);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            text-align: center;
+            border-top: 5px solid var(--green);
+        }
+
+        .metric-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--green);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-white);
+            margin-bottom: 1rem;
+        }
+
+        .metric-description {
+            color: var(--text-grey);
+            font-size: 0.95rem;
+        }
+
+        /* Architecture Section */
+        .architecture-section {
+            background: var(--bg-dark);
+        }
+
+        .architecture-diagram {
+            background: var(--bg-darker);
+            border-radius: 12px;
+            padding: 3rem;
+            max-width: 800px;
+            margin: 3rem auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            border: 2px solid var(--orange);
+        }
+
+        .arch-layer {
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--orange);
+            background: rgba(249, 115, 22, 0.08);
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .arch-layer::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -1rem;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid rgba(249, 115, 22, 0.08);
+        }
+
+        .arch-layer:last-child::before {
+            display: none;
+        }
+
+        .arch-layer-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--orange);
+        }
+
+        .arch-layer-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .arch-item {
+            background: var(--bg-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            text-align: center;
+            border: 1px solid var(--orange);
+            color: var(--text-grey);
+        }
+
+        /* Behavioral Section */
+        .behavioral-section {
+            background: var(--bg-dark);
+        }
+
+        .behavioral-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+            align-items: center;
+        }
+
+        .behavioral-visual {
+            background: var(--bg-darker);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .path-diagram {
+            position: relative;
+            height: 300px;
+        }
+
+        .path-node {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: var(--orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-dark);
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 0.5rem;
+            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
+        }
+
+        .path-line {
+            position: absolute;
+            height: 2px;
+            background: var(--text-grey);
+            opacity: 0.3;
+        }
+
+        /* Analytics Section */
+        .analytics-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .analytics-card {
+            background: var(--bg-darker);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .analytics-card.old {
+            border-top: 4px solid var(--raspberry);
+        }
+
+        .analytics-card.new {
+            border-top: 4px solid var(--green);
+        }
+
+        .analytics-title {
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-white);
+        }
+
+        .analytics-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .analytics-list li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            line-height: 1.6;
+            color: var(--text-grey);
+        }
+
+        .analytics-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+            color: var(--text-grey);
+        }
+
+        .analytics-card.new .analytics-list li::before {
+            content: '✓';
+            color: var(--green);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--bg-darker);
+            color: var(--text-white);
+            text-align: center;
+            padding: 6rem 2rem;
+            border-top: 3px solid var(--orange);
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--orange);
+        }
+
+        .cta-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--text-grey);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--orange);
+            color: var(--bg-dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(249, 115, 22, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.5);
+            background: var(--green);
+        }
+
+        /* Quote Section */
+        .quote-section {
+            background: var(--bg-darker);
+            color: var(--text-white);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 2px solid var(--orange);
+            border-bottom: 2px solid var(--orange);
+        }
+
+        .quote-text {
+            font-size: 1.8rem;
+            font-weight: 300;
+            font-style: italic;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.6;
+            color: var(--text-white);
+        }
+
+        .quote-author {
+            margin-top: 2rem;
+            font-size: 1.1rem;
+            color: var(--text-grey);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .maturity-row {
+                grid-template-columns: 1fr;
+            }
+
+            .maturity-cell {
+                border-bottom: 1px solid var(--bg-dark);
+            }
+
+            .workflow-steps::before {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Comparison Split */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .comparison-side {
+            padding: 2rem;
+            border-radius: 12px;
+            background: var(--bg-darker);
+        }
+
+        .comparison-side.before {
+            border: 2px solid var(--raspberry);
+        }
+
+        .comparison-side.after {
+            border: 2px solid var(--green);
+        }
+
+        .comparison-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: var(--text-white);
+        }
+
+        .comparison-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .comparison-list li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--text-grey);
+        }
+
+        .comparison-list li::before {
+            content: '✗';
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+            color: var(--raspberry);
+        }
+
+        .comparison-side.after .comparison-list li::before {
+            content: '✓';
+            color: var(--green);
+        }
+
+        @media (max-width: 768px) {
+            .comparison {
+            
+            .behavioral-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .analytics-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Demo Callout */
+        .stage4-demo {
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid var(--orange);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .maturity-row {
+                grid-template-columns: 1fr;
+            }
+
+            .maturity-cell {
+                border-bottom: 1px solid var(--bg-dark);
+            }
+
+            .workflow-steps::before {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .behavioral-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .analytics-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+        .global-nav-wrap {
+            width: min(calc(100% - 32px), 1460px);
+            margin: 16px auto 0;
+            position: sticky;
+            top: 14px;
+            z-index: 40;
+        }
+
+        .global-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 16px 22px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            background: rgba(9, 14, 27, 0.78);
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+            backdrop-filter: blur(18px);
+        }
+
+        .global-brand {
+            display: grid;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+
+        .global-brand-mark,
+        .global-brand-title,
+        .global-links a {
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+        }
+
+        .global-brand-mark {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--green);
+        }
+
+        .global-brand-title {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--text-white);
+        }
+
+        .global-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .global-links a {
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.78);
+            font-size: 0.86rem;
+            transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+        }
+
+        .global-links a:hover,
+        .global-links a:focus-visible,
+        .global-links a[aria-current="page"] {
+            background: rgba(249, 115, 22, 0.16);
+            color: var(--text-white);
+            transform: translateY(-1px);
+            outline: none;
+        }
+
+        .story-banner {
+            width: min(calc(100% - 48px), 1460px);
+            margin: 18px auto 0;
+            padding: 16px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            background: rgba(15, 22, 41, 0.78);
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+            color: rgba(255, 255, 255, 0.82);
+        }
+
+        .story-banner strong,
+        .story-banner a {
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+        }
+
+        .story-banner strong {
+            color: var(--orange);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 0.76rem;
+        }
+
+        .story-banner a {
+            color: var(--green);
+        }
+
+        @media (max-width: 900px) {
+            .story-banner {
+                width: min(calc(100% - 28px), 1460px);
+            }
+
+            .global-nav {
+                flex-direction: column;
+                align-items: stretch;
+                border-radius: 24px;
+            }
+
+            .global-links {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="global-nav-wrap">
+        <nav class="global-nav" aria-label="Document navigation">
+            <a class="global-brand" href="index.html">
+                <span class="global-brand-mark">Stage 4 Narrative Infrastructure</span>
+                <span class="global-brand-title">Content Hub</span>
+            </a>
+            <div class="global-links">
+                <a href="index.html">Hub</a>
+                <a href="ExecutiveSummary-Condensed.html">Condensed Brief</a>
+                <a href="ExecutiveSummary.html">Full Summary</a>
+                <a href="Stage-4-5-Technical-Glossary.html">Glossary</a>
+                <a href="User-Journey-Experience-Workflow.html">Workflow</a>
+                <a href="narrative-orchestration-glossary.html">Exec Glossary</a>
+                <a href="Revenue-Operations-Infographic.html">Infographic</a>
+                <a href="Revenue-Operations-Strategy.html">Strategy</a>
+                <a href="Stage-4-in-practice.html">In Practice</a>
+            </div>
+        </nav>
+    </div>
+    <script>
+        (function () {
+            var path = window.location.pathname.split('/').pop() || 'index.html';
+            var links = document.querySelectorAll('.global-links a');
+            for (var i = 0; i < links.length; i += 1) {
+                if (links[i].getAttribute('href') === path) {
+                    links[i].setAttribute('aria-current', 'page');
+                }
+            }
+        }());
+    </script>
+    <div class="story-banner">
+        <strong>Story Position</strong> This page works best as a contextual extension after the main Stage 4 story is already understood. Use it after <a href="Stage-4-in-practice.html">Stage 4 in practice</a> when you want a broader strategic adaptation layer.
+    </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-subtitle">For Financial Technology Leaders</div>
+            <h1 class="hero-title">From Asset Delivery to<br/>Unified Narrative Infrastructure</h1>
+            <p class="hero-description">
+                This extension page applies the Stage 4 model to industry context. It focuses on how adaptive narrative infrastructure can preserve buyer context, confidence, and governance requirements once the core collection story is already understood.
+            </p>
+            
+            <div class="industry-switcher">
+                <button class="industry-btn active" data-industry="fintech">FinTech</button>
+                <button class="industry-btn" data-industry="healthcare">Healthcare</button>
+                <button class="industry-btn" data-industry="saas">Enterprise SaaS</button>
+            </div>
+            
+            <div class="stage-indicator">
+                <div class="stage-dot s1">1</div>
+                <div class="stage-dot s2">2</div>
+                <div class="stage-dot s3">3</div>
+                <div class="stage-dot s4">4</div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="white">
+                <path d="M15 3L15 20M15 20L10 15M15 20L20 15" stroke="white" stroke-width="2" fill="none"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Maturity Model Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">The Maturity Shift</h2>
+                <p class="section-subtitle">The Evolution of Pre-Sales and Demo Operations</p>
+            </div>
+            
+            <div class="maturity-table">
+                <div class="maturity-row header">
+                    <div class="maturity-cell">Stage</div>
+                    <div class="maturity-cell">Infrastructure</div>
+                    <div class="maturity-cell">Methodology</div>
+                    <div class="maturity-cell">The Critical Weakness</div>
+                </div>
+                
+                <div class="maturity-row">
+                    <div class="maturity-cell">
+                        <div class="stage-label">
+                            <span class="stage-badge s1"></span>
+                            Stage 1: Manual
+                        </div>
+                    </div>
+                    <div class="maturity-cell">Live "Golden" Instances</div>
+                    <div class="maturity-cell">SEs manually reset data for every call</div>
+                    <div class="maturity-cell"><strong>High Friction:</strong> High headcount cost; prone to live bugs</div>
+                </div>
+                
+                <div class="maturity-row">
+                    <div class="maturity-cell">
+                        <div class="stage-label">
+                            <span class="stage-badge s2"></span>
+                            Stage 2: Capture
+                        </div>
+                    </div>
+                    <div class="maturity-cell">Static HTML Clones</div>
+                    <div class="maturity-cell">"Click-through" tours for website traffic</div>
+                    <div class="maturity-cell"><strong>Generic:</strong> One-size-fits-all; lacks human connection</div>
+                </div>
+                
+                <div class="maturity-row">
+                    <div class="maturity-cell">
+                        <div class="stage-label">
+                            <span class="stage-badge s3"></span>
+                            Stage 3: Distributed
+                        </div>
+                    </div>
+                    <div class="maturity-cell">Multiple AI/Demo Point Solutions</div>
+                    <div class="maturity-cell">AI videos and interactive demos sent as separate links</div>
+                    <div class="maturity-cell"><strong>The Context Gap:</strong> Prospects "go off the rails"; no narrative control</div>
+                </div>
+                
+                <div class="maturity-row">
+                    <div class="maturity-cell">
+                        <div class="stage-label">
+                            <span class="stage-badge s4"></span>
+                            Stage 4: Orchestrated
+                        </div>
+                    </div>
+                    <div class="maturity-cell"><strong>Unified Narrative Infrastructure</strong></div>
+                    <div class="maturity-cell">Human-led orchestration with system-level execution; governed exploration pathways maintain narrative integrity</div>
+                    <div class="maturity-cell"><strong>None:</strong> Strategic intelligence meets scalable execution</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section problem-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">The Stage 3 Failure Mode</h2>
+                <p class="section-subtitle">Why distributed assets fail harder in complex, trust-sensitive buying environments</p>
+            </div>
+            
+            <div class="problem-cards">
+                <div class="problem-card">
+                    <div class="problem-icon">🔀</div>
+                    <h3 class="problem-title">Nonlinear Chaos</h3>
+                    <p class="problem-description">
+                        Stakeholders jump from executive framing to technical detail without the transition logic needed to preserve confidence, relevance, and momentum.
+                    </p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-icon">🔄</div>
+                    <h3 class="problem-title">The Re-Learning Tax</h3>
+                    <p class="problem-description">
+                        Every mismatch between channels, data views, or message layers forces the buying group to reassemble context and increases evaluation friction.
+                    </p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-icon">🎯</div>
+                    <h3 class="problem-title">Loss of Control</h3>
+                    <p class="problem-description">
+                        In regulated or high-consideration evaluation, losing the "why" also means losing confidence in the journey, not just the product message.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nonlinear Buyer Behavior Section -->
+    <section class="section behavioral-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Linear Delivery Breaks</h2>
+                <p class="section-subtitle">Why traditional demo flows fail when multiple stakeholders evaluate on their own terms</p>
+            </div>
+            
+            <div class="behavioral-grid">
+                <div>
+                    <p style="font-size: 1.15rem; line-height: 1.8; color: var(--text-white); margin-bottom: 1.5rem;">Complex buying groups do not move as one audience or in one sequence.</p>
+                    <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-grey);">An executive may start with strategic value, a technical evaluator may jump directly to integrations or security, and an operations lead may care first about workflow impact. Linear delivery breaks because the system cannot preserve the narrative across those shifts.</p>
+                    <p style="font-size: 1.15rem; line-height: 1.8; color: var(--green); margin-top: 1.5rem;">Stage 4 infrastructure exists to keep that multi-stakeholder movement coherent.</p>
+                </div>
+                
+                <div class="behavioral-visual">
+                    <h3 style="text-align: center; margin-bottom: 2rem; color: var(--text-white);">Actual Buyer Journey Paths</h3>
+                    <div class="path-diagram">
+                        <div class="path-node" style="top: 10%; left: 10%;">Executive Overview</div>
+                        <div class="path-node" style="top: 50%; left: 5%;">Integrations</div>
+                        <div class="path-node" style="top: 10%; right: 10%;">Pricing</div>
+                        <div class="path-node" style="top: 50%; right: 5%;">Security</div>
+                        <div class="path-node" style="bottom: 10%; left: 35%;">Analytics</div>
+                        
+                        <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+                            <path d="M 100 50 Q 150 150 100 200" stroke="#7f8c8d" stroke-width="2" fill="none" opacity="0.3" stroke-dasharray="5,5"/>
+                            <path d="M 100 50 Q 250 50 350 50" stroke="#7f8c8d" stroke-width="2" fill="none" opacity="0.3" stroke-dasharray="5,5"/>
+                            <path d="M 350 50 L 350 150" stroke="#7f8c8d" stroke-width="2" fill="none" opacity="0.3" stroke-dasharray="5,5"/>
+                            <path d="M 100 200 Q 200 220 270 220" stroke="#7f8c8d" stroke-width="2" fill="none" opacity="0.3" stroke-dasharray="5,5"/>
+                        </svg>
+                    </div>
+                    <p style="text-align: center; margin-top: 1rem; color: var(--text-grey); font-size: 0.9rem;">
+                        No two buyers follow the same sequence
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">The Stage 4 Response</h2>
+                <p class="section-subtitle">The core model, adapted for environments where trust, context, and governance matter more</p>
+            </div>
+            
+            <div class="pillars">
+                <div class="pillar">
+                    <div class="pillar-number">1</div>
+                    <h3 class="pillar-title">Dynamic UI Engine</h3>
+                    <p class="pillar-description">
+                        Personalization still matters here, but it has to remain controlled. Context, terminology, and proof points adapt without forcing the team into manual rebuilds.
+                    </p>
+                </div>
+                
+                <div class="pillar">
+                    <div class="pillar-number">2</div>
+                    <h3 class="pillar-title">Persistent Guidance Layer</h3>
+                    <p class="pillar-description">
+                        Guidance becomes a confidence layer as much as a content layer, helping different stakeholders understand relevance, implications, and next steps as they explore.
+                    </p>
+                </div>
+                
+                <div class="pillar core-innovation">
+                    <div class="pillar-number">3</div>
+                    <h3 class="pillar-title">Structured Branching Logic</h3>
+                    <p class="pillar-description">
+                        Governed branching matters more when the journey must preserve accuracy, control, and message integrity across multiple stakeholder routes.
+                        <strong>Human-guided strategy. System-level delivery.</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Unified Narrative Infrastructure Section -->
+    <section class="section architecture-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">The Stage 4 Architecture</h2>
+                <p class="section-subtitle">Why the architecture matters more when buyer trust and governance are part of the sale</p>
+            </div>
+            
+            <div style="max-width: 900px; margin: 0 auto 3rem;">
+                <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-grey); text-align: center; margin-bottom: 2rem;">In this context, the architecture is not only about better orchestration. It is about maintaining relevance, confidence, and controlled progression as different stakeholders move across the journey in different ways.</p>
+                <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-grey); text-align: center;">That is why Stage 4 must behave like connected infrastructure instead of a stack of isolated experience assets.</p>
+            </div>
+            
+            <div class="architecture-diagram">
+                <div class="arch-layer">
+                    <div class="arch-layer-title">CRM & Intent Data</div>
+                    <p style="color: var(--text-grey); font-size: 0.95rem;">Company profile, industry, pain points, stakeholder roles</p>
+                </div>
+                
+                <div class="arch-layer">
+                    <div class="arch-layer-title">🧠 Unified Narrative Infrastructure</div>
+                    <div class="arch-layer-items">
+                        <div class="arch-item">Context Memory</div>
+                        <div class="arch-item">Buyer Intent Tracking</div>
+                        <div class="arch-item">Persistent Guidance</div>
+                        <div class="arch-item">UI Personalization</div>
+                        <div class="arch-item">Narrative Recovery</div>
+                        <div class="arch-item">Journey Analytics</div>
+                    </div>
+                </div>
+                
+                <div class="arch-layer" style="border-left-color: var(--green);">
+                    <div class="arch-layer-title">Presentation Layer</div>
+                    <p style="color: var(--text-grey); font-size: 0.95rem;">Buyer-facing Seismic microsite, Coast.io portal, or custom app with single URL, persistent context, and governed exploration pathways</p>
+                </div>
+            </div>
+            
+            <p style="text-align: center; margin-top: 2rem; font-size: 1.1rem; color: var(--text-white);">The strategic point is not just orchestration. It is controlled orchestration that preserves confidence as the buyer journey becomes more self-directed.</p>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="section" style="background: var(--bg-dark);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Stage 3 Versus Stage 4</h2>
+            </div>
+            
+            <div class="comparison">
+                <div class="comparison-side before">
+                    <h3 class="comparison-title">Stage 3: Distributed Assets</h3>
+                    <ul class="comparison-list">
+                        <li>Separate video link + demo link</li>
+                        <li>Generic data in both environments</li>
+                        <li>Prospect navigates blindly</li>
+                        <li>No context continuity</li>
+                        <li>SE spends hours prepping</li>
+                        <li>Lost prospects, no tracking</li>
+                        <li>Value prop gets buried</li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-side after">
+                    <h3 class="comparison-title">Stage 4: Unified Narrative Infrastructure</h3>
+                    <ul class="comparison-list">
+                        <li>Single unified experience URL</li>
+                        <li>CRM data injected automatically</li>
+                        <li>Persistent guidance provides context everywhere</li>
+                        <li>Narrative flows seamlessly</li>
+                        <li>Zero-touch generation</li>
+                        <li>Full journey intelligence</li>
+                        <li>Value prop reinforced at every step</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Metrics Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">RevOps Impact</h2>
+                <p class="section-subtitle">Quantifiable Transformation Outcomes</p>
+            </div>
+            
+            <div class="impact-metrics">
+                <div class="metric-card">
+                    <div class="metric-value">95%</div>
+                    <div class="metric-label">Reduction in Prep Time</div>
+                    <p class="metric-description">
+                        SEs become Experience Architects, not data cleaners.
+                        Deliver 1,000 bespoke experiences with the effort of one.
+                    </p>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-value">3X</div>
+                    <div class="metric-label">Conversion Rate Increase</div>
+                    <p class="metric-description">
+                        Governed exploration pathways keep prospects on the winning path.
+                        Persistent guidance maintains value proposition coherence.
+                    </p>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-value">100%</div>
+                    <div class="metric-label">Full-Funnel Intelligence</div>
+                    <p class="metric-description">
+                        Track narrative progression. Identify where buyer understanding accelerated,
+                        where narrative confidence weakened, and which contextual pathways produced strongest engagement.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Narrative Analytics Section -->
+    <section class="section" style="background: var(--bg-dark);">
+        <div class="container">
+            <div class="section-header">
+                <This is not about better demos. It's about <strong>Buyer Journey Orchestration</strong> — 
+                where the UI, the Data, and the Guidance work together to maintain narrative continuity 
+                regardless of how the prospect explores."
+            </blockquote>
+            <div class="quote-author">— The Shift from Tools to Infrastructur
+            <div class="analytics-comparison">
+                <div class="analytics-card old">
+                    <h3 class="analytics-title">Stage 3 Analytics</h3>
+                    <ul class="analytics-list">
+                        <li>Did they click "Integrations"?</li>
+                        <li>How long did they watch the video?</li>
+                        <li>Did they scroll to pricing?</li>
+                        <li>Time on page metrics</li>
+                        <li>Heatmaps of cursor movement</li>
+                    </ul>
+                    <p style="margin-top: 1.5rem; color: var(--text-grey); font-style: italic;">
+                        Measures activity, not understanding
+                    </p>
+                </div>
+                
+           Industry Switcher - Demonstrate Stage 4 personalization
+        const industryData = {
+            fintech: {
+                subtitle: "For Financial Technology Leaders",
+                description: "The definitive roadmap for moving beyond disconnected demos and into <strong>Unified Narrative Infrastructure</strong> where humans define the strategy and systems operationalize compliance, context, and buyer confidence at scale"
+            },
+            healthcare: {
+                subtitle: "For Healthcare Technology Leaders",
+                description: "The definitive roadmap for moving beyond disconnected demos and into <strong>Unified Narrative Infrastructure</strong> where humans define the strategy and systems operationalize compliance, stakeholder alignment, and contextual continuity at scale"
+            },
+            saas: {
+                subtitle: "For Enterprise SaaS Leaders",
+                description: "The definitive roadmap for moving beyond disconnected demos and into <strong>Unified Narrative Infrastructure</strong> where humans define the strategy and systems operationalize personalization, guidance, and buyer engagement at scale"
+            }
+        };
+
+        document.querySelectorAll('.industry-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Update active state
+                document.querySelectorAll('.industry-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Get industry
+                const industry = this.dataset.industry;
+                const data = industryData[industry];
+                
+                // Update content with smooth transition
+                const subtitle = document.querySelector('.hero-subtitle');
+                const description = document.querySelector('.hero-description');
+                
+                subtitle.style.opacity = '0';
+                description.style.opacity = '0';
+                
+                setTimeout(() => {
+                    subtitle.textContent = data.subtitle;
+                    description.innerHTML = data.description;
+                    subtitle.style.opacity = '0.9';
+                    description.style.opacity = '0.95';
+                }, 300);
+            });
+        });
+
+        // Simple scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

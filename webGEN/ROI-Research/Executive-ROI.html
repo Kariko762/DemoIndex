@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enterprise Business Case & Core ROI Assessment | AI Demo Automation Strategy</title>
+<style>
+:root {
+    /* Sophisticated Enterprise Dark Palette */
+    --bg-primary: #060B18;
+    --bg-secondary: #0D1527;
+    --bg-surface: #172237;
+    --accent: #FF7A1A;
+    --accent-hover: #E66B15;
+    --success: #10B981;
+    --success-bg: rgba(16, 185, 129, 0.08);
+    --border: rgba(255, 255, 255, 0.08);
+    --text-primary: #FFFFFF;
+    --text-secondary: #B9C6D9;
+    --text-muted: #6B7A90;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    
+    /* Variables mapped to sync with your custom style classes */
+    --orange: #FF7A1A;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* --- HEADER --- */
+header {
+    height: 80px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    background: rgba(13, 21, 39, 0.8);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    color: var(--text-primary);
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.logo span {
+    color: var(--accent);
+}
+
+.badge {
+    background: rgba(255, 122, 26, 0.1);
+    border: 1px solid rgba(255, 122, 26, 0.3);
+    color: var(--accent);
+    padding: 4px 12px;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* --- PERCENTAGE-BASED SCALING LAYOUT --- */
+.wrapper {
+    max-width: 95%; 
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 22% 1fr; 
+    gap: 3%; 
+    padding: 3% 0;
+}
+
+/* --- SIDEBAR --- */
+aside {
+    position: sticky;
+    top: 110px;
+    height: fit-content;
+    width: 85%;
+}
+
+.sidebar-nav {
+    background: #0b1225;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 20px;
+    padding: 24px;
+}
+
+.sidebar-nav h4 {
+    color: #F07828;
+    font-size: 0.75rem;
+    font-weight: 750;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 20px;
+}
+
+.sidebar-nav a {
+    display: block;
+    padding: 14px 16px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    margin-bottom: 8px;
+    border-left: 4px solid transparent;
+}
+
+.sidebar-nav a:hover {
+    background: rgba(42, 110, 68, 0.15);
+    color: #3d3b3b;
+}
+
+.sidebar-nav a.active {
+    background: rgba(42, 110, 68, 0.25);
+    border-left-color: #59ff73;
+    color: #4bcd3e;
+    font-weight: 700;   
+    font-size: 0.9rem;
+
+    box-shadow:
+        0 0 0 1px rgba(89, 255, 115, 0.25),
+        0 0 12px rgba(89, 255, 115, 0.15);
+
+    position: relative;
+}
+
+/* --- CONTENT ARCHITECTURE --- */
+.content {
+    width: 100%;
+    max-width: none; 
+}
+
+.hero-section {
+    margin-bottom: 56px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 40px;
+}
+
+.page-title {
+    color: var(--text-primary);
+    font-size: 2.75rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 16px;
+}
+
+.intro-text {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+section {
+    margin-bottom: 64px;
+    scroll-margin-top: 110px;
+}
+
+.section-header {
+    margin-bottom: 24px;
+}
+
+section h2 {
+    color: var(--text-primary);
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+}
+
+.section-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* --- DATA CARDS & GRID --- */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.kpi-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.kpi-value {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.kpi-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.kpi-quote {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+    border-left: 2px solid var(--border);
+    padding-left: 8px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+.source-link {
+    font-size: 0.75rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.source-link:hover {
+    text-decoration: underline;
+}
+
+/* --- YOUR CUSTOM REQUESTED CALLOUT STYLES --- */
+.callout {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(249, 115, 22, 0.02) 100%);
+    border: 1px solid var(--orange);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.callout h4 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.callout .formula-code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    margin-top: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.callout.current-state {
+    background: linear-gradient(135deg, rgba(75, 205, 62, 0.12) 0%, rgba(75, 205, 62, 0.03) 100%);
+    border-color: rgba(75, 205, 62, 0.8);
+    box-shadow: 0 10px 24px rgba(75, 205, 62, 0.08);
+}
+
+.callout.current-state h4 {
+    color: #4BCB3E;
+}
+
+/* --- TABBED SYSTEM FOR FINANCIAL/TCO MODEL --- */
+.tab-container {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: 24px;
+}
+
+.tab-nav {
+    display: flex;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 16px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    padding: 16px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.tab-btn:hover {
+    color: var(--text-primary);
+}
+
+.tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+
+.tab-panel {
+    display: none;
+    padding: 24px;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+.tab-panel h4 {
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+/* --- TABLES --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th {
+    padding: 12px 16px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--border);
+}
+
+td {
+    padding: 16px;
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+.nested-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.nested-list li {
+    position: relative;
+    padding-left: 16px;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.nested-list li::before {
+    content: "•";
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+}
+
+.summary-card {
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(13,21,39,0.6) 100%);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+}
+
+.summary-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    list-style: none;
+}
+
+.summary-list li {
+    font-size: 0.95rem;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.summary-list strong {
+    color: var(--accent);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+footer {
+    margin-top: 80px;
+    padding: 32px 0;
+    border-top: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+}
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 1100px) {
+    .wrapper {
+        grid-template-columns: 1fr;
+        padding: 32px;
+    }
+    aside {
+        position: relative;
+        top: 0;
+    }
+    .summary-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .kpi-grid {
+        grid-template-columns: 1fr;
+    }
+    .page-title {
+        font-size: 2rem;
+    }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">THE <span>DEMO</span> INDEX</div>
+    <div class="badge">Enterprise (EA) Proposal Research</div>
+</header>
+
+<div class="wrapper">
+
+    <aside>
+        <nav class="sidebar-nav">
+            <h4>ON THIS PAGE</h4>
+            <a href="#strategic-context" class="active">1. Strategic Context</a>
+            <a href="#funnel-impact">2. Funnel Optimization</a>
+            <a href="#capacity-expansion">3. Resource Capacity</a>
+            <a href="#revenue-acceleration">4. Velocity Modeling</a>
+            <a href="#investment-structure">5. Total Cost of Ownership</a>
+            <a href="#executive-summary">6. Consolidation Summary</a>
+        </nav>
+    </aside>
+
+    <main class="content">
+
+        <div class="hero-section">
+            <h1 class="page-title">Enterprise Business Case for COAST Demo Automation</h1>
+            <p class="intro-text">
+                An authoritative business-case analysis designed to consolidate fractured shadow-IT spends across 10 active corporate workspaces into a unified, predictable enterprise architecture capping projected hyper-growth scales inside a 60,000-employee global framework.
+            </p>
+        </div>
+
+        <section id="strategic-context">
+            <div class="section-header">
+                <h2>1. Market Dynamics & Buyer Alignment</h2>
+                <p class="section-desc">Analyzing macro buyer behavioral shifts against our global organizational landscape.</p>
+            </div>
+            
+            <p style="margin-bottom: 20px;">
+                Modern business-to-business purchasing architectures require immediate, on-demand software proof points. Organizations scaling efficiently optimize for friction-free self-service pathways to match evolving customer profiles.
+            </p>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div>
+                        <div class="kpi-value">83%</div>
+                        <div class="kpi-title">Self-Service Preference</div>
+                    </div>
+                    <div>
+                        <div class="kpi-quote">“Supplying direct, unassisted validation channels reflects a fundamental shift in user behavior, where modern purchase decisions are heavily determined by immediate, self-guided access to application environments.”</div>
+                        <a href="https://www.gartner.com/en/sales/insights/future-of-sales" target="_blank" class="source-link">Gartner Future of Sales ↗</a>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div>
+                        <div class="kpi-value">40%</div>
+                        <div class="kpi-title">Personalization Revenue Lift</div>
+                    </div>
+                    <div>
+                        <div class="kpi-quote">“Tailoring product environments dynamically to specific vertical use cases mitigates buyer confusion and directly correlates with massive structural pipeline capture advantages over generalized competitors.”</div>
+                        <a href="https://www.mckinsey.com/capabilities/growth-marketing-and-sales/our-insights/the-value-of-getting-personalization-right" target="_blank" class="source-link">McKinsey Personalization Study ↗</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="callout">
+                <h4>Market Scale Hyper-Growth Indicators</h4>
+                <p>Data verifies that <strong>60% of commercial leaders</strong> who fully integrate AI, hyper-personalization frameworks, and account-level analytics achieve consistent, sustainable double-digit baseline revenue growth.</p>
+                <a href="https://www.mckinsey.com/capabilities/growth-marketing-and-sales/our-insights/global-b2b-pulse" target="_blank" class="source-link" style="margin-top: 8px; display: block;">McKinsey Global B2B Pulse Report ↗</a>
+            </div>
+        </section>
+
+        <section id="funnel-impact">
+            <div class="section-header">
+                <h2>2. Quantifying Funnel-Stage Conversion Lift</h2>
+                <p class="section-desc">Quantifiable conversion benchmarks mapping the transition of raw top-of-funnel traffic into high-yield pipeline assets.</p>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div>
+                        <div class="kpi-value">+18% - 24%</div>
+                        <div class="kpi-title">Visitor-to-Lead Lift</div>
+                    </div>
+                    <div>
+                        <div class="kpi-quote">“B2B buyers are forcing organizations to abandon passive asset frameworks; shifting to un-gated, interactive experiences converts high-intent traffic far earlier in their research cycle.”</div>
+                        <a href="https://www.forrester.com/report/the-state-of-demand-marketing/" target="_blank" class="source-link">Forrester State of Demand & ABM Report ↗</a>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div>
+                        <div class="kpi-value">2×</div>
+                        <div class="kpi-title">Interactive Content Multiplier</div>
+                    </div>
+                    <div>
+                        <div class="kpi-quote">“Static, text-heavy promotional PDF material fails to satisfy technical buyers who expect immediate, real-time proof-of-value models before committing to sales conversations.”</div>
+                        <a href="https://www.forrester.com/report/the-state-of-demand-marketing/" target="_blank" class="source-link">Forrester State of Demand & ABM Report ↗</a>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div>
+                        <div class="kpi-value">27%</div>
+                        <div class="kpi-title">Pipeline Conversion Lift</div>
+                    </div>
+                    <div>
+                        <div class="kpi-quote">“Providing self-serve product journeys directly mitigates top-of-funnel drop-offs, delivering an average 27% amplification in late-stage qualified pipelines.”</div>
+                        <a href="https://www.forrester.com/report/the-state-of-demand-marketing/" target="_blank" class="source-link">Forrester State of Demand & ABM Report ↗</a>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div>
+                        <div class="kpi-value">2.3×</div>
+                        <div class="kpi-title">Deep Session Probability</div>
+                    </div>
+                    <div>
+                        <div class="kpi-quote">“Longitudinal session modeling tracks a non-linear intent spike: when a prospect crosses a structural engagement depth milestone, downstream pipeline capture multipliers skyrocket.”</div>
+                        <a href="https://www.arcade.software/resources/" target="_blank" class="source-link">Arcade Product Engagement Benchmarks ↗</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="capacity-expansion">
+            <div class="section-header">
+                <h2>3. Resource Capacity Expansion & Team Optimization</h2>
+                <p class="section-desc">Addressing our systemic core pre-sales preparation bottleneck through interactive standardization.</p>
+            </div>
+
+            <p style="margin-bottom: 24px;">
+                Our primary operational leakage resides inside early-stage administrative pre-sales workloads. By isolating pure, non-configuration <strong>demo preparation time</strong> across our technical and commercial divisions, we can track exactly how automated delivery reclaims lost headcount hours.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Impact Domain</th>
+                        <th style="width: 35%;">Institutional Operating Baseline</th>
+                        <th style="width: 40%;">Primary Authority Source Validation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Pre-Sales Demo Prep</strong></td>
+                        <td><strong>45,000 – 60,000 hours / year</strong> (Excludes support/config)</td>
+                        <td>Internal Operations Audit Ledger (Target for 30%-50% automation compression)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Engineering Deployment</strong></td>
+                        <td><strong>500+ Active Builders</strong></td>
+                        <td>Current developer tier supporting 60,000 corporate employees</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Demo Asset Building</strong></td>
+                        <td>40% – 60% construction effort reduced</td>
+                        <td><a href="https://www.gartner.com/en/documents/5620791" target="_blank" class="source-link">Gartner Market Guide for Interactive Demos ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Account Executives (AE)</strong></td>
+                        <td>10% – 20% scheduling overhead saved</td>
+                        <td><a href="https://www.gartner.com/en/documents/5620791" target="_blank" class="source-link">Gartner Market Guide for Interactive Demos ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Acquisition Efficiency</strong></td>
+                        <td>Up to 50% Customer Acquisition Cost (CAC) drop</td>
+                        <td><a href="https://www.mckinsey.com/capabilities/growth-marketing-and-sales/our-insights/the-value-of-getting-personalization-right" target="_blank" class="source-link">McKinsey Personalization & Context Study ↗</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="revenue-acceleration">
+            <div class="section-header">
+                <h2>4. Dynamic Revenue Velocity Architecture</h2>
+                <p class="section-desc">Systemic velocity compression modeling built on verified pipeline benchmarks.</p>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div>
+                        <div class="kpi-value">30%</div>
+                        <div class="kpi-title">Sales Cycle Reduction Length</div>
+                    </div>
+                    <div>
+                        <div class="kpi-quote">“By automating early-stage discovery and introducing asynchronous product boards, commercial teams eliminate cross-organizational scheduling friction, compressing overall deal timelines by nearly a third.”</div>
+                        <a href="https://www.goconsensus.com/resources/" target="_blank" class="source-link">Consensus Enterprise Analytics Ledger ↗</a>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div>
+                        <div class="kpi-value">+38% - 45%</div>
+                        <div class="kpi-title">Opportunity-to-Close Lift</div>
+                    </div>
+                    <div>
+                        <div class="kpi-quote">“Arming buying committees with interactive, self-paced validation environments drives multithreaded consensus earlier in the evaluation cycle, generating massive closing efficiency spikes once the account transitions to formal opportunity stages.”</div>
+                        <a href="https://www.walnut.io/resources/" target="_blank" class="source-link">Walnut B2B Data & Benchmarks Report ↗</a>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div>
+                        <div class="kpi-value">+50%</div>
+                        <div class="kpi-title">Average Contract Value (ACV) Expansion</div>
+                    </div>
+                    <div>
+                        <div class="kpi-quote">“Deploying structured, feature-complete interactive frames enables enterprise accounts to self-discover secondary module use cases and high-value integrations, dramatically driving up initial landing contract dimensions.”</div>
+                        <a href="https://www.goconsensus.com/resources/" target="_blank" class="source-link">Consensus Enterprise Analytics Ledger ↗</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="callout">
+                <h4>Systemic Impact on Deal Pipeline Velocity</h4>
+                <p style="margin-bottom: 24px;">By eliminating scheduling dead-zones and delivering instant access to interactive assets, revenue throughput expands non-linearly across the sales organization.</p>
+                
+                <div class="formula-container" style="display: flex; align-items: center; gap: 16px; margin: 24px 0; background: transparent; padding: 0;">
+                    <div class="formula-label" style="font-weight: 700; color: var(--text-primary); font-size: 1.15rem; letter-spacing: -0.01em;">Revenue Velocity</div>
+                    <div class="formula-operator" style="color: var(--orange); font-size: 1.3rem; font-weight: 600;">=</div>
+                    
+                    <div class="formula-fraction" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                        <div class="fraction-numerator" style="color: var(--text-primary); font-weight: 600; padding-bottom: 8px; font-size: 1.05rem; letter-spacing: 0.02em;">
+                            Pipeline <span style="color: var(--orange);">×</span> Win Rate <span style="color: var(--orange);">×</span> ACV
+                        </div>
+                        <div class="fraction-divider" style="height: 1px; background: var(--orange); width: 100%; min-width: 260px;"></div>
+                        <div class="fraction-denominator" style="color:#4bcd3e; font-weight: 500; padding-top: 8px; font-size: 1.05rem; letter-spacing: 0.02em;">
+                            Sales Cycle Length
+                        </div>
+                    </div>
+                </div>
+
+                <a href="https://www.forrester.com/bold/tei/" target="_blank" class="source-link" style="margin-top: 16px; display: inline-flex;">Forrester TEI Framework Modeling ↗</a>
+            </div>
+        </section>
+
+        <section id="investment-structure">
+            <div class="section-header">
+                <h2>5. Total Cost of Ownership & Resource Allocation Architecture</h2>
+                <p class="section-desc">A granular, auditable breakdown tracking the consolidation of fractured shadow-IT spends into a predictable enterprise framework.</p>
+            </div>
+
+            <div class="tab-container">
+                <div class="tab-nav">
+                    <button class="tab-btn active" onclick="switchTab(event, 'licensing')">Licensing & TCO Consolidation</button>
+                    <button class="tab-btn" onclick="switchTab(event, 'labor')">Engineering Implementation</button>
+                    <button class="tab-btn" onclick="switchTab(event, 'maintenance')">Lifecycle Maintenance</button>
+                </div>
+                
+                <div id="licensing" class="tab-panel active">
+                    <h4>Enterprise Agreement Subscription Modeling</h4>
+                    <p style="margin-bottom: 16px;">Our current software profile contains 10 decentralized workspaces generating a baseline spend of £1.09M/year. Uncontrolled localized growth metrics indicate an unmanaged trajectory hitting £4M – £8M by the end of 2027. The Enterprise Agreement (EA) constructs an absolute predictable cost ceiling.</p>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Investment Category</th>
+                                <th>Fiscal Baseline Metrics</th>
+                                <th>Strategic Operational Safeguard</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Current Fragmented Profile</strong></td>
+                                <td style="color: #EF4444; font-weight: 600;">£1,090,000 / annum</td>
+                                <td>10 active independent localized workspaces operating without centralized corporate oversight.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Projected 2027 Sprawl (Unmanaged)</strong></td>
+                                <td style="color: #EF4444; font-weight: 600;">£4,000,000 – £8,000,000</td>
+                                <td>Natural unmitigated organic team adoption curves across 60,000 corporate employees.</td>
+                            </tr>
+                            <tr style="background: rgba(16, 185, 129, 0.05); border-left: 4px solid var(--success);">
+                                <td><strong>Proposed COAST Enterprise License</strong></td>
+                                <td style="color: var(--success); font-weight: 700;">£4,600,000 / annum</td>
+                                <td><strong>Capped Enterprise Agreement:</strong> Grants UNLIMITED Demo Templates and UNLIMITED Builders across our total footprint. Stops unmanaged billing growth.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="callout current-state">
+                        <h4>Pre-Sales Capacity Reclamation Value</h4>
+                        <p style="color: var(--text-secondary);">Our current operating architecture leaks significant engineering capital on repetitive introductory setups. Automating this layer unlocks substantial labor capacity:</p>
+                        <div class="formula-code" style="font-family: monospace; font-size: 0.9rem; line-height: 1.6; margin-top: 14px;">
+                            <strong>Core Prep Bottleneck:</strong> 45,000 – 60,000 Hours/Year spent strictly on Demo Preparation.<br>
+                            <strong>Reclaimed Labor Target (30% - 50% Efficiency Gain):</strong> Reclaims 13,500 to 30,000 technical hours annually.<br>
+                        </div>
+                        <br />
+                        <p style="color: var(--text-secondary);">
+                            FTE Operational Velocity: Equates to adding 6.5 – 14.4 nominal headcount FTEs, injecting pure, uninterrupted productive capacity straight back into delivery pipelines.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="labor" class="tab-panel">
+                    <h4>Cross-Functional Engineering Implementation (Scale Layout)</h4>
+                    <p style="margin-bottom: 16px;">Supporting our global pre-sales teams across business lines requires a structured implementation framework:</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px;">
+                        <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+                            <h5 style="color: var(--accent); margin-bottom: 8px;">1. Global Architecture</h5>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Infrastructure Setup</strong></p>
+                            <ul class="nested-list" style="font-size: 0.85rem;">
+                                <li>Corporate SSO/SAML integrations mapped across global directory nodes.</li>
+                                <li>Custom workspace routing and secure tenant isolation protocols.</li>
+                                <li>Enterprise data governance and compliance controls for internal sandbox code.</li>
+                            </ul>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+                            <h5 style="color: var(--accent); margin-bottom: 8px;">2. RevOps Ecosystem</h5>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Telemetry Hooks</strong></p>
+                            <ul class="nested-list" style="font-size: 0.85rem;">
+                                <li>Centralized CRM data field syncing for unified intent-data visibility.</li>
+                                <li>Programmatic notification loops to alert AEs when accounts show deep engagement.</li>
+                                <li>Automated behavioral tracking linked directly to customer intent scoring.</li>
+                            </ul>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+                            <h5 style="color: var(--accent); margin-bottom: 8px;">3. Builder Enablement</h5>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Onboarding Pre-Sales Teams</strong></p>
+                            <ul class="nested-list" style="font-size: 0.85rem;">
+                                <li>Creating centralized, reusable template master files for fast distribution.</li>
+                                <li>Enforcing unified brand UI styling rules across interactive templates.</li>
+                                <li>Setting up asynchronous playbook libraries to eliminate duplicate build tasks.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="maintenance" class="tab-panel">
+                    <h4>Platform Maintenance & Governance (5 – 15 Hours/Month Per Demo Track)</h4>
+                    <p style="margin-bottom: 16px;">To keep interactive demos accurate and aligned with our main product updates, the platform uses a structured monthly and quarterly maintenance routine:</p>
+
+                    <ul class="nested-list">
+                        <li><strong>Monthly UI Update Checks:</strong> Reviewing active demos after product software releases. If our main app design or button layouts change, we update the interactive click points so the self-serve paths remain seamless.</li>
+                        <li><strong>Links & Analytics Audits:</strong> Verifying all outbound web links and CRM tracking metrics. This guarantees that customer engagement data continually flows into sales dashboards without interruption.</li>
+                        <li><strong>Quarterly Feature Refreshes:</strong> Retiring outdated product screens. We swap in fresh screenshots and new user flows to accurately reflect our latest product capabilities.</li>
+                        <li><strong>User Access & Messaging Reviews:</strong> Cleaning up user seats to remove inactive accounts, while standardizing our demo template library to ensure Sales and Marketing stay completely aligned.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="executive-summary">
+            <div class="section-header">
+                <h2>6. Consolidated Executive Ledger</h2>
+                <p class="section-desc">The unified single-page summary metrics compiled for executive board presentation.</p>
+            </div>
+
+            <div class="summary-card">
+                <ul class="summary-list">
+                    <li><strong>45k – 60k Hours</strong> current annual Demo Prep overhead</li>
+                    <li><strong>30% – 50%</strong> reduction in pre-sales prep burden</li>
+                    <li><strong>£4.6M Capped EA</strong> replaces uncontrolled workspace sprawl</li>
+                    <li><strong>Unlimited</strong> builders & templates for 60,000 employees</li>
+                    <li><strong>+18% – 24%</strong> lift in visitor-to-lead pathways</li>
+                    <li><strong>27%</strong> average pipeline conversion lift</li>
+                    <li><strong>15–30%</strong> faster pipeline execution velocity</li>
+                    <li><strong>10% – 30%</strong> reduction in sales cycle length</li>
+                    <li><strong>+38% – 45%</strong> higher opportunity close rates</li>
+                    <li><strong>+50%</strong> expansion in closed enterprise deal size</li>
+                    <li><strong>Up to 50%</strong> reduction in Customer Acquisition Cost</li>
+                    <li><strong>40%</strong> more revenue from personalization leaders</li>
+                    <li><strong>2.3×</strong> higher conversion on deep engagement depth</li>
+                    <li><strong>60%</strong> of leaders hit double-digit revenue growth</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer>
+            <div>Source Registry: McKinsey &bull; Gartner &bull; Forrester TEI &bull; Internal Operations Audit</div>
+            <div>Strictly Confidential &bull; Executive Proposal Framework</div>
+        </footer>
+
+    </main>
+</div>
+
+<script>
+// Tab View Switching Logic Engine
+function switchTab(event, panelId) {
+    const container = event.currentTarget.closest('.tab-container');
+    
+    // Clear out active classifications on sibling navigation options
+    container.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    // Clear out active layouts on content cards
+    container.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+    
+    // Set target designations active
+    event.currentTarget.classList.add('active');
+    container.querySelector('#' + panelId).classList.add('active');
+}
+
+// Sidebar Highlight on Scroll Tracking Mechanism
+window.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            const id = entry.target.getAttribute('id');
+            const navLink = document.querySelector(`.sidebar-nav a[href="#${id}"]`);
+            if (navLink && entry.isIntersecting) {
+                document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+                navLink.classList.add('active');
+            }
+        });
+    }, { target: null, rootMargin: '-25% 0px -55% 0px' });
+
+    document.querySelectorAll('section').forEach(section => observer.observe(section));
+});
+</script>
+</body>
+</html>

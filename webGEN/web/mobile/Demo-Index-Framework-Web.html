@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Demo Index | Revenue Experience Maturity Framework</title>
+    <script src="../device-router.js?v=20260602c"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+
+        :root {
+            --bg-dark: #090E1B;
+            --bg-darker: #0F1629;
+            --orange: #F97316;
+            --green: #4bcd3e;
+            --text-white: #FFFFFF;
+            --text-grey: #97A3AF;
+            --nav-offset: 5.5rem;
+            --framework-nav-height: 5.5rem;
+            --di-1: #e74c3c;
+            --di-2: #f39c12;
+            --di-3: #B21a53;
+            --di-4: #4bcd3e;
+            --di-5: #00d4ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            color: var(--text-white);
+            background: var(--bg-dark);
+            line-height: 1.6;
+            animation: fadeIn 0.6s ease-in;
+            overflow-x: hidden;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Navigation */
+        .nav {
+            position: sticky;
+            top: 0;
+            background: var(--bg-darker);
+            border-bottom: 2px solid var(--orange);
+            padding: 0.9rem 1.5rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .nav-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        .nav-brand img {
+            width: auto;
+            height: 2.6rem;
+            object-fit: contain;
+            display: block;
+            flex: 0 0 auto;
+        }
+
+        .nav-brand-copy {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 0.28rem;
+            font-family: 'Montserrat', 'Segoe UI', sans-serif;
+            font-size: 0.98rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .nav-brand-copy .accent {
+            color: var(--orange);
+        }
+
+        .nav-brand-copy .neutral {
+            color: var(--text-white);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav-links a {
+            color: var(--text-grey);
+            text-decoration: none;
+            font-size: 0.92rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--orange);
+        }
+
+        .nav-links a.active {
+            color: var(--orange);
+            font-weight: 600;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .framework-layout {
+            display: grid;
+            grid-template-columns: 240px minmax(0, 1fr);
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .section-index {
+            position: sticky;
+            top: var(--nav-offset);
+            align-self: start;
+            background: rgba(15, 22, 41, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 1.25rem;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.16);
+        }
+
+        .section-index-label {
+            display: block;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-size: 0.76rem;
+            margin-bottom: 0.85rem;
+            font-weight: 700;
+        }
+
+        .section-index-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .section-index-link {
+            color: var(--text-grey);
+            text-decoration: none;
+            padding: 0.7rem 0.85rem;
+            border-radius: 10px;
+            border: 1px solid transparent;
+            transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+            font-size: 0.94rem;
+            line-height: 1.4;
+        }
+
+        .section-index-link:hover,
+        .section-index-link:focus-visible {
+            color: var(--text-white);
+            background: rgba(75, 205, 62, 0.08);
+            border-color: rgba(75, 205, 62, 0.22);
+            outline: none;
+            transform: translateX(2px);
+        }
+
+        .section-index-link.active {
+            color: var(--text-white);
+            background: rgba(75, 205, 62, 0.14);
+            border-color: rgba(75, 205, 62, 0.32);
+            box-shadow: inset 3px 0 0 var(--green);
+        }
+
+        .anchor-fab-shell,
+        .anchor-fab-scrim {
+            display: none;
+        }
+
+        .anchor-fab-toggle {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 4.75rem;
+            height: 4.75rem;
+            border: 1px solid rgba(176, 255, 170, 0.4);
+            border-radius: 50%;
+            background: rgba(75, 205, 62, 0.98);
+            color: var(--text-white);
+            padding: 0;
+            box-shadow: 0 18px 36px rgba(18, 57, 14, 0.38);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            z-index: 2;
+            opacity: 0.75;
+        }
+
+        .anchor-fab-toggle::before {
+            content: '';
+            position: absolute;
+            inset: 0.7rem;
+            border-radius: 50%;
+            border: 0.22rem solid rgba(255, 255, 255, 0.2);
+        }
+
+        .anchor-fab-toggle-label {
+            position: relative;
+            z-index: 1;
+            display: inline-grid;
+            grid-template-columns: repeat(3, 0.26rem);
+            gap: 0.18rem;
+            align-items: center;
+            justify-content: center;
+            transform: translateY(-0.22rem);
+        }
+
+        .anchor-fab-toggle-dot {
+            width: 0.26rem;
+            height: 0.26rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+        }
+
+        .anchor-fab-toggle:hover,
+        .anchor-fab-toggle:focus-visible {
+            transform: translateX(-50%) translateY(-1px);
+            box-shadow: 0 20px 40px rgba(18, 57, 14, 0.46);
+            border-color: rgba(217, 255, 214, 0.86);
+            outline: none;
+        }
+
+        .anchor-fab-toggle[aria-expanded='true'] {
+            border-color: rgba(217, 255, 214, 0.92);
+            box-shadow: 0 22px 42px rgba(18, 57, 14, 0.52);
+        }
+
+        .anchor-fab-panel {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .anchor-fab-panel.is-open {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        .anchor-fab-panel[hidden],
+        .anchor-fab-scrim[hidden] {
+            display: none;
+        }
+
+        body.framework-menu-open {
+            overflow: hidden;
+        }
+
+        .anchor-fab-link {
+            position: absolute;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 5.2rem;
+            min-height: 2.35rem;
+            padding: 0.52rem 0.72rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(29, 31, 38, 0.98);
+            color: var(--text-white);
+            text-align: center;
+            font-size: 0.64rem;
+            line-height: 1.2;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+            white-space: nowrap;
+            opacity: 0;
+            transition: transform 0.24s ease, opacity 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+        }
+
+        .anchor-fab-link-top {
+            left: 50%;
+            bottom: 10rem;
+            transform: translateX(-50%) scale(0.78);
+        }
+
+        .anchor-fab-link-upper-left {
+            left: 0.65rem;
+            bottom: 7.95rem;
+            transform: scale(0.78);
+        }
+
+        .anchor-fab-link-upper-right {
+            right: 0.65rem;
+            bottom: 7.95rem;
+            transform: scale(0.78);
+        }
+
+        .anchor-fab-link-lower-left {
+            left: 1.5rem;
+            bottom: 4.95rem;
+            transform: scale(0.78);
+        }
+
+        .anchor-fab-link-lower-right {
+            right: 1.5rem;
+            bottom: 4.95rem;
+            transform: scale(0.78);
+        }
+
+        .anchor-fab-link::after {
+            display: none;
+        }
+
+        .anchor-fab-panel.is-open .anchor-fab-link {
+            opacity: 1;
+        }
+
+        .anchor-fab-panel.is-open .anchor-fab-link-top {
+            transform: translateX(-50%) scale(1);
+        }
+
+        .anchor-fab-panel.is-open .anchor-fab-link-upper-left,
+        .anchor-fab-panel.is-open .anchor-fab-link-upper-right,
+        .anchor-fab-panel.is-open .anchor-fab-link-lower-left,
+        .anchor-fab-panel.is-open .anchor-fab-link-lower-right {
+            transform: scale(1);
+        }
+
+        .anchor-fab-link:hover,
+        .anchor-fab-link:focus-visible,
+        .anchor-fab-link.active {
+            color: var(--text-white);
+            background: linear-gradient(135deg, rgba(61, 138, 54, 0.98) 0%, rgba(75, 205, 62, 0.98) 100%);
+            border-color: rgba(176, 255, 170, 0.92);
+            box-shadow: 0 14px 28px rgba(34, 95, 29, 0.34);
+        }
+
+        .framework-content {
+            min-width: 0;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 4rem;
+            scroll-margin-top: calc(var(--nav-offset) + 1.25rem);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--orange);
+            margin-bottom: 0.55rem;
+            line-height: 1.05;
+        }
+
+        .page-title-line {
+            display: block;
+        }
+
+        .page-title-line.page-title-kicker {
+            font-size: 0.44em;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-white);
+            margin-bottom: 0.2rem;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: var(--orange);
+            margin: 2.5rem 0 1.5rem 0;
+            padding-left: 1rem;
+            border-left: 4px solid var(--orange);
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--orange);
+            margin: 2rem 0 1rem 0;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            color: var(--text-white);
+            margin: 1.5rem 0 0.75rem 0;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-grey);
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 0.96rem;
+            color: var(--text-grey);
+            margin-bottom: 1.35rem;
+            font-style: italic;
+        }
+
+        /* Intro Box */
+        .intro-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1.35rem 1.4rem;
+            margin-bottom: 2.2rem;
+            text-align: left;
+        }
+
+        .intro-box p {
+            font-size: 0.96rem;
+            color: var(--text-white);
+            margin-bottom: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .intro-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .intro-capability-list {
+            list-style: none;
+            display: grid;
+            gap: 0.55rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .intro-capability-list li {
+            color: var(--text-grey);
+            font-size: 0.92rem;
+            line-height: 1.5;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .intro-capability-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.58rem;
+            width: 0.38rem;
+            height: 0.38rem;
+            border-radius: 50%;
+            background: var(--green);
+        }
+
+        /* Callout Boxes */
+        .callout {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(249, 115, 22, 0.02) 100%);
+            border: 1px solid var(--orange);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .callout strong {
+            color: var(--orange);
+        }
+
+        .callout a,
+        .callout a:visited {
+            color: var(--orange);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .callout a:hover,
+        .callout a:focus-visible {
+            color: var(--green);
+            outline: none;
+        }
+
+        /* Maturity Grid */
+        .maturity-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-areas:
+                "di1 di2 di3"
+                "di4 di4 di4"
+                "di5 di5 di5";
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .maturity-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 1.4rem;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            min-width: 0;
+        }
+
+        .maturity-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 20px rgba(75, 205, 62, 0.18);
+        }
+
+        .maturity-card.di-1 { grid-area: di1; }
+        .maturity-card.di-2 { grid-area: di2; }
+        .maturity-card.di-3 { grid-area: di3; }
+        .maturity-card.di-4 { grid-area: di4; }
+        .maturity-card.di-5 { grid-area: di5; }
+
+        .maturity-card-wide {
+            display: grid;
+            grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
+            gap: 1.25rem;
+            align-items: start;
+            padding: 1.6rem;
+        }
+
+        .maturity-card-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.55rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .maturity-card-wide .maturity-card-header {
+            margin-bottom: 0;
+        }
+
+        .maturity-level {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0;
+            line-height: 1;
+        }
+
+        .maturity-title {
+            font-size: 1.05rem;
+            color: var(--text-white);
+            margin-bottom: 0;
+        }
+
+        .maturity-description {
+            font-size: 0.88rem;
+            color: var(--text-grey);
+            line-height: 1.5;
+        }
+
+        .maturity-card-wide .maturity-description {
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* DI Level Colors */
+        .di-1 { color: var(--di-1); border-color: var(--di-1); }
+        .di-2 { color: var(--di-2); border-color: var(--di-2); }
+        .di-3 { color: var(--di-3); border-color: var(--di-3); }
+        .di-4 { color: var(--di-4); border-color: var(--di-4); }
+        .di-5 { color: var(--di-5); border-color: var(--di-5); }
+
+        /* Pillars/Features Grid */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .pillar {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 4px solid var(--orange);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .pillar-heading {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.75rem;
+            min-width: 0;
+        }
+
+        .pillars-grid.pillars-grid-di2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .pillars-grid.pillars-grid-di2 .pillar:last-child {
+            grid-column: 1 / -1;
+        }
+
+        .pillar .number {
+            background: var(--orange);
+            color: var(--bg-dark);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0;
+            flex: 0 0 auto;
+        }
+
+        .pillar h3 {
+            font-size: 1.2rem;
+            color: var(--text-white);
+            margin: 0;
+            min-width: 0;
+        }
+
+        .pillar p {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        .capability-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 0.9rem;
+            margin: 2rem 0;
+        }
+
+        .capability-summary-tile {
+            background: rgba(15, 22, 41, 0.82);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 0.95rem 1rem;
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            justify-content: flex-start;
+            min-height: 0;
+        }
+
+        .capability-summary-number {
+            display: inline-block;
+            color: var(--green);
+            letter-spacing: 0.08em;
+            font-size: 0.82rem;
+            font-weight: 700;
+            flex: 0 0 auto;
+        }
+
+        .capability-summary-separator {
+            color: var(--green);
+            font-size: 0.82rem;
+            font-weight: 700;
+            flex: 0 0 auto;
+        }
+
+        .capability-summary-tile h4 {
+            margin: 0;
+            font-size: 0.98rem;
+            line-height: 1.15;
+            color: var(--text-white);
+            white-space: nowrap;
+        }
+
+        /* Data Box */
+        .data-box {
+            background: rgba(0, 212, 255, 0.05);
+            border-left: 4px solid var(--blue);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .data-box a,
+        .data-box a:visited {
+            color: var(--orange);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .data-box a:hover,
+        .data-box a:focus-visible {
+            color: var(--green);
+            outline: none;
+        }
+
+        #measurement.section {
+            margin-bottom: 0;
+        }
+
+        #measurement .callout:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Lists */
+        ul {
+            margin: 1rem 0 1rem 2rem;
+            color: var(--text-grey);
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        strong {
+            color: var(--text-white);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-darker);
+            border-top: 2px solid var(--orange);
+            padding: 3rem 2rem;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-grey);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--orange);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--green);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                padding: 0.85rem 1rem;
+            }
+
+            .nav-brand {
+                max-width: 12rem;
+            }
+
+            .nav-brand img {
+                height: 2rem;
+            }
+
+            .nav-links {
+                gap: 0.85rem;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            .framework-layout {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .section-index {
+                position: static;
+                padding: 1rem;
+            }
+
+            .section-index-list {
+                gap: 0.6rem;
+            }
+
+            .maturity-grid {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "di1"
+                    "di2"
+                    "di3"
+                    "di4"
+                    "di5";
+            }
+
+            .maturity-card-wide {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pillars-grid.pillars-grid-di2 .pillar:last-child {
+                grid-column: auto;
+            }
+
+            .capability-summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h2 {
+                padding-left: 0.75rem;
+                border-left-width: 3px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .nav {
+                padding: 0.75rem 0.85rem;
+                gap: 0.75rem;
+                align-items: flex-start;
+            }
+
+            .nav-brand {
+                width: 100%;
+                max-width: none;
+                justify-content: center;
+            }
+
+            .nav-brand img {
+                height: 1.9rem;
+                width: 1.9rem;
+            }
+
+            .nav-brand-copy {
+                font-size: 0.98rem;
+                gap: 0.28rem;
+                letter-spacing: 0.12em;
+            }
+
+            .nav-links {
+                width: 100%;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                overflow-x: auto;
+                gap: 1.1rem;
+                padding-bottom: 0.35rem;
+                scrollbar-width: none;
+            }
+
+            .nav-links::-webkit-scrollbar {
+                display: none;
+            }
+
+            .nav-links a {
+                white-space: nowrap;
+                font-size: 0.8rem;
+                padding: 0.15rem 0 0.7rem;
+                border: none;
+                border-radius: 0;
+                background: transparent;
+                color: rgba(255, 255, 255, 0.56);
+                font-weight: 500;
+                position: relative;
+            }
+
+            .nav-links a::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 2px;
+                border-radius: 999px;
+                background: var(--orange);
+                opacity: 0;
+                transform: scaleX(0.35);
+                transition: opacity 0.25s ease, transform 0.25s ease;
+            }
+
+            .nav-links a:hover,
+            .nav-links a.active {
+                color: var(--text-white);
+                font-weight: 600;
+            }
+
+            .nav-links a.active::after {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+
+            .container {
+                padding: 1rem 0.85rem 6.75rem;
+            }
+
+            .framework-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                margin-bottom: 2.5rem;
+            }
+
+            .section-header {
+                margin-bottom: 3rem;
+            }
+
+            .section-index {
+                display: none;
+            }
+
+            .section-index-label {
+                margin-bottom: 0.65rem;
+            }
+
+            .section-index-list {
+                flex-direction: row;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                gap: 1rem;
+                padding-bottom: 0.25rem;
+                scrollbar-width: none;
+            }
+
+            .section-index-list::-webkit-scrollbar {
+                display: none;
+            }
+
+            .section-index-link {
+                flex: 0 0 auto;
+                white-space: nowrap;
+                font-size: 0.82rem;
+                padding: 0.15rem 0 0.55rem;
+                border: none;
+                border-radius: 0;
+                background: transparent;
+                color: rgba(255, 255, 255, 0.56);
+                box-shadow: none;
+                position: relative;
+            }
+
+            .section-index-link::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 2px;
+                border-radius: 999px;
+                background: var(--green);
+                opacity: 0;
+                transform: scaleX(0.35);
+                transition: opacity 0.25s ease, transform 0.25s ease;
+            }
+
+            .section-index-link:hover,
+            .section-index-link:focus-visible,
+            .section-index-link.active {
+                color: var(--text-white);
+                background: transparent;
+                border-color: transparent;
+                transform: none;
+            }
+
+            .section-index-link.active::after {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+
+            .anchor-fab-panel {
+                top: auto;
+                right: auto;
+                bottom: 4.9rem;
+                left: 50%;
+                width: 100%;
+                max-width: min(12rem, calc(100vw - 1.5rem));
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.42rem;
+                transform: translateX(-50%) translateY(0.35rem) scale(0.96);
+                transform-origin: bottom center;
+            }
+
+            .anchor-fab-panel .anchor-fab-link {
+                position: relative;
+                inset: auto;
+                width: 100%;
+                min-width: 0;
+                min-height: 2rem;
+                padding: 0.42rem 0.72rem;
+                border-radius: 999px;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                background: rgba(29, 31, 38, 0.98);
+                color: var(--text-white);
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+                font-size: 0.62rem;
+                line-height: 1.1;
+                letter-spacing: 0.02em;
+                justify-content: center;
+                transform: translateY(0.25rem) scale(0.94);
+            }
+
+            .anchor-fab-panel .anchor-fab-link::after {
+                display: none;
+            }
+
+            .anchor-fab-panel.is-open .anchor-fab-link {
+                opacity: 1;
+            }
+
+            .anchor-fab-panel.is-open {
+                transform: translateX(-50%) translateY(0) scale(1);
+            }
+
+            .anchor-fab-panel.is-open .anchor-fab-link {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            .anchor-fab-panel .anchor-fab-link:hover,
+            .anchor-fab-panel .anchor-fab-link:focus-visible,
+            .anchor-fab-panel .anchor-fab-link.active {
+                color: var(--text-white);
+                background: linear-gradient(135deg, rgba(61, 138, 54, 0.98) 0%, rgba(75, 205, 62, 0.98) 100%);
+                border-color: rgba(176, 255, 170, 0.92);
+                box-shadow: 0 14px 28px rgba(34, 95, 29, 0.34);
+            }
+
+            h1 {
+                font-size: clamp(1.85rem, 8vw, 2.45rem);
+            }
+
+            h2 {
+                font-size: 1.3rem;
+                margin: 1.6rem 0 0.9rem;
+            }
+
+            h3 {
+                font-size: 1.05rem;
+                margin: 1.5rem 0 0.8rem;
+            }
+
+            p,
+            li {
+                font-size: 0.95rem;
+            }
+
+            .intro-box,
+            .callout,
+            .data-box,
+            .maturity-card,
+            .pillar,
+            .capability-summary-tile {
+                padding: 1rem;
+            }
+
+            .maturity-grid,
+            .pillars-grid,
+            .capability-summary-grid {
+                gap: 0.8rem;
+            }
+
+            .maturity-level {
+                font-size: 0.8rem;
+            }
+
+            .maturity-card-header {
+                gap: 0.4rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .maturity-title,
+            .pillar h3,
+            .capability-summary-tile h4 {
+                font-size: 0.98rem;
+            }
+
+            .capability-summary-tile {
+                gap: 0.35rem;
+                min-height: 0;
+                padding: 0.9rem 0.95rem;
+            }
+
+            .capability-summary-number {
+                font-size: 0.78rem;
+            }
+
+            .capability-summary-separator {
+                font-size: 0.78rem;
+            }
+
+            .pillars-grid.pillars-grid-di2 {
+                grid-template-columns: 1fr;
+            }
+
+            .pillars-grid.pillars-grid-di2 .pillar:last-child {
+                grid-column: auto;
+            }
+
+            .pillar-heading {
+                gap: 0.65rem;
+                margin-bottom: 0.6rem;
+            }
+
+            .pillar .number {
+                width: 1.9rem;
+                height: 1.9rem;
+                font-size: 0.95rem;
+            }
+
+            footer {
+                padding: 1.5rem 1rem 6rem;
+                margin-top: 0;
+            }
+
+            .anchor-fab-scrim.is-open {
+                display: block;
+                position: fixed;
+                top: var(--framework-nav-height);
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background:
+                    radial-gradient(circle at 50% 88%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.06) 18%, rgba(9, 14, 27, 0.12) 36%, rgba(9, 14, 27, 0.62) 100%),
+                    linear-gradient(180deg, rgba(9, 14, 27, 0.18) 0%, rgba(9, 14, 27, 0.7) 100%);
+                backdrop-filter: blur(6px) saturate(118%);
+                -webkit-backdrop-filter: blur(6px) saturate(118%);
+                z-index: 1190;
+                transition: opacity 0.22s ease, backdrop-filter 0.22s ease;
+            }
+
+            .anchor-fab-shell {
+                position: fixed;
+                left: 50%;
+                bottom: 1rem;
+                transform: translateX(-50%);
+                z-index: 1200;
+                display: block;
+                width: min(12rem, calc(100vw - 1.5rem));
+                max-width: calc(100vw - 1.5rem);
+                height: 17rem;
+                pointer-events: auto;
+            }
+        }
+
+        /* Print Styles */
+
+        @media print {
+            .nav {
+                display: none;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .nav {
+                padding: 0.45rem max(0.65rem, env(safe-area-inset-right)) 0.45rem max(0.65rem, env(safe-area-inset-left));
+                gap: 0.4rem;
+            }
+
+            .nav-brand img {
+                height: 1.45rem;
+                width: 1.45rem;
+            }
+
+            .nav-brand-copy {
+                font-size: 0.74rem;
+                letter-spacing: 0.06em;
+                gap: 0.12rem;
+            }
+
+            .nav-links {
+                gap: 0.8rem;
+                padding-bottom: 0.2rem;
+            }
+
+            .nav-links a {
+                font-size: 0.74rem;
+                padding-bottom: 0.45rem;
+            }
+
+            .container {
+                padding: 0.85rem 0.7rem 6.35rem;
+            }
+
+            .section {
+                margin-bottom: 2rem;
+            }
+
+            .section-header {
+                margin-bottom: 2.2rem;
+            }
+
+            h1 {
+                font-size: clamp(1.7rem, 7.4vw, 2.25rem);
+            }
+
+            .page-title-line.page-title-kicker {
+                font-size: 0.4em;
+                margin-bottom: 0.15rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+                margin: 1.55rem 0 0.85rem;
+            }
+
+            h3 {
+                font-size: 1rem;
+            }
+
+            p,
+            li {
+                font-size: 0.94rem;
+            }
+
+            .subtitle {
+                font-size: 0.84rem;
+                margin-bottom: 1rem;
+            }
+
+            .intro-box {
+                padding: 1rem 1rem 0.95rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .intro-box p {
+                font-size: 0.88rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .intro-capability-list {
+                gap: 0.45rem;
+            }
+
+            .intro-capability-list li {
+                font-size: 0.84rem;
+                padding-left: 0.9rem;
+            }
+
+            .intro-capability-list li::before {
+                top: 0.5rem;
+                width: 0.34rem;
+                height: 0.34rem;
+            }
+
+            .pillars-grid.pillars-grid-di2 {
+                grid-template-columns: 1fr;
+            }
+
+            .pillars-grid.pillars-grid-di2 .pillar:last-child {
+                grid-column: auto;
+            }
+
+            .maturity-card-header {
+                gap: 0.35rem;
+                margin-bottom: 0.45rem;
+            }
+
+            .maturity-level {
+                font-size: 0.74rem;
+            }
+
+            .maturity-title {
+                font-size: 0.9rem;
+            }
+
+            .pillar-heading {
+                gap: 0.55rem;
+                margin-bottom: 0.55rem;
+            }
+
+            .pillar .number {
+                width: 1.75rem;
+                height: 1.75rem;
+                font-size: 0.88rem;
+                background: var(--orange);
+                color: var(--bg-dark);
+                border-radius: 50%;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .pillar h3 {
+                font-size: 0.9rem;
+            }
+
+            .capability-summary-tile {
+                gap: 0.3rem;
+                padding: 0.82rem 0.9rem;
+            }
+
+            .capability-summary-number {
+                font-size: 0.74rem;
+            }
+
+            .capability-summary-separator {
+                font-size: 0.74rem;
+            }
+
+            .capability-summary-tile h4 {
+                font-size: 0.9rem;
+            }
+
+            .anchor-fab-toggle {
+                width: 4.15rem;
+                height: 4.15rem;
+            }
+
+            .anchor-fab-toggle::before {
+                inset: 0.62rem;
+            }
+
+            .anchor-fab-toggle-label {
+                grid-template-columns: repeat(3, 0.22rem);
+                gap: 0.15rem;
+            }
+
+            .anchor-fab-toggle-dot {
+                width: 0.22rem;
+                height: 0.22rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-brand"><img src="di-icon.png" alt="The Demo Index icon"><span class="nav-brand-copy" aria-label="The Demo Index"><span class="neutral">THE</span><span class="accent">DEMO</span><span class="neutral">INDEX</span></span></div>
+        <div class="nav-links">
+            <a href="index.html">Hub</a>
+            <a href="#" class="active">Framework</a>
+            <a href="Demo-Index-Methodology-Web.html">Methodology</a>
+            <a href="Demo-Index-Assessment-Web.html">Assessment</a>
+            <a href="Demo-Index-Research-Manifesto-Web.html">Research</a>
+            <a href="Demo-Index-Measurement-Engine-Web.html">Technical Spec</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <!-- Hero Section -->
+        <section id="overview" class="section section-header">
+            <h1><span class="page-title-line page-title-kicker">Index</span><span class="page-title-line">Framework</span></h1>
+            <p class="subtitle">Revenue Experience Maturity Framework</p>
+            <div class="intro-box">
+                <p>
+                    <strong style="color: var(--green);">The Framework:</strong> The Demo Index measures five capabilities that shape how effectively an organization delivers modern demo experiences.
+                </p>
+                <ul class="intro-capability-list" aria-label="Framework capability list">
+                    <li><strong>Experience Delivery</strong> for speed, repeatability, and scale.</li>
+                    <li><strong>Context Intelligence</strong> for audience, industry, and persona fit.</li>
+                    <li><strong>Narrative Integrity</strong> for consistent story quality across teams.</li>
+                    <li><strong>Orchestration Capability</strong> for connected systems and workflow control.</li>
+                    <li><strong>Buyer Autonomy</strong> for self-guided access and momentum.</li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="framework-layout">
+            <aside class="section-index" aria-label="Framework sections">
+                <span class="section-index-label">On This Page</span>
+                <nav class="section-index-list">
+                    <a class="section-index-link active" href="#overview">Overview</a>
+                    <a class="section-index-link" href="#problem">Why Demo Ops Fail</a>
+                    <a class="section-index-link" href="#maturity-levels">Five Maturity Levels</a>
+                    <a class="section-index-link" href="#understanding-levels">Each Maturity Level</a>
+                    <a class="section-index-link" href="#measurement">How It's Measured</a>
+                </nav>
+            </aside>
+
+            <main class="framework-content">
+
+        <!-- Problem Statement -->
+        <section id="problem" class="section">
+            <h2>Why Traditional Demo Operations Are Failing</h2>
+            
+            <p>
+                Modern B2B buying committees involve an average of <strong>13 stakeholders</strong> (McKinsey), yet most organizations still operate demo operations built for 1-to-1 sales presentations. The result is a systemic bottleneck that limits revenue velocity, constrains personalization, and creates context fragmentation across buyer interactions.
+            </p>
+
+            <div class="callout">
+                <p><strong>The Core Problem:</strong> As deal complexity increases and buyer committees expand, manual demo creation becomes the constraint on revenue growth. Organizations that cannot deliver personalized, contextually relevant demo experiences at scale systematically lose to competitors who can.</p>
+            </div>
+
+            <p>
+                The operational failure shows up in execution: teams are forced into manual environment setup, last-minute rep-specific customization, and fragile handoffs between sales, sales engineering, and marketing. That slows delivery, weakens narrative consistency, and makes personalization harder precisely when buyer expectations are increasing.
+            </p>
+        </section>
+
+        <!-- Maturity Levels -->
+        <section id="maturity-levels" class="section">
+            <h2>The Five Maturity Levels</h2>
+            
+            <p>
+                Organizations progress through five distinct stages of demo operations maturity, each characterized by specific capabilities, constraints, and business outcomes. Understanding your current level is the first step toward strategic improvement.
+            </p>
+
+            <div class="maturity-grid">
+                <div class="maturity-card di-1">
+                    <div class="maturity-card-header">
+                        <div class="maturity-level">DI-1</div>
+                        <div class="maturity-title">Manual Creation</div>
+                    </div>
+                    <div class="maturity-description">
+                        Scratch-built demos with weeks-long turnaround and sales engineering as the hard capacity limit.
+                    </div>
+                </div>
+
+                <div class="maturity-card di-2">
+                    <div class="maturity-card-header">
+                        <div class="maturity-level">DI-2</div>
+                        <div class="maturity-title">Templated Reusability</div>
+                    </div>
+                    <div class="maturity-description">
+                        Reusable templates reduce delivery to days, but governance lags and personalization stays shallow.
+                    </div>
+                </div>
+
+                <div class="maturity-card di-3">
+                    <div class="maturity-card-header">
+                        <div class="maturity-level">DI-3</div>
+                        <div class="maturity-title">Distributed Library</div>
+                    </div>
+                    <div class="maturity-description">
+                        Central libraries and partial automation scale content, but buyer context still breaks across touchpoints.
+                    </div>
+                </div>
+
+                <div class="maturity-card maturity-card-wide di-4">
+                    <div class="maturity-card-header">
+                        <div class="maturity-level">DI-4</div>
+                        <div class="maturity-title">Orchestrated Infrastructure</div>
+                    </div>
+                    <div class="maturity-description">
+                        Unified experience orchestration. Demos become connected experiences within buyer portals. CRM context injects automatically. State management preserves progress. Narrative integrity becomes infrastructure capability.
+                    </div>
+                </div>
+
+                <div class="maturity-card maturity-card-wide di-5">
+                    <div class="maturity-card-header">
+                        <div class="maturity-level">DI-5</div>
+                        <div class="maturity-title">AI-Orchestrated Hyper-Personalization</div>
+                    </div>
+                    <div class="maturity-description">
+                        AI analyzes behavior and autonomously recommends demo pathways. Self-service portals enable anonymous prospects to generate hyper-personalized experiences instantly. Real-time adaptation based on exploration patterns.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Maturity Descriptions -->
+        <section id="understanding-levels" class="section">
+            <h2>Understanding Each Maturity Level</h2>
+
+            <h3 class="di-1">Demo Index 1: Manual Creation</h3>
+            <p>
+                At DI-1, organizations build every demo from scratch. Sales engineers manually configure environments, create custom datasets, and deliver one-off presentations. This approach worked when deal volumes were low and sales cycles were long, but it collapses under modern velocity requirements.
+            </p>
+            
+            <div class="callout">
+                <p><strong style="color: var(--di-1);">Revenue Impact:</strong> Operating at DI-1 means scaling revenue is entirely tied to linear engineering headcount. If demo volume needs to double, SE headcount must double, creating a massive cost center. Modern buyers selecting vendors demonstrating value first means competitors win deals before your custom environment finishes building.</p>
+            </div>
+
+            <h3 class="di-2">Demo Index 2: Templated Reusability</h3>
+            <p>
+                Organizations at DI-2 have established standardized demo templates organized by industry, use case, or persona. This represents meaningful progress, reusable components reduce creation time from weeks to days. However, templates multiply without coordination, creating a new problem: which template to use when.
+            </p>
+
+            <div class="pillars-grid pillars-grid-di2">
+                <div class="pillar">
+                    <div class="pillar-heading">
+                        <div class="number">1</div>
+                        <h3>Template Library</h3>
+                    </div>
+                    <p>Pre-built environments organized by vertical or use case, reducing manual setup time.</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-heading">
+                        <div class="number">2</div>
+                        <h3>Template Sprawl</h3>
+                    </div>
+                    <p>Without governance, teams create redundant or conflicting templates faster than they can maintain them.</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-heading">
+                        <div class="number">3</div>
+                        <h3>Limited Personalization</h3>
+                    </div>
+                    <p>Personalization remains shallow, selecting from pre-built options rather than true account-level customization.</p>
+                </div>
+            </div>
+
+            <h3 class="di-3">Demo Index 3: Distributed Library</h3>
+            <p>
+                At DI-3, organizations implement centralized demo libraries with persona-level customization capability. Content is tagged, searchable, and distributable across the sales organization. Partial automation reduces manual effort. Most mid-market and enterprise B2B companies operate at this level.
+            </p>
+
+            <div class="callout">
+                <p><strong style="color: var(--di-3);">The DI-3 Plateau:</strong> This is where most organizations get stuck. They have solved the volume problem (producing enough content) but not the coherence problem (maintaining narrative integrity). Buyers experience disconnected assets without journey continuity. Context disappears between demo touchpoints.</p>
+            </div>
+
+            <h3 class="di-4">Demo Index 4: Orchestrated Infrastructure</h3>
+            <p>
+                DI-4 represents a fundamental architectural shift. Organizations implement unified experience orchestration infrastructure where demos are no longer isolated assets, they become connected experiences within an integrated buyer portal.
+            </p>
+
+            <div class="pillars-grid">
+                <div class="pillar">
+                    <div class="pillar-heading">
+                        <div class="number">1</div>
+                        <h3>Unified Buyer Portal</h3>
+                    </div>
+                    <p>Single interface managing all demo experiences with preserved state, navigation history, and stakeholder context.</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-heading">
+                        <div class="number">2</div>
+                        <h3>Automatic Context Injection</h3>
+                    </div>
+                    <p>CRM data flows automatically into demo environments. Account-specific data, logos, and terminology appear without manual configuration.</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-heading">
+                        <div class="number">3</div>
+                        <h3>State Management</h3>
+                    </div>
+                    <p>System tracks buyer progress across sessions, preserving exploration history and maintaining narrative coherence.</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-heading">
+                        <div class="number">4</div>
+                        <h3>Guided Pathways</h3>
+                    </div>
+                    <p>Intelligent navigation recommends next-best experiences based on current context and exploration patterns.</p>
+                </div>
+            </div>
+
+            <h3 class="di-5">Demo Index 5: AI-Orchestrated Hyper-Personalization</h3>
+            <p>
+                DI-5 organizations deploy AI systems that analyze buyer behavior, predict optimal experience composition, and autonomously recommend demo pathways. Self-service portals enable anonymous prospects to generate hyper-personalized experiences instantly, capturing the 67% of buyers preferring rep-free experiences.
+            </p>
+
+            <div class="data-box">
+                <p><strong style="color: #00d4ff;">The Self-Service Imperative:</strong> Gartner data reveals <strong>67% of B2B buyers prefer a rep-free experience</strong>, and <strong>70% demand a completely digital, self-service buying journey</strong>. Organizations reaching DI-5 capture this market by allowing anonymous prospects to generate hyper-personalized, context-aware environments instantly.</p>
+            </div>
+        </section>
+
+        <!-- Measurement Section -->
+        <section id="measurement" class="section">
+            <h2>How The Demo Index Is Measured</h2>
+            
+            <p>
+                The Demo Index is not a subjective framework, it is a quantifiable assessment system. Organizations are evaluated across five core <strong>capability domains</strong> that determine their ability to deliver scalable, personalized, and contextually intelligent demo experiences. These capabilities produce measurable business outcomes including Time-to-Demo velocity, Personalization depth, and Revenue impact.
+            </p>
+
+            <h3>The Five Capability Domains</h3>
+
+            <div class="capability-summary-grid">
+                <div class="capability-summary-tile">
+                    <span class="capability-summary-number">01</span>
+                    <span class="capability-summary-separator">:</span>
+                    <h4>Experience Delivery</h4>
+                </div>
+
+                <div class="capability-summary-tile">
+                    <span class="capability-summary-number">02</span>
+                    <span class="capability-summary-separator">:</span>
+                    <h4>Context Intelligence</h4>
+                </div>
+
+                <div class="capability-summary-tile">
+                    <span class="capability-summary-number">03</span>
+                    <span class="capability-summary-separator">:</span>
+                    <h4>Narrative Integrity</h4>
+                </div>
+
+                <div class="capability-summary-tile">
+                    <span class="capability-summary-number">04</span>
+                    <span class="capability-summary-separator">:</span>
+                    <h4>Orchestration Capability</h4>
+                </div>
+
+                <div class="capability-summary-tile">
+                    <span class="capability-summary-number">05</span>
+                    <span class="capability-summary-separator">:</span>
+                    <h4>Buyer Autonomy</h4>
+                </div>
+            </div>
+
+            <h3>From Capabilities to Revenue Impact</h3>
+            
+            <p>
+                Demo Index maturity drives revenue outcomes through a measurable causal chain:
+            </p>
+
+            <div class="data-box">
+                <p style="text-align: center; font-size: 1.1rem; color: var(--text-white); margin-bottom: 0;">
+                    <strong>DI Capability Score</strong> → <strong>Experience Efficiency</strong> → <strong>Buyer Confidence</strong> → <strong>Deal Velocity</strong> → <strong>Revenue Impact</strong>
+                </p>
+            </div>
+
+            <div class="callout">
+                <p><strong>Assessment Methodology:</strong> The Demo Index assessment is conducted through a structured evaluation process that examines infrastructure capabilities, process maturity, technology adoption, and buyer experience outcomes. Organizations receive maturity classifications and can track progression over time. Industry benchmarking will be enabled once sufficient cohort data is collected.</p>
+                <p style="margin-bottom: 0;"><strong style="color: var(--text-white);">For detailed scoring methodology and benchmark roadmap:</strong> Refer to the <a href="Demo-Index-Methodology-Web.html">Demo Index Methodology Guide</a>.</p>
+            </div>
+        </section>
+
+            </main>
+        </div>
+
+    </div>
+
+    <div class="anchor-fab-scrim" data-anchor-fab-scrim hidden></div>
+    <div class="anchor-fab-shell" data-anchor-fab>
+        <nav class="anchor-fab-panel" id="framework-anchor-panel" aria-label="Framework sections" hidden>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-top active" href="#overview" aria-label="Overview">Overview</a>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-upper-left" href="#problem" aria-label="Why Demo Ops Fail">Problem</a>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-upper-right" href="#maturity-levels" aria-label="Five Maturity Levels">Levels</a>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-lower-left" href="#understanding-levels" aria-label="Each Maturity Level">Details</a>
+            <a class="section-index-link anchor-fab-link anchor-fab-link-lower-right" href="#measurement" aria-label="How It's Measured">Measure</a>
+        </nav>
+        <button class="anchor-fab-toggle" type="button" aria-controls="framework-anchor-panel" aria-expanded="false">
+            <span class="anchor-fab-toggle-label" aria-hidden="true">
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+                <span class="anchor-fab-toggle-dot"></span>
+            </span>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>The Demo Index</strong> | Revenue Experience Maturity Framework</p>
+        <p style="margin-top: 0.5rem;">© 2026 | <a href="Demo-Index-Methodology-Web.html">Methodology</a> | <a href="Demo-Index-Assessment-Web.html">Assessment</a> | <a href="Demo-Index-Research-Manifesto-Web.html">Research Manifesto</a> | <a href="Demo-Index-Measurement-Engine-Web.html">Technical Specification</a></p>
+    </footer>
+
+    <script>
+        const frameworkSectionLinks = Array.from(document.querySelectorAll('.section-index-link'));
+        const frameworkSections = frameworkSectionLinks
+            .map((link) => document.querySelector(link.getAttribute('href')))
+            .filter(Boolean);
+        const frameworkAnchorFabToggle = document.querySelector('.anchor-fab-toggle');
+        const frameworkAnchorFabToggleLabel = document.querySelector('.anchor-fab-toggle-label');
+        const frameworkAnchorFabPanel = document.querySelector('.anchor-fab-panel');
+        const frameworkAnchorFabScrim = document.querySelector('[data-anchor-fab-scrim]');
+        let frameworkNavLockUntil = 0;
+
+        const syncFrameworkNavHeight = () => {
+            const nav = document.querySelector('.nav');
+            document.documentElement.style.setProperty('--framework-nav-height', `${nav ? nav.offsetHeight : 88}px`);
+        };
+
+        const setFrameworkAnchorFabOpen = (isOpen) => {
+            if (!frameworkAnchorFabToggle || !frameworkAnchorFabPanel || !frameworkAnchorFabScrim) {
+                return;
+            }
+
+            frameworkAnchorFabToggle.setAttribute('aria-expanded', String(isOpen));
+            frameworkAnchorFabPanel.hidden = !isOpen;
+            frameworkAnchorFabScrim.hidden = !isOpen;
+            frameworkAnchorFabPanel.classList.toggle('is-open', isOpen);
+            frameworkAnchorFabScrim.classList.toggle('is-open', isOpen);
+            document.body.classList.toggle('framework-menu-open', isOpen);
+        };
+
+        const getFrameworkScrollOffset = () => {
+            const nav = document.querySelector('.nav');
+            return (nav ? nav.offsetHeight : 0) + 20;
+        };
+
+        syncFrameworkNavHeight();
+
+        const setFrameworkActiveLink = (id) => {
+            frameworkSectionLinks.forEach((link) => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+            });
+
+            if (frameworkAnchorFabToggle) {
+                const activeLink = frameworkSectionLinks.find((link) => link.getAttribute('href') === `#${id}`);
+                const activeLabel = activeLink ? activeLink.getAttribute('aria-label') || activeLink.textContent.trim() : 'current section';
+                frameworkAnchorFabToggle.setAttribute('aria-label', `Open section menu. Current section: ${activeLabel}`);
+            }
+        };
+
+        if (frameworkAnchorFabToggle) {
+            frameworkAnchorFabToggle.addEventListener('click', () => {
+                const isOpen = frameworkAnchorFabToggle.getAttribute('aria-expanded') === 'true';
+                setFrameworkAnchorFabOpen(!isOpen);
+            });
+        }
+
+        if (frameworkAnchorFabScrim) {
+            frameworkAnchorFabScrim.addEventListener('click', () => setFrameworkAnchorFabOpen(false));
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                setFrameworkAnchorFabOpen(false);
+            }
+        });
+
+        frameworkSectionLinks.forEach((link) => {
+            link.addEventListener('click', (event) => {
+                const targetSelector = link.getAttribute('href');
+                const targetSection = targetSelector ? document.querySelector(targetSelector) : null;
+
+                if (!targetSection) {
+                    return;
+                }
+
+                event.preventDefault();
+
+                setFrameworkAnchorFabOpen(false);
+                const targetTop = targetSection.getBoundingClientRect().top + window.scrollY - getFrameworkScrollOffset();
+                frameworkNavLockUntil = Date.now() + 1200;
+                window.history.replaceState(null, '', targetSelector);
+                window.scrollTo({ top: targetTop, behavior: 'smooth' });
+                setFrameworkActiveLink(targetSection.id);
+            });
+        });
+
+        if (frameworkSections.length) {
+            const updateFrameworkActiveSection = () => {
+                if (Date.now() < frameworkNavLockUntil) {
+                    return;
+                }
+
+                const threshold = getFrameworkScrollOffset() + 30;
+                let activeSection = frameworkSections[0];
+
+                frameworkSections.forEach((section) => {
+                    if (section.getBoundingClientRect().top <= threshold) {
+                        activeSection = section;
+                    }
+                });
+
+                if (activeSection) {
+                    setFrameworkActiveLink(activeSection.id);
+                }
+            };
+
+            window.addEventListener('scroll', updateFrameworkActiveSection, { passive: true });
+            window.addEventListener('resize', () => {
+                syncFrameworkNavHeight();
+                if (window.innerWidth > 560) {
+                    setFrameworkAnchorFabOpen(false);
+                }
+
+                updateFrameworkActiveSection();
+            });
+            updateFrameworkActiveSection();
+        }
+
+        window.addEventListener('load', syncFrameworkNavHeight);
+    </script>
+
+</body>
+</html>

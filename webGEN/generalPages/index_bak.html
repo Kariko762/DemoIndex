@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narrative Orchestration | Content Hub</title>
+    <style>
+        :root {
+            --bg-dark: #090E1B;
+            --bg-darker: #0F1629;
+            --orange: #F97316;
+            --green: #4bcd3e;
+            --raspberry: #B21a53;
+            --text-white: #FFFFFF;
+            --text-grey: #97A3AF;
+            --content-width: 1200px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            color: var(--text-white);
+            background: var(--bg-dark);
+            line-height: 1.4;
+        }
+
+        a {
+            color: var(--orange);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--green);
+        }
+
+        .container {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        /* Navigation */
+        .global-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--bg-darker);
+            padding: 16px 24px;
+            border-bottom: 3px solid var(--orange);
+            margin-bottom: 32px;
+            transition: all 300ms ease;
+        }
+
+        .global-nav.scrolled {
+            padding: 8px 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-container {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .global-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
+            transition: all 300ms ease;
+        }
+
+        .global-brand-mark {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--green);
+            line-height: 1;
+            transition: all 300ms ease;
+        }
+
+        .global-nav.scrolled .global-brand-mark {
+            font-size: 0.55rem;
+        }
+
+        .global-brand-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            color: var(--text-white);
+            line-height: 1;
+            transition: all 300ms ease;
+        }
+
+        .global-nav.scrolled .global-brand-title {
+            font-size: 1rem;
+        }
+
+        .global-links {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 8px;
+        }
+
+        .global-links a {
+            padding: 6px 10px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-grey);
+            font-size: 0.75rem;
+            transition: all 200ms ease;
+            white-space: nowrap;
+        }
+
+        .global-nav.scrolled .global-links a {
+            padding: 4px 8px;
+            font-size: 0.7rem;
+        }
+
+        .global-links a:hover {
+            background: rgba(249, 115, 22, 0.2);
+            color: var(--text-white);
+        }
+
+        .global-links a[aria-current="page"] {
+            background: var(--green);
+            color: var(--bg-dark);
+            font-weight: 600;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-darker);
+            padding: 20px 24px;
+            border-radius: 6px;
+            border-left: 4px solid var(--orange);
+            margin-bottom: 20px;
+        }
+
+        .eyebrow {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+
+        .header .highlight {
+            color: var(--orange);
+        }
+
+        .header p {
+            font-size: 1rem;
+            color: var(--text-grey);
+            max-width: 70ch;
+        }
+
+        /* Summary Cards */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .summary-card {
+            background: var(--bg-darker);
+            padding: 16px;
+            border-radius: 6px;
+            border-left: 3px solid var(--green);
+        }
+
+        .label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .summary-card p {
+            color: var(--text-grey);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Sections */
+        .section {
+            background: var(--bg-darker);
+            padding: 20px 24px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--orange);
+            margin-bottom: 12px;
+            padding-left: 12px;
+            border-left: 4px solid var(--orange);
+        }
+
+        .section-kicker {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 8px;
+        }
+
+        .section-intro {
+            font-size: 0.95rem;
+            color: var(--text-grey);
+            max-width: 80ch;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        /* Grid Layouts */
+        .pill-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .pill-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 14px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .pill-card strong {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--green);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .pill-card p {
+            color: var(--text-grey);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .flow-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .flow-card {
+            background: var(--bg-dark);
+            padding: 16px;
+            border-radius: 6px;
+            border-left: 3px solid var(--orange);
+        }
+
+        .flow-step {
+            width: 36px;
+            height: 36px;
+            background: var(--orange);
+            color: var(--bg-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 16px;
+        }
+
+        .flow-card h3 {
+            font-size: 1.1rem;
+            color: var(--text-white);
+            margin-bottom: 12px;
+        }
+
+        .flow-card p {
+            color: var(--text-grey);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .action-link {
+            color: var(--orange);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        .action-link:hover {
+            color: var(--green);
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .resource-card {
+            background: var(--bg-dark);
+            padding: 16px;
+            border-radius: 6px;
+            border-top: 3px solid var(--green);
+        }
+
+        .resource-card h3 {
+            font-size: 1rem;
+            color: var(--text-white);
+            margin-bottom: 10px;
+        }
+
+        .resource-card p {
+            color: var(--text-grey);
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        /* Journey Navigation */
+        .journey-nav {
+            max-width: var(--content-width);
+            margin: 16px auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .journey-progress {
+            background: var(--bg-darker);
+            padding: 10px 16px;
+            border-radius: 4px;
+            border-left: 3px solid var(--orange);
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .journey-progress .step-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 4px;
+        }
+
+        .journey-progress .step-title {
+            font-size: 0.9rem;
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        .journey-buttons {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .journey-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 200ms ease;
+            border: 2px solid;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .journey-btn.prev {
+            background: transparent;
+            border-color: var(--text-grey);
+            color: var(--text-grey);
+        }
+
+        .journey-btn.prev:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-white);
+            color: var(--text-white);
+        }
+
+        .journey-btn.next {
+            background: var(--orange);
+            border-color: var(--orange);
+            color: var(--bg-dark);
+        }
+
+        .journey-btn.next:hover {
+            background: var(--green);
+            border-color: var(--green);
+        }
+
+        /* Footer */
+        .footer-panel {
+            background: var(--bg-darker);
+            padding: 20px 24px;
+            border-radius: 6px;
+            border-left: 4px solid var(--raspberry);
+        }
+
+        .footer-panel h2 {
+            font-size: 1.2rem;
+            color: var(--orange);
+            margin-bottom: 12px;
+        }
+
+        .footer-panel p {
+            color: var(--text-grey);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .footer-meta {
+            font-size: 0.8rem;
+            color: var(--text-grey);
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .global-brand {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+
+            .global-links {
+                width: 100%;
+            }
+
+            .summary-grid,
+            .pill-grid,
+            .flow-grid,
+            .resource-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <script>
+        // Sticky header shrink on scroll
+        (function() {
+            const nav = document.querySelector('.global-nav');
+            let scrolled = false;
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50 && !scrolled) {
+                    nav.classList.add('scrolled');
+                    scrolled = true;
+                } else if (window.scrollY <= 50 && scrolled) {
+                    nav.classList.remove('scrolled');
+                    scrolled = false;
+                }
+            });
+        })();
+    </script>
+    <nav class="global-nav">
+        <div class="nav-container">
+            <a class="global-brand" href="index.html">
+                <span class="global-brand-mark">Stage 4 Narrative Infrastructure</span>
+                <span class="global-brand-title">Content Hub</span>
+            </a>
+            <div class="global-links">
+                <a href="index.html" aria-current="page">Hub</a>
+                <a href="ExecutiveSummary-Condensed.html">Condensed Brief</a>
+                <a href="ExecutiveSummary.html">Full Summary</a>
+                <a href="narrative-orchestration-glossary.html">Exec Glossary</a>
+                <a href="Stage-4-5-Technical-Glossary.html">Glossary</a>
+                <a href="User-Journey-Experience-Workflow.html">Workflow</a>
+                <a href="Stage-4-in-practice.html">In Practice</a>
+                <a href="Revenue-Operations-Infographic.html">Infographic</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="journey-nav">
+        <div class="journey-progress">
+            <div class="step-label">Collection Start</div>
+            <div class="step-title">Begin Your Journey</div>
+        </div>
+        <div class="journey-buttons">
+            <a href="ExecutiveSummary-Condensed.html" class="journey-btn next">Start Journey →</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <div class="eyebrow">Collection Homepage</div>
+            <h1>A Hub for <span class="highlight">Narrative Orchestration</span></h1>
+            <p>This collection explains how buyer-facing demos, content, guidance, and follow-up move from disconnected assets into one governed Stage 4 narrative system.</p>
+        </header>
+
+        <div class="summary-grid">
+            <div class="summary-card">
+                <span class="label">What It Is Doing</span>
+                <p>It defines the operating shift, names the system, explains the language, and shows how the model runs in practice.</p>
+            </div>
+            <div class="summary-card">
+                <span class="label">Where To Start</span>
+                <p>Begin with the infographic for the maturity shift, then move into the condensed brief for the core argument.</p>
+            </div>
+        </div>
+
+        <section class="section">
+            <div class="section-kicker">Collection Purpose</div>
+            <h2 class="section-title">What The Collection Is Doing</h2>
+            <p class="section-intro">The collection builds one coherent case: Stage 3 organizations have too many disconnected buyer-facing assets, and Stage 4 solves that by turning them into Unified Narrative Infrastructure with human-led orchestration and system-level execution.</p>
+            <div class="pill-grid">
+                <div class="pill-card">
+                    <strong>Why It Exists</strong>
+                    <p>To explain the shift from fragmented delivery to governed, connected buyer journeys.</p>
+                </div>
+                <div class="pill-card">
+                    <strong>Why It Matters</strong>
+                    <p>Because buyers experience narrative drift when demos, videos, tours, and follow-up assets do not operate as one system.</p>
+                </div>
+                <div class="pill-card">
+                    <strong>What It Produces</strong>
+                    <p>A shared language, operating model, workflow, and implementation path for Stage 4 maturity.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-kicker">Narrative Flow</div>
+            <h2 class="section-title">What The Journey Looks Like</h2>
+            <p class="section-intro">This is the strongest path through the material. It starts with the visible maturity problem, builds the argument, aligns the language, then moves into operating design and implementation.</p>
+            <div class="flow-grid">
+                <article class="flow-card">
+                    <div class="flow-step">1</div>
+                    <h3>See the Maturity Problem</h3>
+                    <p>The infographic shows the Stage 1 to Stage 4 progression and makes the Stage 3 failure mode visible immediately.</p>
+                    <a class="action-link" href="Revenue-Operations-Infographic.html">Open step 1</a>
+                </article>
+                <article class="flow-card">
+                    <div class="flow-step">2</div>
+                    <h3>Get the Core Thesis</h3>
+                    <p>The condensed brief states the executive argument for why disconnected asset delivery must become narrative orchestration.</p>
+                    <a class="action-link" href="ExecutiveSummary-Condensed.html">Open step 2</a>
+                </article>
+                <article class="flow-card">
+                    <div class="flow-step">3</div>
+                    <h3>Expand the Strategic Case</h3>
+                    <p>The full summary deepens the business, operating, and research-backed case behind the Stage 4 shift.</p>
+                    <a class="action-link" href="ExecutiveSummary.html">Open step 3</a>
+                </article>
+                <article class="flow-card">
+                    <div class="flow-step">4</div>
+                    <h3>Align the Language</h3>
+                    <p>The executive and technical glossaries define the key concepts so the rest of the collection is interpreted consistently.</p>
+                    <a class="action-link" href="narrative-orchestration-glossary.html">Open step 4</a>
+                </article>
+                <article class="flow-card">
+                    <div class="flow-step">5</div>
+                    <h3>See the Operating Model</h3>
+                    <p>The workflow page shows how Stage 4 actually runs across qualification, branching, guidance, and seller activation.</p>
+                    <a class="action-link" href="User-Journey-Experience-Workflow.html">Open step 5</a>
+                </article>
+                <article class="flow-card">
+                    <div class="flow-step">6</div>
+                    <h3>Ground It in Practice</h3>
+                    <p>The implementation and strategy pages show what the architecture looks like when turned into a real stack and a broader operating direction.</p>
+                    <a class="action-link" href="Stage-4-in-practice.html">Open step 6</a>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-kicker">Start Here</div>
+            <h2 class="section-title">Where To Start</h2>
+            <p class="section-intro">If someone only reads two documents first, make them these: the infographic for orientation and the condensed brief for the executive case. The rest of the journey deepens from there.</p>
+            <div class="resource-grid">
+                <article class="resource-card">
+                    <span class="label">First Read</span>
+                    <h3>RevOps Infographic</h3>
+                    <p>Use this first to orient the reader around the maturity curve and the Stage 3 to Stage 4 shift.</p>
+                    <a class="action-link" href="Revenue-Operations-Infographic.html">Start here</a>
+                </article>
+                <article class="resource-card">
+                    <span class="label">Second Read</span>
+                    <h3>Executive Summary Condensed</h3>
+                    <p>Use this next to establish the core thesis before going deeper into language, workflow, and implementation.</p>
+                    <a class="action-link" href="ExecutiveSummary-Condensed.html">Continue here</a>
+                </article>
+            </div>
+        </section>
+
+        <footer class="footer-panel">
+            <div class="section-kicker">Canonical Summary</div>
+            <h2>What The Collection Is Trying To Convey</h2>
+            <p>This is a connected publication set about moving from Stage 3 distributed point solutions to Stage 4 Unified Narrative Infrastructure. It matters because fragmented buyer experiences create narrative drift. The journey through the collection moves from problem framing to strategic case, shared language, operating model, and implementation.</p>
+            <div class="footer-meta">Shared hub entry for the hosted `webGEN` collection</div>
+        </footer>
+    </div>
+
+    <script>
+        (function () {
+            var path = window.location.pathname.split('/').pop() || 'index.html';
+            var links = document.querySelectorAll('.global-links a');
+            for (var i = 0; i < links.length; i += 1) {
+                if (links[i].getAttribute('href') === path) {
+                    links[i].setAttribute('aria-current', 'page');
+                }
+            }
+        }());
+    </script>
+</body>
+</html>

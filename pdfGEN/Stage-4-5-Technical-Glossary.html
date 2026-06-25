@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage 4 / Stage 5 Technical Glossary</title>
+    <style>
+        @page { size: Letter; margin: 0; }
+        @media print {
+            .page-break { page-break-after: always; }
+            .term { page-break-inside: avoid; }
+        }
+
+        :root {
+            --bg-dark: #090E1B;
+            --bg-darker: #0F1629;
+            --orange: #F97316;
+            --green: #4BCD3E;
+            --raspberry: #B21A53;
+            --text-white: #FFFFFF;
+            --text-grey: #97A3AF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--bg-dark);
+            color: var(--text-white);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            line-height: 1.4;
+        }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            margin: 0 auto;
+            padding: 0.4in;
+            background: var(--bg-dark);
+        }
+
+        .header {
+            background: var(--bg-darker);
+            margin: -0.4in -0.4in 0.2in;
+            padding: 0.24in 0.4in;
+            border-bottom: 3px solid var(--orange);
+        }
+
+        .header h1 { font-size: 1.7rem; margin-bottom: 0.05in; }
+        .header .highlight { color: var(--orange); }
+        .header p { font-size: 0.78rem; color: var(--text-grey); }
+
+        .intro-box,
+        .term,
+        .summary-box {
+            background: var(--bg-darker);
+            border-radius: 8px;
+        }
+
+        .intro-box {
+            padding: 0.15in;
+            border-left: 4px solid var(--green);
+            margin-bottom: 0.18in;
+        }
+
+        .intro-box p { font-size: 0.72rem; color: var(--text-grey); }
+
+        .section-title {
+            font-size: 0.96rem;
+            color: var(--orange);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-left: 4px solid var(--orange);
+            padding-left: 0.12in;
+            margin: 0.16in 0 0.12in;
+        }
+
+        .term-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.12in;
+        }
+
+        .term {
+            padding: 0.15in;
+            border-top: 2px solid var(--orange);
+        }
+
+        .term h3 {
+            font-size: 0.86rem;
+            color: var(--orange);
+            margin-bottom: 0.08in;
+        }
+
+        .label {
+            font-size: 0.62rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--green);
+            margin: 0.06in 0 0.03in;
+            font-weight: 700;
+        }
+
+        .term p,
+        .term li,
+        .summary-box p,
+        .summary-box li {
+            font-size: 0.67rem;
+            color: var(--text-grey);
+            line-height: 1.42;
+        }
+
+        .term ul,
+        .summary-box ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 0.04in;
+        }
+
+        .term li,
+        .summary-box li {
+            position: relative;
+            padding-left: 0.14in;
+            margin: 0.03in 0;
+        }
+
+        .term li::before,
+        .summary-box li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--green);
+        }
+
+        .summary-box {
+            padding: 0.16in;
+            border: 2px solid var(--orange);
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(75, 205, 62, 0.08) 100%);
+        }
+
+        .summary-box h3 {
+            font-size: 0.84rem;
+            color: var(--orange);
+            margin-bottom: 0.05in;
+        }
+
+        .footer {
+            margin-top: 0.18in;
+            padding-top: 0.09in;
+            border-top: 1px solid rgba(151, 163, 175, 0.25);
+            text-align: center;
+            font-size: 0.6rem;
+            color: var(--text-grey);
+        }
+    </style>
+</head>
+<body>
+    <div class="page page-break">
+        <div class="header">
+            <h1>Stage 4 / Stage 5 <span class="highlight">Technical Glossary</span></h1>
+            <p>Operational definitions, implementation guidance, quantification, and stack patterns for the primary framework terms.</p>
+        </div>
+
+        <div class="intro-box">
+            <p>This document expands the executive glossary into a technical translation layer. Each term is described through its definition, function, practical behavior, implementation pattern, quantifiable signals, and representative stack options.</p>
+        </div>
+
+        <h2 class="section-title">Core Infrastructure Terms</h2>
+        <div class="term-grid">
+            <div class="term">
+                <h3>Unified Narrative Infrastructure</h3>
+                <div class="label">Definition</div><p>The system architecture that turns disconnected buyer-facing assets into one governed, stateful experience layer.</p>
+                <div class="label">Core Function</div><p>Unifies data, content, workflow logic, guidance, analytics, and buyer context so buyers experience one coherent journey instead of multiple disconnected touchpoints.</p>
+                <div class="label">What It Does in Practice</div>
+                <ul>
+                    <li>serves a single experience entry point or tightly linked experience surface</li>
+                    <li>carries context across demos, videos, documents, tours, and follow-up workflows</li>
+                    <li>applies role, industry, account, and journey-state personalization</li>
+                    <li>enforces governance over what can be shown and in what sequence</li>
+                    <li>records behavioral and narrative signals for later optimization</li>
+                </ul>
+                <div class="label">Technical Implementation</div>
+                <ul>
+                    <li>presentation layer for buyer-facing experiences</li>
+                    <li>orchestration layer that decides what happens next</li>
+                    <li>context store for account, persona, and journey state</li>
+                    <li>CRM, MAP, analytics, and content integrations</li>
+                    <li>event pipeline capturing journey behavior in real time</li>
+                </ul>
+                <div class="label">Quantifiable Signals</div>
+                <ul>
+                    <li>number of disconnected assets replaced by a unified flow</li>
+                    <li>percentage of experiences launched from a single entry point</li>
+                    <li>percentage of sessions carrying forward prior context</li>
+                    <li>reduction in manual SE/demo prep time</li>
+                    <li>increase in downstream engagement depth, progression, or meeting conversion</li>
+                </ul>
+                <div class="label">Common Stack Patterns</div>
+                <ul>
+                    <li>Front end: Next.js, React, Vue, Nuxt</li>
+                    <li>CMS: Contentful, Sanity, Storyblok, headless custom CMS</li>
+                    <li>Integration layer: Node.js/NestJS, FastAPI, serverless functions</li>
+                    <li>Data/state: PostgreSQL, Redis, DynamoDB, Firestore</li>
+                    <li>Eventing: Segment, RudderStack, Kafka, EventBridge</li>
+                </ul>
+            </div>
+
+            <div class="term">
+                <h3>Presentation Layer</h3>
+                <div class="label">Definition</div><p>The buyer-facing delivery surface where orchestrated content, guidance, workflows, and personalization are rendered and interacted with across the journey.</p>
+                <div class="label">Core Function</div><p>Turns orchestration decisions into an actual buyer experience.</p>
+                <div class="label">What It Does in Practice</div>
+                <ul>
+                    <li>renders landing pages, workflow modules, guidance panels, and media assets</li>
+                    <li>presents personalized content based on account, persona, and journey state</li>
+                    <li>handles navigation between approved pathways and workflow transitions</li>
+                    <li>displays context bridges, prompts, and next-step guidance</li>
+                    <li>captures clickstream, dwell-time, and engagement events for analytics</li>
+                </ul>
+                <div class="label">Technical Implementation</div>
+                <ul>
+                    <li>web application or portal framework</li>
+                    <li>modular UI components for workflows, overlays, media, and guidance</li>
+                    <li>client-side state handling for session continuity</li>
+                    <li>event instrumentation connected to analytics pipelines</li>
+                    <li>APIs requesting content, state, and next-step instructions from orchestration</li>
+                </ul>
+                <div class="label">Common Stack Patterns</div>
+                <ul>
+                    <li>Platforms: Seismic Interactive Content, Seismic Microsites, Coast.io Engagement Portal</li>
+                    <li>Custom front end: Next.js, React, Vue, Nuxt</li>
+                    <li>UI patterns: embedded guidance panels, overlays, modular workflow cards, dynamic media regions</li>
+                </ul>
+            </div>
+
+            <div class="term">
+                <h3>Narrative Orchestration Engine</h3>
+                <div class="label">Definition</div><p>The decision layer that assembles, sequences, and adapts buyer experiences based on context, rules, and engagement signals.</p>
+                <div class="label">Core Function</div><p>Answers what the buyer should see next, why, and under what constraints.</p>
+                <div class="label">What It Does in Practice</div>
+                <ul>
+                    <li>selects starting pathways by persona, industry, account tier, or stage</li>
+                    <li>controls transitions between workflows, demos, proof points, and guidance moments</li>
+                    <li>injects business context and role-specific emphasis</li>
+                    <li>enforces exclusions, approvals, and compliance rules</li>
+                    <li>triggers seller alerts, follow-up tasks, or recommended actions</li>
+                </ul>
+                <div class="label">Common Stack Patterns</div>
+                <ul>
+                    <li>Workflow/orchestration: Temporal, Camunda, AWS Step Functions, custom state machines</li>
+                    <li>Rules/policy: Open Policy Agent, JSON rules engines, custom business rules services</li>
+                    <li>Recommendation logic: Python services, feature stores, lightweight ML ranking services</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">Technical Glossary | Page 1</div>
+    </div>
+
+    <div class="page page-break">
+        <h2 class="section-title">Human Control and Context</h2>
+        <div class="term-grid">
+            <div class="term">
+                <h3>Human-Led Orchestration</h3>
+                <div class="label">Definition</div><p>People still define strategy, positioning, approvals, and narrative logic, while systems execute those decisions consistently at scale.</p>
+                <div class="label">What It Does in Practice</div>
+                <ul>
+                    <li>lets SE and GTM teams define approved workflows, message hierarchy, and value narratives</li>
+                    <li>controls what can be personalized automatically versus what needs approval</li>
+                    <li>creates guardrails for regulated, competitive, or pricing-sensitive content</li>
+                </ul>
+                <div class="label">Technical Implementation</div>
+                <ul>
+                    <li>admin configuration UI</li>
+                    <li>role-based access controls</li>
+                    <li>approval workflows</li>
+                    <li>audit logs and versioned narrative templates</li>
+                </ul>
+            </div>
+
+            <div class="term">
+                <h3>Persistent Context</h3>
+                <div class="label">Definition</div><p>The durable memory of who the buyer is, what matters to them, what they have already seen, and what the system should remember across sessions and channels.</p>
+                <div class="label">What It Does in Practice</div>
+                <ul>
+                    <li>stores account, persona, use case, geography, language, and product-interest metadata</li>
+                    <li>remembers prior content views, workflow choices, objections, and engagement depth</li>
+                    <li>carries context from email, sales room, demo, and follow-up experiences</li>
+                </ul>
+                <div class="label">Technical Implementation</div>
+                <ul>
+                    <li>identity resolution</li>
+                    <li>profile store or customer data layer</li>
+                    <li>session store for recent activity</li>
+                    <li>APIs that expose context to every experience surface</li>
+                </ul>
+            </div>
+
+            <div class="term">
+                <h3>Journey State Tracking</h3>
+                <div class="label">Definition</div><p>The structured representation of where a buyer currently is within a narrative journey, not just which page they clicked.</p>
+                <div class="label">What It Does in Practice</div>
+                <ul>
+                    <li>records completed steps, skipped steps, loops, stalls, and repeat views</li>
+                    <li>distinguishes exploration, evaluation, validation, and decision behaviors</li>
+                    <li>tells sellers and systems what narrative stage the buyer is likely in</li>
+                </ul>
+                <div class="label">Common Stack Patterns</div>
+                <ul>
+                    <li>Event collection: Segment, RudderStack, Snowplow, custom telemetry</li>
+                    <li>State computation: dbt, Kafka Streams, Flink, Python jobs</li>
+                    <li>Storage/reporting: BigQuery, Snowflake, Databricks, Looker</li>
+                </ul>
+            </div>
+
+            <div class="term">
+                <h3>Narrative Continuity</h3>
+                <div class="label">Definition</div><p>The system's ability to preserve the same strategic story as the buyer moves across workflows, channels, stakeholders, and time.</p>
+                <div class="label">What It Does in Practice</div>
+                <ul>
+                    <li>keeps message hierarchy stable across different content formats</li>
+                    <li>reconnects technical details to business outcomes</li>
+                    <li>maintains role-specific framing without contradicting the overall value story</li>
+                </ul>
+                <div class="label">Technical Implementation</div>
+                <ul>
+                    <li>narrative model or message map</li>
+                    <li>content tagging by value theme, persona, workflow, and objection</li>
+                    <li>orchestration rules that enforce consistent framing</li>
+                    <li>guidance copy or prompts tied to narrative state</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">Technical Glossary | Page 2</div>
+    </div>
+
+    <div class="page page-break">
+        <h2 class="section-title">Guidance, Personalization, and Governance</h2>
+        <div class="term-grid">
+            <div class="term">
+                <h3>Context Bridges</h3>
+                <div class="label">Definition</div><p>Explicit transition mechanisms that reconnect the buyer to the narrative when they jump between topics, workflows, or asset types.</p>
+                <div class="label">What They Do in Practice</div>
+                <ul>
+                    <li>explain why the next workflow matters</li>
+                    <li>translate one stakeholder lens into another</li>
+                    <li>connect tactical screens back to strategic business outcomes</li>
+                    <li>recover context when a buyer enters midstream from a shared link or deep-link</li>
+                </ul>
+            </div>
+
+            <div class="term">
+                <h3>Persistent Guidance Layer</h3>
+                <div class="label">Definition</div><p>The always-available assistance surface embedded in the experience that explains relevance, next steps, and business meaning as the buyer explores.</p>
+                <div class="label">What It Does in Practice</div>
+                <ul>
+                    <li>shows narrative cues, recommended next steps, and role-based guidance</li>
+                    <li>adapts messaging to the buyer's current context and prior actions</li>
+                    <li>supports both self-guided journeys and seller-assisted sessions</li>
+                </ul>
+                <div class="label">Common Stack Patterns</div>
+                <ul>
+                    <li>Presentation layer: Seismic Interactive Content, Seismic Microsites, Coast.io Engagement Portal, Next.js, React SPA</li>
+                    <li>Guidance content: CMS, knowledge base, prompt library</li>
+                    <li>Conversational layer: Intercom, custom chatbot, Azure OpenAI/OpenAI assistant service</li>
+                </ul>
+            </div>
+
+            <div class="term">
+                <h3>Operationalized Personalization</h3>
+                <div class="label">Definition</div><p>The ability to generate tailored experiences from reusable system components rather than manual one-off assembly.</p>
+                <div class="label">What It Does in Practice</div>
+                <ul>
+                    <li>injects account-specific language, metrics, branding, industry workflows, and proof points</li>
+                    <li>swaps content based on persona, segment, region, maturity, or opportunity context</li>
+                    <li>keeps personalization within approved boundaries</li>
+                </ul>
+            </div>
+
+            <div class="term">
+                <h3>Structured Branching Logic and Governed Exploration Pathways</h3>
+                <div class="label">Definition</div><p>The ruleset that determines valid branches and the resulting buyer paths that preserve flexibility without allowing the narrative to become chaotic.</p>
+                <div class="label">What They Do in Practice</div>
+                <ul>
+                    <li>allow executive, technical, operations, and finance buyers to choose relevant routes</li>
+                    <li>prevent invalid or strategically harmful jumps</li>
+                    <li>ensure each branch contains required narrative anchors, proofs, and transitions</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">Technical Glossary | Page 3</div>
+    </div>
+
+    <div class="page page-break">
+        <h2 class="section-title">Measurement and Intelligence</h2>
+        <div class="term-grid">
+            <div class="term">
+                <h3>Narrative Integrity Score</h3>
+                <div class="label">Definition</div><p>A composite metric estimating how well the buyer journey preserved strategic understanding from start to finish.</p>
+                <div class="label">What It Should Include</div>
+                <ul>
+                    <li>presence of key narrative anchors</li>
+                    <li>depth of engagement with value-relevant content</li>
+                    <li>continuity across transitions</li>
+                    <li>evidence of confusion, abandonment, or contradictory pathing</li>
+                    <li>stakeholder coverage across the buying group</li>
+                </ul>
+                <div class="label">Example Scoring Structure</div>
+                <ul>
+                    <li>30% progression through required narrative checkpoints</li>
+                    <li>25% reinforcement of value themes</li>
+                    <li>20% continuity across branch transitions</li>
+                    <li>15% stakeholder-relevant coverage</li>
+                    <li>10% low-confusion signals</li>
+                </ul>
+            </div>
+
+            <div class="term">
+                <h3>Granular Intent Capture</h3>
+                <div class="label">Definition</div><p>The collection of high-resolution behavioral and narrative signals that reveal what the buyer cares about, how strongly they care, and where confidence is rising or falling.</p>
+                <div class="label">What It Does in Practice</div>
+                <ul>
+                    <li>distinguishes curiosity from sustained evaluation</li>
+                    <li>identifies which workflows, proof points, objections, and role themes are gaining traction</li>
+                    <li>surfaces likely stakeholder interests and readiness signals</li>
+                </ul>
+            </div>
+
+            <div class="term">
+                <h3>Narrative Intelligence Infrastructure</h3>
+                <div class="label">Definition</div><p>The Stage 5 evolution where the system continuously recommends, optimizes, and adapts orchestration strategy using accumulated signals.</p>
+                <div class="label">What It Does in Practice</div>
+                <ul>
+                    <li>recommends which pathway to start with before a session launches</li>
+                    <li>suggests likely winning proof points, customer stories, or stakeholder routes</li>
+                    <li>detects underperforming pathways and recommends design changes</li>
+                    <li>supports next-best-action recommendations for sellers and RevOps</li>
+                </ul>
+                <div class="label">Common Stack Patterns</div>
+                <ul>
+                    <li>AI/ranking: Python, scikit-learn, XGBoost, managed ML platforms</li>
+                    <li>LLM support: Azure OpenAI, OpenAI, Anthropic, prompt orchestration frameworks</li>
+                    <li>Retrieval/memory: pgvector, Pinecone, Weaviate, warehouse-native embeddings</li>
+                    <li>Serving/monitoring: FastAPI, BentoML, MLflow, Evidently, Arize</li>
+                </ul>
+            </div>
+
+            <div class="term">
+                <h3>Secondary Supporting Term: Narrative Drift</h3>
+                <div class="label">Definition</div><p>The failure state where the buyer's understanding breaks because transitions, content, or workflow choices no longer connect back to the core value story.</p>
+                <div class="label">Useful Proxy Metrics</div>
+                <ul>
+                    <li>abrupt exits after branch changes</li>
+                    <li>repeated backtracking</li>
+                    <li>low completion of bridge content</li>
+                    <li>engagement concentrated in isolated technical screens without business-context reinforcement</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">Technical Glossary | Page 4</div>
+    </div>
+
+    <div class="page">
+        <h2 class="section-title">Minimum Viable Stack Guidance</h2>
+        <div class="summary-box">
+            <h3>Minimum Viable Stage 4 Stack</h3>
+            <ul>
+                <li>CRM and account data source: Salesforce or HubSpot</li>
+                <li>buyer-facing presentation layer: Seismic Interactive Content, Seismic Microsites, Coast.io Engagement Portal, or a custom React/Next.js app</li>
+                <li>orchestration and decision service: Node.js/NestJS or Python/FastAPI</li>
+                <li>context and state store: PostgreSQL plus Redis</li>
+                <li>content and personalization layer: headless CMS plus modular templates</li>
+                <li>event collection and analytics: Segment or RudderStack feeding Snowflake or BigQuery</li>
+                <li>guidance and AI assist: approved prompt service using Azure OpenAI or OpenAI</li>
+                <li>reporting and activation: Looker or Power BI plus CRM sync</li>
+            </ul>
+        </div>
+
+        <div class="summary-box" style="margin-top: 0.14in;">
+            <h3>Minimum Viable Stage 5 Additions</h3>
+            <ul>
+                <li>recommendation features derived from journey and account history</li>
+                <li>scoring models for pathway fit and proof-point relevance</li>
+                <li>experimentation framework for measuring recommendation lift</li>
+                <li>model monitoring and human override controls</li>
+                <li>seller-facing recommendation UI and feedback capture loop</li>
+            </ul>
+        </div>
+
+        <div class="summary-box" style="margin-top: 0.14in;">
+            <h3>Practical Distinction</h3>
+            <p>Stage 4 is primarily about systematized execution. Stage 5 is primarily about systematized recommendation and optimization. Many platforms claim intelligence when they are only automating assembly. Stage 4 can be rules-driven and still be highly valuable. Stage 5 requires measured learning, recommendation quality, and closed-loop improvement.</p>
+        </div>
+
+        <div class="footer">Technical Glossary | Page 5</div>
+    </div>
+</body>
+</html>

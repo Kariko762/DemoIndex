@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Summary | Full Version</title>
+    <style>
+        :root {
+            --bg-dark: #090e1b;
+            --bg-darker: #0f1629;
+            --bg-panel: rgba(15, 22, 41, 0.82);
+            --bg-soft: rgba(255, 255, 255, 0.04);
+            --orange: #f97316;
+            --green: #4bcd3e;
+            --text-white: #ffffff;
+            --text-grey: #97a3af;
+            --text-muted: #c7d0da;
+            --panel-border: rgba(249, 115, 22, 0.16);
+            --panel-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+            --radius-lg: 28px;
+            --radius-md: 18px;
+            --content-width: 1380px;
+            --nav-width: 280px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            min-height: 100vh;
+            font-family: Georgia, 'Times New Roman', serif;
+            line-height: 1.5;
+            color: var(--text-white);
+            background:
+                radial-gradient(circle at top left, rgba(75, 205, 62, 0.12), transparent 26%),
+                radial-gradient(circle at top right, rgba(249, 115, 22, 0.18), transparent 32%),
+                linear-gradient(180deg, #07101f 0%, #090e1b 48%, #07101f 100%);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0));
+            pointer-events: none;
+        }
+
+        a { color: var(--green); text-decoration: none; }
+        a:hover { color: var(--text-white); }
+
+        .site-shell {
+            width: min(calc(100% - 48px), var(--content-width));
+            margin: 0 auto;
+            padding: 32px 0 56px;
+        }
+
+        .hero,
+        .intro-box,
+        .section-block,
+        .quote-box,
+        .summary-box,
+        .source-list,
+        .section-nav {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-lg);
+            background: var(--bg-panel);
+            box-shadow: var(--panel-shadow);
+            backdrop-filter: blur(14px);
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 36px;
+            background:
+                linear-gradient(135deg, rgba(15, 22, 41, 0.98) 0%, rgba(9, 14, 27, 0.92) 58%, rgba(249, 115, 22, 0.15) 100%),
+                var(--bg-darker);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            right: -120px;
+            top: -120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.32) 0%, rgba(249, 115, 22, 0) 72%);
+        }
+
+        .eyebrow,
+        .section-kicker,
+        .section-nav h2,
+        .section-title,
+        .meta-label,
+        .source-list h3,
+        .summary-box h3,
+        .section-card h3 {
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--green);
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 42px;
+            height: 1px;
+            background: currentColor;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.9fr);
+            gap: 28px;
+            align-items: end;
+        }
+
+        .hero-copy h1 {
+            max-width: 11ch;
+            font-size: clamp(3rem, 5vw, 5.2rem);
+            line-height: 0.95;
+            letter-spacing: -0.05em;
+            margin-bottom: 16px;
+        }
+
+        .highlight { color: var(--orange); }
+
+        .subtitle {
+            max-width: 62ch;
+            font-size: 1.03rem;
+            color: var(--text-muted);
+        }
+
+        .hero-meta {
+            display: grid;
+            gap: 14px;
+        }
+
+        .meta-card {
+            padding: 18px 20px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .meta-label {
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 8px;
+        }
+
+        .meta-card p {
+            font-size: 0.96rem;
+            color: var(--text-muted);
+        }
+
+        .content-shell {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) var(--nav-width);
+            gap: 28px;
+            margin-top: 28px;
+            align-items: start;
+        }
+
+        .main-column { display: grid; gap: 20px; }
+        .intro-box,
+        .section-block,
+        .quote-box,
+        .summary-box,
+        .source-list { padding: 24px; }
+
+        .intro-box { border-left: 4px solid var(--green); }
+        .intro-box p,
+        .section-card p,
+        .section-card li,
+        .quote-box p,
+        .summary-box p,
+        .source-list li,
+        .section-kicker {
+            color: var(--text-muted);
+        }
+
+        .section-block { scroll-margin-top: 110px; }
+
+        .section-kicker {
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+            font-size: 1.14rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--orange);
+        }
+
+        .section-title::before {
+            content: "";
+            width: 4px;
+            align-self: stretch;
+            border-radius: 999px;
+            background: linear-gradient(180deg, var(--orange), rgba(249, 115, 22, 0.06));
+        }
+
+        .insight-grid,
+        .two-col {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .section-card {
+            height: 100%;
+            padding: 20px;
+            border-radius: var(--radius-md);
+            background: var(--bg-soft);
+            border: 1px solid var(--panel-border);
+        }
+
+        .section-card h3,
+        .summary-box h3,
+        .source-list h3 {
+            font-size: 1rem;
+            color: var(--text-white);
+            margin-bottom: 12px;
+        }
+
+        .section-card p,
+        .section-card li,
+        .summary-box p,
+        .source-list li { font-size: 0.98rem; }
+
+        .section-card ul,
+        .source-list ol {
+            list-style: none;
+            display: grid;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .section-card li,
+        .source-list li {
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .section-card li::before,
+        .source-list li::before {
+            content: "â€¢";
+            position: absolute;
+            left: 0;
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .quote-box { border-left: 4px solid var(--green); }
+        .quote-box p { font-size: 1.16rem; font-style: italic; }
+
+        .summary-box {
+            border: 1px solid rgba(249, 115, 22, 0.28);
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.16) 0%, rgba(75, 205, 62, 0.08) 100%);
+        }
+
+        .source-list ol { counter-reset: sources; }
+        .source-list li { padding-left: 32px; }
+        .source-list li::before {
+            content: counter(sources, decimal-leading-zero);
+            counter-increment: sources;
+            width: 22px;
+            color: var(--orange);
+            font-size: 0.78rem;
+        }
+
+        .section-nav {
+            position: sticky;
+            top: 24px;
+            padding: 22px;
+        }
+
+        .section-nav h2 {
+            font-size: 0.86rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 14px;
+        }
+
+        .section-nav ul { list-style: none; display: grid; gap: 10px; }
+        .section-nav a {
+            display: block;
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-muted);
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+            font-size: 0.9rem;
+            transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+        }
+
+        .section-nav a:hover,
+        .section-nav a:focus-visible {
+            background: rgba(249, 115, 22, 0.14);
+            color: var(--text-white);
+            transform: translateX(3px);
+            outline: none;
+        }
+
+        .footer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 18px 6px 0;
+            color: var(--text-grey);
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+            font-size: 0.82rem;
+        }
+
+        @media (max-width: 1080px) {
+            .content-shell { grid-template-columns: 1fr; }
+            .section-nav { position: static; order: -1; }
+            .section-nav ul { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+        }
+
+        @media (max-width: 820px) {
+            .site-shell { width: min(calc(100% - 28px), var(--content-width)); padding: 18px 0 36px; }
+            .hero,
+            .intro-box,
+            .section-block,
+            .quote-box,
+            .summary-box,
+            .source-list,
+            .section-nav { padding: 20px; border-radius: 22px; }
+            .hero-grid,
+            .insight-grid,
+            .two-col { grid-template-columns: 1fr; }
+            .hero-copy h1 { max-width: none; }
+        }
+        .global-nav-wrap {
+            width: min(calc(100% - 32px), 1460px);
+            margin: 16px auto 0;
+            position: sticky;
+            top: 14px;
+            z-index: 40;
+        }
+
+        .global-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 16px 22px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            background: rgba(9, 14, 27, 0.78);
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+            backdrop-filter: blur(18px);
+        }
+
+        .global-brand {
+            display: grid;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+
+        .global-brand-mark,
+        .global-brand-title,
+        .global-links a {
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+        }
+
+        .global-brand-mark {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--green);
+        }
+
+        .global-brand-title {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--text-white);
+        }
+
+        .global-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .global-links a {
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.78);
+            font-size: 0.86rem;
+            transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+        }
+
+        .global-links a:hover,
+        .global-links a:focus-visible,
+        .global-links a[aria-current="page"] {
+            background: rgba(249, 115, 22, 0.16);
+            color: var(--text-white);
+            transform: translateY(-1px);
+            outline: none;
+        }
+
+        .story-banner {
+            width: min(calc(100% - 48px), var(--content-width));
+            margin: 18px auto 0;
+            padding: 16px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            background: rgba(15, 22, 41, 0.78);
+            box-shadow: var(--panel-shadow);
+            color: var(--text-muted);
+        }
+
+        .story-banner strong,
+        .story-banner a {
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+        }
+
+        .story-banner strong {
+            color: var(--orange);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 0.76rem;
+        }
+
+        .story-banner a {
+            color: var(--green);
+        }
+
+        @media (max-width: 900px) {
+            .story-banner {
+                width: min(calc(100% - 28px), var(--content-width));
+            }
+
+            .global-nav {
+                flex-direction: column;
+                align-items: stretch;
+                border-radius: 24px;
+            }
+
+            .global-links {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="global-nav-wrap">
+        <nav class="global-nav" aria-label="Document navigation">
+            <a class="global-brand" href="index.html">
+                <span class="global-brand-mark">Stage 4 Narrative Infrastructure</span>
+                <span class="global-brand-title">Content Hub</span>
+            </a>
+            <div class="global-links">
+                <a href="index.html">Hub</a>
+                <a href="ExecutiveSummary-Condensed.html">Condensed Brief</a>
+                <a href="ExecutiveSummary.html">Full Summary</a>
+                <a href="Stage-4-5-Technical-Glossary.html">Glossary</a>
+                <a href="User-Journey-Experience-Workflow.html">Workflow</a>
+                <a href="narrative-orchestration-glossary.html">Exec Glossary</a>
+                <a href="Revenue-Operations-Infographic.html">Infographic</a>
+                <a href="Revenue-Operations-Strategy.html">Strategy</a>
+                <a href="Stage-4-in-practice.html">In Practice</a>
+            </div>
+        </nav>
+    </div>
+    <script>
+        (function () {
+            var path = window.location.pathname.split('/').pop() || 'index.html';
+            var links = document.querySelectorAll('.global-links a');
+            for (var i = 0; i < links.length; i += 1) {
+                if (links[i].getAttribute('href') === path) {
+                    links[i].setAttribute('aria-current', 'page');
+                }
+            }
+        }());
+    </script>
+    <div class="story-banner">
+        <strong>Story Position</strong> This page is the full strategic argument. Use it after <a href="ExecutiveSummary-Condensed.html">the condensed brief</a> if you need the complete business case, then move to <a href="narrative-orchestration-glossary.html">the executive glossary</a> or <a href="Stage-4-5-Technical-Glossary.html">the technical glossary</a> to align on the terms.
+    </div>
+    <div class="site-shell">
+        <header class="hero">
+            <div class="eyebrow">Executive Summary</div>
+            <div class="hero-grid">
+                <div class="hero-copy">
+                    <h1>Revenue Operations Needs a <span class="highlight">Narrative Infrastructure</span></h1>
+                    <p class="subtitle">Full hosted version of the strategic case for moving from disconnected demo tooling to unified narrative orchestration.</p>
+                </div>
+                <div class="hero-meta">
+                    <div class="meta-card">
+                        <div class="meta-label">Hosted Reading Mode</div>
+                        <p>Continuous sections replace page breaks so the brief works as a web artifact instead of a fixed-size print layout.</p>
+                    </div>
+                    <div class="meta-card">
+                        <div class="meta-label">Audience</div>
+                        <p>Executive, RevOps, Solution Engineering, and strategy stakeholders evaluating the operating shift behind Stage 4.</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-shell">
+            <main class="main-column">
+                <section class="intro-box" id="overview">
+                    <p>This page assumes the maturity problem has already been introduced in the infographic and the core thesis has already been stated in the condensed brief. Its role is to deepen the business case, clarify the operating implications, and explain why Stage 4 is an infrastructure decision rather than a tooling refresh.</p>
+                </section>
+
+                <section class="section-block" id="change">
+                    <div class="section-kicker">Strategic Context</div>
+                    <h2 class="section-title">What Has Changed In Buying</h2>
+                    <div class="section-card">
+                        <h3>Research Signals</h3>
+                        <ul>
+                            <li>Buying journeys are now nonlinear, which means isolated touchpoints no longer support coherent evaluation.</li>
+                            <li>Buyers expect self-service, human interaction, and digital guidance to work together instead of appearing as separate motions.</li>
+                            <li>Stalled purchases and dissatisfaction signal that most organizations still fail to support the evaluation journey as a connected system.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="quote-box" id="redefinition">
+                    <p>These changes are redefining the role of Revenue Operations, Solution Engineering, and Demo Services.</p>
+                </section>
+
+                <section class="section-block" id="problem">
+                    <div class="section-kicker">Industry Problem</div>
+                    <h2 class="section-title">Why Stage 3 Still Breaks Down</h2>
+                    <div class="insight-grid">
+                        <div class="section-card">
+                            <h3>What Organizations Optimized For</h3>
+                            <ul>
+                                <li>more asset types and more channels</li>
+                                <li>faster content production and personalization</li>
+                                <li>better point-solution performance inside individual tools</li>
+                                <li>more ways for buyers to self-serve parts of evaluation</li>
+                            </ul>
+                        </div>
+                        <div class="section-card">
+                            <h3>What The Buyer Still Experiences</h3>
+                            <ul>
+                                <li>separate experiences that do not carry context forward</li>
+                                <li>story breakdown between overview, product detail, and follow-up</li>
+                                <li>limited visibility into actual progression and intent</li>
+                                <li>too much burden on the buyer to reconstruct why it all matters</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="section-card" style="margin-top: 16px;">
+                        <h3>Stage 3 Maturity Problem</h3>
+                        <p>Stage 3 fails because the organization has optimized assets without orchestrating the journey between them. The result is not just inefficiency. It is narrative drift, weak buyer comprehension, and reduced strategic control over evaluation.</p>
+                    </div>
+                </section>
+
+                <section class="section-block" id="forward">
+                    <div class="section-kicker">Strategic Direction</div>
+                    <h2 class="section-title">What Changes At Stage 4</h2>
+                    <div class="two-col">
+                        <div class="section-card">
+                            <h3>Operational Shift</h3>
+                            <p>The move is from producing isolated experiences to governing a buyer journey that can adapt without losing continuity. Human teams still define narrative priorities, value framing, and approved pathways. The system operationalizes those decisions across the full experience.</p>
+                        </div>
+                        <div class="section-card">
+                            <h3>Infrastructure Response</h3>
+                            <p>Unified Narrative Infrastructure is the operating answer to this buying environment. It connects context, personalization, guidance, presentation, workflow logic, and analytics so the buyer experiences one governed system instead of multiple handoffs.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section-block" id="implications">
+                    <div class="section-kicker">Implications</div>
+                    <h2 class="section-title">Business and Technical Implications</h2>
+                    <div class="two-col">
+                        <div class="section-card">
+                            <h3>Business Objectives</h3>
+                            <ul>
+                                <li>reduce buyer friction</li>
+                                <li>improve engagement quality</li>
+                                <li>increase seller productivity</li>
+                                <li>accelerate evaluation cycles</li>
+                                <li>support scalable personalization</li>
+                                <li>maintain governance and messaging consistency</li>
+                                <li>improve visibility into buyer intent and progression</li>
+                            </ul>
+                        </div>
+                        <div class="section-card">
+                            <h3>Technical Requirements</h3>
+                            <ul>
+                                <li>connected experience architectures</li>
+                                <li>persistent context management</li>
+                                <li>orchestration layers</li>
+                                <li>integrated analytics</li>
+                                <li>AI-assisted guidance systems</li>
+                                <li>adaptive workflows</li>
+                                <li>narrative state tracking</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="section-card" style="margin-top: 16px;">
+                        <h3>From Events to Systems</h3>
+                        <p>Traditional demos were event-driven. Modern buyer journeys are state-driven. The experience must understand who the buyer is, what they have explored, which business priorities matter, where they are in evaluation, what stakeholders are involved, and how narrative continuity is maintained across nonlinear exploration.</p>
+                    </div>
+                    <div class="section-card" style="margin-top: 16px;">
+                        <h3>Human Expertise Remains Central</h3>
+                        <p>Sales, Solution Engineering, Product Marketing, and Revenue Operations still define positioning, value narratives, workflow priorities, governance standards, and customer engagement strategy. The orchestration infrastructure operationalizes these decisions consistently and at scale.</p>
+                    </div>
+                    <div class="section-card" style="margin-top: 16px;">
+                        <h3>Why This Matters Now</h3>
+                        <p>Buyer expectations continue shifting toward digital-first evaluation, autonomous exploration, AI-assisted research, contextual personalization, and self-guided engagement. Organizations that remain fragmented risk narrative inconsistency, lower engagement quality, reduced differentiation, longer evaluation cycles, and weaker insight into buyer intent.</p>
+                    </div>
+                </section>
+
+                <section class="summary-box" id="position">
+                    <h3>Our Position</h3>
+                    <p>We are not simply adopting new demo technologies. We are building the operational foundation for how modern enterprise buying experiences will function in the future. This positions the organization to lead innovation in Revenue Operations and Demo Services, establish scalable buyer engagement infrastructure, bridge business strategy with technical execution, operationalize adaptive digital experiences, and become an early leader in Narrative Orchestration maturity.</p>
+                </section>
+
+                <section class="source-list" id="sources">
+                    <h3>Research References</h3>
+                    <ol>
+                        <li><a href="https://www.gartner.com/en/documents/5083031?utm_source=chatgpt.com">Gartner: Improve Digital Engagement to Support B2B Buying Journeys</a></li>
+                        <li><a href="https://www.gartner.com/en/documents/5193163?utm_source=chatgpt.com">Gartner: Optimize Websites to Support B2B Buying Journeys</a></li>
+                        <li><a href="https://www.mckinsey.com/capabilities/growth-marketing-and-sales/our-insights/five-fundamental-truths-how-b2b-winners-keep-growing?utm_source=chatgpt.com">McKinsey: Five Fundamental Truths</a></li>
+                        <li><a href="https://www.forrester.com/press-newsroom/forrester-the-state-of-business-buying-2024/?utm_source=chatgpt.com">Forrester: The State of Business Buying, 2024</a></li>
+                        <li><a href="https://www.forrester.com/report/buyer-enablement-a-vital-new-discipline-for-b2b-sales-and-marketing/RES181695?utm_source=chatgpt.com">Forrester: Buyer Enablement</a></li>
+                        <li><a href="https://www.forrester.com/report/b2b-buyer-adoption-of-generative-ai/RES181769?utm_source=chatgpt.com">Forrester: B2B Buyer Adoption of Generative AI</a></li>
+                    </ol>
+                </section>
+
+                <div class="footer">
+                    <span>Executive Summary Full Version</span>
+                    <span>Hosted web layout for the Stage 4 visual system</span>
+                </div>
+            </main>
+
+            <aside class="section-nav" aria-label="Section navigation">
+                <h2>On This Page</h2>
+                <ul>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#change">Why Change</a></li>
+                    <li><a href="#problem">Industry Problem</a></li>
+                    <li><a href="#forward">Why We Are Moving Forward</a></li>
+                    <li><a href="#implications">Implications</a></li>
+                    <li><a href="#position">Our Position</a></li>
+                    <li><a href="#sources">Research References</a></li>
+                </ul>
+            </aside>
+        </div>
+    </div>
+</body>
+</html>

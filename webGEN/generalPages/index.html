@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narrative Orchestration | Content Hub</title>
+    <style>
+        :root {
+            --bg-dark: #090E1B;
+            --bg-darker: #0F1629;
+            --orange: #F97316;
+            --green: #4bcd3e;
+            --raspberry: #B21a53;
+            --text-white: #FFFFFF;
+            --text-grey: #97A3AF;
+            --content-width: 1200px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            color: var(--text-white);
+            background: var(--bg-dark);
+            line-height: 1.4;
+        }
+
+        a {
+            color: var(--orange);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--green);
+        }
+
+        .container {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            padding: 0 24px 24px 24px;
+        }
+
+        .hub-scroll-wrapper {
+            margin: 0 -24px;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        .global-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--bg-darker);
+            padding: 16px 24px;
+            border-bottom: 3px solid var(--orange);
+            margin-bottom: 16px;
+            transition: all 300ms ease;
+        }
+
+        .global-nav.scrolled {
+            padding: 8px 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-container {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .global-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
+            transition: all 300ms ease;
+        }
+
+        .global-brand-mark {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--green);
+            line-height: 1;
+            transition: all 300ms ease;
+        }
+
+        .global-nav.scrolled .global-brand-mark {
+            font-size: 0.55rem;
+        }
+
+        .global-brand-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            color: var(--text-white);
+            line-height: 1;
+            transition: all 300ms ease;
+        }
+
+        .global-nav.scrolled .global-brand-title {
+            font-size: 1rem;
+        }
+
+        .global-links {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 8px;
+        }
+
+        .global-links a {
+            padding: 6px 10px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-grey);
+            font-size: 0.75rem;
+            transition: all 200ms ease;
+            white-space: nowrap;
+        }
+
+        .global-nav.scrolled .global-links a {
+            padding: 4px 8px;
+            font-size: 0.7rem;
+        }
+
+        .global-links a:hover {
+            background: rgba(249, 115, 22, 0.2);
+            color: var(--text-white);
+        }
+
+        .global-links a[aria-current="page"] {
+            background: var(--green);
+            color: var(--bg-dark);
+            font-weight: 600;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-darker);
+            padding: 12px 20px;
+            border-radius: 6px;
+            border-left: 4px solid var(--orange);
+            margin-bottom: 8px;
+        }
+
+        .eyebrow {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 6px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 6px;
+            line-height: 1.1;
+        }
+
+        .header .highlight {
+            color: var(--orange);
+        }
+
+        .header p {
+            font-size: 1rem;
+            color: var(--text-grey);
+            max-width: 70ch;
+        }
+
+        /* Summary Cards */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .summary-card {
+            background: var(--bg-darker);
+            padding: 16px;
+            border-radius: 6px;
+            border-left: 3px solid var(--green);
+        }
+
+        .label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .summary-card p {
+            color: var(--text-grey);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Sections */
+        .section {
+            background: var(--bg-darker);
+            padding: 20px 24px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--orange);
+            margin-bottom: 20px;
+            padding-left: 12px;
+            border-left: 4px solid var(--orange);
+        }
+
+        /* Hub Horizontal Scroll */
+        .hub-pagination-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 16px;
+            padding: 0;
+        }
+
+        .pagination-btn {
+            width: 36px;
+            height: 36px;
+            background: transparent;
+            border: 1.5px solid var(--orange);
+            border-radius: 4px;
+            color: var(--orange);
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 200ms ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: var(--orange);
+            color: var(--bg-dark);
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: var(--text-grey);
+            color: var(--text-grey);
+        }
+
+        .pagination-info {
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .page-indicator {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-grey);
+            letter-spacing: 0.04em;
+        }
+
+        .page-indicator span {
+            color: var(--orange);
+            font-weight: 700;
+        }
+
+        .hub-scroll-wrapper {
+            margin: 0 -24px;
+            padding: 0 24px;
+        }
+
+        .hub-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            padding: 12px 0 28px 0;
+        }
+
+        .hub-card {
+            min-height: 300px;
+            background: var(--bg-darker);
+            border-radius: 10px;
+            border-left: 5px solid var(--orange);
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transition: transform 250ms ease, box-shadow 250ms ease, border-color 250ms ease, opacity 250ms ease;
+        }
+
+        .hub-card.hidden {
+            display: none;
+        }
+
+        .hub-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(249, 115, 22, 0.2);
+            border-left-color: var(--green);
+        }
+
+        .hub-card.hub-start {
+            background: linear-gradient(135deg, var(--bg-darker) 0%, rgba(249, 115, 22, 0.12) 100%);
+            border-left-color: var(--green);
+        }
+
+        .hub-card.hub-start:hover {
+            box-shadow: 0 12px 32px rgba(75, 205, 62, 0.25);
+        }
+
+        .card-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding-bottom: 18px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hub-start .card-nav {
+            justify-content: center;
+            border-bottom-color: rgba(75, 205, 62, 0.3);
+        }
+
+        .nav-label {
+            color: var(--orange);
+            font-size: 0.75rem;
+        }
+
+        .hub-start .nav-label {
+            color: var(--green);
+            font-size: 0.8rem;
+        }
+
+        .nav-prev,
+        .nav-next {
+            color: var(--text-grey);
+            font-size: 0.65rem;
+            transition: color 200ms ease;
+        }
+
+        .nav-prev:hover,
+        .nav-next:hover {
+            color: var(--text-white);
+        }
+
+        .card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .card-step {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--green);
+            line-height: 1;
+        }
+
+        .card-title {
+            font-size: 1.7rem;
+            color: var(--text-white);
+            font-weight: 700;
+            line-height: 1.15;
+            margin: 0;
+        }
+
+        .hub-start .card-title {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--text-white) 0%, var(--orange) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-description {
+            font-size: 1rem;
+            color: var(--text-grey);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .hub-start .card-description {
+            font-size: 1.05rem;
+            line-height: 1.65;
+        }
+
+        .card-button {
+            padding: 14px 28px;
+            background: var(--orange);
+            color: var(--bg-dark);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            text-align: center;
+            transition: all 250ms ease;
+            border: 2px solid var(--orange);
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+        }
+
+        .card-button:hover {
+            background: var(--green);
+            border-color: var(--green);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(75, 205, 62, 0.4);
+        }
+
+        .hub-start .card-button {
+            background: var(--green);
+            border-color: var(--green);
+            box-shadow: 0 4px 12px rgba(75, 205, 62, 0.3);
+            font-size: 0.95rem;
+            padding: 16px 32px;
+        }
+
+        .hub-start .card-button:hover {
+            background: var(--orange);
+            border-color: var(--orange);
+            box-shadow: 0 6px 18px rgba(249, 115, 22, 0.4);
+        }
+
+        .section-kicker {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 8px;
+        }
+
+        .section-intro {
+            font-size: 0.95rem;
+            color: var(--text-grey);
+            max-width: 80ch;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        /* Grid Layouts */
+        .pill-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .pill-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 14px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .pill-card strong {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--green);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .pill-card p {
+            color: var(--text-grey);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .flow-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .flow-card {
+            background: var(--bg-dark);
+            padding: 16px;
+            border-radius: 6px;
+            border-left: 3px solid var(--orange);
+        }
+
+        .flow-step {
+            width: 36px;
+            height: 36px;
+            background: var(--orange);
+            color: var(--bg-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 16px;
+        }
+
+        .flow-card h3 {
+            font-size: 1.1rem;
+            color: var(--text-white);
+            margin-bottom: 12px;
+        }
+
+        .flow-card p {
+            color: var(--text-grey);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .action-link {
+            color: var(--orange);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        .action-link:hover {
+            color: var(--green);
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .resource-card {
+            background: var(--bg-dark);
+            padding: 16px;
+            border-radius: 6px;
+            border-top: 3px solid var(--green);
+        }
+
+        .resource-card h3 {
+            font-size: 1rem;
+            color: var(--text-white);
+            margin-bottom: 10px;
+        }
+
+        .resource-card p {
+            color: var(--text-grey);
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        /* Journey Navigation */
+        .journey-nav {
+            max-width: var(--content-width);
+            margin: 16px auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .journey-progress {
+            background: var(--bg-darker);
+            padding: 10px 16px;
+            border-radius: 4px;
+            border-left: 3px solid var(--orange);
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .journey-progress .step-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 4px;
+        }
+
+        .journey-progress .step-title {
+            font-size: 0.9rem;
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        .journey-buttons {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .journey-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 200ms ease;
+            border: 2px solid;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .journey-btn.prev {
+            background: transparent;
+            border-color: var(--text-grey);
+            color: var(--text-grey);
+        }
+
+        .journey-btn.prev:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-white);
+            color: var(--text-white);
+        }
+
+        .journey-btn.next {
+            background: var(--orange);
+            border-color: var(--orange);
+            color: var(--bg-dark);
+        }
+
+        .journey-btn.next:hover {
+            background: var(--green);
+            border-color: var(--green);
+        }
+
+        /* Footer */
+        .footer-panel {
+            background: var(--bg-darker);
+            padding: 20px 24px;
+            border-radius: 6px;
+            border-left: 4px solid var(--raspberry);
+        }
+
+        .footer-panel h2 {
+            font-size: 1.2rem;
+            color: var(--orange);
+            margin-bottom: 12px;
+        }
+
+        .footer-panel p {
+            color: var(--text-grey);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .footer-meta {
+            font-size: 0.8rem;
+            color: var(--text-grey);
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .global-brand {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+
+            .global-links {
+                width: 100%;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .hub-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pagination-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <script>
+        // Sticky header shrink on scroll
+        (function() {
+            const nav = document.querySelector('.global-nav');
+            let scrolled = false;
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50 && !scrolled) {
+                    nav.classList.add('scrolled');
+                    scrolled = true;
+                } else if (window.scrollY <= 50 && scrolled) {
+                    nav.classList.remove('scrolled');
+                    scrolled = false;
+                }
+            });
+        })();
+    </script>
+    <nav class="global-nav">
+        <div class="nav-container">
+            <a class="global-brand" href="index.html">
+                <span class="global-brand-mark">Stage 4 Narrative Infrastructure</span>
+                <span class="global-brand-title">Content Hub</span>
+            </a>
+            <div class="global-links">
+                <a href="index.html" aria-current="page">Hub</a>
+                <a href="ExecutiveSummary-Condensed.html">Condensed Brief</a>
+                <a href="ExecutiveSummary.html">Full Summary</a>
+                <a href="narrative-orchestration-glossary.html">Exec Glossary</a>
+                <a href="Stage-4-5-Technical-Glossary.html">Glossary</a>
+                <a href="User-Journey-Experience-Workflow.html">Workflow</a>
+                <a href="Stage-4-in-practice.html">In Practice</a>
+                <a href="Revenue-Operations-Infographic.html">Infographic</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="header">
+            <div class="eyebrow">Stage 4 Content Collection</div>
+            <h1>A Hub for <span class="highlight">Narrative Orchestration</span></h1>
+            <p>Seven documents that explain how to move from disconnected buyer-facing assets to unified narrative infrastructure.</p>
+        </header>
+
+        <div class="hub-pagination-controls">
+            <button class="pagination-btn" id="prevPage" aria-label="Previous page">
+                <span>←</span>
+            </button>
+            <div class="pagination-info">
+                <span class="page-indicator">Page <span id="currentPage">1</span> of <span id="totalPages">4</span></span>
+            </div>
+            <button class="pagination-btn" id="nextPage" aria-label="Next page">
+                <span>→</span>
+            </button>
+        </div>
+
+        <div class="hub-scroll-wrapper">
+            <div class="hub-grid" id="hubGrid">
+                <div class="hub-card hub-start" data-page="1">
+                <div class="card-nav">
+                    <span class="nav-label">Collection Start</span>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">Begin Your Journey</h2>
+                    <p class="card-description">Start with Step 1 to follow the guided path through all seven documents in the recommended sequence.</p>
+                </div>
+                <a href="ExecutiveSummary-Condensed.html" class="card-button">Start Journey →</a>
+            </div>
+
+            <div class="hub-card" data-page="1">
+                <div class="card-nav">
+                    <span class="nav-prev">← Hub</span>
+                    <span class="nav-label">Step 1 of 7</span>
+                    <span class="nav-next">Step 2 →</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-step">Thesis Layer</div>
+                    <h3 class="card-title">Condensed Brief</h3>
+                    <p class="card-description">The core strategic thesis in its shortest form—explains the Stage 3 failure mode (disconnected tools without orchestration) and the Stage 4 shift (unified narrative infrastructure). Essential executive handoff before deeper exploration.</p>
+                </div>
+                <a href="ExecutiveSummary-Condensed.html" class="card-button">Open</a>
+            </div>
+
+            <div class="hub-card" data-page="2">
+                <div class="card-nav">
+                    <span class="nav-prev">← Step 1</span>
+                    <span class="nav-label">Step 2 of 7</span>
+                    <span class="nav-next">Step 3 →</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-step">Full Business Case</div>
+                    <h3 class="card-title">Full Summary</h3>
+                    <p class="card-description">The full strategic argument with research signals, industry context, and operating implications. Deepens the condensed brief with evidence on why Stage 4 is an infrastructure decision, not a tooling refresh. Includes detailed analysis of buyer journey changes and RevOps transformation.</p>
+                </div>
+                <a href="ExecutiveSummary.html" class="card-button">Open</a>
+            </div>
+
+            <div class="hub-card" data-page="2">
+                <div class="card-nav">
+                    <span class="nav-prev">← Step 2</span>
+                    <span class="nav-label">Step 3 of 7</span>
+                    <span class="nav-next">Step 4 →</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-step">Leadership Language</div>
+                    <h3 class="card-title">Executive Glossary</h3>
+                    <p class="card-description">Executive translation layer defining Stage 4 concepts in leadership terms—Narrative Infrastructure, Contextual Continuity, Governed Pathways, Experience Architect role. Bridges strategic vision to operational language for cross-functional alignment.</p>
+                </div>
+                <a href="narrative-orchestration-glossary.html" class="card-button">Open</a>
+            </div>
+
+            <div class="hub-card" data-page="3">
+                <div class="card-nav">
+                    <span class="nav-prev">← Step 3</span>
+                    <span class="nav-label">Step 4 of 7</span>
+                    <span class="nav-next">Step 5 →</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-step">Implementation Language</div>
+                    <h3 class="card-title">Technical Glossary</h3>
+                    <p class="card-description">Implementation vocabulary covering orchestration layer architecture, CRM integration patterns, AI gateway services, event collection infrastructure, and the technical stack required to operationalize Stage 4 at scale. Critical for engineering and platform teams.</p>
+                </div>
+                <a href="Stage-4-5-Technical-Glossary.html" class="card-button">Open</a>
+            </div>
+
+            <div class="hub-card" data-page="3">
+                <div class="card-nav">
+                    <span class="nav-prev">← Step 4</span>
+                    <span class="nav-label">Step 5 of 7</span>
+                    <span class="nav-next">Step 6 →</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-step">Operating Model</div>
+                    <h3 class="card-title">Workflow</h3>
+                    <p class="card-description">Granular 73-step workflow detailing every operational phase—account qualification, SE strategy definition, orchestration assembly, buyer engagement, analytics instrumentation, and seller activation. Shows what's automated, what requires human oversight, and which glossary capabilities activate at each step.</p>
+                </div>
+                <a href="User-Journey-Experience-Workflow.html" class="card-button">Open</a>
+            </div>
+
+            <div class="hub-card" data-page="4">
+                <div class="card-nav">
+                    <span class="nav-prev">← Step 5</span>
+                    <span class="nav-label">Step 6 of 7</span>
+                    <span class="nav-next">Step 7 →</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-step">Concrete Example</div>
+                    <h3 class="card-title">In Practice</h3>
+                    <p class="card-description">Real-world implementation walkthrough showing how Salesforce (CRM intelligence), Coast.io (orchestration layer), and Synthesia (AI video) work together to deliver unified narrative infrastructure for a qualified opportunity. Demonstrates SE strategy input, system assembly, and buyer experience output.</p>
+                </div>
+                <a href="Stage-4-in-practice.html" class="card-button">Open</a>
+            </div>
+
+            <div class="hub-card" data-page="4">
+                <div class="card-nav">
+                    <span class="nav-prev">← Step 6</span>
+                    <span class="nav-label">Step 7 of 7</span>
+                    <span class="nav-next">Hub →</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-step">Visual Summary</div>
+                    <h3 class="card-title">Infographic</h3>
+                    <p class="card-description">Visual maturity progression showing Stage 1 (spreadsheets), Stage 2 (point solutions), Stage 3 (best-in-class tools without orchestration), and Stage 4 (unified narrative infrastructure). Includes workflow comparisons, capability shifts, and operating model transformation.</p>
+                </div>
+                <a href="Revenue-Operations-Infographic.html" class="card-button">Open</a>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var path = window.location.pathname.split('/').pop() || 'index.html';
+            var links = document.querySelectorAll('.global-links a');
+            for (var i = 0; i < links.length; i += 1) {
+                if (links[i].getAttribute('href') === path) {
+                    links[i].setAttribute('aria-current', 'page');
+                }
+            }
+        }());
+
+        // Hub Pagination
+        (function () {
+            var currentPage = 1;
+            var totalPages = 4;
+            var prevBtn = document.getElementById('prevPage');
+            var nextBtn = document.getElementById('nextPage');
+            var currentPageDisplay = document.getElementById('currentPage');
+            var cards = document.querySelectorAll('.hub-card');
+
+            function showPage(pageNum) {
+                currentPage = pageNum;
+                currentPageDisplay.textContent = currentPage;
+
+                // Hide all cards first
+                cards.forEach(function(card) {
+                    card.classList.add('hidden');
+                });
+
+                // Show cards for current page
+                cards.forEach(function(card) {
+                    var cardPage = parseInt(card.getAttribute('data-page'));
+                    if (cardPage === currentPage) {
+                        card.classList.remove('hidden');
+                    }
+                });
+
+                // Update button states
+                prevBtn.disabled = currentPage === 1;
+                nextBtn.disabled = currentPage === totalPages;
+            }
+
+            prevBtn.addEventListener('click', function() {
+                if (currentPage > 1) {
+                    showPage(currentPage - 1);
+                }
+            });
+
+            nextBtn.addEventListener('click', function() {
+                if (currentPage < totalPages) {
+                    showPage(currentPage + 1);
+                }
+            });
+
+            // Initialize to page 1
+            showPage(1);
+        }());
+    </script>
+</body>
+</html>

@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Demo Index™ Methodology</title>
+    <style>
+        :root {
+            --bg-dark: #090E1B;
+            --bg-darker: #0F1629;
+            --orange: #F97316;
+            --green: #4bcd3e;
+            --text-white: #FFFFFF;
+            --text-grey: #97A3AF;
+            --di-1: #e74c3c;
+            --di-2: #f39c12;
+            --di-3: #B21a53;
+            --di-4: #4bcd3e;
+            --di-5: #00d4ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: Letter;
+            margin: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+        }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            background: var(--bg-dark);
+            padding: 0.4in;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+
+        .with-footer {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.65rem;
+            color: var(--text-grey);
+            padding-top: 0.15in;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: auto;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--orange);
+            margin-bottom: 0.15in;
+        }
+
+        h2.section-title {
+            font-size: 1.1rem;
+            color: var(--orange);
+            margin: 0.15in 0 0.1in 0;
+            padding-left: 0.08in;
+            border-left: 4px solid var(--orange);
+        }
+
+        h3 {
+            font-size: 0.95rem;
+            color: var(--orange);
+            margin: 0.12in 0 0.08in 0;
+        }
+
+        h4 {
+            font-size: 0.85rem;
+            color: var(--text-white);
+            margin: 0.08in 0 0.05in 0;
+        }
+
+        p, li {
+            font-size: 0.78rem;
+            line-height: 1.5;
+            color: var(--text-grey);
+            margin-bottom: 0.08in;
+        }
+
+        ul {
+            margin-left: 0.2in;
+            margin-bottom: 0.1in;
+        }
+
+        li {
+            margin-bottom: 0.04in;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.1in 0;
+            font-size: 0.75rem;
+        }
+
+        th {
+            background: rgba(249, 115, 22, 0.1);
+            color: var(--orange);
+            padding: 0.08in;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        td {
+            padding: 0.08in;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-grey);
+        }
+
+        .definition-box {
+            background: rgba(249, 115, 22, 0.05);
+            border-left: 3px solid var(--orange);
+            padding: 0.1in;
+            margin: 0.08in 0;
+            border-radius: 4px;
+        }
+
+        .callout {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(249, 115, 22, 0.02) 100%);
+            border: 1px solid var(--orange);
+            border-radius: 6px;
+            padding: 0.12in;
+            margin: 0.1in 0;
+        }
+
+        @media print {
+            body {
+                background: var(--bg-dark);
+            }
+            .page {
+                margin: 0;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1: TITLE & PURPOSE -->
+    <div class="page page-break with-footer">
+        <div>
+        <h1>The Demo Index™</h1>
+        <p style="font-size: 0.95rem; color: var(--orange); margin-bottom: 0.2in;">Methodology Appendix</p>
+        
+        <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1); padding: 0.12in; border-radius: 6px; margin-bottom: 0.15in;">
+            <p style="font-size: 0.8rem; line-height: 1.6; color: var(--text-white);">
+                This document defines the methodology used to assess, score, and classify organizations within the Demo Index maturity framework. It provides the technical foundation for evaluating demo operations capabilities across five core dimensions.
+            </p>
+        </div>
+
+        <h2 class="section-title">1. Purpose</h2>
+
+        <p>
+            The Demo Index measures an organization's ability to deliver scalable, contextualized, and personalized buyer experiences across the full spectrum of demo operations—from initial prospect engagement through post-sales adoption.
+        </p>
+
+        <p>
+            Unlike traditional sales enablement or product marketing assessments, the Demo Index specifically evaluates the infrastructure, processes, and capabilities required to orchestrate high-velocity, high-personalization demo services at scale.
+        </p>
+
+        <h3>What The Demo Index Measures</h3>
+
+        <p>The framework evaluates maturity across five capability dimensions:</p>
+
+        <div class="definition-box">
+            <h4 style="color: var(--orange);">Experience Delivery</h4>
+            <p style="margin-bottom: 0;">The organizational capability to create, provision, and deploy personalized demo experiences at scale. Measured through Time-to-Demo outcomes: velocity and parallel delivery capacity.</p>
+        </div>
+
+        <div class="definition-box">
+            <h4 style="color: var(--orange);">Context Intelligence</h4>
+            <p style="margin-bottom: 0;">The capability to capture, interpret, and apply buyer context, account signals, and behavioral intelligence across demo experiences. Measured through Personalization outcomes: level of relevance and customization depth.</p>
+        </div>
+
+        <div class="definition-box">
+            <h4 style="color: var(--orange);">Narrative Integrity</h4>
+            <p style="margin-bottom: 0;">The ability to preserve buyer context, value alignment, and journey continuity across multiple demo touchpoints, assets, and interactions. Measures coherence, not just customization.</p>
+        </div>
+
+        <div class="definition-box">
+            <h4 style="color: var(--orange);">Orchestration Capability</h4>
+            <p style="margin-bottom: 0;">The infrastructure maturity enabling automated demo assembly, deployment, and experience delivery without manual intervention. Measured through automation percentage and system integration depth.</p>
+        </div>
+
+        <div class="definition-box">
+            <h4 style="color: var(--orange);">Buyer Autonomy</h4>
+            <p style="margin-bottom: 0;">The capability to enable prospects to generate, explore, and engage with personalized demo experiences independently without requiring sales or SE involvement. Measured through self-service adoption and buyer-initiated experience rates.</p>
+        </div>
+
+        <h3 style="margin-top: 0.15in;">Classification Output</h3>
+
+        <p>
+            Organizations are assigned a <strong style="color: var(--orange);">Demo Index Score</strong> ranging from 0 to 100, which determines their maturity classification from <strong>DI-1</strong> (Manual Demo Creation) through <strong>DI-5</strong> (AI-Orchestrated Hyper-Personalization).
+        </p>
+
+        <p>
+            This score enables organizations to benchmark performance, track improvement over time, compare maturity against industry peers, and prioritize capability investments.
+        </p>
+        </div>
+
+        <div class="footer">
+            © 2026 | The Demo Index™ Methodology | Appendix A
+        </div>
+    </div>
+
+    <!-- PAGE 2: CAPABILITY DEFINITIONS -->
+    <div class="page page-break with-footer">
+        <div>
+        <h2 class="section-title">2. Capability Definitions</h2>
+
+        <p>Each of the five capability dimensions is measured through specific criteria and observable characteristics.</p>
+
+        <h3>Experience Delivery</h3>
+        <div class="definition-box">
+            <p><strong>Definition:</strong> The organizational capability to create, provision, and deploy personalized demo experiences at scale.</p>
+            
+            <p><strong>Measured Through:</strong></p>
+            <ul>
+                <li>Time-to-Demo velocity (elapsed time from request to delivery)</li>
+                <li>Infrastructure provisioning speed</li>
+                <li>Content assembly velocity</li>
+                <li>Parallel delivery capacity</li>
+                <li>Response time to customization requests</li>
+            </ul>
+
+            <p style="margin-bottom: 0;"><strong>Maturity Range:</strong> Weeks (DI-1) → Days (DI-2) → Hours (DI-3) → Minutes (DI-4) → Instant (DI-5)</p>
+        </div>
+
+        <h3>Context Intelligence</h3>
+        <div class="definition-box">
+            <p><strong>Definition:</strong> The capability to capture, interpret, and apply buyer context, account signals, and behavioral intelligence to personalize demo experiences.</p>
+            
+            <p><strong>Measured Through:</strong></p>
+            <ul>
+                <li>CRM data injection and context awareness</li>
+                <li>Industry, role, and use case specificity</li>
+                <li>Account-level customization capability</li>
+                <li>Real-time behavioral adaptation</li>
+                <li>Integration with buyer intelligence platforms</li>
+            </ul>
+
+            <p style="margin-bottom: 0;"><strong>Maturity Range:</strong> Generic (DI-1) → Industry (DI-2) → Persona (DI-3) → Account (DI-4) → Real-Time Adaptive (DI-5)</p>
+        </div>
+
+        <h3>Narrative Integrity</h3>
+        <div class="definition-box">
+            <p><strong>Definition:</strong> The ability to maintain buyer context, value alignment, and journey coherence across all demo touchpoints and interactions.</p>
+            
+            <p><strong>Measured Through:</strong></p>
+            <ul>
+                <li>Context persistence across sessions and assets</li>
+                <li>Guided navigation and pathway coherence</li>
+                <li>State management and continuity</li>
+                <li>Value proposition reinforcement</li>
+                <li>Cross-asset narrative consistency</li>
+            </ul>
+
+            <p style="margin-bottom: 0;"><strong>Maturity Range:</strong> Fragmented (DI-1) → Consistent Messaging (DI-2) → Guided Pathways (DI-3) → Context Preservation (DI-4) → Intelligent Orchestration (DI-5)</p>
+        </div>
+
+        <h3>Orchestration Capability</h3>
+        <div class="definition-box">
+            <p><strong>Definition:</strong> The infrastructure maturity enabling automated demo assembly, deployment, and experience delivery.</p>
+            
+            <p><strong>Measured Through:</strong></p>
+            <ul>
+                <li>Automated environment provisioning</li>
+                <li>Self-assembly of demo components</li>
+                <li>Deployment and delivery automation</li>
+                <li>Integration with RevOps systems</li>
+                <li>Orchestration layer maturity</li>
+            </ul>
+
+            <p style="margin-bottom: 0;"><strong>Maturity Range:</strong> 0% Automated (DI-1) → 25% (DI-2) → 50% (DI-3) → 75% (DI-4) → 90%+ (DI-5)</p>
+        </div>
+
+        <h3>Buyer Autonomy</h3>
+        <div class="definition-box">
+            <p><strong>Definition:</strong> The capability for prospects to independently access, generate, and explore personalized demo experiences without sales or SE intervention.</p>
+            
+            <p><strong>Measured Through:</strong></p>
+            <ul>
+                <li>Anonymous prospect access capability</li>
+                <li>Self-guided experience generation</li>
+                <li>On-demand personalization without human input</li>
+                <li>Buyer-initiated customization</li>
+                <li>Real-time adaptation to exploration behavior</li>
+            </ul>
+
+            <p style="margin-bottom: 0;"><strong>Maturity Range:</strong> Never (DI-1) → Limited (DI-2) → Guided (DI-3) → Full Self-Service (DI-4) → Autonomous Generation (DI-5)</p>
+        </div>
+
+        <h2 class="section-title" style="margin-top: 0.2in;">2A. Measurement Layer Specification</h2>
+
+        <p>
+            The Demo Index employs a dual-track measurement approach combining <strong>declarative scoring</strong> (what organizations report they do) with <strong>empirical scoring</strong> (what systems demonstrate they actually do). This separation increases measurement validity and reduces self-assessment bias.
+        </p>
+
+        <h3>Declarative vs. Empirical Measurement</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Measurement Track</th>
+                    <th>Data Source</th>
+                    <th>Validity Constraint</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong style="color: var(--orange);">Declarative Score</strong></td>
+                    <td>Self-reported assessment responses, process documentation, stated capabilities</td>
+                    <td>Subject to perception bias; requires external validation at higher maturity levels</td>
+                </tr>
+                <tr>
+                    <td><strong style="color: var(--orange);">Empirical Score</strong></td>
+                    <td>System telemetry, CRM logs, demo platform analytics, timestamp data, integration evidence</td>
+                    <td>Objective but requires technical instrumentation; not available for all dimensions at DI-1/DI-2</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="callout">
+            <p style="font-size: 0.75rem; margin-bottom: 0;">
+                <strong style="color: var(--orange);">Current State (V1.0):</strong> The initial Demo Index assessment relies primarily on declarative scoring due to the absence of standardized telemetry infrastructure across organizations. Future versions will introduce empirical validation layers as measurement instrumentation matures and integrations become available.
+            </p>
+        </div>
+        </div>
+
+        <div class="footer">
+            © 2026 | The Demo Index™ Methodology | Appendix A
+        </div>
+    </div>
+
+    <!-- PAGE 3: MEASUREMENT SPECIFICATION -->
+    <div class="page page-break with-footer">
+        <div>
+        <h2 class="section-title">Observable Signals & System Evidence</h2>
+
+        <p>
+            Each capability dimension requires specific observable signals and system evidence to validate scoring accuracy. The following table defines the data sources and validation criteria for each dimension.
+        </p>
+
+        <h3>Experience Delivery</h3>
+        <div class="definition-box">
+            <p><strong>Observable Signals:</strong></p>
+            <ul style="margin-bottom: 0.08in;">
+                <li>Elapsed time from demo request to delivery (CRM opportunity timestamp → demo delivery timestamp)</li>
+                <li>Environment provisioning velocity (infrastructure logs)</li>
+                <li>Number of parallel demo instances deliverable simultaneously</li>
+                <li>SE capacity utilization metrics (hours per demo)</li>
+            </ul>
+            
+            <p><strong>System Evidence:</strong></p>
+            <ul style="margin-bottom: 0.08in;">
+                <li>CRM activity logs (Salesforce, HubSpot, etc.)</li>
+                <li>Demo platform analytics (Demostack, Consensus, Saleo, etc.)</li>
+                <li>Infrastructure provisioning logs (AWS, GCP, Azure telemetry)</li>
+                <li>Calendar integration data (meeting-to-delivery latency)</li>
+            </ul>
+
+            <p style="margin-bottom: 0;"><strong>Scoring Logic:</strong> Time-to-Demo measured in business hours. DI-1 = 40+ hours, DI-2 = 16-40 hours, DI-3 = 4-16 hours, DI-4 = 1-4 hours, DI-5 = <1 hour (instant).</p>
+        </div>
+
+        <h3>Context Intelligence</h3>
+        <div class="definition-box">
+            <p><strong>Observable Signals:</strong></p>
+            <ul style="margin-bottom: 0.08in;">
+                <li>CRM data injection into demo experiences (company name, industry, use case)</li>
+                <li>Persona-level customization evidence (role-specific content)</li>
+                <li>Account-specific data visibility (logos, datasets, terminology)</li>
+                <li>Behavioral adaptation triggers (navigation pattern recognition)</li>
+            </ul>
+            
+            <p><strong>System Evidence:</strong></p>
+            <ul style="margin-bottom: 0.08in;">
+                <li>CRM integration logs (API calls, data mapping)</li>
+                <li>Demo configuration files (persona templates, account profiles)</li>
+                <li>Personalization engine telemetry</li>
+                <li>Data enrichment platform integrations (Clearbit, ZoomInfo, 6sense)</li>
+            </ul>
+
+            <p style="margin-bottom: 0;"><strong>Scoring Logic:</strong> Personalization depth measured by customization layers. DI-1 = None (generic), DI-2 = Industry, DI-3 = Persona, DI-4 = Account, DI-5 = Real-time adaptive.</p>
+        </div>
+
+        <h3>Narrative Integrity</h3>
+        <div class="definition-box">
+            <p><strong>Observable Signals:</strong></p>
+            <ul style="margin-bottom: 0.08in;">
+                <li>Context preservation across sessions (state persistence)</li>
+                <li>Journey continuity indicators (pathway tracking, progress markers)</li>
+                <li>Cross-asset consistency (value proposition alignment)</li>
+                <li>Messaging coherence across touchpoints</li>
+                <li>Stakeholder-specific narrative tracking</li>
+            </ul>
+            
+            <p><strong>System Evidence:</strong></p>
+            <ul style="margin-bottom: 0.08in;">
+                <li>Session state management logs (cookies, user profiles, context storage)</li>
+                <li>Buyer portal analytics (navigation paths, return visits)</li>
+                <li>Content coherence validation (taxonomy consistency, message alignment)</li>
+                <li>Multi-stakeholder tracking systems</li>
+            </ul>
+
+            <p style="margin-bottom: 0;"><strong>Narrative Integrity Sub-Metrics:</strong></p>
+            <ul style="margin-bottom: 0;">
+                <li><strong>Context Persistence Score:</strong> % of sessions where buyer context is retained across interactions</li>
+                <li><strong>Journey Continuity Index:</strong> % of multi-session journeys maintaining narrative thread</li>
+                <li><strong>Cross-Asset Coherence Rate:</strong> Consistency of value messaging across demo assets</li>
+                <li><strong>Session State Stability:</strong> Successful context restoration rate after session interruption</li>
+                <li><strong>Stakeholder Context Mapping:</strong> % of multi-stakeholder accounts with individual narrative tracking</li>
+            </ul>
+        </div>
+        </div>
+
+        <div class="footer">
+            © 2026 | The Demo Index™ Methodology | Appendix A
+        </div>
+    </div>
+
+    <!-- PAGE 4: MEASUREMENT SPECIFICATION (CONTINUED) -->
+    <div class="page page-break with-footer">
+        <div>
+        <h3>Orchestration Capability</h3>
+        <div class="definition-box">
+            <p><strong>Observable Signals:</strong></p>
+            <ul style="margin-bottom: 0.08in;">
+                <li>Automation percentage (% of demo assembly requiring zero human intervention)</li>
+                <li>System integration depth (number of connected platforms: CRM, demo tools, analytics)</li>
+                <li>Self-assembly capability (component-based demo construction)</li>
+                <li>Deployment automation (infrastructure provisioning without manual steps)</li>
+                <li>Workflow orchestration maturity (trigger-based vs manual)</li>
+            </ul>
+            
+            <p><strong>System Evidence:</strong></p>
+            <ul style="margin-bottom: 0.08in;">
+                <li>Orchestration platform logs (Zapier, Workato, custom middleware)</li>
+                <li>API integration evidence (connection count, data flow volume)</li>
+                <li>Infrastructure-as-Code repositories (Terraform, CloudFormation)</li>
+                <li>CI/CD pipeline telemetry (deployment frequency, success rates)</li>
+                <li>Manual intervention tracking (helpdesk tickets, SE support requests)</li>
+            </ul>
+
+            <p style="margin-bottom: 0;"><strong>Scoring Logic:</strong> Automation percentage calculated as (automated demo delivery volume / total demo delivery volume) × 100. DI-1 = 0-10%, DI-2 = 11-30%, DI-3 = 31-60%, DI-4 = 61-85%, DI-5 = 86-100%.</p>
+        </div>
+
+        <h3>Buyer Autonomy</h3>
+        <div class="definition-box">
+            <p><strong>Observable Signals:</strong></p>
+            <ul style="margin-bottom: 0.08in;">
+                <li>Self-service demo generation rate (buyer-initiated vs SE-initiated)</li>
+                <li>Anonymous prospect access capability (pre-qualification requirements)</li>
+                <li>On-demand personalization availability (instant vs manual customization)</li>
+                <li>Buyer-controlled exploration depth (unrestricted navigation vs gated content)</li>
+                <li>Real-time adaptation evidence (dynamic content serving based on behavior)</li>
+            </ul>
+            
+            <p><strong>System Evidence:</strong></p>
+            <ul style="margin-bottom: 0.08in;">
+                <li>Buyer portal analytics (registration-free access rates, self-service volume)</li>
+                <li>Demo platform telemetry (autonomous generation events, customization actions)</li>
+                <li>Session initiation logs (buyer-initiated vs SE-initiated ratios)</li>
+                <li>Content access controls audit (gating rules, permission models)</li>
+                <li>Behavioral tracking data (exploration patterns, navigation autonomy)</li>
+            </ul>
+
+            <p style="margin-bottom: 0;"><strong>Scoring Logic:</strong> Self-service adoption rate = (buyer-initiated demos / total demos) × 100. DI-1 = 0%, DI-2 = 1-15%, DI-3 = 16-40%, DI-4 = 41-70%, DI-5 = 71-100%.</p>
+        </div>
+
+        <h3>Data Normalization Approach</h3>
+
+        <p>
+            When organizations have incomplete telemetry or mixed data sources, the following normalization rules apply:
+        </p>
+
+        <ul>
+            <li><strong>Missing System Evidence:</strong> Default to declarative scoring with 10-point confidence penalty</li>
+            <li><strong>Partial Instrumentation:</strong> Score based on available data with explicit documentation of measurement gaps</li>
+            <li><strong>Cross-Platform Variability:</strong> Calculate weighted average across instrumented systems</li>
+            <li><strong>Temporal Consistency:</strong> Scores based on trailing 90-day measurement period</li>
+        </ul>
+
+        <div class="callout">
+            <p style="font-size: 0.75rem; margin-bottom: 0;">
+                <strong style="color: var(--orange);">Measurement Maturity Evolution:</strong> As organizations progress from DI-1 to DI-5, their measurement instrumentation naturally improves. Early-stage organizations (DI-1, DI-2) often lack telemetry infrastructure, making empirical scoring difficult. Advanced organizations (DI-4, DI-5) typically have robust analytics platforms, enabling precise empirical validation.
+            </p>
+        </div>
+        </div>
+
+        <div class="footer">
+            © 2026 | The Demo Index™ Methodology | Appendix A
+        </div>
+    </div>
+
+    <!-- PAGE 5: WEIGHTING & MATURITY BANDS -->
+    <div class="page page-break with-footer">
+        <div>
+        <h2 class="section-title">3. Weighting Model</h2>
+
+        <p>
+            Each capability dimension contributes to the overall Demo Index Score through a weighted calculation. The weighting reflects the relative importance of each dimension to overall demo operations maturity.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Capability Dimension</th>
+                    <th style="text-align: center;">Weight</th>
+                    <th>Rationale</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Experience Delivery</strong></td>
+                    <td style="text-align: center;"><strong style="color: var(--orange);">25%</strong></td>
+                    <td>Velocity directly impacts revenue efficiency and sales capacity.</td>
+                </tr>
+                <tr>
+                    <td><strong>Context Intelligence</strong></td>
+                    <td style="text-align: center;"><strong style="color: var(--orange);">25%</strong></td>
+                    <td>Relevance drives conversion and buyer engagement quality.</td>
+                </tr>
+                <tr>
+                    <td><strong>Narrative Integrity</strong></td>
+                    <td style="text-align: center;"><strong style="color: var(--orange);">20%</strong></td>
+                    <td>Context preservation differentiates mature demo operations.</td>
+                </tr>
+                <tr>
+                    <td><strong>Orchestration Capability</strong></td>
+                    <td style="text-align: center;"><strong style="color: var(--orange);">15%</strong></td>
+                    <td>Infrastructure maturity enables scale and reduces operational burden.</td>
+                </tr>
+                <tr>
+                    <td><strong>Buyer Autonomy</strong></td>
+                    <td style="text-align: center;"><strong style="color: var(--orange);">15%</strong></td>
+                    <td>Self-service capability captures modern buyer preferences and expands reach.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="callout">
+            <p style="font-size: 0.75rem; margin-bottom: 0;">
+                <strong style="color: var(--orange);">Note:</strong> Experience Delivery and Context Intelligence receive the highest weighting because they represent the two most critical capabilities driving measurable business outcomes (Time-to-Demo velocity and Personalization depth). Narrative Integrity, while less understood externally, carries significant weight due to its role in differentiating advanced demo operations maturity.
+            </p>
+        </div>
+
+        <h2 class="section-title" style="margin-top: 0.2in;">4. Maturity Bands</h2>
+
+        <p>
+            Organizations are classified into one of five Demo Index maturity levels based on their overall score. Each band represents a distinct stage in demo operations evolution.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align: center;">Score Range</th>
+                    <th style="text-align: center;">Classification</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: center;"><strong>0-20</strong></td>
+                    <td style="text-align: center; background: rgba(231, 76, 60, 0.1);"><strong style="color: var(--di-1);">DI-1</strong></td>
+                    <td>Manual demo creation with no standardization or reusable infrastructure.</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><strong>21-40</strong></td>
+                    <td style="text-align: center; background: rgba(243, 156, 18, 0.1);"><strong style="color: var(--di-2);">DI-2</strong></td>
+                    <td>Standardized demo templates with basic reusability but limited personalization.</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><strong>41-60</strong></td>
+                    <td style="text-align: center; background: rgba(178, 26, 83, 0.1);"><strong style="color: var(--di-3);">DI-3</strong></td>
+                    <td>Distributed demo library with persona-level customization and some automation.</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><strong>61-80</strong></td>
+                    <td style="text-align: center; background: rgba(75, 205, 62, 0.1);"><strong style="color: var(--di-4);">DI-4</strong></td>
+                    <td>Orchestrated infrastructure enabling account-level personalization at scale.</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;"><strong>81-100</strong></td>
+                    <td style="text-align: center; background: rgba(0, 212, 255, 0.1);"><strong style="color: var(--di-5);">DI-5</strong></td>
+                    <td>AI-orchestrated hyper-personalization with self-service and autonomous adaptation.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Band Interpretation</h3>
+
+        <p>
+            <strong style="color: var(--orange);">DI-1 and DI-2</strong> represent foundational maturity. Organizations in these bands typically struggle with scalability, velocity, and resource efficiency.
+        </p>
+
+        <p>
+            <strong style="color: var(--orange);">DI-3</strong> is the most common classification for mid-market and enterprise SaaS companies. Organizations at this level have established demo capabilities but lack unified orchestration.
+        </p>
+
+        <p>
+            <strong style="color: var(--orange);">DI-4</strong> represents best-in-class maturity for most organizations. Achieving DI-4 requires significant infrastructure investment and process standardization.
+        </p>
+
+        <p>
+            <strong style="color: var(--orange);">DI-5</strong> is an emerging category. Very few organizations currently operate at this level. DI-5 requires AI-powered orchestration, predictive intelligence layers, and full self-service buyer experiences.
+        </p>
+        </div>
+
+        <div class="footer">
+            © 2026 | The Demo Index™ Methodology | Appendix A
+        </div>
+    </div>
+
+    <!-- PAGE 4: SAMPLE SCORING & FUTURE RESEARCH -->
+    <div class="page with-footer">
+        <div>
+        <h2 class="section-title">5. Sample Scoring</h2>
+
+        <p>
+            The following example demonstrates how capability scores are calculated and mapped to an overall Demo Index classification.
+        </p>
+
+        <h3>Example Organization: MidMarket SaaS Co.</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Capability Dimension</th>
+                    <th style="text-align: center;">Raw Score (0-100)</th>
+                    <th style="text-align: center;">Weight</th>
+                    <th style="text-align: center;">Weighted Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Experience Delivery</td>
+                    <td style="text-align: center;">70</td>
+                    <td style="text-align: center;">25%</td>
+                    <td style="text-align: center;"><strong>17.5</strong></td>
+                </tr>
+                <tr>
+                    <td>Context Intelligence</td>
+                    <td style="text-align: center;">60</td>
+                    <td style="text-align: center;">25%</td>
+                    <td style="text-align: center;"><strong>15.0</strong></td>
+                </tr>
+                <tr>
+                    <td>Narrative Integrity</td>
+                    <td style="text-align: center;">30</td>
+                    <td style="text-align: center;">20%</td>
+                    <td style="text-align: center;"><strong>6.0</strong></td>
+                </tr>
+                <tr>
+                    <td>Orchestration Capability</td>
+                    <td style="text-align: center;">55</td>
+                    <td style="text-align: center;">15%</td>
+                    <td style="text-align: center;"><strong>8.25</strong></td>
+                </tr>
+                <tr>
+                    <td>Buyer Autonomy</td>
+                    <td style="text-align: center;">40</td>
+                    <td style="text-align: center;">15%</td>
+                    <td style="text-align: center;"><strong>6.0</strong></td>
+                </tr>
+                <tr style="background: rgba(249, 115, 22, 0.1);">
+                    <td><strong>Overall Demo Index Score</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: center;"><strong style="color: var(--orange); font-size: 0.9rem;">52.75</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="callout">
+            <p style="margin-bottom: 0.05in;"><strong style="color: var(--orange); font-size: 0.85rem;">Classification: Demo Index 3</strong></p>
+            <p style="font-size: 0.75rem; margin-bottom: 0;">
+                With a score of <strong>52.75</strong>, MidMarket SaaS Co. falls within the <strong>DI-3</strong> maturity band (41-60). The organization demonstrates strong velocity (Time-to-Demo: 70) and solid personalization capabilities (60), but struggles with Narrative Integrity (30) and Self-Service Readiness (40)—both common challenges for DI-3 organizations.
+            </p>
+        </div>
+
+        <h3>Recommended Investment Priorities</h3>
+
+        <p>Based on capability gaps, MidMarket SaaS Co. should prioritize:</p>
+
+        <div class="definition-box">
+            <p><strong style="color: var(--orange);">Priority 1: Narrative Integrity</strong></p>
+            <p style="margin-bottom: 0;">Implement context persistence and state management across demo assets. Invest in unified buyer portal with guided navigation to improve journey coherence.</p>
+        </div>
+
+        <div class="definition-box">
+            <p><strong style="color: var(--orange);">Priority 2: Buyer Autonomy</strong></p>
+            <p style="margin-bottom: 0;">Enable prospect-initiated experiences through self-service portal. Reduce dependency on SE involvement for standard demo requests.</p>
+        </div>
+
+        <div class="definition-box">
+            <p><strong style="color: var(--orange);">Priority 3: Orchestration Capability</strong></p>
+            <p style="margin-bottom: 0;">Increase automated assembly from current 55% to 70%+ through unified orchestration layer and CRM integration.</p>
+        </div>
+
+        <h2 class="section-title" style="margin-top: 0.2in;">6. Benchmark Integrity & Future Research</h2>
+
+        <div class="callout" style="margin-bottom: 0.15in;">
+            <p style="margin-bottom: 0.05in;"><strong style="color: var(--orange);">Critical Transparency Statement:</strong></p>
+            <p style="font-size: 0.75rem; margin-bottom: 0;">
+                <strong>The Demo Index framework does not yet have external benchmark data.</strong> Version 1.0 represents a research-derived maturity model built on documented buyer behavior patterns, observed demo operations practices, and structured capability analysis. <strong>Industry benchmarking requires cohort participation and data accumulation before comparative scores become statistically valid.</strong> This section outlines the roadmap to establish benchmark authority.
+            </p>
+        </div>
+
+        <h3>The Path to Benchmark Credibility</h3>
+
+        <p>
+            Establishing The Demo Index as an industry-standard measurement system requires a phased approach to data collection, validation, and benchmark publication. The following milestones define that evolution:
+        </p>
+
+        <h4>Phase 0: Benchmark Cohort Program (Current State)</h4>
+        <ul>
+            <li><strong>Target:</strong> Recruit 50-100 early-adopter organizations to complete assessments</li>
+            <li><strong>Purpose:</strong> Generate initial dataset for scoring distribution analysis</li>
+            <li><strong>Output:</strong> Internal validation of assessment instrument and scoring methodology</li>
+            <li><strong>Timeline:</strong> 6 months from framework publication</li>
+        </ul>
+
+        <h4>Phase 1: Validation & Correlation Study</h4>
+        <ul>
+            <li><strong>Target:</strong> 100-250 participating organizations with consent for anonymized data usage</li>
+            <li><strong>Purpose:</strong> Validate correlation between Demo Index scores and revenue outcomes (win rates, sales cycle length, deal velocity)</li>
+            <li><strong>Output:</strong> Statistical evidence linking capability maturity to business performance</li>
+            <li><strong>Timeline:</strong> 12 months post-launch</li>
+        </ul>
+
+        <h4>Phase 2: First Industry Benchmark Report</h4>
+        <ul>
+            <li><strong>Target:</strong> 250+ organizations with sufficient vertical/size distribution</li>
+            <li><strong>Purpose:</strong> Publish first <em>State of Demo Maturity Report</em> with aggregate industry data</li>
+            <li><strong>Output:</strong> Benchmark scores by industry, company size, and maturity band distribution</li>
+            <li><strong>Timeline:</strong> 18 months post-launch</li>
+        </ul>
+
+        <h4>Phase 3: Analyst Validation & Category Recognition</h4>
+        <ul>
+            <li><strong>Target:</strong> Gartner, Forrester, SiriusDecisions engagement with empirical data</li>
+            <li><strong>Purpose:</strong> Establish Demo Index as recognized measurement standard in analyst frameworks</li>
+            <li><strong>Output:</strong> Citation in industry reports, inclusion in vendor evaluations</li>
+            <li><strong>Timeline:</strong> 24 months post-launch</li>
+        </ul>
+
+        <p>
+            The Demo Index methodology outlined in this appendix represents Version 1.0 of the framework. Future iterations will incorporate empirical data gathered from participating organizations and expanded research.
+        </p>
+
+        <h3>Planned Enhancements</h3>
+
+        <ul>
+            <li><strong>Industry Benchmarking:</strong> Aggregate scoring data by vertical, company size, and go-to-market model to enable peer comparison.</li>
+            <li><strong>Weighting Validation:</strong> Refine capability weightings based on correlation analysis between Demo Index scores and business outcomes (revenue velocity, conversion rates, sales efficiency).</li>
+            <li><strong>Empirical Scoring Layer:</strong> Build standardized telemetry integrations to enable system-based validation alongside declarative scoring.</li>
+            <li><strong>Expanded Assessment:</strong> Develop deeper assessment questions for each capability dimension based on observed maturity patterns.</li>
+            <li><strong>Certification Program:</strong> Establish formal Demo Index certification for organizations achieving DI-4 and DI-5 maturity levels.</li>
+        </ul>
+
+        <h3>Research Participation</h3>
+
+        <p>
+            Organizations interested in contributing to Demo Index benchmark research or participating in pilot assessments can contact the framework authors. All participant data will be anonymized and aggregated for industry reporting purposes.
+        </p>
+
+        <div class="callout" style="margin-top: 0.15in;">
+            <p style="font-size: 0.75rem; line-height: 1.5; margin-bottom: 0;">
+                <strong style="color: var(--orange);">The Demo Index™</strong> is an evolving framework designed to become the industry-standard measurement system for Revenue Experience Maturity. As adoption grows and empirical data accumulates, the methodology will be continuously refined to reflect observed best practices, emerging capabilities, and validated correlation between maturity levels and business outcomes. <strong>Transparency about current limitations strengthens long-term credibility.</strong>
+            </p>
+        </div>
+        </div>
+
+        <div class="footer">
+            © 2026 | The Demo Index™ Methodology | Appendix A
+        </div>
+    </div>
+
+</body>
+</html>
