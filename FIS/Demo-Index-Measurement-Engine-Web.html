@@ -1,0 +1,1417 @@
+<div>
+<nav class="nav">
+        <div class="nav-brand">
+            <a class="brand-lockup" href="index.html" aria-label="The Demo Index by FIS">
+                <span class="brand-name"><span class="brand-word">THE</span> <span class="brand-word-demo">DEMO</span> <span class="brand-word">INDEX</span></span>
+                <span class="brand-by">by</span>
+                <img class="brand-fis-logo" src="FIS-Logo.png" alt="FIS logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">
+                <span class="brand-fis-fallback">FIS</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Hub</a>
+            <a href="Demo-Index-Framework-Web.html">Framework</a>
+            <a href="Demo-Index-Methodology-Web.html">Methodology</a>
+            <a href="Demo-Index-Research-Manifesto-Web.html">Research</a>
+            <a href="#" class="active">Technical Spec</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <section class="section section-header">
+            <h1>The Demo Index Measurement Engine</h1>
+            <p class="subtitle">Technical Specification v1.0</p>
+            
+            <div class="intro-box">
+                <p>
+                    <strong>Technical Specification Document:</strong> This document defines the operational architecture for Demo Index measurement systems. It provides scoring engine logic, telemetry mapping specifications, CRM integration requirements, evidence-based validation rules, and benchmark data ingestion models. <strong>Intended audience:</strong> Engineers, data architects, product managers, and platform developers implementing Demo Index measurement capabilities.
+                </p>
+            </div>
+        </section>
+
+        <div class="spec-layout">
+            <aside class="section-index" aria-label="Technical specification sections">
+                <span class="section-index-label">On This Page</span>
+                <nav class="section-index-list">
+                    <a class="section-index-link active" href="#architecture-overview">1. Architecture</a>
+                    <a class="section-index-link" href="#scoring-engine">2. Scoring Engine</a>
+                    <a class="section-index-link" href="#validation-layer">3. Validation Layer</a>
+                    <a class="section-index-link" href="#benchmark-engine">4. Benchmark Engine</a>
+                    <a class="section-index-link" href="#reporting-api">5. Reporting & API</a>
+                    <a class="section-index-link" href="#implementation-roadmap">6. Roadmap</a>
+                </nav>
+            </aside>
+
+            <main class="spec-content">
+        <section class="section" id="architecture-overview">
+            <h2>1. System Architecture Overview</h2>
+
+            <p>
+                The Demo Index Measurement Engine is a data processing system that ingests organizational telemetry, applies scoring logic, and outputs standardized maturity classifications. The architecture consists of five core subsystems:
+            </p>
+
+            <div class="spec-box">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Core Subsystems</strong></p>
+                <ul style="margin-bottom: 0;">
+                    <li><strong>Data Ingestion Layer:</strong> Telemetry collection from CRM, demo platforms, analytics tools, infrastructure logs</li>
+                    <li><strong>Scoring Engine:</strong> Calculation logic applying dimension-specific algorithms and weighting models</li>
+                    <li><strong>Validation Layer:</strong> Evidence-based verification comparing declarative and empirical scores</li>
+                    <li><strong>Benchmark Aggregation Engine:</strong> Anonymous data pooling and statistical analysis for peer comparison</li>
+                    <li><strong>Reporting & API Layer:</strong> Output standardization, visualization, and integration endpoints</li>
+                </ul>
+            </div>
+
+            <h3>Design Principles</h3>
+
+            <ul>
+                <li><strong>Transparency:</strong> All scoring logic is deterministic and auditable</li>
+                <li><strong>Privacy:</strong> No PII or customer data leaves organizational boundaries without explicit consent</li>
+                <li><strong>Extensibility:</strong> Modular architecture supports future dimension additions and algorithm refinements</li>
+                <li><strong>Hybrid Measurement:</strong> Supports both declarative (survey) and empirical (system-based) data sources</li>
+                <li><strong>Degraded Mode Operation:</strong> Provides scoring even with incomplete telemetry (with confidence penalties)</li>
+            </ul>
+
+            <h3>Supported Data Sources</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Source Category</th>
+                        <th>Examples</th>
+                        <th>Data Extracted</th>
+                        <th>Integration Method</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>CRM Systems</strong></td>
+                        <td>Salesforce, HubSpot, Pipedrive</td>
+                        <td>Opportunity timestamps, demo request logs, account context, activity history</td>
+                        <td>REST API, Webhooks</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Demo Platforms</strong></td>
+                        <td>Demostack, Consensus, Saleo, Reprise</td>
+                        <td>Environment provisioning logs, session analytics, personalization configs, usage telemetry</td>
+                        <td>API, Event Streams</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Infrastructure</strong></td>
+                        <td>AWS, GCP, Azure</td>
+                        <td>Provisioning timestamps, deployment automation logs, resource utilization</td>
+                        <td>CloudWatch, Stackdriver, Azure Monitor APIs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Analytics Platforms</strong></td>
+                        <td>Segment, Amplitude, Mixpanel</td>
+                        <td>Buyer behavior patterns, navigation paths, engagement metrics</td>
+                        <td>API, Data Warehouse Sync</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Orchestration Tools</strong></td>
+                        <td>Zapier, Workato, Custom</td>
+                        <td>Workflow automation evidence, integration depth, trigger configurations</td>
+                        <td>API, Config Inspection</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Survey Responses</strong></td>
+                        <td>Assessment Tool</td>
+                        <td>Declarative capability scores, process documentation, maturity self-assessment</td>
+                        <td>Direct Input</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Data Schema Requirements</h3>
+
+            <p>
+                Ingested data must be normalized to a standardized schema before processing. The following core entities are required:
+            </p>
+
+            <div class="code-block"><strong>// Core Entity: DemoRequest</strong>
+{
+  "request_id": "string",
+  "account_id": "string",
+  "opportunity_id": "string",
+  "requested_at": "ISO8601 timestamp",
+  "delivered_at": "ISO8601 timestamp",
+  "time_to_demo_hours": "float",
+  "personalization_level": "enum: [generic, industry, persona, account, realtime]",
+  "automation_percentage": "float 0-100",
+  "self_service_initiated": "boolean",
+  "session_count": "integer",
+  "context_preserved": "boolean"
+}</div>
+        </section>
+
+        <section class="section" id="scoring-engine">
+            <h2>2. Scoring Engine Logic</h2>
+
+            <div class="scoring-tabs" data-scoring-tabs>
+                <p class="scoring-tabs-intro">
+                    The scoring engine applies dimension-specific algorithms to convert raw telemetry and survey responses into normalized 0-100 scores. Switch between dimensions below, then expand the algorithm only when you need the underlying logic.
+                </p>
+
+                <div class="scoring-tab-list" role="tablist" aria-label="Scoring engine dimensions">
+                    <button class="scoring-tab" type="button" role="tab" id="scoring-tab-experience" aria-selected="true" aria-controls="scoring-panel-experience" data-tab-target="scoring-panel-experience">Experience</button>
+                    <button class="scoring-tab" type="button" role="tab" id="scoring-tab-context" aria-selected="false" aria-controls="scoring-panel-context" data-tab-target="scoring-panel-context">Context</button>
+                    <button class="scoring-tab" type="button" role="tab" id="scoring-tab-narrative" aria-selected="false" aria-controls="scoring-panel-narrative" data-tab-target="scoring-panel-narrative">Nrrative</button>
+                    <button class="scoring-tab" type="button" role="tab" id="scoring-tab-orchestration" aria-selected="false" aria-controls="scoring-panel-orchestration" data-tab-target="scoring-panel-orchestration">Orchestration</button>
+                    <button class="scoring-tab" type="button" role="tab" id="scoring-tab-autonomy" aria-selected="false" aria-controls="scoring-panel-autonomy" data-tab-target="scoring-panel-autonomy">Autonomy</button>
+                </div>
+
+                <section class="scoring-panel" id="scoring-panel-experience" role="tabpanel" aria-labelledby="scoring-tab-experience">
+                    <span class="scoring-panel-label">Dimension 01</span>
+                    <h3>Experience Delivery Scoring</h3>
+                    <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Primary Metric:</strong> Time-to-Demo (hours from request to delivery)</p>
+
+                    <p style="margin-bottom: 0.5rem;"><strong>Empirical Scoring Algorithm:</strong></p>
+                    <details class="algorithm-disclosure" data-open-label="Show Algorithm" data-close-label="Hide Algorithm">
+                        <summary class="algorithm-toggle">Show Algorithm</summary>
+                    <div class="code-block"><strong>// Calculate median Time-to-Demo over trailing 90 days</strong>
+median_ttd = MEDIAN(time_to_demo_hours)
+
+<strong>// Score mapping (inverse relationship: lower time = higher score)</strong>
+IF median_ttd >= 40:
+    score = 10  // DI-1: 1+ week
+ELSE IF median_ttd >= 16:
+    score = 30  // DI-2: 2-5 days
+ELSE IF median_ttd >= 4:
+    score = 50  // DI-3: 4-16 hours
+ELSE IF median_ttd >= 1:
+    score = 75  // DI-4: 1-4 hours
+ELSE:
+    score = 95  // DI-5: <1 hour</div>
+                    </details>
+
+                    <p style="margin-bottom: 0;"><strong>Declarative Fallback:</strong> If insufficient telemetry, use survey response: "How quickly can your team deliver a customized demo?" (mapped to same score bands)</p>
+                </section>
+
+                <section class="scoring-panel" id="scoring-panel-context" role="tabpanel" aria-labelledby="scoring-tab-context" hidden>
+                    <span class="scoring-panel-label">Dimension 02</span>
+                    <h3>Context Intelligence Scoring</h3>
+                    <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Primary Metric:</strong> Personalization Depth Level</p>
+
+                    <p style="margin-bottom: 0.5rem;"><strong>Empirical Scoring Algorithm:</strong></p>
+                    <details class="algorithm-disclosure" data-open-label="Show Algorithm" data-close-label="Hide Algorithm">
+                        <summary class="algorithm-toggle">Show Algorithm</summary>
+                    <div class="code-block"><strong>// Analyze personalization distribution over trailing 90 days</strong>
+personalization_distribution = COUNT_BY_LEVEL(demos)
+
+<strong>// Calculate weighted average personalization level</strong>
+weighted_avg = (
+    (generic_count * 0) +
+    (industry_count * 25) +
+    (persona_count * 50) +
+    (account_count * 75) +
+    (realtime_count * 100)
+) / total_demo_count
+
+score = weighted_avg
+
+<strong>// Bonus: CRM integration depth (0-15 points)</strong>
+IF crm_integration_active:
+    IF bidirectional_sync:
+        score += 15
+    ELSE:
+        score += 8</div>
+                    </details>
+
+                    <p style="margin-bottom: 0;"><strong>System Evidence Required:</strong> CRM API logs showing data injection, demo platform configs with account-specific data, personalization engine telemetry</p>
+                </section>
+
+                <section class="scoring-panel" id="scoring-panel-narrative" role="tabpanel" aria-labelledby="scoring-tab-narrative" hidden>
+                    <span class="scoring-panel-label">Dimension 03</span>
+                    <h3>Narrative Integrity Scoring</h3>
+                    <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Composite Metric:</strong> Five sub-metrics averaged</p>
+
+                    <p style="margin-bottom: 0.5rem;"><strong>Sub-Metric Calculations:</strong></p>
+                    <details class="algorithm-disclosure" data-open-label="Show Algorithm" data-close-label="Hide Algorithm">
+                        <summary class="algorithm-toggle">Show Algorithm</summary>
+                    <div class="code-block"><strong>// 1. Context Persistence Score</strong>
+context_persistence = (sessions_with_retained_context / total_sessions) * 100
+
+<strong>// 2. Journey Continuity Index</strong>
+journey_continuity = (multi_session_journeys_coherent / total_multi_session) * 100
+
+<strong>// 3. Cross-Asset Coherence Rate</strong>
+cross_asset_coherence = (consistent_value_props / total_asset_pairs) * 100
+
+<strong>// 4. Session State Stability</strong>
+session_stability = (successful_context_restorations / interrupted_sessions) * 100
+
+<strong>// 5. Stakeholder Context Mapping</strong>
+stakeholder_mapping = (accounts_with_individual_tracking / multi_stakeholder_accounts) * 100
+
+<strong>// Final Score</strong>
+narrative_integrity_score = AVERAGE(
+    context_persistence,
+    journey_continuity,
+    cross_asset_coherence,
+    session_stability,
+    stakeholder_mapping
+)</div>
+                    </details>
+
+                    <p style="margin-bottom: 0;"><strong>Measurement Challenge:</strong> Most organizations at DI-1 through DI-3 lack instrumentation for these sub-metrics. Declarative scoring dominates until DI-4.</p>
+                </section>
+
+                <section class="scoring-panel" id="scoring-panel-orchestration" role="tabpanel" aria-labelledby="scoring-tab-orchestration" hidden>
+                    <span class="scoring-panel-label">Dimension 04</span>
+                    <h3>Orchestration Capability Scoring</h3>
+                    <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Primary Metric:</strong> Automation Percentage</p>
+
+                    <p style="margin-bottom: 0.5rem;"><strong>Empirical Scoring Algorithm:</strong></p>
+                    <details class="algorithm-disclosure" data-open-label="Show Algorithm" data-close-label="Hide Algorithm">
+                        <summary class="algorithm-toggle">Show Algorithm</summary>
+                    <div class="code-block"><strong>// Calculate automation rate</strong>
+automation_percentage = (automated_demos / total_demos) * 100
+
+<strong>// Score mapping (linear relationship)</strong>
+IF automation_percentage <= 10:
+    base_score = 10  // DI-1: 0-10%
+ELSE IF automation_percentage <= 30:
+    base_score = 30  // DI-2: 11-30%
+ELSE IF automation_percentage <= 60:
+    base_score = 50  // DI-3: 31-60%
+ELSE IF automation_percentage <= 85:
+    base_score = 75  // DI-4: 61-85%
+ELSE:
+    base_score = 95  // DI-5: 86-100%
+
+<strong>// Bonus: Integration depth (0-10 points)</strong>
+integration_score = MIN(10, integration_count * 2)
+
+final_score = MIN(100, base_score + integration_score)</div>
+                    </details>
+
+                    <p style="margin-bottom: 0;"><strong>System Evidence:</strong> Orchestration platform logs, API call volumes, manual intervention tickets, CI/CD deployment frequency</p>
+                </section>
+
+                <section class="scoring-panel" id="scoring-panel-autonomy" role="tabpanel" aria-labelledby="scoring-tab-autonomy" hidden>
+                    <span class="scoring-panel-label">Dimension 05</span>
+                    <h3>Buyer Autonomy Scoring</h3>
+                    <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Primary Metric:</strong> Self-Service Adoption Rate</p>
+
+                    <p style="margin-bottom: 0.5rem;"><strong>Empirical Scoring Algorithm:</strong></p>
+                    <details class="algorithm-disclosure" data-open-label="Show Algorithm" data-close-label="Hide Algorithm">
+                        <summary class="algorithm-toggle">Show Algorithm</summary>
+                    <div class="code-block"><strong>// Calculate buyer-initiated demo percentage</strong>
+self_service_rate = (buyer_initiated_demos / total_demos) * 100
+
+<strong>// Score mapping</strong>
+IF self_service_rate == 0:
+    base_score = 5   // DI-1: No self-service
+ELSE IF self_service_rate <= 15:
+    base_score = 25  // DI-2: 1-15%
+ELSE IF self_service_rate <= 40:
+    base_score = 50  // DI-3: 16-40%
+ELSE IF self_service_rate <= 70:
+    base_score = 75  // DI-4: 41-70%
+ELSE:
+    base_score = 95  // DI-5: 71-100%
+
+<strong>// Bonus: Anonymous access capability (0-5 points)</strong>
+IF allows_anonymous_access:
+    base_score += 5
+
+final_score = MIN(100, base_score)</div>
+                    </details>
+
+                    <p style="margin-bottom: 0;"><strong>System Evidence:</strong> Buyer portal analytics, session initiation logs (buyer vs SE-initiated), registration requirements audit</p>
+                </section>
+            </div>
+        </section>
+
+        <section class="section" id="validation-layer">
+            <h2>3. Validation Layer</h2>
+
+            <h3>Declarative vs. Empirical Score Reconciliation</h3>
+
+            <p>
+                When both declarative (survey) and empirical (system) scores exist for a dimension, the validation layer applies confidence-weighted blending:
+            </p>
+
+            <details class="algorithm-disclosure" data-open-label="Show Algorithm" data-close-label="Hide Algorithm">
+                <summary class="algorithm-toggle">Show Algorithm</summary>
+            <div class="code-block"><strong>// Confidence weights based on data quality</strong>
+empirical_confidence = data_completeness_percentage * data_recency_factor
+declarative_confidence = MAX(0.6, survey_response_quality_score)
+
+<strong>// Weighted blend</strong>
+IF empirical_data_available:
+    final_score = (
+        (empirical_score * empirical_confidence) +
+        (declarative_score * declarative_confidence)
+    ) / (empirical_confidence + declarative_confidence)
+ELSE:
+    final_score = declarative_score * 0.9  // 10% confidence penalty</div>
+            </details>
+
+            <h3>Outlier Detection</h3>
+
+            <p>
+                The validation layer flags significant discrepancies between declarative and empirical scores:
+            </p>
+
+            <ul>
+                <li><strong>Warning Threshold:</strong> ±20 point difference between survey and system scores</li>
+                <li><strong>Error Threshold:</strong> ±40 point difference (likely measurement error or misrepresentation)</li>
+                <li><strong>Action:</strong> Flag for manual review, request additional evidence, or apply confidence penalty</li>
+            </ul>
+
+            <div class="warning-box">
+                <p style="margin-bottom: 0;"><strong style="color: #e74c3c;">Measurement Integrity Principle:</strong> Organizations claiming DI-4 or DI-5 maturity <strong>require empirical validation</strong>. Declarative-only scores are capped at DI-3 equivalent (60 points) to prevent unsubstantiated claims at advanced maturity levels.</p>
+            </div>
+        </section>
+
+        <section class="section" id="benchmark-engine">
+            <h2>4. Benchmark Aggregation Engine</h2>
+
+            <h3>Data Anonymization & Privacy</h3>
+
+            <p>
+                Organizations contributing to benchmark data must explicitly consent to anonymized aggregation. All identifying information is stripped before ingestion into the benchmark database:
+            </p>
+
+            <div class="spec-box">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Anonymization Process</strong></p>
+                <ul style="margin-bottom: 0;">
+                    <li>Company names, domains, and account identifiers replaced with UUID tokens</li>
+                    <li>Individual user data (names, emails) completely removed</li>
+                    <li>Geographic data generalized to region level (e.g., "North America" not "San Francisco")</li>
+                    <li>Employee count bucketed (e.g., "100-500" not exact headcount)</li>
+                    <li>Revenue data bucketed (e.g., "$50M-$100M ARR" not exact figures)</li>
+                </ul>
+            </div>
+
+            <h3>Benchmark Calculation Methodology</h3>
+
+            <p>
+                Benchmark scores are calculated by vertical, company size, and maturity band. Minimum cohort sizes apply:
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Benchmark Type</th>
+                        <th>Minimum Cohort Size</th>
+                        <th>Statistical Method</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Overall Industry Benchmark</strong></td>
+                        <td>100 organizations</td>
+                        <td>Median, P25, P75 scores by dimension</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vertical-Specific Benchmark</strong></td>
+                        <td>30 organizations in vertical</td>
+                        <td>Median score, distribution by maturity band</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Company Size Benchmark</strong></td>
+                        <td>25 organizations in size bracket</td>
+                        <td>Median score, range (P10-P90)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Maturity Band Distribution</strong></td>
+                        <td>50 organizations</td>
+                        <td>Percentage distribution across DI-1 to DI-5</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="callout">
+                <p style="margin-bottom: 0;">
+                    <strong style="color: var(--orange);">Current State (2026):</strong> Benchmark data does not yet exist. The specification above defines requirements for future benchmark publication once sufficient cohort participation is achieved.
+                </p>
+            </div>
+
+            <h3>Benchmark Data Schema</h3>
+
+            <div class="code-block"><strong>// Benchmark Output Format</strong>
+{
+  "benchmark_id": "industry_2026_q2",
+  "cohort_size": 150,
+  "filters": {
+    "vertical": "B2B SaaS",
+    "size_bracket": "100-500 employees",
+    "region": "North America"
+  },
+  "scores": {
+    "overall_di_score": {
+      "median": 48.5,
+      "p25": 32.0,
+      "p75": 61.0
+    },
+    "experience_delivery": {
+      "median": 55.0,
+      "p25": 40.0,
+      "p75": 70.0
+    },
+    ...
+  },
+  "maturity_distribution": {
+    "DI-1": 12,
+    "DI-2": 28,
+    "DI-3": 45,
+    "DI-4": 13,
+    "DI-5": 2
+  }
+}</div>
+        </section>
+
+        <section class="section" id="reporting-api">
+            <h2>5. Reporting & API Layer</h2>
+
+            <h3>Output Formats</h3>
+
+            <p>
+                The Measurement Engine provides three standardized output formats:
+            </p>
+
+            <ul>
+                <li><strong>Individual Organization Report:</strong> Full dimensional scores, maturity classification, peer comparison (if benchmarks available), improvement recommendations</li>
+                <li><strong>Benchmark Report:</strong> Aggregate industry data, maturity distribution, vertical analysis, year-over-year trends</li>
+                <li><strong>API Response:</strong> JSON format for programmatic integration with BI tools, dashboards, CRM systems</li>
+            </ul>
+
+            <h3>API Endpoints</h3>
+
+            <div class="code-block"><strong>// Submit Assessment Data</strong>
+POST /api/v1/assessment
+Content-Type: application/json
+Authorization: Bearer {api_key}
+
+Body: {organization_data, survey_responses, telemetry_data}
+Response: {assessment_id, status, estimated_completion_time}
+
+<strong>// Retrieve Score Report</strong>
+GET /api/v1/assessment/{assessment_id}/report
+Response: {di_score, dimension_scores, maturity_band, recommendations}
+
+<strong>// Get Benchmark Data (requires cohort participation consent)</strong>
+GET /api/v1/benchmarks/{vertical}/{size_bracket}
+Response: {benchmark_scores, peer_comparison, percentile_rank}</div>
+        </section>
+
+        <section class="section" id="implementation-roadmap">
+            <h2>6. Implementation Roadmap</h2>
+
+            <p>
+                Building a production-grade Demo Index Measurement Engine requires phased implementation. The following roadmap balances speed-to-market with measurement integrity:
+            </p>
+
+            <h3>Phase 1: MVP Measurement System (Months 1-3)</h3>
+
+            <div class="spec-box">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Scope:</strong></p>
+                <ul style="margin-bottom: 0.75rem;">
+                    <li>Build declarative scoring engine (survey-based assessment)</li>
+                    <li>Implement core dimensional algorithms (Experience Delivery, Context Intelligence, Orchestration)</li>
+                    <li>Create basic validation layer (outlier detection, confidence scoring)</li>
+                    <li>Deploy assessment tool with immediate scoring output</li>
+                    <li><strong>No benchmarking at this stage</strong> (insufficient data)</li>
+                </ul>
+                <p style="margin-bottom: 0;"><strong>Output:</strong> Functional assessment tool capable of scoring individual organizations</p>
+            </div>
+
+            <h3>Phase 2: Empirical Telemetry Integration (Months 4-6)</h3>
+
+            <div class="spec-box">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Scope:</strong></p>
+                <ul style="margin-bottom: 0.75rem;">
+                    <li>Build CRM integration connectors (Salesforce, HubSpot)</li>
+                    <li>Build demo platform integrations (Demostack, Consensus, etc.)</li>
+                    <li>Implement empirical scoring algorithms alongside declarative</li>
+                    <li>Deploy confidence-weighted blending logic</li>
+                </ul>
+                <p style="margin-bottom: 0;"><strong>Output:</strong> Hybrid measurement system with empirical validation</p>
+            </div>
+
+            <h3>Phase 3: Narrative Integrity Operationalization (Months 7-9)</h3>
+
+            <div class="spec-box">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Scope:</strong></p>
+                <ul style="margin-bottom: 0.75rem;">
+                    <li>Implement Context Persistence Score tracking</li>
+                    <li>Deploy Journey Continuity Index measurement</li>
+                    <li>Build Cross-Asset Coherence Rate calculation</li>
+                    <li>Enable Session State Stability monitoring</li>
+                    <li>Implement Stakeholder Context Mapping</li>
+                </ul>
+                <p style="margin-bottom: 0;"><strong>Output:</strong> Full Narrative Integrity measurement capability</p>
+            </div>
+
+            <h3>Phase 4: Benchmark Engine & First Report (Months 10-12)</h3>
+
+            <div class="spec-box">
+                <p style="margin-bottom: 0.75rem;"><strong style="color: var(--blue);">Scope:</strong></p>
+                <ul style="margin-bottom: 0.75rem;">
+                    <li>Deploy anonymization layer and privacy controls</li>
+                    <li>Build benchmark aggregation engine</li>
+                    <li>Collect 100+ organization assessments for cohort</li>
+                    <li>Publish first <em>State of Demo Maturity</em> benchmark report</li>
+                </ul>
+                <p style="margin-bottom: 0;"><strong>Output:</strong> Industry benchmarks and comparative analytics</p>
+            </div>
+
+            <h3>Security & Compliance Requirements</h3>
+
+            <ul>
+                <li><strong>Data Encryption:</strong> All data in transit (TLS 1.3) and at rest (AES-256)</li>
+                <li><strong>Access Control:</strong> Role-based access (RBAC) with audit logging</li>
+                <li><strong>Compliance:</strong> SOC 2 Type II, GDPR, CCPA adherence</li>
+                <li><strong>Data Retention:</strong> Configurable retention policies (default 24 months)</li>
+            </ul>
+
+            <h3>Open Questions for Future Versions</h3>
+
+            <ul>
+                <li>Should AI-generated recommendations be part of core engine or separate module?</li>
+                <li>What confidence threshold should trigger manual audit vs auto-scoring?</li>
+                <li>How to handle multi-product organizations with disparate demo maturity levels?</li>
+                <li>Should benchmark participation be incentivized or strictly voluntary?</li>
+            </ul>
+        </section>
+
+            </main>
+        </div>
+
+    </div>
+
+    <footer>
+        <p><strong>The Demo Index</strong> | Measurement Engine Specification v1.0</p>
+        <p style="margin-top: 0.5rem;">© 2026 | <a href="Demo-Index-Framework-Web.html">Framework</a> | <a href="Demo-Index-Methodology-Web.html">Methodology</a> | <a href="Demo-Index-Assessment-Web.html">Assessment</a> | <a href="Demo-Index-Research-Manifesto-Web.html">Research Manifesto</a></p>
+    </footer>
+</div>
+
+<style>
+        :root {
+            --bg-dark: #090E1B;
+            --bg-darker: #0F1629;
+            --orange: #F97316;
+            --green: #4bcd3e;
+            --text-white: #FFFFFF;
+            --text-grey: #97A3AF;
+            --blue: #00d4ff;
+            --nav-offset: 5.5rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            color: var(--text-white);
+            background: var(--bg-dark);
+            line-height: 1.6;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: linear-gradient(180deg, rgba(15, 22, 41, 0.96), rgba(9, 14, 27, 0.96));
+            z-index: 20;
+            backdrop-filter: blur(14px);
+        }
+
+        .nav-brand {
+            flex: 0 0 auto;
+        }
+
+        .brand-lockup {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            color: var(--text-white);
+            text-decoration: none;
+            line-height: 1;
+        }
+
+        .brand-name {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+        }
+
+        .brand-word {
+            color: var(--text-white);
+        }
+
+        .brand-word-demo {
+            color: var(--orange);
+        }
+
+        .brand-by {
+            color: var(--text-grey);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: lowercase;
+        }
+
+        .brand-fis-logo {
+            display: block;
+            height: 1.3rem;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .brand-fis-fallback {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 0.14rem 0.38rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            color: var(--text-white);
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav-links a {
+            color: var(--text-grey);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .spec-layout {
+            display: grid;
+            grid-template-columns: 240px minmax(0, 1fr);
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .section-index {
+            position: sticky;
+            top: var(--nav-offset);
+            align-self: start;
+            background: rgba(15, 22, 41, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 1.25rem;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.16);
+        }
+
+        .section-index-label {
+            display: block;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-size: 0.76rem;
+            margin-bottom: 0.85rem;
+            font-weight: 700;
+        }
+
+        .section-index-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .section-index-link {
+            color: var(--text-grey);
+            text-decoration: none;
+            padding: 0.7rem 0.85rem;
+            border-radius: 10px;
+            border: 1px solid transparent;
+            transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+            font-size: 0.94rem;
+            line-height: 1.4;
+        }
+
+        .section-index-link:hover,
+        .section-index-link:focus-visible {
+            color: var(--text-white);
+            background: rgba(75, 205, 62, 0.08);
+            border-color: rgba(75, 205, 62, 0.22);
+            outline: none;
+            transform: translateX(2px);
+        }
+
+        .section-index-link.active {
+            color: var(--text-white);
+            background: rgba(75, 205, 62, 0.14);
+            border-color: rgba(75, 205, 62, 0.32);
+            box-shadow: inset 3px 0 0 var(--green);
+        }
+
+        .spec-content {
+            min-width: 0;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            scroll-margin-top: calc(var(--nav-offset) + 1.25rem);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--orange);
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: var(--orange);
+            margin: 2.5rem 0 1.5rem 0;
+            padding-left: 1rem;
+            border-left: 4px solid var(--orange);
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--orange);
+            margin: 2rem 0 1rem 0;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            color: var(--text-white);
+            margin: 1.5rem 0 0.75rem 0;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-grey);
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-grey);
+            margin-bottom: 2rem;
+        }
+
+        .intro-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .intro-box p {
+            font-size: 1.1rem;
+            color: var(--text-white);
+            margin-bottom: 0;
+        }
+
+        .callout {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(249, 115, 22, 0.02) 100%);
+            border: 1px solid var(--orange);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .spec-box {
+            background: rgba(0, 212, 255, 0.05);
+            border-left: 4px solid var(--blue);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box {
+            background: rgba(231, 76, 60, 0.05);
+            border-left: 4px solid #e74c3c;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--blue);
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+
+        .code-block strong {
+            color: var(--orange);
+        }
+
+        .algorithm-disclosure {
+            margin: 1rem 0 1.5rem;
+        }
+
+        .algorithm-toggle {
+            list-style: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.72rem 1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(75, 205, 62, 0.32);
+            background: rgba(75, 205, 62, 0.08);
+            color: var(--text-white);
+            font-size: 0.92rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+        }
+
+        .algorithm-toggle::-webkit-details-marker {
+            display: none;
+        }
+
+        .algorithm-toggle::before {
+            content: '+';
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 999px;
+            background: rgba(75, 205, 62, 0.18);
+            color: var(--green);
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .algorithm-disclosure[open] .algorithm-toggle::before {
+            content: '-';
+        }
+
+        .algorithm-toggle:hover,
+        .algorithm-toggle:focus-visible {
+            background: rgba(75, 205, 62, 0.14);
+            border-color: rgba(75, 205, 62, 0.5);
+            transform: translateY(-1px);
+            outline: none;
+        }
+
+        .algorithm-disclosure .code-block {
+            margin-bottom: 0;
+        }
+
+        .scoring-tabs {
+            margin: 2rem 0;
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.12) 0%, rgba(75, 205, 62, 0.05) 100%);
+            border: 1px solid rgba(249, 115, 22, 0.28);
+            border-radius: 14px;
+            padding: 1.75rem;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+        }
+
+        .scoring-tabs-intro {
+            margin-bottom: 1.1rem;
+        }
+
+        .scoring-tab-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .scoring-tab {
+            appearance: none;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(15, 22, 41, 0.66);
+            color: var(--text-grey);
+            border-radius: 999px;
+            padding: 0.8rem 1rem;
+            font: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+        }
+
+        .scoring-tab:hover,
+        .scoring-tab:focus-visible {
+            color: var(--text-white);
+            border-color: rgba(75, 205, 62, 0.45);
+            transform: translateY(-1px);
+            outline: none;
+        }
+
+        .scoring-tab[aria-selected="true"] {
+            background: var(--green);
+            color: var(--bg-dark);
+            border-color: var(--green);
+        }
+
+        .scoring-panel {
+            background: rgba(15, 22, 41, 0.84);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .scoring-panel[hidden] {
+            display: none;
+        }
+
+        .scoring-panel-label {
+            display: inline-block;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.76rem;
+            margin-bottom: 0.65rem;
+            font-weight: 700;
+        }
+
+        .scoring-panel h3 {
+            margin-top: 0;
+            margin-bottom: 0.8rem;
+        }
+
+        .scoring-panel .algorithm-disclosure {
+            margin-top: 0.9rem;
+        }
+
+        .scoring-panel p:last-child {
+            margin-bottom: 0;
+        }
+
+        code {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--blue);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: rgba(249, 115, 22, 0.1);
+            color: var(--orange);
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--orange);
+            font-weight: 600;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-grey);
+            vertical-align: top;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        ul {
+            margin: 1rem 0 1rem 2rem;
+            color: var(--text-grey);
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        strong {
+            color: var(--text-white);
+        }
+
+        footer {
+            background: var(--bg-darker);
+            border-top: 2px solid var(--orange);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-grey);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--orange);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--green);
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 0.85rem 1rem;
+            }
+
+            .brand-lockup {
+                gap: 0.35rem;
+            }
+
+            .brand-name {
+                font-size: 0.9rem;
+            }
+
+            .brand-by {
+                font-size: 0.68rem;
+            }
+
+            .brand-fis-logo {
+                height: 1.12rem;
+            }
+
+            .nav-links {
+                gap: 0.85rem;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            .spec-layout {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .section-index {
+                position: static;
+                padding: 1rem;
+            }
+
+            .section-index-list {
+                gap: 0.6rem;
+            }
+
+            table {
+                font-size: 0.85rem;
+                display: block;
+                overflow-x: auto;
+            }
+
+            th, td {
+                padding: 0.75rem 0.5rem;
+            }
+
+            .code-block {
+                font-size: 0.8rem;
+                padding: 1rem;
+            }
+
+            h2 {
+                padding-left: 0.75rem;
+                border-left-width: 3px;
+            }
+        }
+    </style>
+
+<script>
+        (function () {
+            var MOBILE_BREAKPOINT = 900;
+            var TOUCH_VIEWPORT_BREAKPOINT = 1180;
+            var LANDING_GUARD_KEY = '__demoIndexRouterLanding';
+            var LANDING_GUARD_MS = 1600;
+            var forceView = new URLSearchParams(window.location.search).get('view');
+
+            if (forceView === 'desktop' || forceView === 'mobile') {
+                return;
+            }
+
+            function isMobileDevice() {
+                var userAgent = navigator.userAgent || navigator.vendor || '';
+                var mobileAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+                var touchCapable = navigator.maxTouchPoints > 1;
+                var appleTouchDesktopAgent = /Macintosh/i.test(userAgent) && (/Mobile/i.test(userAgent) || touchCapable);
+                var coarsePointer = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+                var narrowViewport = window.matchMedia && window.matchMedia('(max-width: ' + MOBILE_BREAKPOINT + 'px)').matches;
+                var touchViewportMobile = touchCapable && Math.min(window.innerWidth || Number.MAX_SAFE_INTEGER, screen.width || Number.MAX_SAFE_INTEGER) <= TOUCH_VIEWPORT_BREAKPOINT;
+
+                return mobileAgent || appleTouchDesktopAgent || (coarsePointer && narrowViewport) || touchViewportMobile;
+            }
+
+            function isInMobileFolder(pathname) {
+                return pathname === '/mobile' || pathname === '/mobile/' || pathname.indexOf('/mobile/') === 0 || pathname.indexOf('/web/mobile/') !== -1;
+            }
+
+            function getMobilePath(pathname) {
+                if (pathname.indexOf('/web/') !== -1) {
+                    return pathname.replace(/\/web\//, '/web/mobile/');
+                }
+
+                if (pathname === '/') {
+                    return '/mobile/';
+                }
+
+                return '/mobile' + pathname;
+            }
+
+            function getDesktopPath(pathname) {
+                if (pathname.indexOf('/web/mobile/') !== -1) {
+                    return pathname.replace('/web/mobile/', '/web/');
+                }
+
+                if (pathname === '/mobile' || pathname === '/mobile/') {
+                    return '/';
+                }
+
+                if (pathname.indexOf('/mobile/') === 0) {
+                    return pathname.replace('/mobile', '') || '/';
+                }
+
+                return pathname;
+            }
+
+            function recentlyLandedOn(pathname) {
+                try {
+                    var rawState = sessionStorage.getItem(LANDING_GUARD_KEY);
+                    if (!rawState) {
+                        return false;
+                    }
+
+                    var state = JSON.parse(rawState);
+                    if (!state || state.path !== pathname || typeof state.at !== 'number') {
+                        return false;
+                    }
+
+                    if (Date.now() - state.at > LANDING_GUARD_MS) {
+                        sessionStorage.removeItem(LANDING_GUARD_KEY);
+                        return false;
+                    }
+
+                    return true;
+                } catch (error) {
+                    return false;
+                }
+            }
+
+            function markRedirectLanding(pathname) {
+                try {
+                    sessionStorage.setItem(LANDING_GUARD_KEY, JSON.stringify({ path: pathname, at: Date.now() }));
+                } catch (error) {
+                    return;
+                }
+            }
+
+            function getRedirectPath(pathname, mobileTarget) {
+                var inMobileFolder = isInMobileFolder(pathname);
+
+                if (mobileTarget && !inMobileFolder) {
+                    return getMobilePath(pathname);
+                }
+
+                if (!mobileTarget && inMobileFolder) {
+                    return getDesktopPath(pathname);
+                }
+
+                return null;
+            }
+
+            var currentUrl = new URL(window.location.href);
+
+            if (recentlyLandedOn(currentUrl.pathname)) {
+                return;
+            }
+
+            var redirectPath = getRedirectPath(currentUrl.pathname, isMobileDevice());
+
+            if (!redirectPath || redirectPath === currentUrl.pathname) {
+                return;
+            }
+
+            markRedirectLanding(redirectPath);
+            currentUrl.pathname = redirectPath;
+            window.location.replace(currentUrl.toString());
+        })();
+    </script>
+
+<script>
+        document.querySelectorAll('[data-scoring-tabs]').forEach((tabGroup) => {
+            const tabs = Array.from(tabGroup.querySelectorAll('[role="tab"]'));
+            const panels = Array.from(tabGroup.querySelectorAll('[role="tabpanel"]'));
+
+            const setActiveTab = (targetId) => {
+                tabs.forEach((tab) => {
+                    const isActive = tab.dataset.tabTarget === targetId;
+                    tab.setAttribute('aria-selected', String(isActive));
+                    tab.tabIndex = isActive ? 0 : -1;
+                });
+
+                panels.forEach((panel) => {
+                    panel.hidden = panel.id !== targetId;
+                });
+            };
+
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('click', () => {
+                    setActiveTab(tab.dataset.tabTarget);
+                });
+
+                tab.addEventListener('keydown', (event) => {
+                    if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') {
+                        return;
+                    }
+
+                    event.preventDefault();
+
+                    const direction = event.key === 'ArrowRight' ? 1 : -1;
+                    const nextIndex = (index + direction + tabs.length) % tabs.length;
+                    const nextTab = tabs[nextIndex];
+
+                    setActiveTab(nextTab.dataset.tabTarget);
+                    nextTab.focus();
+                });
+            });
+
+            if (tabs[0]) {
+                setActiveTab(tabs[0].dataset.tabTarget);
+            }
+        });
+
+        const specSectionLinks = Array.from(document.querySelectorAll('.section-index-link'));
+        const specSections = specSectionLinks
+            .map((link) => document.querySelector(link.getAttribute('href')))
+            .filter(Boolean);
+        let specNavLockUntil = 0;
+
+        const getSpecScrollOffset = () => {
+            const nav = document.querySelector('.nav');
+            return (nav ? nav.offsetHeight : 0) + 36;
+        };
+
+        const setSpecActiveLink = (id) => {
+            specSectionLinks.forEach((link) => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+            });
+        };
+
+        specSectionLinks.forEach((link) => {
+            link.addEventListener('click', (event) => {
+                const targetSelector = link.getAttribute('href');
+                const targetSection = targetSelector ? document.querySelector(targetSelector) : null;
+
+                if (!targetSection) {
+                    return;
+                }
+
+                event.preventDefault();
+
+                const targetTop = targetSection.getBoundingClientRect().top + window.scrollY - getSpecScrollOffset();
+                specNavLockUntil = Date.now() + 1200;
+                window.history.replaceState(null, '', targetSelector);
+                window.scrollTo({ top: targetTop, behavior: 'smooth' });
+                setSpecActiveLink(targetSection.id);
+            });
+        });
+
+        if (specSections.length) {
+            const updateSpecActiveSection = () => {
+                if (Date.now() < specNavLockUntil) {
+                    return;
+                }
+
+                const threshold = getSpecScrollOffset() + 90;
+                let activeSection = specSections[0];
+
+                specSections.forEach((section) => {
+                    if (section.getBoundingClientRect().top <= threshold) {
+                        activeSection = section;
+                    }
+                });
+
+                if (activeSection) {
+                    setSpecActiveLink(activeSection.id);
+                }
+            };
+
+            window.addEventListener('scroll', updateSpecActiveSection, { passive: true });
+            document.addEventListener('scroll', updateSpecActiveSection, { passive: true });
+            window.addEventListener('resize', updateSpecActiveSection);
+            window.addEventListener('hashchange', updateSpecActiveSection);
+            updateSpecActiveSection();
+        }
+
+        document.querySelectorAll('.algorithm-disclosure').forEach((disclosure) => {
+            const summary = disclosure.querySelector('.algorithm-toggle');
+            const openLabel = disclosure.dataset.openLabel || 'Show Algorithm';
+            const closeLabel = disclosure.dataset.closeLabel || 'Hide Algorithm';
+
+            if (!summary) {
+                return;
+            }
+
+            const setDisclosureLabel = () => {
+                summary.textContent = disclosure.open ? closeLabel : openLabel;
+            };
+
+            disclosure.addEventListener('toggle', setDisclosureLabel);
+            setDisclosureLabel();
+        });
+    </script>
